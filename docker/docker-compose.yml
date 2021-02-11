@@ -4,8 +4,7 @@ services:
     app:
         build:
             context: ../
-            dockerfile: ./docker/Dockerfile.dev
-        command: yarn start
+            dockerfile: ./docker/Dockerfile.${MODE}
         volumes:
             - ..:/app
         ports:
