@@ -38,3 +38,5 @@ Likewise, you remove a package in a similar fashion like so:
 ```
 docker-compose run app yarn remove {package-name}
 ```
+### Switching between Development and Deploying
+If you've already entered your `GITHUB_USERNAME` and `GITHUB_TOKEN` in the `.env` and don't want to risk overwriting those values by calling `cp`, then you can modify the line with `MODE` in the `.env` file instead. `dev` represents development mode, whereas `prod` represents the mode for deploying.
