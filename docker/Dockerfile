@@ -1,4 +1,4 @@
-FROM node:12.16-alpine
+FROM node:14-alpine
 
 ENV NODE_PATH=/node_modules
 ENV PATH=$PATH:/node_modules/.bin
@@ -6,8 +6,10 @@ ENV PATH=$PATH:/node_modules/.bin
 COPY package.json .
 COPY yarn.lock .
 
-RUN yarn --silent
+RUN yarn
 
 WORKDIR /app
 
 RUN apk add --no-cache git
+
+CMD yarn start

@@ -4,7 +4,7 @@ services:
     app:
         build:
             context: ../
-            dockerfile: ./docker/Dockerfile.${MODE}
+            dockerfile: ./docker/Dockerfile
         volumes:
             - ..:/app
         ports:
