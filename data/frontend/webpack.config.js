@@ -1,20 +1,27 @@
-require('dotenv').config()
+require('dotenv').config({path: '/.env'});
+const webpack = require('webpack');
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+
+const getEnv = (list)=>{
+    let env = {};
+    list.forEach(item=>{
+        env['process.env.'+item]= JSON.stringify(process.env[item]);
+    })
+    return env;
+}
 
 module.exports = {
     mode: 'development',
-    entry: [
-        'whatwg-fetch',
-        'core-js/es/promise',
-        'core-js/es/string',
-        './src/index.js'
-    ],
+    entry: {
+        main: path.resolve(__dirname, 'src/index.js'),
+    },
     output: {
         path: path.join(__dirname, 'build/assets'),
-        filename: 'bundle.js'
+        filename: '[name].[contenthash:8].js',
     },
     devtool: 'source-map',
     module: {
@@ -39,24 +46,27 @@ module.exports = {
         ]
     },
     plugins: [
+        new webpack.DefinePlugin(getEnv([
+            'DATA_BACKEND_ENV',
+            'DATA_BACKEND_PORT'
+        ])),
         new MiniCssExtractPlugin({
             filename: "bundle.css"
-        })
+        }),
+        new HtmlWebpackPlugin({
+            inject: true,
+            template: path.join(__dirname, 'public/index.html'),
+        }),
     ],
     devServer: {
-        host: '0.0.0.0',
-        publicPath: '/assets/',
-        contentBase: 'public',
+        host: process.env.DATA_BACKEND_HOST,
+        publicPath: '/',
         contentBase: path.join(__dirname, 'public'),
         watchContentBase: true,
         compress: true,
-        port: process.env.PORT,
+        port: process.env.DATA_FRONTEND_PORT,
         watchOptions: {
-            poll: true,
-            ignored: [
-                path.resolve(__dirname, 'data'),
-                path.resolve(__dirname, 'node_modules')
-            ]
+            poll: true
         },
         historyApiFallback: true
     },
@@ -73,6 +83,24 @@ module.exports = {
                 sourceMap: true
             }),
             new CssMinimizerPlugin(),
-        ]
-    }
+        ],
+        runtimeChunk: 'single',
+        splitChunks: {
+            chunks: 'all',
+            maxInitialRequests: Infinity,
+            minSize: 0,
+            cacheGroups: {
+                vendor: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name(module) {
+                        let name = module.context.match(
+                            /[\\/]node_modules[\\/](.*?)([\\/]|$)/
+                        )[1];
+                        return `npm.${name.replace('@', '')}`;
+                    },
+                },
+            },
+        },
+        moduleIds: 'deterministic',
+    },
 };

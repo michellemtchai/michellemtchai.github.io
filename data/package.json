@@ -1,0 +1,24 @@
+{
+    "name": "docker-node-boilerplate",
+    "version": "1.0.0",
+    "description": "A Node.js app on Docker",
+    "author": "Michelle Chai",
+    "license": "MIT",
+    "main": "server.js",
+    "scripts": {
+        "build": "node server.js",
+        "start": "supervisor -i ./public,./frontend server.js "
+    },
+    "dependencies": {
+        "body-parser": "^1.19.0",
+        "cors": "^2.8.5",
+        "dotenv": "^8.2.0",
+        "ejs": "^3.1.5",
+        "express": "^4.17.1",
+        "mongoose": "^5.11.14",
+        "node-fetch": "^2.6.1",
+        "query-string": "^6.13.8",
+        "supervisor": "^0.12.0",
+        "compression": "^1.7.4"
+    }
+}

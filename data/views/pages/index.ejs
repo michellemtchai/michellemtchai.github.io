@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('../partials/head'); %>
+    </head>
+    <body>
+        <noscript>
+            You need to enable JavaScript to run this app.
+        </noscript>
+        <div id="root"></div>
+        <%if (process.env.DATA_BACKEND_ENV == 'development') { %>
+            <p>
+                You're in development mode. Please visit
+                <a href="http://localhost:<%= process.env.DATA_FRONTEND_PORT %>">localhost:<%= process.env.DATA_FRONTEND_PORT %></a>
+                to see the frontend.
+            </p>
+        <% } else { %>
+            <% for (let i=0; i< css.length; i++) { %>
+                <link rel="stylesheet" href="/assets/<%= css[i] %>">
+            <% } %>
+            <% for (let i=0; i< scripts.length; i++) { %>
+                <script defer="defer" src="/assets/<%= scripts[i] %>"></script>
+            <% } %>
+        <% } %>
+    </body>
+</html>
