@@ -9,7 +9,8 @@ module.exports = class Controller {
         this.updatePermitted = [];
     }
 
-    createPermitted = (req)=>common.permit(req.body, this.createRequired);
+    createPermitted = (req)=>this.permit(req.body,
+        this.createRequired);
 
     requiredParams = (params, res, required, action)=>{
         let lacking = [];
@@ -33,7 +34,7 @@ module.exports = class Controller {
             }
             common.renderError(res, error);
         }
-    },
+    }
 
     permit = (params, permitted)=>{
         let result = {};
