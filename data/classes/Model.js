@@ -52,10 +52,7 @@ module.exports = class Model {
     }
 
     createOne = (res, next, params)=>{
-        console.log('before error')
-
         let model = new this.model(params);
-        console.log('createf model')
         handleDbAction(res, next, model, 'save');
     }
 
