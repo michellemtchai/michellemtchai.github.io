@@ -1,5 +1,4 @@
 const Controller = require('../classes/Controller');
-const common = require('../helpers/common');
 
 module.exports = class TagsController extends Controller {
     Tag = this.models['Tag'];
@@ -21,7 +20,7 @@ module.exports = class TagsController extends Controller {
                 res, i=>res.json(i), this.createPermitted(req)
             );
         };
-        common.requiredParams(req.body, res, this.createRequired, createTag);
+        this.requiredParams(req.body, res, this.createRequired, createTag);
     }
 
     destroy = (req, res) => {

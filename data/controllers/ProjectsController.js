@@ -1,5 +1,4 @@
 const Controller = require('../classes/Controller');
-const common = require('../helpers/common');
 
 module.exports = class ProjectsController extends Controller {
     Project = this.models['Project'];
@@ -11,14 +10,9 @@ module.exports = class ProjectsController extends Controller {
         'image_url',
         'stack',
     ];
-    updateRequired = []
     updatePermitted = [
-        'name',
-        'summary',
-        'description',
-        'source_url',
+        ...this.createRequired,
         'demo_url',
-        'image_url',
         'technologies',
         'tags',
     ];
@@ -37,7 +31,7 @@ module.exports = class ProjectsController extends Controller {
                 res, i=>res.json(i), this.createPermitted(req)
             );
         };
-        common.requiredParams(req.body, res, this.createRequired, createProject);
+        this.requiredParams(req.body, res, this.createRequired, createProject);
     }
 
     update = (req, res) => {
@@ -45,10 +39,10 @@ module.exports = class ProjectsController extends Controller {
         let updateProject = ()=>{
             this.Project.update(
                 res, next, req.params.id,
-                common.updateModel(req.body, this.updatePermitted)
+                this.updateModel(req.body, this.updatePermitted)
             );
         };
-        common.requiredParams(req.body, res, this.updateRequired, updateProject);
+        this.requiredParams(req.body, res, this.updateRequired, updateProject);
     }
 
     destroy = (req, res) => {

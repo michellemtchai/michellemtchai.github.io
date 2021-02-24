@@ -1,5 +1,4 @@
 const Controller = require('../classes/Controller');
-const common = require('../helpers/common');
 
 module.exports = class CategoriesController extends Controller {
     Category = this.models['Category'];
@@ -7,10 +6,8 @@ module.exports = class CategoriesController extends Controller {
         'name',
         'description',
     ];
-    updateRequired = [];
     updatePermitted = [
-        'name',
-        'description',
+        ...this.createRequired,
         'projects',
     ];
 
@@ -28,7 +25,7 @@ module.exports = class CategoriesController extends Controller {
                 res, i=>res.json(i), this.createPermitted(req)
             );
         };
-        common.requiredParams(req.body, res, this.createRequired, createCategory);
+        this.requiredParams(req.body, res, this.createRequired, createCategory);
     }
 
     update = (req, res) => {
@@ -36,10 +33,10 @@ module.exports = class CategoriesController extends Controller {
         let updateCategory = ()=>{
             this.Category.update(
                 res, next, req.params.id,
-                common.updateModel(req.body, this.updatePermitted)
+                this.updateModel(req.body, this.updatePermitted)
             );
         };
-        common.requiredParams(req.body, res, this.updateRequired, updateCategory);
+        this.requiredParams(req.body, res, this.updateRequired, updateCategory);
     }
 
     destroy = (req, res) => {

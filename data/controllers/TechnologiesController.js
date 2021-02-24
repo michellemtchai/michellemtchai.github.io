@@ -1,5 +1,4 @@
 const Controller = require('../classes/Controller');
-const common = require('../helpers/common');
 
 module.exports = class TechnologiesController extends Controller {
     Technology = this.models['Technology'];
@@ -8,7 +7,6 @@ module.exports = class TechnologiesController extends Controller {
         'source_url',
         'icon_url',
     ];
-    updateRequired = [];
     updatePermitted = [
         'source_url',
         'icon_url',
@@ -28,7 +26,7 @@ module.exports = class TechnologiesController extends Controller {
                 res, i=>res.json(i), this.createPermitted(req)
             );
         };
-        common.requiredParams(req.body, res, this.createRequired, createTechnology);
+        this.requiredParams(req.body, res, this.createRequired, createTechnology);
     }
 
     update = (req, res) => {
@@ -36,10 +34,10 @@ module.exports = class TechnologiesController extends Controller {
         let updateTechnology = ()=>{
             this.Technology.update(
                 res, next, req.params.id,
-                common.updateModel(req.body, this.updatePermitted)
+                this.updateModel(req.body, this.updatePermitted)
             );
         };
-        common.requiredParams(req.body, res, this.updateRequired, updateTechnology);
+        this.requiredParams(req.body, res, this.updateRequired, updateTechnology);
     }
 
     destroy = (req, res) => {
