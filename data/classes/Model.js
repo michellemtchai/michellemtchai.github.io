@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-var ObjectId = require('mongodb').ObjectID;
+const ObjectId = require('mongodb').ObjectID;
 const common = require('../helpers/common');
 const db = require('../helpers/db');
 

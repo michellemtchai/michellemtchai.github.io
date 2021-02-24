@@ -2,7 +2,10 @@
 module.exports = (app) =>{
     let {
         ApplicationController,
-        ItemsController,
+        ProjectsController,
+        TagsController,
+        CategoriesController,
+        TechnologiesController,
     } = app.shared.controllers;
 
     /**
@@ -12,11 +15,25 @@ module.exports = (app) =>{
     */
     app.router.get('/', ApplicationController.index);
 
-    app.router.get('/items', ItemsController.index);
-    app.router.get('/items/:id', ItemsController.show);
-    app.router.post('/items', ItemsController.create);
-    app.router.put('/items/:id', ItemsController.update);
-    app.router.delete('/items/:id', ItemsController.destroy);
+    app.router.get('/projects', ProjectsController.index);
+    app.router.post('/projects', ProjectsController.create);
+    app.router.put('/projects/:id', ProjectsController.update);
+    app.router.delete('/projects/:id', ProjectsController.destroy);
+
+    app.router.get('/tags', TagsController.index);
+    app.router.post('/tags', TagsController.create);
+    app.router.delete('/tags/:id', TagsController.destroy);
+
+    app.router.get('/categories', CategoriesController.index);
+    app.router.post('/categories', CategoriesController.create);
+    app.router.put('/categories/:id', CategoriesController.update);
+    app.router.delete('/categories/:id', CategoriesController.destroy);
+
+    app.router.get('/technologies', TechnologiesController.index);
+    app.router.post('/technologies', TechnologiesController.create);
+    app.router.put('/technologies/:id', TechnologiesController.update);
+    app.router.delete('/technologies/:id', TechnologiesController.destroy);
+
 
     //The 404 Route (ALWAYS Keep this as the last route)
     app.router.get('*', ApplicationController.index);

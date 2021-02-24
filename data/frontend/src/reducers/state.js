@@ -11,7 +11,10 @@ export const state = (state = initialState, action)=>{
 		case actions.SET_DATA:
 			return {...state,
 				fetching: state.fetching-1,
-				data: action.data,
+				data: {
+					...state.data,
+					...action.data,
+				},
 				error: '',
 			};
 		case actions.SET_ERROR:

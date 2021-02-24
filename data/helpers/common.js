@@ -47,4 +47,13 @@ module.exports = common = {
         })
         return result;
     },
+    updateModel: (data, permitted)=>{
+        let permittedData = common.permitted(data, permitted);
+        return (model)=>{
+            Object.keys(permittedData).forEach(key=>{
+                model[key]=permittedData[key];
+            })
+            return model;
+        }
+    },
 };

@@ -36,11 +36,11 @@ class Sample extends React.Component {
     }
 	render() {
         let data = this.props.state.data;
-		return (Object.keys(data).length > 0 ?
+                // {Items(this, data)}
+                // {ItemCreator(this)}
+		return (Object.keys(data).length >= 4 ?
 			<div>
                 <p>{text}</p>
-                {Items(this, data)}
-                {ItemCreator(this)}
 			</div> :
             ''
         );
