@@ -52,7 +52,10 @@ module.exports = class Model {
     }
 
     createOne = (res, next, params)=>{
+        console.log('before error')
+
         let model = new this.model(params);
+        console.log('createf model')
         handleDbAction(res, next, model, 'save');
     }
 
@@ -125,11 +128,10 @@ const handleDbAction = (res, next, model, fnName, params = [])=>{
                 next(data);
             }
             else{
-                throw new Error(err);
+                common.renderError(res, err.message);
             }
-        });
-    }
-    catch (err){
+        })
+    } catch (err){
         clearTimeout(t);
         common.renderError(res, err.message);
     }

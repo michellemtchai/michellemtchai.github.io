@@ -25,7 +25,7 @@ module.exports = class CategoriesController extends Controller {
     create = (req, res) => {
         let createCategory = ()=>{
             this.Category.createOne(
-                res, i=>res.json(i), createPermitted(req)
+                res, i=>res.json(i), this.createPermitted(req)
             );
         };
         common.requiredParams(req.body, res, this.createRequired, createCategory);

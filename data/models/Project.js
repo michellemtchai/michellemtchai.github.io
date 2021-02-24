@@ -4,7 +4,8 @@ module.exports = (app) =>{
     return app.shared.createModel('Project', {
         name: {
             type: String,
-            required: true
+            required: true,
+            unique: true,
         },
         summary: {
             type: String,

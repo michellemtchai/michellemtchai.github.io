@@ -15,7 +15,7 @@
         "dotenv": "^8.2.0",
         "ejs": "^3.1.5",
         "express": "^4.17.1",
-        "mongoose": "^5.11.14",
+        "mongoose": "5.11.15",
         "node-fetch": "^2.6.1",
         "query-string": "^6.13.8",
         "supervisor": "^0.12.0",

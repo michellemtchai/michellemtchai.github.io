@@ -34,7 +34,7 @@ module.exports = class ProjectsController extends Controller {
     create = (req, res) => {
         let createProject = ()=>{
             this.Project.createOne(
-                res, i=>res.json(i), createPermitted(req)
+                res, i=>res.json(i), this.createPermitted(req)
             );
         };
         common.requiredParams(req.body, res, this.createRequired, createProject);

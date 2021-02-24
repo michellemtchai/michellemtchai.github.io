@@ -18,7 +18,7 @@ module.exports = class TagsController extends Controller {
     create = (req, res) => {
         let createTag = ()=>{
             this.Tag.createOne(
-                res, i=>res.json(i), createPermitted(req)
+                res, i=>res.json(i), this.createPermitted(req)
             );
         };
         common.requiredParams(req.body, res, this.createRequired, createTag);
