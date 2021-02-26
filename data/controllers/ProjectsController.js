@@ -8,7 +8,6 @@ module.exports = class ProjectsController extends Controller {
         'description',
         'source_url',
         'image_url',
-        'stack',
     ];
     updatePermitted = [
         ...this.createRequired,
