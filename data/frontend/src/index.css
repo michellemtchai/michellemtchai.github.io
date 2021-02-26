@@ -10,17 +10,28 @@ body{
 .error{
     background: #FFF0F5;
     color: red;
+    border-collapse: collapse;
+}
+.error td:nth-child(1){
+    width: calc(100% - 60px);
+    padding: 20px;
+}
+.error td:nth-child(2){
+    width: 20px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
 }
 .fetching{
     background: palegreen;
     color: green;
+    padding: 20px;
 }
 .error, .fetching{
     width: 100%;
     border-radius: 10px;
     margin: 20px auto;
     font-weight: bold;
-    padding: 20px;
 }
 nav a {
     margin-right: 30px;
