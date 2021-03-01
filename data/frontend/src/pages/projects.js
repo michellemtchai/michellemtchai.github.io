@@ -26,16 +26,16 @@ class Projects extends React.Component {
             name: this.input.current.value,
         })
     }
-    updateProject = (item)=>{
-        api.updateProject(this.props, item._id, {
+    updateProject = (project)=>{
+        api.updateProject(this.props, project._id, {
             name: this.edit.current.value,
         });
         this.setState({
             index: -1
         });
     }
-    deleteProject = (item)=>{
-        api.removeProjectById(this.props, item._id);
+    deleteProject = (project)=>{
+        api.removeProjectById(this.props, project._id);
     }
 	render() {
         let projects = this.props.state.data.projects;
