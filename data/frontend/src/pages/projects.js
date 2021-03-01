@@ -5,7 +5,6 @@ import ProjectCreator from '../components/projectCreator';
 import ProjectEditor from '../components/projectEditor';
 
 class Projects extends React.Component {
-    input = React.createRef();
     edit = React.createRef();
     state = {
         index: -1
@@ -19,11 +18,6 @@ class Projects extends React.Component {
     cancelEdit = ()=>{
         this.setState({
             index: -1,
-        })
-    }
-    createProject = ()=>{
-        api.createProject(this.props, {
-            name: this.input.current.value,
         })
     }
     updateProject = (project)=>{
@@ -53,9 +47,7 @@ class Projects extends React.Component {
                         update={()=>this.updateProject(project)}
                         cancel={this.cancelEdit} />
                 )}
-                <ProjectCreator {...this.props}
-                    input={this.input}
-                    create={this.createProject}/>
+                <ProjectCreator {...this.props}/>
 			</div> :
             ''
         );
