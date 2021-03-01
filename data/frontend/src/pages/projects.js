@@ -1,5 +1,8 @@
 import React from 'react';
 import { api } from '../config/api';
+import Project from '../components/project';
+import ProjectCreator from '../components/projectCreator';
+import ProjectEditor from '../components/projectEditor';
 
 class Projects extends React.Component {
     input = React.createRef();
@@ -41,53 +44,22 @@ class Projects extends React.Component {
                 <h1>Projects</h1>
                 {projects.map((project, i)=>
                     this.state.index != i?
-                    Project(this, project, i):
-                    ProjectEditor(this, project)
+                    <Project {...project}
+                        index={i}
+                        edit={()=>this.editProject(i)}
+                        delete={()=>this.deleteProject(project)} />:
+                    <ProjectEditor {...project}
+                        edit={this.edit}
+                        update={()=>this.updateProject(project)}
+                        cancel={this.cancelEdit} />
                 )}
-                {ProjectCreator(this)}
+                <ProjectCreator {...this.props}
+                    input={this.input}
+                    create={this.createProject}/>
 			</div> :
             ''
         );
   	}
 }
-
-const Project = (self, project, i)=>(
-    <div>
-        <p>Name: {project.name}</p>
-        <button onClick={()=>self.editProject(i)}>
-            Edit Item
-        </button>
-        {DeleteButton(self, project)}
-    </div>
-);
-
-const ProjectCreator = (self)=>(
-    <div>
-        <input ref={self.input} type='text'/>
-        <button onClick={self.createProject}>
-            Create New Project
-        </button>
-    </div>
-);
-
-const ProjectEditor = (self, project)=>(
-    <span>
-        <input ref={self.edit}
-            defaultValue={project.name}
-            type='text'/>
-        <button onClick={()=>self.updateProject(project)}>
-            Save Changes
-        </button>
-        <button onClick={self.cancelEdit}>
-            Cancel
-        </button>
-    </span>
-);
-
-const DeleteButton = (self, item)=>(
-    <button onClick={()=>self.deleteProject(item)}>
-        Delete
-    </button>
-);
 
 export default Projects;
