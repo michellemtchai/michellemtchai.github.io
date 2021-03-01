@@ -1,23 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { api } from '../config/api';
-import { formData } from '../shared/form';
-import TextField from './form/textField';
-import TextBox from './form/textBox';
+import Form from './form/Form';
 import LongButton from './form/longButton';
 
 class ProjectCreator extends React.Component {
-    form = React.createRef();
+    state = {
+        form: {}
+    }
+    setData = (val)=>{
+        this.setState({
+            form: val
+        })
+    }
     createProject = ()=>{
-        api.createProject(this.props, formData(this.form))
+        api.createProject(this.props, this.state.form)
     }
 	render() {
 		return (
             <div>
-                <form ref={this.form}>
-                    <TextField {...nameField}/>
-                    <TextBox {...summaryBox}/>
-                    <TextBox {...descriptionBox}/>
-                </form>
+                <Form update={this.setData} {...formSchema}/>
                 <LongButton {...createButton(this)}/>
             </div>
         );
@@ -26,25 +27,33 @@ class ProjectCreator extends React.Component {
 
 export default ProjectCreator;
 
-const nameField = {
-    label: 'Project Name',
-    id: 'project-name',
-    name: 'name',
-    placeholder: 'Enter a project name',
-}
-
-const summaryBox = {
-    label: 'Project Summary',
-    id: 'project-summary',
-    name: 'summary',
-    placeholder: 'Enter project summary',
-}
-
-const descriptionBox = {
-    label: 'Project Description',
-    id: 'project-description',
-    name: 'description',
-    placeholder: 'Enter project description',
+const formSchema = {
+    name: 'project',
+    data: {
+        name: '',
+        summary: '',
+        description: '',
+    },
+    properties: [
+        {
+            type: 'string',
+            label: 'Project Name',
+            name: 'name',
+            placeholder: 'Enter a project name',
+        },
+        {
+            type: 'text',
+            label: 'Project Summary',
+            name: 'summary',
+            placeholder: 'Enter project summary',
+        },
+        {
+            type: 'text',
+            label: 'Project Description',
+            name: 'description',
+            placeholder: 'Enter project description',
+        },
+    ]
 }
 
 const createButton = (self)=>{

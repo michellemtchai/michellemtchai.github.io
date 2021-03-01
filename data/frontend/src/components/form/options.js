@@ -10,6 +10,7 @@ class Options extends React.Component {
         this.setState({
             value: event.target.value
         })
+        this.props.update();
     }
     click = ()=>{
         this.selector.current.click();

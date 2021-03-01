@@ -9,6 +9,7 @@ class TextField extends React.Component {
         this.setState({
             value: event.target.value
         })
+        this.props.update();
     }
     render() {
         return (

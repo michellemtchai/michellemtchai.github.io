@@ -9,6 +9,7 @@ class TextBox extends React.Component {
         this.setState({
             value: event.target.value
         })
+        this.props.update();
     }
     resize=()=>{
         let resizeable = this.props.resize?
