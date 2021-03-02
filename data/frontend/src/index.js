@@ -1,4 +1,4 @@
-import css from './index.css';
+import './index.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import thunk from 'redux-thunk';

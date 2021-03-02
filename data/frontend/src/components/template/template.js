@@ -1,5 +1,5 @@
+import './index.css';
 import React from 'react';
-import css from './index.css';
 import NavBar from './navBar';
 import Error from './error';
 import FetchIndicator from './fetchIndicator';
