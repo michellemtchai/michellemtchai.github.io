@@ -41,7 +41,7 @@ export default ProjectEditor;
 
 const schema = (props)=>{
     let schema = projectSchema;
-    schema.properties[0].readonly = true;
+    schema.properties.name.readonly = true;
     let id = props.match.params.project;
     let project = props.state.data.projects[id];
     schema.data = project ? project : null;

@@ -10,14 +10,19 @@ class Form extends React.Component {
     key = (index)=>{
         return `${this.props.name}-${index}`;
     }
-    dataVal = (property)=>{
+    dataVal = (name)=>{
         return this.props.data !== undefined ?
-            this.props.data[property.name]: '';
+            this.props.data[name]: '';
     }
-    typeInput=(property, i)=>{
-        property.id=`${this.props.name}-${property.name}`;
-        property.update=()=>this.props.update(formData(this.form));
-        property.value = this.dataVal(property);
+    typeInput=(key, i)=>{
+        let property = this.props.properties[key];
+        property = {
+            ...property,
+            name: key,
+            id: `${this.props.name}-${property.name}`,
+            update: ()=>this.props.update(formData(this.form)),
+            value: this.dataVal(key),
+        }
         switch(property.type){
             case 'string':
                 return (
@@ -49,8 +54,8 @@ class Form extends React.Component {
     render() {
         return (
             <form ref={this.form}>
-                {this.props.properties.map((property,i)=>
-                    this.typeInput(property,i)
+                {Object.keys(this.props.properties).map((key,i)=>
+                    this.typeInput(key ,i)
                 )}
             </form>
         );

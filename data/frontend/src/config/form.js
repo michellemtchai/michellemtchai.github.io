@@ -8,41 +8,35 @@ export const projectSchema = {
         description: '',
         demo_url: '',
     },
-    properties: [
-        {
+    properties: {
+        name: {
             type: 'string',
             label: 'Project Name',
-            name: 'name',
             placeholder: 'Enter a project name',
         },
-        {
+        source_url: {
             type: 'string',
             label: 'Project Source URL',
-            name: 'source_url',
             placeholder: 'Enter project source URL',
         },
-        {
+        image_url: {
             type: 'image',
             label: 'Project Image URL',
-            name: 'image_url',
         },
-        {
+        summary: {
             type: 'text',
             label: 'Project Summary',
-            name: 'summary',
             placeholder: 'Enter project summary',
         },
-        {
+        description: {
             type: 'text',
             label: 'Project Description',
-            name: 'description',
             placeholder: 'Enter project description',
         },
-        {
+        demo_url: {
             type: 'string',
             label: 'Project Demo URL',
-            name: 'demo_url',
             placeholder: 'Enter project demo URL',
         },
-    ]
+    },
 }
