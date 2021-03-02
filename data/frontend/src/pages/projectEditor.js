@@ -3,7 +3,7 @@ import { api } from '../config/api';
 import { projectSchema } from '../config/forms';
 import { routes } from '../config/routes';
 import { goToPage, urlParams } from '../shared/router';
-import { formData } from '../shared/form';
+import { formData, copySchema } from '../shared/form';
 import Form from '../components/form/Form';
 import ActionButtons from '../components/form/actionButtons';
 
@@ -38,12 +38,12 @@ class ProjectEditor extends React.Component {
 export default ProjectEditor;
 
 const schema = (props)=>{
-    let schema = projectSchema;
-    schema.properties.name.readonly = true;
     let id = props.match.params.project;
-    return {
-        ...schema,
+    let schema = {
+        ...copySchema(projectSchema),
         id: id,
         data: props.state.data.projects[id]
     }
+    schema.properties.name.readonly = true;
+    return schema;
 }
