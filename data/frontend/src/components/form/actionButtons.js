@@ -20,7 +20,10 @@ class ActionButtons extends React.Component {
                 <button className="btn btn-primary btn-lg"
                     style={{ float: 'right' }}
                     onClick={this.save}>
-                    Save Changes
+                    {this.props.text ?
+                        this.props.text :
+                        'Save Changes'
+                    }
                 </button>
             </div>
         );

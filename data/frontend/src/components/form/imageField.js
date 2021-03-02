@@ -63,6 +63,7 @@ class ImageField extends React.Component {
                         <TextField ref={this.input}
                             {...this.textFieldData()}/>
                         <ActionButtons
+                            text='Use Image URL'
                             save={this.saveChanges}
                             cancel={this.cancelChanges}/>
                     </td>
@@ -71,6 +72,7 @@ class ImageField extends React.Component {
                 return (
                     <td>
                         <ActionButtons
+                            text='Use Image'
                             save={this.saveChanges}
                             cancel={this.cancelChanges}/>
                     </td>
