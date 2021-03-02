@@ -15,8 +15,11 @@ class ProjectCreator extends React.Component {
         })
     }
     createProject = ()=>{
-        api.createProject(this.props, this.state.form)
-        goToPage('/');
+        api.createProject(this.props, this.state.form, (err)=>{
+            if(!err){
+                goToPage('/');
+            }
+        })
     }
 	render() {
 		return (

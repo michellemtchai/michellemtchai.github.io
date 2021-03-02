@@ -21,7 +21,7 @@ module.exports = {
     },
     output: {
         path: path.join(__dirname, 'build/assets'),
-        filename: '[name].[contenthash:8].js',
+        filename: 'bundle.js',
         publicPath: '',
     },
     devtool: 'source-map',
@@ -85,23 +85,5 @@ module.exports = {
             }),
             new CssMinimizerPlugin(),
         ],
-        runtimeChunk: 'single',
-        splitChunks: {
-            chunks: 'all',
-            maxInitialRequests: Infinity,
-            minSize: 0,
-            cacheGroups: {
-                vendor: {
-                    test: /[\\/]node_modules[\\/]/,
-                    name(module) {
-                        let name = module.context.match(
-                            /[\\/]node_modules[\\/](.*?)([\\/]|$)/
-                        )[1];
-                        return `npm.${name.replace('@', '')}`;
-                    },
-                },
-            },
-        },
-        moduleIds: 'deterministic',
     },
 };

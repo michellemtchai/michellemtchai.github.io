@@ -18,8 +18,11 @@ class ProjectEditor extends React.Component {
     }
     updateProject = ()=>{
         let id = this.props.match.params.project;
-        api.updateProject(this.props, id, this.state.form);
-        goToPage('/');
+        api.updateProject(this.props, id, this.state.form, (err)=>{
+            if(!err){
+                goToPage('/');
+            }
+        })
     }
     render() {
         return (

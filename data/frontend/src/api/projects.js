@@ -1,6 +1,6 @@
 import { fetchAPIData } from '../shared/network';
 
-export const getAllProjects = (props)=>{
+export const getAllProjects = (props, next=null)=>{
     fetchAPIData(props, '/projects', props.setData, {
         formatData: (data)=>{
             let mapping = {};
@@ -10,15 +10,16 @@ export const getAllProjects = (props)=>{
             return {
                 projects: mapping
             }
-        }
+        },
+        next: next,
     });
 }
 
-export const createProject = (props, params)=>{
+export const createProject = (props, params, next=null)=>{
     let updateData = (data)=>{
         console.log('new', data);
         props.endFetching();
-        getAllProjects(props);
+        getAllProjects(props, next);
     }
     fetchAPIData(props, '/projects/', updateData, {
         method: 'POST',
@@ -26,11 +27,11 @@ export const createProject = (props, params)=>{
     });
 }
 
-export const updateProject = (props, id, params)=>{
+export const updateProject = (props, id, params, next=null)=>{
     let updateData = (data)=>{
         console.log('updated', data);
         props.endFetching();
-        getAllProjects(props);
+        getAllProjects(props, next);
     }
     fetchAPIData(props, `/projects/${id}`, updateData, {
         method: 'PUT',
@@ -38,11 +39,11 @@ export const updateProject = (props, id, params)=>{
     });
 }
 
-export const removeProjectById = (props, id)=>{
+export const removeProjectById = (props, id, next=null)=>{
     let updateData = (data)=>{
         console.log('deleted', data);
         props.endFetching();
-        getAllProjects(props);
+        getAllProjects(props, next);
     }
     fetchAPIData(props, `/projects/${id}`, updateData, {
         method: 'DELETE',
