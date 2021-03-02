@@ -22,11 +22,13 @@ class App extends React.Component {
     }
 
     render() {
+        let curr = this.props.router.location.pathname;
         return(
             <div className='content'>
                 <NavBar {...this.props}/>
                 <Error {...this.props}/>
                 <FetchIndicator {...this.props}/>
+                <h1>{routes[curr].title}</h1>
                 <Switch>
                     {Object.keys(routes).map((key,i)=>
                         this.route(key,i)

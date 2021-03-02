@@ -3,20 +3,29 @@ import { Link } from 'react-router-dom';
 import { routes, navlinks } from '../../config/routes';
 
 class NavBar extends React.Component {
-	render() {
+    currentPage=(link)=>{
         let curr = this.props.router.location.pathname;
-		return (
+        let children = routes[link]? routes[link].children: [];
+        children = children? children : [];
+        let current =  link==curr || children.includes(curr);
+        return current ? 'curr-page': '';
+    }
+    render() {
+        return (
             <nav>
+                <ul>
                 {navlinks.map((link, i)=>
-                    <Link className={curr==link ? 'curr-page': ''}
-                        key={'link-'+i}
-                        to={link}>
-                        {routes[link].title}
-                    </Link>
+                    <li key={'link-'+i}>
+                        <Link to={link}
+                            className={this.currentPage(link)}>
+                            {routes[link].title}
+                        </Link>
+                    </li>
                 )}
+                </ul>
             </nav>
         );
-  	}
+    }
 }
 
 export default NavBar;

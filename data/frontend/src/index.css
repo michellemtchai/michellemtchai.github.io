@@ -33,15 +33,21 @@ body{
     margin: 20px auto;
     font-weight: bold;
 }
-nav a {
+nav ul {
+    list-style: none;
+    border: red 1px solid;
+    padding: 0;
+}
+nav ul li a {
+    border: red 1px solid;
     margin-right: 30px;
     text-decoration: none;
     color: black;
 }
-nav a:hover{
+nav ul li a:hover {
     color: royalblue;
 }
-a.curr-page {
+.curr-page {
     text-decoration: underline;
     font-weight: bold;
 }

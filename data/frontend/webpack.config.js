@@ -22,6 +22,7 @@ module.exports = {
     output: {
         path: path.join(__dirname, 'build/assets'),
         filename: '[name].[contenthash:8].js',
+        publicPath: '',
     },
     devtool: 'source-map',
     module: {

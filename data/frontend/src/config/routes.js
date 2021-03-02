@@ -1,18 +1,21 @@
 import Projects from '../pages/projects';
-import AboutUs from '../pages/aboutUs';
+import ProjectCreator from '../pages/projectCreator';
 import NotFound from '../pages/notFound';
 
-export const navlinks = ['/', '/about-us'];
+export const navlinks = ['/'];
 
 export const routes = {
     '/': {
         component: Projects,
-        title: 'Home',
+        title: 'Projects',
         exact: true,
+        children: [
+            '/projects/new',
+        ]
     },
-    '/about-us': {
-        component: AboutUs,
-        title: 'About Us',
+    '/projects/new': {
+        component: ProjectCreator,
+        title: 'New Project',
     },
     '': {
         component: NotFound,

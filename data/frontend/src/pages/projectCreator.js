@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { api } from '../config/api';
-import Form from './form/Form';
-import LongButton from './form/longButton';
+import { goToPage } from '../shared/router';
+import Form from '../components/form/Form';
+import ActionButtons from '../components/form/actionButtons';
 
 class ProjectCreator extends React.Component {
     state = {
@@ -14,12 +15,16 @@ class ProjectCreator extends React.Component {
     }
     createProject = ()=>{
         api.createProject(this.props, this.state.form)
+        goToPage('/');
     }
 	render() {
 		return (
             <div>
                 <Form update={this.setData} {...formSchema}/>
-                <LongButton {...createButton(this)}/>
+                <ActionButtons
+                    text='Create New Project'
+                    cancel={()=>goToPage('/')}
+                    save={this.createProject}/>
             </div>
         );
   	}
@@ -74,11 +79,4 @@ const formSchema = {
             placeholder: 'Enter project demo URL',
         },
     ]
-}
-
-const createButton = (self)=>{
-    return {
-        text: 'Create New Project',
-        click: self.createProject
-    }
 }

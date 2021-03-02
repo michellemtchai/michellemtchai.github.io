@@ -1,7 +1,8 @@
 import React from 'react';
 import { api } from '../config/api';
+import { goToPage } from '../shared/router';
+import LongButton from '../components/form/longButton';
 import Project from '../components/project';
-import ProjectCreator from '../components/projectCreator';
 import ProjectEditor from '../components/projectEditor';
 
 class Projects extends React.Component {
@@ -35,7 +36,8 @@ class Projects extends React.Component {
         let projects = this.props.state.data.projects;
 		return (projects ?
 			<div>
-                <h1>Projects</h1>
+                <LongButton text='+ Project'
+                    click={()=>goToPage('/projects/new')}/>
                 {projects.map((project, i)=>
                     this.state.index != i?
                     <Project {...project}
@@ -47,7 +49,6 @@ class Projects extends React.Component {
                         update={()=>this.updateProject(project)}
                         cancel={this.cancelEdit} />
                 )}
-                <ProjectCreator {...this.props}/>
 			</div> :
             ''
         );
