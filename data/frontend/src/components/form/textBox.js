@@ -4,31 +4,16 @@ class TextBox extends React.Component {
     state = {
         value: this.props.value ?
             this.props.value : '',
-        focus: false,
     }
     handleChange=(event)=>{
         this.setState({
-            ...this.state,
             value: event.target.value
         }, ()=>this.props.update());
-    }
-    changeMode = ()=>{
-        this.setState({
-            ...this.state,
-            focus: !this.state.focus,
-        })
     }
     style=()=>{
         let resizeable = this.props.resize?
             this.props.resize: false;
-        let style = resizeable? {}:{ resize: 'none'};
-        if(this.state.focus){
-            style = {
-                ...style,
-                ...focusStyle,
-            }
-        }
-        return style;
+        return resizeable? {}:{ resize: 'none'};
     }
     readonly =()=>{
         let result = this.props.readonly ?
@@ -49,8 +34,6 @@ class TextBox extends React.Component {
                     name={this.props.name}
                     onChange={this.handleChange}
                     value={this.state.value}
-                    onBlur={this.changeMode}
-                    onFocus={this.changeMode}
                     readOnly={this.readonly()}
                     rows={this.props.rows ? this.props.rows : 3}
                     placeholder={this.props.placeholder}/>
@@ -60,8 +43,3 @@ class TextBox extends React.Component {
 }
 
 export default TextBox;
-
-const focusStyle = {
-    border: '1px solid #ccc',
-    boxShadow: 'none',
-}

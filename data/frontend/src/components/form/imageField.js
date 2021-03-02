@@ -100,12 +100,11 @@ class ImageField extends React.Component {
                 <label>
                     {this.props.label}:
                 </label>
-                <table style={tableStyle}>
+                <table>
                     <tbody>
                         <tr>
-                            <td style={col1Style}>
+                            <td>
                                 <img src={this.state.value}
-                                    style={imageStyle}
                                     alt='Image Preview'/>
                             </td>
                             <ColumnTwo />
@@ -118,24 +117,3 @@ class ImageField extends React.Component {
 }
 
 export default ImageField;
-
-const imageStyle = {
-    width: '150px',
-    height: '150px',
-    border: '2px solid #333',
-    background: '#aaa',
-    color: '#fff',
-    textAlign: 'center',
-    lineHeight: '130px',
-    float: 'left',
-}
-
-const tableStyle = {
-    width: '100%',
-    border: 'rgba(255,255,255,0) 1px solid',
-}
-
-const col1Style = {
-    width: '150px',
-    paddingRight: '20px',
-}

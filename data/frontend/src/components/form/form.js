@@ -1,4 +1,5 @@
 import React from 'react';
+import css from './index.css';
 import { formData } from '../../shared/form';
 import TextField from './textField';
 import TextBox from './textBox';
@@ -19,7 +20,7 @@ class Form extends React.Component {
         property = {
             ...property,
             name: key,
-            id: `${this.props.name}-${property.name}`,
+            id: `${this.props.name}-${key}`,
             update: ()=>this.props.update(formData(this.form)),
             value: this.dataVal(key),
         }
