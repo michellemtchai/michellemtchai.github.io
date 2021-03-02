@@ -75,8 +75,7 @@ export const fetchData = (url, config)=>{
 			}
 		})
 		.catch(error=>{
-			config.setError(error.toString());
-			console.log('config', config)
+			config.setError(error.message);
 			config.next(true);
 	    });
 	}
