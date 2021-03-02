@@ -2,6 +2,7 @@ import React from 'react';
 import { formData } from '../../shared/form';
 import TextField from './textField';
 import TextBox from './textBox';
+import ImageField from './imageField';
 import Options from './options';
 
 class Form extends React.Component {
@@ -9,10 +10,14 @@ class Form extends React.Component {
     key = (index)=>{
         return `${this.props.name}-${index}`;
     }
+    dataVal = (property)=>{
+        return this.props.data !== undefined ?
+            this.props.data[property.name]: '';
+    }
     typeInput=(property, i)=>{
         property.id=`${this.props.name}-${property.name}`;
         property.update=()=>this.props.update(formData(this.form));
-        property.value = this.props.data[property.name];
+        property.value = this.dataVal(property);
         switch(property.type){
             case 'string':
                 return (
@@ -22,6 +27,11 @@ class Form extends React.Component {
             case 'text':
                 return (
                     <TextBox key={this.key(i)}
+                        {...property}/>
+                );
+            case 'image':
+                return (
+                    <ImageField key={this.key(i)}
                         {...property}/>
                 );
             case 'enum':

@@ -1,16 +1,25 @@
 import React from 'react';
 
 class ActionButtons extends React.Component {
+    cancel = (event) => {
+        event.preventDefault();
+        this.props.cancel();
+    }
+    save = (event) => {
+        event.preventDefault();
+        this.props.save();
+    }
     render() {
         return (
             <div className='action-btn'>
                 <hr/>
                 <button className="btn btn-secondary btn-lg"
-                    onClick={this.props.cancel}>
+                    onClick={this.cancel}>
                     Cancel
                 </button>
                 <button className="btn btn-primary btn-lg"
-                    onClick={this.props.save}>
+                    style={{ float: 'right' }}
+                    onClick={this.save}>
                     Save Changes
                 </button>
             </div>

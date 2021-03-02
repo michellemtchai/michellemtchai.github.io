@@ -8,8 +8,7 @@ class TextField extends React.Component {
     handleChange=(event)=>{
         this.setState({
             value: event.target.value
-        })
-        this.props.update();
+        }, ()=>this.props.update());
     }
     render() {
         return (
@@ -24,7 +23,6 @@ class TextField extends React.Component {
                     name={this.props.name}
                     onChange={this.handleChange}
                     value={this.state.value}
-                    rows={this.props.rows ? this.props.rows : 3}
                     placeholder={this.props.placeholder}/>
             </fieldset>
         );

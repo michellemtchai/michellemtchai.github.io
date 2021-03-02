@@ -9,8 +9,7 @@ class Options extends React.Component {
     handleChange=(event)=>{
         this.setState({
             value: event.target.value
-        })
-        this.props.update();
+        }, ()=>this.props.update());
     }
     click = ()=>{
         this.selector.current.click();
