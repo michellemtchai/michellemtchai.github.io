@@ -2,7 +2,6 @@ import React from 'react';
 import Option from './option';
 
 class Options extends React.Component {
-    selector = React.createRef();
     state = {
         value: this.props.value,
     }
@@ -10,9 +9,6 @@ class Options extends React.Component {
         this.setState({
             value: event.target.value
         }, ()=>this.props.update());
-    }
-    click = ()=>{
-        this.selector.current.click();
     }
     render() {
         let style = this.state.value == ''? 'unselected': '';
@@ -36,8 +32,6 @@ class Options extends React.Component {
                              value={option.value}/>
                     )}
                 </select>
-                <i className="fas fa-caret-down"
-                    onClick={this.click}></i>
             </fieldset>
         );
     }
