@@ -27,7 +27,7 @@ class ImageField extends React.Component {
             tempValue: null,
         }, ()=>{
             this.changeMode('');
-            this.props.update();
+            this.props.update(this.state.value);
         })
     }
     cancelChanges=()=>{

@@ -3,22 +3,17 @@ import { api } from '../config/api';
 import { projectSchema } from '../config/forms';
 import { routes } from '../config/routes';
 import { goToPage, urlParams } from '../shared/router';
+import { formData } from '../shared/form';
 import Form from '../components/form/Form';
 import ActionButtons from '../components/form/actionButtons';
 
 class ProjectEditor extends React.Component {
     schema = schema(this.props);
-    state = {
-        form: this.schema.data
-    }
-    setData = (val)=>{
-        this.setState({
-            form: val
-        })
-    }
+    form = React.createRef();
     updateProject = ()=>{
         let id = this.props.match.params.project;
-        api.updateProject(this.props, id, this.state.form, (err)=>{
+        let data = formData(this.form);
+        api.updateProject(this.props, id, data, (err)=>{
             if(!err){
                 goToPage('/');
             }
@@ -28,7 +23,7 @@ class ProjectEditor extends React.Component {
         return (
             this.schema.data ?
             <div>
-                <Form update={this.setData} {...this.schema}/>
+                <Form ref={this.form} {...this.schema}/>
                 <ActionButtons
                     cancel={()=>goToPage('/')}
                     save={this.updateProject}/>

@@ -2,20 +2,15 @@ import React from 'react';
 import { api } from '../config/api';
 import { projectSchema } from '../config/forms';
 import { goToPage } from '../shared/router';
+import { formData } from '../shared/form';
 import Form from '../components/form/Form';
 import ActionButtons from '../components/form/actionButtons';
 
 class ProjectCreator extends React.Component {
-    state = {
-        form: projectSchema.data
-    }
-    setData = (val)=>{
-        this.setState({
-            form: val
-        })
-    }
+    form = React.createRef();
     createProject = ()=>{
-        api.createProject(this.props, this.state.form, (err)=>{
+        let data = formData(this.form);
+        api.createProject(this.props, data, (err)=>{
             if(!err){
                 goToPage('/');
             }
@@ -24,7 +19,7 @@ class ProjectCreator extends React.Component {
 	render() {
 		return (
             <div>
-                <Form update={this.setData} {...projectSchema}/>
+                <Form ref={this.form} {...projectSchema}/>
                 <ActionButtons
                     text='Create New Project'
                     cancel={()=>goToPage('/')}

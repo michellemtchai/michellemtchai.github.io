@@ -8,7 +8,7 @@ class TextField extends React.Component {
     handleChange=(event)=>{
         this.setState({
             value: event.target.value
-        }, ()=>this.props.update());
+        }, ()=>this.props.update(this.state.value));
     }
     readonly =()=>{
         let result = this.props.readonly ?

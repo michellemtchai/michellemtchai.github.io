@@ -1,6 +1,5 @@
 import './index.css';
 import React from 'react';
-import { formData } from '../../shared/form';
 import TextField from './textField';
 import TextBox from './textBox';
 import ImageField from './imageField';
@@ -8,6 +7,17 @@ import Options from './options';
 
 class Form extends React.Component {
     form = React.createRef();
+    state = {
+        form: formData(this.props)
+    }
+    handleChange = (key, value)=>{
+        this.setState({
+            form: {
+                ...this.state.form,
+                [key]: value,
+            }
+        })
+    }
     key = (index)=>{
         return `${this.props.name}-${index}`;
     }
@@ -21,8 +31,8 @@ class Form extends React.Component {
             ...property,
             name: key,
             id: `${this.props.name}-${key}`,
-            update: ()=>this.props.update(formData(this.form)),
-            value: this.dataVal(key),
+            update: (val)=>this.handleChange(key, val),
+            value: this.state.form[key],
         }
         switch(property.type){
             case 'string':
@@ -64,3 +74,12 @@ class Form extends React.Component {
 }
 
 export default Form;
+
+const formData = (props)=>{
+    let data = {};
+    Object.keys(props.properties).forEach(key=>{
+        data[key] = props.data !== undefined ?
+            props.data[key]: '';
+    })
+    return data;
+}
