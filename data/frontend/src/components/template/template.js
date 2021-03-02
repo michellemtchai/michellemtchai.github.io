@@ -5,6 +5,7 @@ import FetchIndicator from './fetchIndicator';
 
 import { withRouter } from "react-router";
 import { routes } from '../../config/routes';
+import { totalFetches } from '../../config/api';
 
 class Template extends React.Component {
 	render() {
@@ -18,7 +19,10 @@ class Template extends React.Component {
                 <Error {...this.props}/>
                 <FetchIndicator {...this.props}/>
                 <h1>{title}</h1>
-                {this.props.content()}
+                {Object.keys(data).length >= totalFetches ?
+                    this.props.content():
+                    ''
+                }
             </div>
         );
   	}

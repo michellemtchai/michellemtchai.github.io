@@ -4,7 +4,7 @@ import Template from '../components/template/template';
 
 import { Switch, Route } from 'react-router-dom';
 import { routes } from '../config/routes';
-import { fetchAll, totalFetches } from './api';
+import { fetchAll } from './api';
 
 class App extends React.Component {
     route = (key, i)=>{
@@ -29,14 +29,11 @@ class App extends React.Component {
         let data = this.props.state.data;
         return(
             <div className='content'>
-                {Object.keys(data).length >= totalFetches ?
-                    <Switch>
-                        {Object.keys(routes).map((key,i)=>
-                            this.route(key,i)
-                        )}
-                    </Switch>:
-                    ''
-                }
+                <Switch>
+                    {Object.keys(routes).map((key,i)=>
+                        this.route(key,i)
+                    )}
+                </Switch>
             </div>
         );
     }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { api } from '../config/api';
-import { projectSchema } from '../config/form';
+import { projectSchema } from '../config/forms';
 import { goToPage } from '../shared/router';
 import Form from '../components/form/Form';
 import ActionButtons from '../components/form/actionButtons';
