@@ -4,10 +4,10 @@ import { routes, navlinks } from '../../config/routes';
 
 class NavBar extends React.Component {
     currentPage=(link)=>{
-        let curr = this.props.router.location.pathname;
-        let children = routes[link]? routes[link].children: [];
-        children = children? children : [];
-        let current =  link==curr || children.includes(curr);
+        let route = this.props.route;
+        let children = routes[link].children
+            ? routes[link].children: [];
+        let current = link==route || children.includes(route);
         return current ? 'curr-page': '';
     }
     render() {

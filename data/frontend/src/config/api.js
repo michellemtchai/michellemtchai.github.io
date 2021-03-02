@@ -20,3 +20,5 @@ let fetchList = [
 export const fetchAll = (props)=>{
     fetchList.forEach(getData=>getData(props));
 }
+
+export const totalFetches = fetchList.length;

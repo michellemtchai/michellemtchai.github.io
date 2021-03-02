@@ -3,31 +3,12 @@ import { api } from '../config/api';
 import { goToPage } from '../shared/router';
 import LongButton from '../components/form/longButton';
 import Project from '../components/project';
-import ProjectEditor from '../components/projectEditor';
 
 class Projects extends React.Component {
     edit = React.createRef();
-    state = {
-        index: -1
-    }
 
-    editProject = (index)=>{
-        this.setState({
-            index: index,
-        })
-    }
-    cancelEdit = ()=>{
-        this.setState({
-            index: -1,
-        })
-    }
-    updateProject = (project)=>{
-        api.updateProject(this.props, project._id, {
-            name: this.edit.current.value,
-        });
-        this.setState({
-            index: -1
-        });
+    editProject = (project)=>{
+        goToPage(`/projects/${project._id}/edit`);
     }
     deleteProject = (project)=>{
         api.removeProjectById(this.props, project._id);
@@ -38,16 +19,11 @@ class Projects extends React.Component {
 			<div>
                 <LongButton text='+ Project'
                     click={()=>goToPage('/projects/new')}/>
-                {projects.map((project, i)=>
-                    this.state.index != i?
-                    <Project {...project}
-                        index={i}
-                        edit={()=>this.editProject(i)}
-                        delete={()=>this.deleteProject(project)} />:
-                    <ProjectEditor {...project}
-                        edit={this.edit}
-                        update={()=>this.updateProject(project)}
-                        cancel={this.cancelEdit} />
+                {Object.keys(projects).map((key, i)=>
+                    <Project {...projects[key]}
+                        key={'project'+i}
+                        edit={()=>this.editProject(projects[key])}
+                        delete={()=>this.deleteProject(projects[key])} />
                 )}
 			</div> :
             ''

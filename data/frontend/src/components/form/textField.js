@@ -10,6 +10,11 @@ class TextField extends React.Component {
             value: event.target.value
         }, ()=>this.props.update());
     }
+    readonly =()=>{
+        let result = this.props.readonly ?
+            this.props.readonly: false;
+        return result;
+    }
     render() {
         return (
             <fieldset className='form-group'>
@@ -23,6 +28,7 @@ class TextField extends React.Component {
                     name={this.props.name}
                     onChange={this.handleChange}
                     value={this.state.value}
+                    readOnly={this.readonly()}
                     placeholder={this.props.placeholder}/>
             </fieldset>
         );

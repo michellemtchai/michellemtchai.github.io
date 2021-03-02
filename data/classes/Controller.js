@@ -47,7 +47,7 @@ module.exports = class Controller {
     }
 
     updateModel = (data, permitted)=>{
-        let permittedData = this.permitted(data, permitted);
+        let permittedData = this.permit(data, permitted);
         return (model)=>{
             Object.keys(permittedData).forEach(key=>{
                 model[key]=permittedData[key];

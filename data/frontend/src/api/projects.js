@@ -3,8 +3,12 @@ import { fetchAPIData } from '../shared/network';
 export const getAllProjects = (props)=>{
     fetchAPIData(props, '/projects', props.setData, {
         formatData: (data)=>{
+            let mapping = {};
+            data.forEach((_,i)=>{
+                mapping[data[i]._id] = data[i];
+            });
             return {
-                projects: data
+                projects: mapping
             }
         }
     });
