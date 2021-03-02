@@ -27,7 +27,7 @@ class Options extends React.Component {
                 </label>
                 <select name={this.props.name}
                     id={this.props.name}
-                    className={style}
+                    className={style+' form-control'}
                     value={this.state.value}
                     onChange={this.handleChange}>
                     {options.map((option,i)=>

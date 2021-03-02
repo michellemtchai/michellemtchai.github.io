@@ -16,9 +16,13 @@ const getEnv = (list)=>{
 
 module.exports = {
     mode: 'development',
-    entry: {
-        main: path.resolve(__dirname, 'src/index.js'),
-    },
+    entry: [
+        'whatwg-fetch',
+        'core-js/es/promise',
+        'core-js/es/string',
+        'core-js/es/array',
+        './src/index.js'
+    ],
     output: {
         path: path.join(__dirname, 'build/assets'),
         filename: 'bundle.js',
@@ -39,9 +43,6 @@ module.exports = {
                 exclude: /(node_modules)/,
                 use: {
                     loader: 'babel-loader',
-                    options: {
-                        presets: ['@babel/preset-env']
-                    }
                 }
             }
         ]
