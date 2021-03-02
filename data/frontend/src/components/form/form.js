@@ -21,10 +21,6 @@ class Form extends React.Component {
     key = (index)=>{
         return `${this.props.name}-${index}`;
     }
-    dataVal = (name)=>{
-        return this.props.data !== undefined ?
-            this.props.data[name]: '';
-    }
     typeInput=(key, i)=>{
         let property = this.props.properties[key];
         property = {
