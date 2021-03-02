@@ -115,7 +115,12 @@ export const paramsToQueryString = (params) =>{
 		.join('&');
 }
 
+const oneSecond = 1000;
+const oneMinute = 60*oneSecond;
+const oneHour = 60*oneMinute;
+const oneDay = 24*oneHour;
+
 export const timeDiffMinutes = (date)=>{
 	let diffMs = (new Date() - date);
-	return Math.round(((diffMs % 86400000) % 3600000) / 60000);
+	return Math.round(((diffMs % oneDay) % oneHour) / oneMinute);
 }
