@@ -5,7 +5,7 @@ import LongButton from './form/longButton';
 
 class ProjectCreator extends React.Component {
     state = {
-        form: {}
+        form: formSchema.data
     }
     setData = (val)=>{
         this.setState({
@@ -29,6 +29,14 @@ export default ProjectCreator;
 
 const formSchema = {
     name: 'project',
+    data: {
+        name: '',
+        source_url: '',
+        image_url: '',
+        summary: '',
+        description: '',
+        demo_url: '',
+    },
     properties: [
         {
             type: 'string',
