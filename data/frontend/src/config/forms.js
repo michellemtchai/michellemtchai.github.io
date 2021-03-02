@@ -1,13 +1,5 @@
 export const projectSchema = {
     name: 'project',
-    data: {
-        name: '',
-        source_url: '',
-        image_url: '',
-        summary: '',
-        description: '',
-        demo_url: '',
-    },
     properties: {
         name: {
             type: 'string',
