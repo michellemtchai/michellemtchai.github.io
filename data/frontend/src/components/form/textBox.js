@@ -3,17 +3,37 @@ import React from 'react';
 class TextBox extends React.Component {
     state = {
         value: this.props.value ?
-            this.props.value : ''
+            this.props.value : '',
+        focus: false,
     }
     handleChange=(event)=>{
         this.setState({
+            ...this.state,
             value: event.target.value
         }, ()=>this.props.update());
     }
-    resize=()=>{
+    changeMode = ()=>{
+        this.setState({
+            ...this.state,
+            focus: !this.state.focus,
+        })
+    }
+    style=()=>{
         let resizeable = this.props.resize?
             this.props.resize: false;
-        return resizeable? {}:{ resize: 'none' };
+        let style = resizeable? {}:{ resize: 'none'};
+        if(this.state.focus){
+            style = {
+                ...style,
+                ...focusStyle,
+            }
+        }
+        return style;
+    }
+    readonly =()=>{
+        let result = this.props.readonly ?
+            this.props.readonly: false;
+        return result;
     }
     render() {
         return (
@@ -25,10 +45,13 @@ class TextBox extends React.Component {
                     key={this.props.id}
                     id={this.props.id}
                     type='text'
-                    style={this.resize()}
+                    style={this.style()}
                     name={this.props.name}
                     onChange={this.handleChange}
                     value={this.state.value}
+                    onBlur={this.changeMode}
+                    onFocus={this.changeMode}
+                    readOnly={this.readonly()}
                     rows={this.props.rows ? this.props.rows : 3}
                     placeholder={this.props.placeholder}/>
             </fieldset>
@@ -37,3 +60,8 @@ class TextBox extends React.Component {
 }
 
 export default TextBox;
+
+const focusStyle = {
+    border: '1px solid #ccc',
+    boxShadow: 'none',
+}
