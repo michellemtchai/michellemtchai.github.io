@@ -3,7 +3,7 @@ import { api } from '../config/api';
 import { projectSchema } from '../config/forms';
 import { routes } from '../config/routes';
 import { goToPage, urlParams } from '../shared/router';
-import { formData, copySchema } from '../shared/form';
+import { formData, clone } from '../shared/form';
 import Form from '../components/form/Form';
 import ActionButtons from '../components/form/actionButtons';
 
@@ -40,7 +40,7 @@ export default ProjectEditor;
 const schema = (props)=>{
     let id = props.match.params.project;
     let schema = {
-        ...copySchema(projectSchema),
+        ...clone(projectSchema),
         id: id,
         data: props.state.data.projects[id]
     }
