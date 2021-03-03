@@ -13,10 +13,10 @@
     position: fixed;
     z-index: 2;
 }
-.modal-content {
-    background: #fff;
-    margin: 20px auto;
-    width: 60%;
+.modal-body-content {
+    background: none;
+    width: 100%;
+    position: fixed;
     z-index: 3;
 }
 .modal-content .close{

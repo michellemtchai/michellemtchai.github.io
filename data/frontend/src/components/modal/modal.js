@@ -24,11 +24,8 @@ class Modal extends React.Component {
                 <div className='modal-background'
                     onClick={this.closeModal}>
                 </div>
-                <div className='modal-content'>
-                    <ModalHeader {...this.props}
-                        close={this.closeModal}/>
-                    <ModalBody {...this.props}/>
-                    <ModalFooter {...this.props}/>
+                <div className='modal-body-content'>
+                    {this.props.content}
                 </div>
             </div>:
             ''
