@@ -30,7 +30,7 @@ export const resizeImage = (urlImageData, setImage, maxSize = 200)=>{
     image.onload = (event)=>{
         let [canvas, width, height] = resizeCanvas(image, maxSize);
         canvas.getContext('2d').drawImage(image, 0, 0, width, height);
-        setImage(canvas.toDataURL('image/jpeg', 0.6));
+        setImage(canvas.toDataURL('image/jpeg', 0.75));
     }
     image.src = urlImageData;
 }
