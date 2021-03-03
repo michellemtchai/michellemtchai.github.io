@@ -13,7 +13,7 @@ class Error extends React.Component {
                             {this.props.state.error}
                         </td>
                         <td onClick={this.closeError}>
-                            X
+                            &times;
                         </td>
                     </tr>
                 </tbody>
