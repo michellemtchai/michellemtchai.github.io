@@ -1,6 +1,7 @@
 import React from 'react';
 import TextField from './textField';
 import LongButton from './longButton';
+import UploadButton from './uploadButton';
 import ActionButtons from './actionButtons';
 import { formData } from '../../shared/form';
 
@@ -71,6 +72,10 @@ class ImageField extends React.Component {
             case 'upload':
                 return (
                     <td>
+                        <UploadButton
+                            ref={this.input}
+                            update={this.updateURL}
+                            extensions={imageExtensions} />
                         <ActionButtons
                             text='Use Image'
                             save={this.saveChanges}
@@ -117,3 +122,10 @@ class ImageField extends React.Component {
 }
 
 export default ImageField;
+
+const imageExtensions = [
+    '.png',
+    '.jpeg',
+    '.jpg',
+    '.gif',
+]
