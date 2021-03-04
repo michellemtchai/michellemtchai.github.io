@@ -3,7 +3,7 @@ import React from 'react';
 
 class Modal extends React.Component {
     state={
-        open: this.props.open,
+        open: this.props.open ? this.props.open : false,
     }
     openModal=()=>{
         this.setState({
