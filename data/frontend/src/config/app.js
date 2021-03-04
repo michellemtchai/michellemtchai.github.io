@@ -10,9 +10,9 @@ class App extends React.Component {
     route = (key, i)=>{
         let Component = withRouter(routes[key].component);
         let pageTemplate = ()=>(
-            <Template {...this.props}
-                content={<Component {...this.props}/>}
-            />
+            <Template {...this.props}>
+                <Component {...this.props}/>
+            </Template>
         );
         return (<Route key={'route-'+i}
             exact={routes[key].exact? true: false}
