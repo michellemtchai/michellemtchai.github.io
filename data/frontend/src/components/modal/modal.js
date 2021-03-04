@@ -15,10 +15,17 @@ class Modal extends React.Component {
             open: false,
         })
     }
+    background = ()=>{
+        return {
+            background: this.props.background ?
+                this.props.background:'rgba(0,0,0,0.5)'
+        }
+    }
 	render() {
 		return (this.state.open?
 			<div className='modal-mask'>
                 <div className='modal-background'
+                    style={this.background()}
                     onClick={this.closeModal}>
                 </div>
                 <div className='modal-body-content'>

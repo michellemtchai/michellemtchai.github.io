@@ -8,8 +8,7 @@ class ModalDialog extends React.Component {
 	render() {
 		return (
             <div className='modal-content'>
-                <ModalHeader {...this.props}
-                    close={this.props.close}/>
+                <ModalHeader {...this.props}/>
                 <ModalBody>
                     {this.props.children}
                 </ModalBody>
