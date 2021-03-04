@@ -1,13 +1,18 @@
 import './index.css';
 import React from 'react';
+import ModalHeader from './modalHeader';
+import ModalBody from './modalBody';
+import ModalFooter from './modalFooter';
 
 class ModalDialog extends React.Component {
 	render() {
 		return (
             <div className='modal-content'>
                 <ModalHeader {...this.props}
-                    close={this.closeModal}/>
-                <ModalBody {...this.props}/>
+                    close={this.props.close}/>
+                <ModalBody>
+                    {this.props.children}
+                </ModalBody>
                 <ModalFooter {...this.props}/>
             </div>
         );

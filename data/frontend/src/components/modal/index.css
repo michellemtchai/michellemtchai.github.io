@@ -19,10 +19,15 @@
     position: fixed;
     z-index: 3;
 }
+.modal-content{
+    width: 60%;
+    margin: 20px auto;
+}
 .modal-content .close{
     width: 15px;
 }
 .modal-header h5{
     width: calc(100% - 15px);
     float: left;
+    overflow-wrap: break-word;
 }

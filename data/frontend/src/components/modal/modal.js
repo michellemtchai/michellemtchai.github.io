@@ -1,8 +1,5 @@
 import './index.css';
 import React from 'react';
-import ModalHeader from './modalHeader';
-import ModalBody from './modalBody';
-import ModalFooter from './modalFooter';
 
 class Modal extends React.Component {
     state={
@@ -25,7 +22,7 @@ class Modal extends React.Component {
                     onClick={this.closeModal}>
                 </div>
                 <div className='modal-body-content'>
-                    {this.props.content}
+                    {this.props.children}
                 </div>
             </div>:
             ''

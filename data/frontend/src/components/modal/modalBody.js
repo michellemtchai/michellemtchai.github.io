@@ -3,9 +3,9 @@ import React from 'react';
 
 class ModalBody extends React.Component {
 	render() {
-		return (this.props.body?
+		return (this.props.children?
             <div className='modal-body'>
-                {this.props.body}
+                {this.props.children}
             </div>:
             ''
         );

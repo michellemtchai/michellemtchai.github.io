@@ -5,7 +5,7 @@ class ModalFooter extends React.Component {
 	render() {
 		return (this.props.footer?
             <div className='modal-footer'
-                style={this.props.body? {}: {border: 'none'}}>
+                style={this.props.children? {}: {border: 'none'}}>
                 {this.props.footer}
             </div>:
             ''
