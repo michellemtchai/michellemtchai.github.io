@@ -21,7 +21,7 @@ class Template extends React.Component {
                 <FetchIndicator {...this.props}/>
                 <h1>{title}</h1>
                 {Object.keys(data).length >= totalFetches ?
-                    this.props.content():
+                    this.props.content:
                     ''
                 }
             </div>

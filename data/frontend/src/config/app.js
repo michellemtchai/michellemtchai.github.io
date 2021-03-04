@@ -11,7 +11,7 @@ class App extends React.Component {
         let Component = withRouter(routes[key].component);
         let pageTemplate = ()=>(
             <Template {...this.props}
-                content={()=><Component {...this.props}/>}
+                content={<Component {...this.props}/>}
             />
         );
         return (<Route key={'route-'+i}
