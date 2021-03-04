@@ -6,21 +6,17 @@ class Error extends React.Component {
     }
 	render() {
 		return (this.props.state.error?
-			<table className='error'>
-                <tbody>
-                    <tr>
-                        <td>
-                            {this.props.state.error}
-                        </td>
-                        <td onClick={this.closeError}>
-                            &times;
-                        </td>
-                    </tr>
-                </tbody>
-			</table>:
+			<tr className='error'>
+                <td>
+                    {this.props.state.error}
+                </td>
+                <td onClick={this.closeError}>
+                    &times;
+                </td>
+            </tr>:
             ''
         );
-  	}
+    }
 }
 
 export default Error;
