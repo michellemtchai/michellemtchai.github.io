@@ -22,7 +22,7 @@ class Modal extends React.Component {
         }
     }
 	render() {
-		return (this.state.open?
+		return (this.state.show?
 			<div className='modal-mask'>
                 <div className='modal-background'
                     style={this.background()}
