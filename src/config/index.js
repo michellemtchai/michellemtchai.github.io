@@ -11,17 +11,17 @@ export const routes = {
         component: Home,
         title: 'Home',
         exact: true,
-        icon: 'fa fa-home',
+        icon: 'fas fa-home',
     },
     '/projects/:project': {
         component: Project,
         title: 'Project',
-        icon: 'fa fa-tasks',
+        icon: 'fas fa-tasks',
     },
     '': {
         component: NotFound,
         title: 'Not Found',
-        icon: 'fa fa-dizzy',
+        icon: 'fas fa-dizzy',
     }
 }
 
@@ -51,12 +51,12 @@ const matchingRoute = (path, location)=>{
 
 export const socialLinks = [
     {
-        icon: 'fa fa-github-alt',
+        icon: 'fab fa-github',
         description: 'GitHub',
         link: 'https://github.com/michellemtchai',
     },
     {
-        icon: 'fa fa-linkedin-square',
+        icon: 'fab fa-linkedin',
         description: 'LinkedIn',
         link: 'https://www.linkedin.com/in/michellemtchai/',
     },
