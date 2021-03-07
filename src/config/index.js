@@ -4,7 +4,7 @@ import NotFound from '../pages/NotFound';
 
 export const title = "Michelle's Home Page"
 
-export const navlinks = ['/'];
+export const navlinks = ['/', '/projec', '/projects/1'];
 
 export const routes = {
     '/': {
@@ -20,6 +20,30 @@ export const routes = {
         component: NotFound,
         title: 'Page Not Found',
     }
+}
+
+export const routeKey = (location)=>{
+    let index = 0;
+    let paths = Object.keys(routes);
+    while(index < paths.length){
+        let path = paths[index];
+        if(path === ''){
+            return path;
+        }
+        if(matchingRoute(path, location)){
+            return path;
+        }
+        index+=1;
+    }
+}
+
+const matchingRoute = (path, location)=>{
+    path = path.replace(/\//g, '\\/');
+    path = path.replace(/:[a-z\d]+/gi,
+        '[a-zA-Z\\d_\\-\\.~&$\+,=@#;]+')
+    let regex = new RegExp(`^${path}$`);
+    let result = location.match(regex);
+    return result ? true : false;
 }
 
 export const socialLinks = [

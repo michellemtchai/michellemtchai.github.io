@@ -1,13 +1,16 @@
 .navbar {
-    padding: 0;
-    margin: 0;
+    float: left;
+    display: block;
+    position: absolute;
+    border-right: #ccc 2px solid;
+    width: 250px;
+    height: calc(100% - 110px);
 }
 .navbar ul {
     list-style: none;
-    padding: 0;
 }
 .navbar ul li{
-    display: inline;
+    padding: 10px;
 }
 .navbar ul li a {
     margin-right: 30px;
