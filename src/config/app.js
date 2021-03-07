@@ -1,30 +1,37 @@
 import React from 'react';
-import NavBar from '../components/navBar';
-import Error from '../components/error';
+import { withRouter } from "react-router";
+import Template from '../components/template/Template';
 
 import { Switch, Route } from 'react-router-dom';
 import { routes } from '../config/routes';
 
 class App extends React.Component {
-	render() {
-		return(
+    route = (key, i)=>{
+        let Component = withRouter(routes[key].component);
+        let pageTemplate = ()=>(
+            <Template {...this.props}>
+                <Component {...this.props}/>
+            </Template>
+        );
+        return (<Route key={'route-'+i}
+            exact={routes[key].exact? true: false}
+            path={key}
+            component={pageTemplate}
+        />);
+    }
+
+    render() {
+        let data = this.props.state.data;
+        return(
             <div className='content'>
-                <NavBar {...this.props}/>
-                <Error {...this.props}/>
                 <Switch>
                     {Object.keys(routes).map((key,i)=>
-                        <Route key={'route-'+i}
-                            exact={routes[key].exact? true: false}
-                            path={key}
-                            component={()=>
-                                (new routes[key].component(this.props)).render()
-                            }
-                        />
+                        this.route(key,i)
                     )}
                 </Switch>
             </div>
         );
-  	}
+    }
 }
 
-export default App;
+export default withRouter(App);

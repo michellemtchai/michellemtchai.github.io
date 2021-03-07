@@ -7,30 +7,3 @@ body{
     width: 60%;
     margin: 20px auto;
 }
-.error{
-    background: #FFF0F5;
-    color: red;
-}
-.fetching{
-    background: palegreen;
-    color: green;
-}
-.error, .fetching{
-    width: 100%;
-    border-radius: 10px;
-    margin: 20px auto;
-    font-weight: bold;
-    padding: 20px;
-}
-nav a {
-    margin-right: 30px;
-    text-decoration: none;
-    color: black;
-}
-nav a:hover{
-    color: royalblue;
-}
-a.curr-page {
-    text-decoration: underline;
-    font-weight: bold;
-}
