@@ -1,7 +1,8 @@
+import * as data from '../config/data.json';
 import * as actions from '../actions/state';
 
 export const initialState = {
-	data: {},
+	data: data.default,
 	error: '',
 }
 
