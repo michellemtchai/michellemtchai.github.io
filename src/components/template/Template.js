@@ -11,12 +11,12 @@ class Template extends React.Component {
         let location = routeKey(this.props.location.pathname);
         let route = routes[location];
 		return (
-            <div>
+            <>
                 <Header/>
                 <NavContent {...this.props}
                     title={route.title}
                     route={location} />
-            </div>
+            </>
         );
   	}
 }

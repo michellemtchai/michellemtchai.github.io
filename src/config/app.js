@@ -22,13 +22,13 @@ class App extends React.Component {
 
     render() {
         return(
-            <div>
+            <>
                 <Switch>
                     {Object.keys(routes).map((key,i)=>
                         this.route(key,i)
                     )}
                 </Switch>
-            </div>
+            </>
         );
     }
 }
