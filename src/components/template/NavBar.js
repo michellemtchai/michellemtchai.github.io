@@ -12,7 +12,7 @@ class NavBar extends React.Component {
     }
     render() {
         return (
-            <nav>
+            <nav className='navbar'>
                 <ul>
                 {navlinks.map((link, i)=>
                     <li key={'link-'+i}>

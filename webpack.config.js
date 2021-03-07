@@ -3,18 +3,19 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
     mode: 'development',
     entry: [
-        'whatwg-fetch',
         'core-js/es/promise',
         'core-js/es/string',
         './src/index.js'
     ],
     output: {
-        path: path.join(__dirname, 'build/assets'),
-        filename: 'bundle.js'
+        path: path.join(__dirname, 'build'),
+        filename: 'assets/bundle.js',
+        publicPath: '',
     },
     devtool: 'source-map',
     module: {
@@ -37,12 +38,16 @@ module.exports = {
     },
     plugins: [
         new MiniCssExtractPlugin({
-            filename: "bundle.css"
-        })
+            filename: "assets/bundle.css"
+        }),
+        new HtmlWebpackPlugin({
+            inject: true,
+            template: path.join(__dirname, 'public/index.html'),
+        }),
     ],
     devServer: {
         host: '0.0.0.0',
-        publicPath: '/assets/',
+        publicPath: '/',
         contentBase: 'public',
         contentBase: path.join(__dirname, 'public'),
         watchContentBase: true,

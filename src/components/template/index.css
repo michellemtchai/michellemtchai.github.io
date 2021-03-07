@@ -1,54 +1,42 @@
-.error{
-    color: #721c24;
-    background-color: #f8d7da;
-    border: #f5c6cb 1px solid;
+.header {
+    width: 100%;
     display: inline-block;
-}
-.error td{
-    display: inline-block;
-}
-.error td:first-child{
-    width: calc(100% - 35px);
-    overflow-wrap: break-word;
-    padding: 20px 0 20px 20px;
-}
-.error td:nth-child(2){
-    width: 15px;
-    line-height: 20px;
-    font-size: 20px;
-    text-align: center;
-    cursor: pointer;
-    vertical-align: top;
-    padding: 20px 20px 20px 0;
-}
-.fetching{
-    color: #155724;
-    background-color: #d4edda;
-    border: #c3e6cb 1px solid;
+    border-bottom: #eee 2px solid;
     padding: 20px;
 }
-.error, .fetching{
-    width: 100% !important;
-    border-radius: 10px;
-    margin: 20px auto;
-    font-weight: bold;
+.header dd{
+    display: inline-block;
+    vertical-align: top;
 }
-nav ul {
+.header dd:first-child{
+    width: calc(100% - 120px);
+}
+.header dd:nth-child(2){
+    width: 120px;
+}
+.icon-link{
+    margin-left: 5px;
+}
+.navbar {
+    padding: 0;
+    margin: 0;
+}
+.navbar ul {
     list-style: none;
     padding: 0;
 }
-nav ul li{
+.navbar ul li{
     display: inline;
 }
-nav ul li a {
+.navbar ul li a {
     margin-right: 30px;
     text-decoration: none;
     color: black;
 }
-nav ul li a:hover {
+.navbar ul li a:hover {
     color: royalblue;
 }
-.curr-page {
+.navbar .curr-page {
     text-decoration: underline;
     font-weight: bold;
 }

@@ -1,7 +1,7 @@
 import './index.css';
 import React from 'react';
+import Header from './Header';
 import NavBar from './NavBar';
-import Error from './Error';
 
 import { withRouter } from "react-router";
 import { routes } from '../../config/routes';
@@ -12,12 +12,14 @@ class Template extends React.Component {
         let title = route ? route.title: 'No Title';
         let data = this.props.state.data;
 		return (
-            <div className='content'>
-                <NavBar route={this.props.match.path}
-                    {...this.props}/>
-                <Error {...this.props}/>
-                <h1>{title}</h1>
-                {this.props.children}
+            <div>
+                <Header />
+                <div className='content'>
+                    <NavBar route={this.props.match.path}
+                        {...this.props}/>
+                    <h2>{title}</h2>
+                    {this.props.children}
+                </div>
             </div>
         );
   	}
