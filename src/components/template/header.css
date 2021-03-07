@@ -13,10 +13,10 @@
 }
 .header dd:nth-child(2){
     width: 120px;
+    color: darkblue;
 }
 .icon-link{
     margin-left: 5px;
-    color: darkblue;
 }
 .icon-link:hover{
     color: #111;
