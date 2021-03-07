@@ -1,3 +1,4 @@
+import './header.css';
 import React from 'react';
 import IconLink from './IconLink';
 import { title, socialLinks } from '../../config/routes';

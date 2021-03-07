@@ -5,7 +5,8 @@ class IconLink extends React.Component {
 		return (
             <a className='icon-link'
                 href={this.props.link}
-                alt={this.props.description}>
+                alt={this.props.description}
+                title={this.props.description}>
                 <i className={this.props.icon}></i>
             </a>
         );
