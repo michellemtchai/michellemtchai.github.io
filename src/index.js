@@ -8,14 +8,18 @@ import history from './shared/history';
 
 import { configureStore } from './store';
 import { Container } from './shared/map';
+import * as jsonData from './config/data.json';
 
 const store = configureStore(thunk);
+const data = {
+    state: jsonData.default
+}
 
 ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
             <ConnectedRouter history={history}>
-                <Container />
+                <Container {...data}/>
             </ConnectedRouter>
         </Provider>
     </React.StrictMode>,

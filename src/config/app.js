@@ -21,9 +21,8 @@ class App extends React.Component {
     }
 
     render() {
-        let data = this.props.state.data;
         return(
-            <div className='content'>
+            <div>
                 <Switch>
                     {Object.keys(routes).map((key,i)=>
                         this.route(key,i)

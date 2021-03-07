@@ -4,10 +4,9 @@ import Sample from '../components/sample';
 
 class Home extends React.Component {
     render() {
-        console.log(this.props.state.data)
+        console.log(this.props.state)
         return (
             <div>
-                <h1>Home</h1>
             </div>
         );
     }

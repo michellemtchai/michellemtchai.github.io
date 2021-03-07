@@ -12,7 +12,7 @@ class Template extends React.Component {
         let title = route ? route.title: 'No Title';
         let data = this.props.state.data;
 		return (
-            <div>
+            <div className='content'>
                 <NavBar route={this.props.match.path}
                     {...this.props}/>
                 <Error {...this.props}/>
