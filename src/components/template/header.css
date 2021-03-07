@@ -16,7 +16,7 @@
 }
 .header dd:nth-child(2){
     width: 120px;
-    color: #00279C;
+    color: #555;
     font-size: 16px;
     font-weight: bold;
 }
@@ -25,10 +25,10 @@
     color: inherit;
 }
 .icon-link:hover{
-    color: #111;
+    color: royalblue;
 }
 .icon-link:focus{
-    color: #000;
+    color: darkblue;
     outline: 0;
 }
 @media only screen and (max-width: 530px) {

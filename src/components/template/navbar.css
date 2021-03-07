@@ -40,6 +40,10 @@
     color: royalblue;
     text-decoration: underline;
 }
+.navbar ul li a:focus {
+    color: darkblue;
+    text-decoration: underline;
+}
 .navbar .curr-page {
     text-decoration: underline;
     font-weight: bold;
