@@ -11,15 +11,13 @@ class Template extends React.Component {
 	render() {
         let location = routeKey(this.props.location.pathname);
         let route = routes[location];
-        let title = route ? route.title: 'No Title';
-        let data = this.props.state.data;
 		return (
             <div>
                 <Header/>
                 <NavBar route={location}
                     {...this.props}/>
                 <div className='content'>
-                    <h2>{title}</h2>
+                    <h2>{route.title}</h2>
                     {this.props.children}
                 </div>
                 <Footer/>
