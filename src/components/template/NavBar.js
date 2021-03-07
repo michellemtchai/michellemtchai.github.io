@@ -1,7 +1,7 @@
 import './navbar.css';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { routes, navlinks } from '../../config/routes';
+import { routes, navlinks } from '../../config';
 
 class NavBar extends React.Component {
     currentPage=(link)=>{

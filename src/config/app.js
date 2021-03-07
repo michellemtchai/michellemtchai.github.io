@@ -3,7 +3,7 @@ import { withRouter } from "react-router";
 import Template from '../components/template/Template';
 
 import { Switch, Route } from 'react-router-dom';
-import { routes } from '../config/routes';
+import { routes } from '../config/';
 
 class App extends React.Component {
     route = (key, i)=>{

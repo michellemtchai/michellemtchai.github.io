@@ -34,3 +34,5 @@ export const socialLinks = [
         link: 'https://www.linkedin.com/in/michellemtchai/',
     },
 ]
+
+export const footer = 'Michelle Chai, 2021';
