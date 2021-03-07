@@ -12,15 +12,6 @@ class NavBar extends React.Component {
         return current ? 'curr-page': '';
     }
     minimized = this.props.width < 250 ?' minimized':'';
-    title = (link)=>{
-        let route = routes[routeKey(link)];
-        return (
-            <>
-                <i className={route.icon}></i>
-                <small>{route.title}</small>
-            </>
-        );
-    }
     render() {
         return (this.props.width > 0?
             <nav className='navbar'>
@@ -29,7 +20,7 @@ class NavBar extends React.Component {
                     <li key={'link-'+i} className={this.minimized}>
                         <Link to={link}
                             className={this.currentPage(link)}>
-                            {this.title(link)}
+                            {title(link)}
                         </Link>
                     </li>
                 )}
@@ -41,3 +32,13 @@ class NavBar extends React.Component {
 }
 
 export default NavBar;
+
+const title = (link)=>{
+    let route = routes[routeKey(link)];
+    return (
+        <>
+            <i className={route.icon}></i>
+            <small>{route.title}</small>
+        </>
+    );
+}
