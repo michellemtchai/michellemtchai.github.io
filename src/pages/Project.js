@@ -1,7 +1,6 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
 
-class AboutUs extends React.Component {
+class Project extends React.Component {
 	render() {
 		return (
             <div>
@@ -10,4 +9,4 @@ class AboutUs extends React.Component {
   	}
 }
 
-export default AboutUs;
+export default Project;

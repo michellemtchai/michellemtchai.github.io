@@ -1,8 +1,8 @@
-import Home from '../pages/home';
-import AboutUs from '../pages/aboutUs';
-import NotFound from '../pages/notFound';
+import Home from '../pages/Home';
+import Project from '../pages/Project';
+import NotFound from '../pages/NotFound';
 
-export const navlinks = ['/', '/about-us'];
+export const navlinks = ['/'];
 
 export const routes = {
     '/': {
@@ -10,9 +10,9 @@ export const routes = {
         title: 'Home',
         exact: true,
     },
-    '/about-us': {
-        component: AboutUs,
-        title: 'About Us',
+    '/projects/:project': {
+        component: Project,
+        title: 'Project',
     },
     '': {
         component: NotFound,
