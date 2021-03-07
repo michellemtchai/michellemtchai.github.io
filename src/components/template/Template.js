@@ -1,7 +1,6 @@
 import React from 'react';
 import Header from './Header';
-import NavBar from './NavBar';
-import Footer from './Footer';
+import NavContent from './NavContent';
 import Home from '../../pages/Home';
 
 import { withRouter } from "react-router";
@@ -14,13 +13,9 @@ class Template extends React.Component {
 		return (
             <div>
                 <Header/>
-                <NavBar route={location}
-                    {...this.props}/>
-                <div className='content'>
-                    <h2>{route.title}</h2>
-                    {this.props.children}
-                </div>
-                <Footer/>
+                <NavContent {...this.props}
+                    title={route.title}
+                    route={location} />
             </div>
         );
   	}

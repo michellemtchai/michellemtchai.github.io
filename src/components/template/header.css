@@ -33,7 +33,7 @@
 }
 @media only screen and (max-width: 530px) {
     .header{
-        height: 100px;
+        height: 80px;
     }
     .header dd{
         width: 100% !important;
