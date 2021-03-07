@@ -11,14 +11,17 @@ export const routes = {
         component: Home,
         title: 'Home',
         exact: true,
+        icon: 'fa fa-home',
     },
     '/projects/:project': {
         component: Project,
         title: 'Project',
+        icon: 'fa fa-tasks',
     },
     '': {
         component: NotFound,
-        title: 'Page Not Found',
+        title: 'Not Found',
+        icon: 'fa fa-dizzy',
     }
 }
 

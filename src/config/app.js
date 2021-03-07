@@ -6,11 +6,20 @@ import { Switch, Route } from 'react-router-dom';
 import { routes } from '../config/';
 
 class App extends React.Component {
+    state = {
+        width: window.innerWidth,
+        height: window.innerHeight
+    }
+
     route = (key, i)=>{
         let Component = withRouter(routes[key].component);
+        let props = {
+            ...this.props,
+            ...this.state,
+        }
         let pageTemplate = ()=>(
-            <Template {...this.props}>
-                <Component {...this.props}/>
+            <Template {...props}>
+                <Component {...props}/>
             </Template>
         );
         return (<Route key={'route-'+i}
@@ -18,6 +27,23 @@ class App extends React.Component {
             path={key}
             component={pageTemplate}
         />);
+    }
+
+    updateDimensions = () => {
+        this.setState({
+            width: window.innerWidth,
+            height: window.innerHeight
+        });
+    };
+
+    componentDidMount() {
+        window.addEventListener('resize',
+            this.updateDimensions);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize',
+            this.updateDimensions);
     }
 
     render() {
