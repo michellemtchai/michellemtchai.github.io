@@ -9,7 +9,6 @@
 
 // To learn more about the benefits of this model and instructions on how to
 // opt-in, read https://bit.ly/CRA-PWA
-const swUrl = `${process.env.PUBLIC_URL}/sw.js`;
 
 const isLocalhost = Boolean(
     window.location.hostname === 'localhost' ||
