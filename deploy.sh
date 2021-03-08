@@ -8,6 +8,6 @@ docker-compose run app sh -c '''
     exit
 '''
 cp -a ./public/. ./build/
-cp -a .gitignore ./build/.gitignore
+cp .gitignore ./build/.gitignore
 
 echo 'Changes deployed!'
