@@ -1,3 +1,4 @@
+import './config/polyfill';
 import css from './index.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -15,7 +16,6 @@ const store = configureStore(thunk);
 const data = {
     state: jsonData.default,
 };
-
 ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
