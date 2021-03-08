@@ -1,10 +1,5 @@
 'use strict';
 
-// load .env variables
-require('dotenv').config({
-    path: '../.env'
-});
-
 // App
 const express = require('express');
 const app = express();

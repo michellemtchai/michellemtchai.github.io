@@ -5,24 +5,32 @@ services:
         build:
             context: ../
             dockerfile: ./docker/Dockerfile
-        command: yarn start
+        command: yarn all
         volumes:
             - ..:/app
         ports:
-            - ${PORT}:3000
+            - ${APP_PORT}:${APP_PORT}
+            - ${DATA_FRONTEND_PORT}:${DATA_FRONTEND_PORT}
+            - ${DATA_BACKEND_PORT}:${DATA_BACKEND_PORT}
         environment:
+            APP_PORT: ${APP_PORT}
             GITHUB_EMAIL: ${GITHUB_EMAIL}
             GITHUB_USERNAME: ${GITHUB_USERNAME}
             GITHUB_TOKEN: ${GITHUB_TOKEN}
-    data-backend:
-        build:
-            context: ..
-            dockerfile: ./docker/Dockerfile.backend
-        command: yarn start
-        volumes:
-            - ../data:/app
-        ports:
-            - ${DATA_BACKEND_PORT}:${DATA_BACKEND_PORT}
+            FAST_REFRESH: ${FAST_REFRESH}
+            CHOKIDAR_USEPOLLING: ${CHOKIDAR_USEPOLLING}
+            DATA_FRONTEND_PORT: ${DATA_FRONTEND_PORT}
+            DATA_BACKEND_PORT: ${DATA_BACKEND_PORT}
+            DATA_BACKEND_ENV: ${DATA_BACKEND_ENV}
+            DATA_BACKEND_NAME: ${DATA_BACKEND_NAME}
+            DATA_BACKEND_DESC: ${DATA_BACKEND_DESC}
+            DATA_BACKEND_HOST: ${DATA_BACKEND_HOST}
+            DATA_BACKEND_PORT: ${DATA_BACKEND_PORT}
+            DB_USERNAME: ${DB_USERNAME}
+            DB_PASSWORD: ${DB_PASSWORD}
+            DB_HOST: ${DB_HOST}
+            DB_PORT: ${DB_PORT}
+            DB_DATA: ${DB_DATA}
         depends_on:
             - mongodb
     mongodb:
@@ -34,14 +42,5 @@ services:
         environment:
             MONGO_INITDB_ROOT_USERNAME: ${DB_USERNAME}
             MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
-    data-frontend:
-        build:
-            context: ..
-            dockerfile: ./docker/Dockerfile.frontend
-        command: yarn start
-        volumes:
-            - ../data/frontend:/app
-        ports:
-            - ${DATA_FRONTEND_PORT}:3000
 volumes:
     db_data:

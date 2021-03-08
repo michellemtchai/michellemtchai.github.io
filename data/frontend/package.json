@@ -14,9 +14,18 @@
   },
   "scripts": {
     "build": "react-scripts build",
-    "start": "FAST_REFRESH=false react-scripts start"
+    "start": "PORT=\"$DATA_FRONTEND_PORT\" react-scripts start"
   },
-  "browser": {
-    "fs": false
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
