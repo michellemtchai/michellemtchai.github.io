@@ -1,19 +1,16 @@
 import React from 'react';
 
 class Error extends React.Component {
-    closeError=()=>{
+    closeError = () => {
         this.props.setError('');
-    }
-	render() {
-		return (this.props.state.error?
-			<tr className='error'>
-                <td>
-                    {this.props.state.error}
-                </td>
-                <td onClick={this.closeError}>
-                    &times;
-                </td>
-            </tr>:
+    };
+    render() {
+        return this.props.state.error ? (
+            <dl className="error">
+                <dd>{this.props.state.error}</dd>
+                <dd onClick={this.closeError}>&times;</dd>
+            </dl>
+        ) : (
             ''
         );
     }
