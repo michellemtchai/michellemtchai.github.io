@@ -32,8 +32,8 @@
     "uglifyjs-webpack-plugin": "^2.2.0"
   },
   "scripts": {
-    "predeploy": "webpack --mode=production",
+    "predeploy": "export NODE_ENV=production && webpack --mode=production",
     "deploy": "gh-pages -d ./build",
-    "start": "webpack-dev-server"
+    "start": "export NODE_ENV=development && webpack-dev-server"
   }
 }
