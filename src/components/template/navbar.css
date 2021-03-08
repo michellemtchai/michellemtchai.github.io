@@ -9,26 +9,26 @@
 .navbar ul {
     list-style: none;
 }
-.navbar ul li{
+.navbar ul li {
     padding: 10px;
     font-size: 16px;
     display: inline-block;
     text-align: left;
 }
-.navbar ul li.minimized{
+.navbar ul li.minimized {
     text-align: center;
     font-size: 12px;
     display: block;
     padding: 10px 0;
 }
-.navbar .minimized small{
+.navbar .minimized small {
     display: block;
 }
-.navbar i{
+.navbar i {
     margin-right: 10px;
     font-size: 20px;
 }
-.navbar .minimized i{
+.navbar .minimized i {
     margin: 0 0 10px 0;
 }
 .navbar ul li a {

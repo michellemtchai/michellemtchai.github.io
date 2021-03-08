@@ -6,18 +6,17 @@ import { title, socialLinks } from '../../config';
 class Header extends React.Component {
     render() {
         return (
-            <dl className='header'>
-                <dd>
+            <ul className="header">
+                <li>
                     <h1>{title}</h1>
-                </dd>
-                <dd>
+                </li>
+                <li>
                     Find me
-                    {socialLinks.map((item, i)=>
-                        <IconLink key={'social-link-'+i}
-                            {...item}/>
-                    )}
-                </dd>
-            </dl>
+                    {socialLinks.map((item, i) => (
+                        <IconLink key={'social-link-' + i} {...item} />
+                    ))}
+                </li>
+            </ul>
         );
     }
 }

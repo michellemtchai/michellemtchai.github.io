@@ -1,18 +1,19 @@
-.main dd{
+.main > li {
+    list-style: none;
     display: inline-block;
     vertical-align: top;
     height: calc(100vh - 60px);
 }
-.main dd:nth-child(2){
+.main > li:nth-child(2) {
     overflow-y: auto;
 }
-.content{
+.content {
     width: 100%;
     margin: 0 auto;
     min-height: calc(100% - 50px);
 }
 @media only screen and (max-width: 530px) {
-    .main dd{
+    .main > li {
         height: calc(100vh - 80px);
     }
 }
