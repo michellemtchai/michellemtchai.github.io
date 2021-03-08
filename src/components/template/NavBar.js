@@ -4,36 +4,33 @@ import { Link } from 'react-router-dom';
 import { routes, navlinks, routeKey } from '../../config';
 
 class NavBar extends React.Component {
-    currentPage=(link)=>{
+    currentPage = (link) => {
         let route = this.props.route;
-        let children = routes[route].children ?
-            routes[route].children : [];
+        let children = routes[route].children ? routes[route].children : [];
         let current = routeKey(link) == route || children.includes(route);
-        return current ? 'curr-page': '';
-    }
-    minimized = this.props.width < 250 ?' minimized':'';
+        return current ? 'curr-page' : '';
+    };
+    minimized = this.props.minimized ? ' minimized' : '';
     render() {
-        return (this.props.width > 0?
-            <nav className='navbar'>
+        return (
+            <nav className="navbar">
                 <ul>
-                {navlinks.map((link, i)=>
-                    <li key={'link-'+i} className={this.minimized}>
-                        <Link to={link}
-                            className={this.currentPage(link)}>
-                            {title(link)}
-                        </Link>
-                    </li>
-                )}
+                    {navlinks.map((link, i) => (
+                        <li key={'link-' + i} className={this.minimized}>
+                            <Link to={link} className={this.currentPage(link)}>
+                                {title(link)}
+                            </Link>
+                        </li>
+                    ))}
                 </ul>
-            </nav>:
-            ''
+            </nav>
         );
     }
 }
 
 export default NavBar;
 
-const title = (link)=>{
+const title = (link) => {
     let route = routes[routeKey(link)];
     return (
         <>
@@ -41,4 +38,4 @@ const title = (link)=>{
             <small>{route.title}</small>
         </>
     );
-}
+};

@@ -17,7 +17,14 @@ class NavContent extends React.Component {
         return (
             <ul className="main">
                 <li style={this.navStyle}>
-                    <NavBar {...this.props} width={this.state.width} />
+                    {this.state.width > 0 ? (
+                        <NavBar
+                            {...this.props}
+                            minimized={this.state.width < 250}
+                        />
+                    ) : (
+                        ''
+                    )}
                 </li>
                 <li style={this.contentStyle}>
                     <div className="content">
