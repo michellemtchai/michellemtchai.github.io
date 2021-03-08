@@ -1,17 +1,22 @@
-require('dotenv').config()
+require('dotenv').config();
+const webpack = require('webpack');
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+const getEnv = (list) => {
+    let env = {};
+    list.forEach((item) => {
+        env['process.env.' + item] = JSON.stringify(process.env[item]);
+    });
+    return env;
+};
 
 module.exports = {
     mode: 'development',
-    entry: [
-        'core-js/es/promise',
-        'core-js/es/string',
-        './src/index.js'
-    ],
+    entry: ['core-js/es/promise', 'core-js/es/string', './src/index.js'],
     output: {
         path: path.join(__dirname, 'build'),
         filename: 'assets/bundle.js',
@@ -22,23 +27,21 @@ module.exports = {
         rules: [
             {
                 test: /\.css$/i,
-                use: [
-                    MiniCssExtractPlugin.loader,
-                    'css-loader'
-                ],
+                use: [MiniCssExtractPlugin.loader, 'css-loader'],
             },
             {
                 test: /\.js$/,
                 exclude: /(node_modules)/,
                 use: {
                     loader: 'babel-loader',
-                }
-            }
-        ]
+                },
+            },
+        ],
     },
     plugins: [
+        new webpack.DefinePlugin(getEnv(['PUBLIC_URL', 'NODE_ENV'])),
         new MiniCssExtractPlugin({
-            filename: "assets/bundle.css"
+            filename: 'assets/bundle.css',
         }),
         new HtmlWebpackPlugin({
             inject: true,
@@ -47,7 +50,7 @@ module.exports = {
     ],
     devServer: {
         host: '0.0.0.0',
-        publicPath: '/',
+        publicPath: process.env.PUBLIC_URL,
         contentBase: 'public',
         contentBase: path.join(__dirname, 'public'),
         watchContentBase: true,
@@ -57,10 +60,10 @@ module.exports = {
             poll: true,
             ignored: [
                 path.resolve(__dirname, 'data'),
-                path.resolve(__dirname, 'node_modules')
-            ]
+                path.resolve(__dirname, 'node_modules'),
+            ],
         },
-        historyApiFallback: true
+        historyApiFallback: true,
     },
     optimization: {
         minimizer: [
@@ -70,11 +73,11 @@ module.exports = {
                 uglifyOptions: {
                     compress: false,
                     ecma: 5,
-                    mangle: true
+                    mangle: true,
                 },
-                sourceMap: true
+                sourceMap: true,
             }),
             new CssMinimizerPlugin(),
-        ]
-    }
+        ],
+    },
 };
