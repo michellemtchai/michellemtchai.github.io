@@ -42,6 +42,6 @@ services:
         volumes:
             - ../data/frontend:/app
         ports:
-            - ${DATA_FRONTEND_PORT}:3000s
+            - ${DATA_FRONTEND_PORT}:3000
 volumes:
     db_data:
