@@ -1,17 +1,26 @@
 import './navcontent.css';
 import React from 'react';
+import Modal from '../modal/Modal';
+import Header from './Header';
 import NavBar from './NavBar';
 import Footer from './Footer';
 
 class NavContent extends React.Component {
     state = {
         width: navWidth(this.props),
+        showModal: false,
     };
     navStyle = {
         width: this.state.width,
     };
     contentStyle = {
         width: `calc(100% - ${this.state.width}px)`,
+    };
+    updateShow = (value) => {
+        this.setState({
+            ...this.state,
+            showModal: value,
+        });
     };
     render() {
         return (
@@ -23,7 +32,13 @@ class NavContent extends React.Component {
                             minimized={this.state.width < 250}
                         />
                     ) : (
-                        ''
+                        <Modal
+                            show={this.state.showModal}
+                            updateShow={this.updateShow}
+                        >
+                            <Header />
+                            <NavBar {...this.props} minimized={false} />
+                        </Modal>
                     )}
                 </li>
                 <li style={this.contentStyle}>

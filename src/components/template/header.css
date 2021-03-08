@@ -4,6 +4,7 @@
     display: inline-block;
     border-bottom: #eee 2px solid;
     padding: 15px;
+    background: #fff;
 }
 .header li {
     display: inline-block;
