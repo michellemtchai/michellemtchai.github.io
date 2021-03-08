@@ -4,9 +4,10 @@ ENV NODE_PATH=/node_modules
 ENV PATH=$PATH:/node_modules/.bin
 
 COPY ./data/frontend/package.json .
-COPY ./data/frontend/yarn.lock .
+#COPY ./data/frontend/yarn.lock .
 COPY .env .
 
 RUN yarn
+RUN yarn global add react-scripts
 
 WORKDIR /app

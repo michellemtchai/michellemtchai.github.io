@@ -1,14 +1,15 @@
-version: "3"
+version: '3'
 
 services:
     app:
         build:
             context: ../
             dockerfile: ./docker/Dockerfile
+        command: yarn start
         volumes:
             - ..:/app
         ports:
-            - ${PORT}:${PORT}
+            - ${PORT}:3000
         environment:
             GITHUB_EMAIL: ${GITHUB_EMAIL}
             GITHUB_USERNAME: ${GITHUB_USERNAME}
@@ -41,6 +42,6 @@ services:
         volumes:
             - ../data/frontend:/app
         ports:
-            - ${DATA_FRONTEND_PORT}:${DATA_FRONTEND_PORT}
+            - ${DATA_FRONTEND_PORT}:3000s
 volumes:
     db_data:

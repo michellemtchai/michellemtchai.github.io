@@ -20,7 +20,9 @@ ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
             <ConnectedRouter history={history}>
-                <Container {...data} />
+                <React.Suspense fallback={<div>...loading</div>}>
+                    <Container {...data} />
+                </React.Suspense>
             </ConnectedRouter>
         </Provider>
     </React.StrictMode>,

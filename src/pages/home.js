@@ -3,10 +3,7 @@ import Sample from '../components/sample';
 
 class Home extends React.Component {
     render() {
-        return (
-            <div>
-            </div>
-        );
+        return <div></div>;
     }
 }
 
