@@ -14,7 +14,7 @@
     "redux": "^4.0.5"
   },
   "scripts": {
-    "all": "./data.sh",
+    "all": "./run.sh",
     "predeploy": "react-scripts build",
     "deploy": "gh-pages -d ./build",
     "start": "PORT=\"$APP_PORT\" react-scripts start"
