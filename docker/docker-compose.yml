@@ -14,9 +14,10 @@ services:
             - ${DATA_BACKEND_PORT}:${DATA_BACKEND_PORT}
         environment:
             APP_PORT: ${APP_PORT}
-            GITHUB_EMAIL: ${GITHUB_EMAIL}
-            GITHUB_USERNAME: ${GITHUB_USERNAME}
-            GITHUB_TOKEN: ${GITHUB_TOKEN}
+            REACT_APP_TITLE: ${REACT_APP_TITLE}
+            REACT_APP_DESC: ${REACT_APP_DESC}
+            REACT_ENV: ${DATA_BACKEND_ENV}
+            REACT_HOST: ${DATA_BACKEND_PORT}
             FAST_REFRESH: ${FAST_REFRESH}
             CHOKIDAR_USEPOLLING: ${CHOKIDAR_USEPOLLING}
             DATA_FRONTEND_PORT: ${DATA_FRONTEND_PORT}
@@ -31,6 +32,9 @@ services:
             DB_HOST: ${DB_HOST}
             DB_PORT: ${DB_PORT}
             DB_DATA: ${DB_DATA}
+            GITHUB_EMAIL: ${GITHUB_EMAIL}
+            GITHUB_USERNAME: ${GITHUB_USERNAME}
+            GITHUB_TOKEN: ${GITHUB_TOKEN}
         depends_on:
             - mongodb
     mongodb:

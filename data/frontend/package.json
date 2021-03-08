@@ -13,9 +13,8 @@
     "redux": "^4.0.5"
   },
   "scripts": {
-    "app": "PORT=\"$DATA_FRONTEND_PORT\" react-scripts start",
     "build": "react-scripts build",
-    "start": "REACT_APP_ENV=\"$DATA_BACKEND_ENV\" REACT_APP_PORT=\"$DATA_BACKEND_PORT\" yarn app"
+    "start": "PORT=\"$DATA_FRONTEND_PORT\" react-scripts start"
   },
   "browserslist": {
     "production": [
