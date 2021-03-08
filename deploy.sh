@@ -1,5 +1,5 @@
 #! /bin/sh
-docker-compose build
+docker-compose build app
 docker-compose run app sh -c '''
     git config --global url."https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/".insteadOf "https://github.com/"
     git config --global user.email "$GITHUB_EMAIL"
@@ -8,5 +8,6 @@ docker-compose run app sh -c '''
     exit
 '''
 cp -a ./public/. ./build/
+cp -a .gitignore ./build/.gitignore
 
 echo 'Changes deployed!'
