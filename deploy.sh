@@ -7,6 +7,6 @@ docker-compose run app sh -c '''
     yarn deploy
     exit
 '''
-cp ./public/index.html ./build/index.html
+cp -a ./public/. ./build/
 
 echo 'Changes deployed!'
