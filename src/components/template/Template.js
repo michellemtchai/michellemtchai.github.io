@@ -9,7 +9,7 @@ import { routes, routeKey } from '../../config';
 class Template extends React.Component {
     state = {
         navWidth: navWidth(this.props),
-        navExpanded: navWidth(this.props) > 250,
+        navExpanded: navWidth(this.props) === 250,
     };
     updateNav = () => {
         this.setState({

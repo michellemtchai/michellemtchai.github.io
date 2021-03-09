@@ -6,32 +6,25 @@ import NavBar from './NavBar';
 import Footer from './Footer';
 
 class NavContent extends React.Component {
-    navStyle = {
-        width: this.props.navWidth,
+    state = {
+        expanded: this.props.navExpanded,
+        width: widths(this.props),
     };
-    contentStyle = {
-        width: `calc(100% - ${this.props.navWidth}px)`,
-    };
+    componentDidUpdate(prevProps) {
+        if (prevProps.navExpanded !== this.props.navExpanded) {
+            this.setState({
+                expanded: this.props.navExpanded,
+                width: widths(this.props),
+            });
+        }
+    }
     render() {
         return (
             <ul className="main">
-                <li style={this.navStyle}>
-                    {this.props.navWidth > 0 ? (
-                        <NavBar
-                            {...this.props}
-                            minimized={this.props.navWidth < 250}
-                        />
-                    ) : (
-                        <Modal
-                            show={this.props.navExpanded}
-                            updateShow={this.props.updateNav}
-                        >
-                            <Header {...this.props} />
-                            <NavBar {...this.props} minimized={false} />
-                        </Modal>
-                    )}
+                <li style={this.state.width.nav}>
+                    {NavModal(this.props, this.state.expanded)}
                 </li>
-                <li style={this.contentStyle}>
+                <li style={this.state.width.content}>
                     <div className="content">
                         <h2>{this.props.title}</h2>
                         {this.props.children}
@@ -44,3 +37,42 @@ class NavContent extends React.Component {
 }
 
 export default NavContent;
+
+const widths = (props) => {
+    let width = props.navWidth;
+    if (props.navWidth > 70) {
+        width = props.navExpanded ? props.navWidth : 70;
+    }
+    return {
+        nav: {
+            width: `${width}px`,
+        },
+        content: {
+            width: `calc(100% - ${width}px)`,
+        },
+    };
+};
+
+const NavModal = (props, expanded) => {
+    switch (props.navWidth) {
+        case 0:
+            return (
+                <Modal show={expanded} updateShow={props.updateNav}>
+                    <Header {...props} />
+                    <NavBar {...props} minimized={false} />
+                </Modal>
+            );
+        case 70:
+            return (
+                <>
+                    <NavBar {...props} minimized={true} />
+                    <Modal show={expanded} updateShow={props.updateNav}>
+                        <Header {...props} />
+                        <NavBar {...props} minimized={false} />
+                    </Modal>
+                </>
+            );
+        default:
+            return <NavBar {...props} minimized={!expanded} />;
+    }
+};
