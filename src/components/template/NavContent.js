@@ -6,37 +6,27 @@ import NavBar from './NavBar';
 import Footer from './Footer';
 
 class NavContent extends React.Component {
-    state = {
-        width: navWidth(this.props),
-        showModal: false,
-    };
     navStyle = {
-        width: this.state.width,
+        width: this.props.navWidth,
     };
     contentStyle = {
-        width: `calc(100% - ${this.state.width}px)`,
-    };
-    updateShow = (value) => {
-        this.setState({
-            ...this.state,
-            showModal: value,
-        });
+        width: `calc(100% - ${this.props.navWidth}px)`,
     };
     render() {
         return (
             <ul className="main">
                 <li style={this.navStyle}>
-                    {this.state.width > 0 ? (
+                    {this.props.navWidth > 0 ? (
                         <NavBar
                             {...this.props}
-                            minimized={this.state.width < 250}
+                            minimized={this.props.navWidth < 250}
                         />
                     ) : (
                         <Modal
-                            show={this.state.showModal}
-                            updateShow={this.updateShow}
+                            show={this.props.navExpanded}
+                            updateShow={this.props.updateNav}
                         >
-                            <Header />
+                            <Header {...this.props} />
                             <NavBar {...this.props} minimized={false} />
                         </Modal>
                     )}
@@ -54,14 +44,3 @@ class NavContent extends React.Component {
 }
 
 export default NavContent;
-
-const navWidth = (props) => {
-    let screenWidth = props.width;
-    if (screenWidth > 1320) {
-        return 250;
-    } else if (screenWidth > 800) {
-        return 70;
-    } else {
-        return 0;
-    }
-};

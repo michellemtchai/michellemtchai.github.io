@@ -7,6 +7,9 @@ class Header extends React.Component {
     render() {
         return (
             <ul className="header">
+                <li onClick={this.props.updateNav}>
+                    <i className="fas fa-bars"></i>
+                </li>
                 <li>
                     <h1>{title}</h1>
                 </li>
