@@ -15,10 +15,20 @@ class Image extends React.Component {
     };
     style = {
         width: this.props.width ? `${this.props.width}px` : '200px',
-        height: this.props.height ? `${this.props.height}px` : '145px',
+        height: this.props.height
+            ? `${this.props.height}px`
+            : '145px',
     };
+    componentDidUpdate(prevProps) {
+        if (prevProps.src !== this.props.src) {
+            this.setState({
+                errored: false,
+            });
+        }
+    }
     render() {
-        let src = this.props.src === 'null' ? noImageSvg : this.props.src;
+        let src =
+            this.props.src === 'null' ? noImageSvg : this.props.src;
         return !this.state.errored ? (
             <img
                 className="image"

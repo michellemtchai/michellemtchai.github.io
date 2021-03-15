@@ -12,6 +12,7 @@ module.exports = (app) => {
     }
     // parse request body
     app.router.use(bodyParser.urlencoded({ extended: false }));
+    app.router.use(bodyParser({ limit: '50mb' }));
     app.router.use(bodyParser.json());
 
     // make static files in /public availiable

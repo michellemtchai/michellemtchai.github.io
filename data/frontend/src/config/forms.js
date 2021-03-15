@@ -14,6 +14,10 @@ export const projectSchema = {
         image_url: {
             type: 'image',
             label: 'Project Image URL',
+            scale: false,
+            width: 550,
+            height: 300,
+            resolution: 1,
         },
         summary: {
             type: 'text',
@@ -31,4 +35,4 @@ export const projectSchema = {
             placeholder: 'Enter project demo URL',
         },
     },
-}
+};
