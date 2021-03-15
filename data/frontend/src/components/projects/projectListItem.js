@@ -21,8 +21,7 @@ class ProjectListItem extends React.Component {
                 <Image src={project.image_url} alt={alt} />
                 <article>
                     <h2>
-                        {project.name}
-                        {demo}
+                        {project.name} {demo}
                     </h2>
                     <p>{project.summary}</p>
                 </article>

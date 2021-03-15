@@ -5,11 +5,8 @@
 .projects li {
     list-style: none;
     cursor: pointer;
-    padding: 20px;
+    padding: 5px 10px;
     border-bottom: 1px solid #eee;
-}
-.projects li:first-child {
-    padding: 5px 20px;
 }
 .projects li:hover {
     background: #eee;
@@ -19,14 +16,14 @@
     border: 2px solid #fff;
 }
 .projects li article {
-    float: right;
+    display: inline-block;
     width: calc(100% - 220px);
     padding: 0;
-    margin: 0;
+    margin: 10px;
 }
 .projects li article h2 {
     padding: 0;
-    margin: 0;
+    margin: 0 0 5px 0;
     font-size: 22px;
     font-weight: bold;
 }
@@ -35,11 +32,12 @@
     background: #eee;
     border: 2px solid #ddd;
     border-radius: 5px;
-    margin: 0 5px;
+    margin: 10px 5px;
     padding: 5px;
-    line-height: 22px;
+    line-height: 25px;
     vertical-align: top;
 }
 .projects li > .image {
     cursor: pointer;
+    vertical-align: top;
 }
