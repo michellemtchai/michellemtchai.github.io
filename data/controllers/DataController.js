@@ -15,7 +15,7 @@ module.exports = class DataController extends Controller {
                         reload: false,
                     });
                 };
-                writeToFile(file, JSON.stringify(req.body), res, () => {
+                writeToFile(file, formatJsonData(req.body), res, () => {
                     this.Data.update(res, next, data[0]._id, updateExported);
                 });
             } else {
@@ -60,20 +60,35 @@ const updateExported = (res) => {
     return res;
 };
 
+const formatJsonData = (data) => {
+    return JSON.stringify(sortObject(data));
+};
+
+const sortObject = (data) => {
+    if (typeof data === 'object') {
+        let sorted = {};
+        let keys = Object.keys(data).sort();
+        keys.forEach((key) => {
+            sorted[key] = sortObject(data[key]);
+        });
+        return sorted;
+    } else {
+        return data;
+    }
+};
+
 const formatDbData = (data) => {
     let result = {};
-    let keys = Object.keys(data).sort();
+    let keys = Object.keys(data);
     keys.forEach((key) => {
         let items = [];
-        Object.keys(data[key])
-            .sort()
-            .forEach((i_key) => {
-                let entry = data[key][i_key];
-                items.push({
-                    ...entry,
-                    _id: ObjectId(entry._id),
-                });
+        Object.keys(data[key]).forEach((i_key) => {
+            let entry = data[key][i_key];
+            items.push({
+                ...entry,
+                _id: ObjectId(entry._id),
             });
+        });
         result[key] = items;
     });
     return result;
