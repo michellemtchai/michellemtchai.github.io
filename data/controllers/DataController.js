@@ -65,7 +65,7 @@ const formatJsonData = (data) => {
 };
 
 const sortObject = (data) => {
-    if (typeof data === 'object') {
+    if (typeof data === 'object' && !(data instanceof Array)) {
         let sorted = {};
         let keys = Object.keys(data).sort();
         keys.forEach((key) => {
