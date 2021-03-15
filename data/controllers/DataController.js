@@ -63,7 +63,6 @@ const updateExported = (res) => {
 const formatDbData = (data) => {
     let result = {};
     let keys = Object.keys(data).sort();
-    console.log('key', keys);
     keys.forEach((key) => {
         let items = [];
         Object.keys(data[key])
