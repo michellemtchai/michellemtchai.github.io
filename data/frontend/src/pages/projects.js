@@ -7,28 +7,33 @@ import Project from '../components/project';
 class Projects extends React.Component {
     edit = React.createRef();
 
-    editProject = (project)=>{
-        goToPage(`/projects/${project._id}/edit`);
-    }
-    deleteProject = (project)=>{
+    editProject = (project) => {
+        goToPage(this.props, `/projects/${project._id}/edit`);
+    };
+    deleteProject = (project) => {
         api.removeProjectById(this.props, project._id);
-    }
-	render() {
+    };
+    render() {
         let projects = this.props.state.data.projects;
-		return (projects ?
-			<div>
-                <LongButton text='+ Project'
-                    click={()=>goToPage('/projects/new')}/>
-                {Object.keys(projects).map((key, i)=>
-                    <Project {...projects[key]}
-                        key={'project'+i}
-                        edit={()=>this.editProject(projects[key])}
-                        delete={()=>this.deleteProject(projects[key])} />
-                )}
-			</div> :
+        return projects ? (
+            <div>
+                <LongButton
+                    text="+ Project"
+                    click={() => goToPage(this.props, '/projects/new')}
+                />
+                {Object.keys(projects).map((key, i) => (
+                    <Project
+                        {...projects[key]}
+                        key={'project' + i}
+                        edit={() => this.editProject(projects[key])}
+                        delete={() => this.deleteProject(projects[key])}
+                    />
+                ))}
+            </div>
+        ) : (
             ''
         );
-  	}
+    }
 }
 
 export default Projects;
