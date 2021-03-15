@@ -2,19 +2,9 @@
     border: 1px solid #ccc !important;
     box-shadow: none !important;
 }
-.form-group img{
-    width: 150px;
-    height: 150px;
-    border: 2px solid #333;
-    background: #aaa;
-    color: #fff;
-    text-align: center;
-    line-height: 130px;
-    float: left;
-}
 .form-group table {
     width: 100%;
-    border: rgba(255,255,255,0) 1px solid;
+    border: rgba(255, 255, 255, 0) 1px solid;
 }
 .form-group table td:first-child {
     width: 150px;

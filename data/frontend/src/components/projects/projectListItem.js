@@ -18,7 +18,12 @@ class ProjectListItem extends React.Component {
         let demo = project.demo_url ? <span>Demo</span> : '';
         return (
             <li onClick={this.editProject} title={title}>
-                <Image src={project.image_url} alt={alt} />
+                <Image
+                    src={project.image_url}
+                    alt={alt}
+                    width={200}
+                    height={150}
+                />
                 <article>
                     <h2>
                         {project.name} {demo}
