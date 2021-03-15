@@ -1,6 +1,6 @@
 FROM node:14-alpine
 
-RUN yarn global add gh-pages react-scripts supervisor
+RUN yarn global add gh-pages react-scripts nodemon
 
 WORKDIR /app
 

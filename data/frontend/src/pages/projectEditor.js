@@ -8,13 +8,21 @@ import Form from '../components/form/form';
 import ActionButtons from '../components/form/actionButtons';
 
 class ProjectEditor extends React.Component {
-    schema = schema(this.props);
+    schema = this.props.state.data.form
+        ? this.props.state.data.form
+        : schema(this.props);
     form = React.createRef();
     updateProject = () => {
         let id = this.props.match.params.project;
         let data = formData(this.form);
+        this.props.setData({
+            form: data,
+        });
         api.updateProject(this.props, id, data, (err) => {
             if (!err) {
+                this.props.setData({
+                    form: {},
+                });
                 goToPage('/');
             }
         });

@@ -1,6 +1,6 @@
 const ObjectId = require('mongodb').ObjectID;
 
-module.exports = (app) =>{
+module.exports = (app) => {
     return app.shared.createModel('Category', {
         name: {
             type: String,
@@ -9,11 +9,13 @@ module.exports = (app) =>{
         },
         description: {
             type: String,
-            required: true
+            required: true,
         },
-        projects: [{
-            type : ObjectId,
-            ref: 'Technology'
-        }],
-    })
+        projects: [
+            {
+                type: ObjectId,
+                ref: 'Project',
+            },
+        ],
+    });
 };

@@ -19,32 +19,37 @@ module.exports = class ProjectsController extends Controller {
     index = (req, res) => {
         this.Project.renderAll(res, {
             select: {
-                __v: 0
-            }
+                __v: 0,
+            },
         });
-    }
+    };
 
     create = (req, res) => {
-        let createProject = ()=>{
+        let createProject = () => {
             this.Project.createOne(
-                res, i=>res.json(i), this.createPermitted(req)
+                res,
+                (i) => res.json(i),
+                this.createPermitted(req)
             );
         };
         this.requiredParams(req.body, res, this.createRequired, createProject);
-    }
+    };
 
     update = (req, res) => {
-        let next = i=>res.json(i);
-        let updateProject = ()=>{
+        let next = (i) => res.json(i);
+        let updateProject = () => {
+            console.log('required passed');
             this.Project.update(
-                res, next, req.params.id,
+                res,
+                next,
+                req.params.id,
                 this.updateModel(req.body, this.updatePermitted)
             );
         };
         this.requiredParams(req.body, res, this.updateRequired, updateProject);
-    }
+    };
 
     destroy = (req, res) => {
-        this.Project.removeById(res, i=>res.json(i), req.params.id);
-    }
+        this.Project.removeById(res, (i) => res.json(i), req.params.id);
+    };
 };

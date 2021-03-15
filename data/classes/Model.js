@@ -4,154 +4,159 @@ const common = require('../helpers/common');
 const db = require('../helpers/db');
 
 module.exports = class Model {
-    constructor(name, schema){
-        this.model = mongoose.model(name,
+    constructor(name, schema) {
+        this.model = mongoose.model(
+            name,
             new mongoose.Schema({
                 ...schema,
                 created: {
                     type: Date,
-                    default: Date.now
+                    default: Date.now,
                 },
                 updated: {
                     type: Date,
-                    default: Date.now
-                }
+                    default: Date.now,
+                },
             })
         );
     }
 
-    find = (res, next, {
-        query = [], sort = null, limit = null, select = null
-    }= {})=>{
-
+    find = (
+        res,
+        next,
+        { query = [], sort = null, limit = null, select = null } = {}
+    ) => {
         let model = this.model.find(...query);
-        if(sort){
+        if (sort) {
             model = model.sort(sort);
         }
-        if(limit){
+        if (limit) {
             model = model.limit(limit);
         }
-        if(select){
+        if (select) {
             model = model.select(select);
         }
         handleDbAction(res, next, model, 'exec');
-    }
+    };
 
-    findById = (res, next, id, select=null) =>{
+    findById = (res, next, id, select = null) => {
         let [err, params] = idParam(res, id);
-        let nextAction = data=>next(data[0]);
-        if(!err){
+        let nextAction = (data) => next(data[0]);
+        if (!err) {
             this.find(res, nextAction, {
                 select: select,
-                query: [params]
+                query: [params],
             });
-        }
-        else{
+        } else {
             next(null);
         }
-    }
+    };
 
-    createOne = (res, next, params)=>{
+    createOne = (res, next, params) => {
         let model = new this.model(params);
         handleDbAction(res, next, model, 'save');
-    }
+    };
 
-    createMany = (res, next, entries)=>{
+    createMany = (res, next, entries) => {
         handleDbAction(res, next, this.model, 'create', [entries]);
-    }
+    };
 
-    update = (res, next, id, change)=>{
-        let changeAction = (data)=>{
+    update = (res, next, id, change) => {
+        let changeAction = (data) => {
             data = change(data);
             data.updated = new Date();
             return data;
         };
-        let handleData = (data)=>{
-            if(data){
-                handleDbAction(res, next,
-                    changeAction(data), 'save');
-            } else{
+        let handleData = (data) => {
+            if (data) {
+                handleDbAction(res, next, changeAction(data), 'save');
+            } else {
                 invalidId(res, id);
             }
-        }
+        };
         this.findById(res, handleData, id);
-    }
+    };
 
-    remove = (res, next, params)=>{
-        let handleData = (data)=>{
-            handleDbAction(res, i=>next(data), this.model,
-                'deleteMany', params);
-        }
+    remove = (res, next, params) => {
+        let handleData = (data) => {
+            handleDbAction(
+                res,
+                (i) => next(data),
+                this.model,
+                'deleteMany',
+                params
+            );
+        };
         this.find(res, handleData, {
-            query: params
-        })
-    }
+            query: params,
+        });
+    };
 
-    removeById = (res, next, id)=>{
-        let handleData = (data)=>{
-            if(data){
+    removeById = (res, next, id) => {
+        let handleData = (data) => {
+            if (data) {
                 handleDbAction(res, next, data, 'remove');
-            } else{
+            } else {
                 invalidId(res, id);
             }
-        }
+        };
         this.findById(res, handleData, id);
-    }
+    };
 
-    renderAll = (res, options = {})=>{
-        this.find(res, i=>res.json(i), options);
-    }
+    renderAll = (res, options = {}) => {
+        this.find(res, (i) => res.json(i), options);
+    };
 
-    renderOneWithId = (res, id, select = null)=>{
-        let handleData = (data)=>{
-            if(data){
+    renderOneWithId = (res, id, select = null) => {
+        let handleData = (data) => {
+            if (data) {
                 res.json(data);
             } else {
                 invalidId(res, id);
             }
-        }
+        };
         this.findById(res, handleData, id, select);
-    }
-
+    };
 };
 
 // private functions
-const handleDbAction = (res, next, model, fnName, params = [])=>{
+const handleDbAction = (res, next, model, fnName, params = []) => {
     let t = timeOut(res);
     try {
-        model[fnName](...params, (err, data)=>{
+        model[fnName](...params, (err, data) => {
             clearTimeout(t);
-            if(!err){
+            if (!err) {
                 next(data);
-            }
-            else{
+            } else {
                 common.renderError(res, err.message);
             }
-        })
-    } catch (err){
+        });
+    } catch (err) {
         clearTimeout(t);
         common.renderError(res, err.message);
     }
-}
+};
 
-const timeOut = (res)=>{
+const timeOut = (res) => {
     let timeout = 10000;
-    return setTimeout(()=>{
+    return setTimeout(() => {
         common.renderError(res, 'Database Timeout');
     }, timeout);
-}
+};
 
-const idParam = (res, id)=>{
-    try{
-        return [false, {
-            _id: ObjectId(id)
-        }];
-    }
-    catch(err){
+const idParam = (res, id) => {
+    try {
+        return [
+            false,
+            {
+                _id: ObjectId(id),
+            },
+        ];
+    } catch (err) {
         return [true, {}];
     }
-}
+};
 
-const invalidId = (res, id)=>{
+const invalidId = (res, id) => {
     common.renderError(res, `'${id}' is not a valid id.`);
-}
+};

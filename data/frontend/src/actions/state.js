@@ -6,39 +6,39 @@ export const END_FETCHING = 'END_FETCHING';
 const setData = (data) => {
     return {
         type: SET_DATA,
-        data: data
+        data: data,
     };
-}
+};
 const setError = (data) => {
     return {
         type: SET_ERROR,
-        data: data
-    }
-}
+        data: data,
+    };
+};
 const startFetching = () => {
     return {
         type: START_FETCHING,
-    }
-}
+    };
+};
 const endFetching = () => {
     return {
         type: END_FETCHING,
-    }
-}
+    };
+};
 
 export const map = (dispatch) => {
-  return {
-    setData: (data)=>{
-        dispatch(setData(data));
-    },
-    setError: (data)=>{
-        dispatch(setError(data));
-    },
-    startFetching: ()=>{
-        dispatch(startFetching());
-    },
-    endFetching: ()=>{
-        dispatch(endFetching());
-    },
-  };
+    return {
+        setData: (data) => {
+            dispatch(setData(data));
+        },
+        setError: (data) => {
+            dispatch(setError(data));
+        },
+        startFetching: () => {
+            dispatch(startFetching());
+        },
+        endFetching: () => {
+            dispatch(endFetching());
+        },
+    };
 };

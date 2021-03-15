@@ -10,16 +10,25 @@ class ProjectCreator extends React.Component {
     form = React.createRef();
     createProject = () => {
         let data = formData(this.form);
+        this.props.setData({
+            form: data,
+        });
         api.createProject(this.props, data, (err) => {
             if (!err) {
+                this.props.setData({
+                    form: {},
+                });
                 goToPage('/');
             }
         });
     };
     render() {
+        let schema = this.props.state.data.form
+            ? { ...projectSchema, data: this.props.state.data.form }
+            : projectSchema;
         return (
             <div>
-                <Form ref={this.form} {...projectSchema} />
+                <Form ref={this.form} {...schema} />
                 <ActionButtons
                     text="Create New Project"
                     cancel={() => goToPage('/')}

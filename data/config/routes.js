@@ -1,18 +1,19 @@
 // central location to define routes
-module.exports = (app) =>{
+module.exports = (app) => {
     let {
         ApplicationController,
         ProjectsController,
         TagsController,
         CategoriesController,
         TechnologiesController,
+        DataController,
     } = app.shared.controllers;
 
     /**
-    *
-    * You can start defining your routes below.
-    *
-    */
+     *
+     * You can start defining your routes below.
+     *
+     */
     app.router.get('/', ApplicationController.index);
 
     app.router.get('/projects', ProjectsController.index);
@@ -34,6 +35,7 @@ module.exports = (app) =>{
     app.router.put('/technologies/:id', TechnologiesController.update);
     app.router.delete('/technologies/:id', TechnologiesController.destroy);
 
+    app.router.put('/update-data', DataController.update);
 
     //The 404 Route (ALWAYS Keep this as the last route)
     app.router.get('*', ApplicationController.index);
