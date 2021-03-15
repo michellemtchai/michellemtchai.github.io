@@ -3,6 +3,7 @@ import { api } from '../config/api';
 import { goToPage } from '../shared/router';
 import LongButton from '../components/form/longButton';
 import ProjectList from '../components/projects/projectList';
+import NotFound from './notFound';
 
 class Projects extends React.Component {
     state = {
@@ -25,9 +26,15 @@ class Projects extends React.Component {
         });
         return [keys.length, pages];
     };
+    validPage = (pages) => {
+        let page = this.state.page;
+        return (
+            Number.isInteger(page) && page >= 0 && page < pages.length
+        );
+    };
     render() {
         let [total, pages] = this.projectPages();
-        return (
+        return this.validPage(pages) ? (
             <div>
                 <LongButton
                     text="+ Project"
@@ -42,6 +49,8 @@ class Projects extends React.Component {
                     page={this.state.page}
                 />
             </div>
+        ) : (
+            <NotFound {...this.props} />
         );
     }
 }

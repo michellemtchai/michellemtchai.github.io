@@ -7,8 +7,7 @@ class ProjectList extends React.Component {
     render() {
         let page = this.props.page;
         let pages = this.props.pages;
-        let projects =
-            page >= 0 && page < pages.length ? pages[page] : [];
+        let projects = pages[page];
         let pagination = (
             <PageButtons
                 index={page + 1}

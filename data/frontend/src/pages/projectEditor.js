@@ -6,6 +6,7 @@ import { goToPage, urlParams } from '../shared/router';
 import { formData, clone } from '../shared/form';
 import Form from '../components/form/form';
 import ActionButtons from '../components/form/actionButtons';
+import NotFound from './notFound';
 
 class ProjectEditor extends React.Component {
     schema = this.props.state.data.form
@@ -34,7 +35,7 @@ class ProjectEditor extends React.Component {
                 />
             </div>
         ) : (
-            <p>No Project with id '{this.schema.id}'.</p>
+            <NotFound {...this.props} />
         );
     }
 }
