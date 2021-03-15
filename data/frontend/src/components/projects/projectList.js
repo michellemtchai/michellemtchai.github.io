@@ -1,23 +1,39 @@
 import './index.css';
 import React from 'react';
 import ProjectListItem from './projectListItem';
+import PageButtons from './pageButtons';
 
 class ProjectList extends React.Component {
     render() {
-        let projects = this.props.state.data.projects;
-        let keys = Object.keys(projects);
+        let page = this.props.page;
+        let pages = this.props.pages;
+        let projects =
+            page >= 0 && page < pages.length ? pages[page] : [];
+        let pagination = (
+            <PageButtons
+                index={page + 1}
+                pages={pages.length}
+                baseUrl="/projects/page/"
+                {...this.props}
+            />
+        );
         return (
             <ul className="projects">
                 <li>
-                    <b>Total:</b> {keys.length} items
+                    <p>
+                        Showing {projects.length} of{' '}
+                        {this.props.total} items
+                    </p>
+                    {pagination}
                 </li>
-                {keys.map((key, i) => (
+                {projects.map((project, i) => (
                     <ProjectListItem
                         key={'project-' + i}
                         {...this.props}
-                        project={projects[key]}
+                        project={project}
                     />
                 ))}
+                <li>{pagination}</li>
             </ul>
         );
     }

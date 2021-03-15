@@ -13,7 +13,12 @@ export const routes = {
         children: [
             '/projects/new',
             '/projects/:project/edit',
-        ]
+            '/projects/page/:page',
+        ],
+    },
+    '/projects/page/:page': {
+        component: Projects,
+        title: 'Projects',
     },
     '/projects/:project/edit': {
         component: ProjectEditor,
@@ -26,5 +31,5 @@ export const routes = {
     '': {
         component: NotFound,
         title: 'Page Not Found',
-    }
-}
+    },
+};

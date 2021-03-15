@@ -5,7 +5,9 @@ import { goToPage } from '../../shared/router';
 class NavBar extends React.Component {
     currentPage = (link) => {
         let route = this.props.route;
-        let children = routes[link].children ? routes[link].children : [];
+        let children = routes[link].children
+            ? routes[link].children
+            : [];
         let current = link == route || children.includes(route);
         return current ? 'curr-page' : '';
     };
@@ -21,7 +23,9 @@ class NavBar extends React.Component {
                         <li key={'link-' + i}>
                             <a
                                 href={link}
-                                onClick={(e) => this.clickLink(e, link)}
+                                onClick={(e) =>
+                                    this.clickLink(e, link)
+                                }
                                 className={this.currentPage(link)}
                             >
                                 {routes[link].title}
