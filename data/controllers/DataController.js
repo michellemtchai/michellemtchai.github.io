@@ -61,7 +61,7 @@ const updateExported = (res) => {
 };
 
 const formatJsonData = (data) => {
-    return JSON.stringify(sortObject(data));
+    return JSON.stringify(sortObject(data)) + '\n';
 };
 
 const sortObject = (data) => {
