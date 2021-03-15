@@ -6,7 +6,7 @@ class ProjectList extends React.Component {
     render() {
         let projects = this.props.state.data.projects;
         return (
-            <ul class="projects">
+            <ul className="projects">
                 {Object.keys(projects).map((key, i) => (
                     <ProjectListItem
                         key={'project-' + i}

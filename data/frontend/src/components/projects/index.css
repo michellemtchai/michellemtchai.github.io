@@ -14,6 +14,10 @@
 .projects li:hover {
     background: #eee;
 }
+.projects li:hover article h2 > span {
+    background: #ddd;
+    border: 2px solid #fff;
+}
 .projects li article {
     float: right;
     width: calc(100% - 220px);
@@ -25,6 +29,16 @@
     margin: 0;
     font-size: 22px;
     font-weight: bold;
+}
+.projects li article h2 > span {
+    font-size: 12px;
+    background: #eee;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    margin: 0 5px;
+    padding: 5px;
+    line-height: 22px;
+    vertical-align: top;
 }
 .projects li > .image {
     cursor: pointer;

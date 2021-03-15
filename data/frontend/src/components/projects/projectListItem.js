@@ -14,11 +14,16 @@ class ProjectListItem extends React.Component {
     render() {
         let project = this.props.project;
         let alt = `Preview of ${project.name}`;
+        let title = `See details about ${project.name}`;
+        let demo = project.demo_url ? <span>Demo</span> : '';
         return (
-            <li onClick={this.editProject}>
+            <li onClick={this.editProject} title={title}>
                 <Image src={project.image_url} alt={alt} />
                 <article>
-                    <h2>{project.name}</h2>
+                    <h2>
+                        {project.name}
+                        {demo}
+                    </h2>
                     <p>{project.summary}</p>
                 </article>
             </li>
