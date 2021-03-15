@@ -1,3 +1,4 @@
+import './index.css';
 import React from 'react';
 import ProjectListItem from './projectListItem';
 
@@ -5,7 +6,7 @@ class ProjectList extends React.Component {
     render() {
         let projects = this.props.state.data.projects;
         return (
-            <ul>
+            <ul class="projects">
                 {Object.keys(projects).map((key, i) => (
                     <ProjectListItem
                         key={'project-' + i}

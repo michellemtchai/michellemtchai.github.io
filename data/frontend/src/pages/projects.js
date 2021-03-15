@@ -2,7 +2,7 @@ import React from 'react';
 import { api } from '../config/api';
 import { goToPage } from '../shared/router';
 import LongButton from '../components/form/longButton';
-import ProjectList from '../components/projectList';
+import ProjectList from '../components/projects/projectList';
 
 class Projects extends React.Component {
     render() {

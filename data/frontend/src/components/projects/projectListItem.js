@@ -1,6 +1,6 @@
 import React from 'react';
-import Image from './image/image';
-import { goToPage } from '../shared/router';
+import Image from '../image/image';
+import { goToPage } from '../../shared/router';
 
 class ProjectListItem extends React.Component {
     editProject = () => {
@@ -13,12 +13,14 @@ class ProjectListItem extends React.Component {
     };
     render() {
         let project = this.props.project;
-        let alt = `Icon for project -- ${project.name}`;
+        let alt = `Preview of ${project.name}`;
         return (
             <li onClick={this.editProject}>
                 <Image src={project.image_url} alt={alt} />
-                <h2>{project.name}</h2>
-                <p>{project.summary}</p>
+                <article>
+                    <h2>{project.name}</h2>
+                    <p>{project.summary}</p>
+                </article>
             </li>
         );
     }
