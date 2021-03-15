@@ -6,6 +6,10 @@
     list-style: none;
     cursor: pointer;
     padding: 20px;
+    border-bottom: 1px solid #eee;
+}
+.projects li:first-child {
+    border-top: 1px solid #eee;
 }
 .projects li:hover {
     background: #eee;
