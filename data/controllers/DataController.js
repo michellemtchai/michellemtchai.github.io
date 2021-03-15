@@ -101,7 +101,6 @@ const chainInsert = (res, models, data) => {
         let model = models[data[0].model];
         let copy = [...data];
         copy.shift();
-        console.log('data', data[0].data);
         if (data[0].data.length > 0) {
             model.createMany(
                 res,

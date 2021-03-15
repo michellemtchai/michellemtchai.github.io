@@ -20,6 +20,8 @@ module.exports = class ProjectsController extends Controller {
         this.Project.renderAll(res, {
             select: {
                 __v: 0,
+                created: 0,
+                updated: 0,
             },
         });
     };
