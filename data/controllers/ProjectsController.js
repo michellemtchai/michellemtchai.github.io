@@ -40,7 +40,6 @@ module.exports = class ProjectsController extends Controller {
     update = (req, res) => {
         let next = (i) => res.json(i);
         let updateProject = () => {
-            console.log('required passed');
             this.Project.update(
                 res,
                 next,
