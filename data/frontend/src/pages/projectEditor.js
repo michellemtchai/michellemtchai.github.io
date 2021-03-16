@@ -10,7 +10,7 @@ import NotFound from './notFound';
 
 class ProjectEditor extends React.Component {
     schema = this.props.state.data.form
-        ? this.props.state.data.form
+        ? schemaForm(this.props)
         : schema(this.props);
     form = React.createRef();
     updateProject = () => {
@@ -26,6 +26,7 @@ class ProjectEditor extends React.Component {
         });
     };
     render() {
+        console.log(this.schema);
         return this.schema.data ? (
             <div>
                 <Form ref={this.form} {...this.schema} />
@@ -48,6 +49,17 @@ const schema = (props) => {
         ...clone(projectSchema),
         id: id,
         data: props.state.data.projects[id],
+    };
+    schema.properties.name.readonly = true;
+    return schema;
+};
+
+const schemaForm = (props) => {
+    let id = props.match.params.project;
+    let schema = {
+        ...clone(projectSchema),
+        id: id,
+        data: props.state.data.form,
     };
     schema.properties.name.readonly = true;
     return schema;
