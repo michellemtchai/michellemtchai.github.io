@@ -5,7 +5,7 @@ import { goToPage } from '../../shared/router';
 class ProjectListItem extends React.Component {
     editProject = () => {
         let project = this.props.project;
-        goToPage(this.props, `/projects/${project._id}/edit`);
+        goToPage(`/projects/${project._id}/edit`);
     };
     deleteProject = () => {
         let project = this.props.project;
@@ -18,12 +18,7 @@ class ProjectListItem extends React.Component {
         let demo = project.demo_url ? <span>Demo</span> : '';
         return (
             <li onClick={this.editProject} title={title}>
-                <Image
-                    src={project.image_url}
-                    alt={alt}
-                    width={200}
-                    height={150}
-                />
+                <Image src={project.image_url} alt={alt} />
                 <article>
                     <h2>
                         {project.name} {demo}

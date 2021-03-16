@@ -15,7 +15,7 @@ class ProjectCreator extends React.Component {
         });
         api.createProject(this.props, data, (err) => {
             if (!err) {
-                goToPage(this.props, '/');
+                goToPage('/', this.props);
             }
         });
     };
@@ -28,7 +28,7 @@ class ProjectCreator extends React.Component {
                 <Form ref={this.form} {...schema} />
                 <ActionButtons
                     text="Create New Project"
-                    cancel={() => goToPage(this.props, '/')}
+                    cancel={() => goToPage('/', this.props)}
                     save={this.createProject}
                 />
             </div>

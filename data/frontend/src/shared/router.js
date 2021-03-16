@@ -3,9 +3,11 @@ import { matchPath } from 'react-router';
 
 export const history = createBrowserHistory({ basename: '/' });
 
-export const goToPage = (props, link) => {
-    props.setData({
-        form: null,
-    });
+export const goToPage = (link, props = null) => {
+    if (props) {
+        props.setData({
+            form: null,
+        });
+    }
     history.push(link);
 };

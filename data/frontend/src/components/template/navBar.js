@@ -13,7 +13,7 @@ class NavBar extends React.Component {
     };
     clickLink = (event, link) => {
         event.preventDefault();
-        goToPage(this.props, link);
+        goToPage(link, this.props);
     };
     render() {
         return (

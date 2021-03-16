@@ -38,9 +38,7 @@ class Projects extends React.Component {
             <div>
                 <LongButton
                     text="+ Project"
-                    click={() =>
-                        goToPage(this.props, '/projects/new')
-                    }
+                    click={() => goToPage('/projects/new')}
                 />
                 <ProjectList
                     {...this.props}

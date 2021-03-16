@@ -139,8 +139,6 @@ class ImageField extends React.Component {
                                 <Image
                                     src={this.state.value}
                                     alt="Image Preview"
-                                    width={200}
-                                    height={150}
                                 />
                             </td>
                             <ColumnTwo />

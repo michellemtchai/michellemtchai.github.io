@@ -5,12 +5,12 @@ import { goToPage } from '../../shared/router';
 class PageButtons extends React.Component {
     prevPage = () => {
         let page = this.props.index - 1;
-        goToPage(this.props, this.props.baseUrl + page);
+        goToPage(this.props.baseUrl + page);
         window.scrollTo(0, 0);
     };
     nextPage = () => {
         let page = this.props.index + 1;
-        goToPage(this.props, this.props.baseUrl + page);
+        goToPage(this.props.baseUrl + page);
         window.scrollTo(0, 0);
     };
     render() {

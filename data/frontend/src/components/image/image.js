@@ -14,10 +14,8 @@ class Image extends React.Component {
         }
     };
     style = {
-        width: this.props.width ? `${this.props.width}px` : '200px',
-        height: this.props.height
-            ? `${this.props.height}px`
-            : '145px',
+        width: this.props.width ? this.props.width : '200px',
+        height: this.props.height ? this.props.height : '150px',
     };
     componentDidUpdate(prevProps) {
         if (prevProps.src !== this.props.src) {

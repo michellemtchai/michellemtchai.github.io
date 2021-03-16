@@ -21,7 +21,7 @@ class ProjectEditor extends React.Component {
         });
         api.updateProject(this.props, id, data, (err) => {
             if (!err) {
-                goToPage(this.props, '/');
+                goToPage('/', this.props);
             }
         });
     };
@@ -30,7 +30,7 @@ class ProjectEditor extends React.Component {
             <div>
                 <Form ref={this.form} {...this.schema} />
                 <ActionButtons
-                    cancel={() => goToPage(this.props, '/')}
+                    cancel={() => goToPage('/', this.props)}
                     save={this.updateProject}
                 />
             </div>
