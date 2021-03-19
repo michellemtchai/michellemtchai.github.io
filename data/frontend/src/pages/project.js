@@ -5,7 +5,7 @@ import Image from '../components/image/image';
 import ProjectInfo from '../components/project/projectInfo';
 import Tabs from '../components/project/tabs';
 import Gallery from '../components/project/gallery';
-import Markdown from '../components/markdown';
+import Markdown from '../components/project/markdown';
 import NotFound from './notFound';
 
 class Project extends React.Component {
@@ -29,7 +29,14 @@ export default Project;
 const tabData = (project) => [
     {
         name: 'Description',
-        component: <Markdown text={project.description} />,
+        component: (
+            <Markdown
+                text={project.description}
+                style={{
+                    padding: '20px',
+                }}
+            />
+        ),
     },
     {
         name: 'Gallery',
