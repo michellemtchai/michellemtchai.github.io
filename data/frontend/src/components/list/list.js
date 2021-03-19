@@ -36,7 +36,13 @@ class List extends React.Component {
                         }}
                     />
                 ))}
-                <li>{pagination}</li>
+                <li>
+                    {items.length > 0 ? (
+                        pagination
+                    ) : (
+                        <p>There's no {this.props.keyName}.</p>
+                    )}
+                </li>
             </ul>
         );
     }
