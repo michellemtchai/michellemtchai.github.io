@@ -16,7 +16,7 @@ class Markdown extends React.Component {
                 dangerouslySetInnerHTML={{
                     __html: this.parsedText(),
                 }}
-                style={this.props.style}
+                style={{ cursor: 'default', ...this.props.style }}
             ></section>
         );
     }
