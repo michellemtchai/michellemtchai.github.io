@@ -15,11 +15,12 @@ module.exports = class DataController extends Controller {
                         reload: false,
                     });
                 };
-                writeToFile(file, formatJsonData(req.body), res, () => {
-                    this.Data.update(res, next, data[0]._id, updateExported);
-                });
+                readFile(file, res, (json) =>
+                    writeJson(res, next, data, json)
+                );
             } else {
-                let readData = (data) => readFile(file, res, updateDb);
+                let readData = (data) =>
+                    readFile(file, res, updateDb);
                 let updateDb = (data) => {
                     chainInsert(
                         res,
@@ -55,13 +56,18 @@ const readFile = (file, res, next) => {
     });
 };
 
-const updateExported = (res) => {
-    res.exported = new Date();
+const updateExported = (res, exported) => {
+    res.exported = exported;
     return res;
 };
 
-const formatJsonData = (data) => {
-    return JSON.stringify(sortObject(data)) + '\n';
+const formatJsonData = (json, exported) => {
+    return (
+        JSON.stringify({
+            exported: exported,
+            data: sortObject(json),
+        }) + '\n'
+    );
 };
 
 const sortObject = (data) => {
@@ -131,5 +137,29 @@ const chainInsert = (res, models, data) => {
         res.status(200).json({
             reload: true,
         });
+    }
+};
+const writeJson = (res, next, data, json) => {
+    console.log(data[0].exported.toISOString() !== json.exported);
+    if (data[0].exported.toISOString() !== json.exported) {
+        console.log('exported');
+        let exported = new Date();
+        let updateExport = (res) => updateExported(res, exported);
+        writeToFile(
+            file,
+            formatJsonData(req.body, exported),
+            res,
+            () => {
+                this.Data.update(
+                    res,
+                    next,
+                    data[0]._id,
+                    updateExport
+                );
+            }
+        );
+    } else {
+        console.log('not exported');
+        next(null);
     }
 };
