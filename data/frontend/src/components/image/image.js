@@ -52,8 +52,7 @@ const background = (props, error) => {
     if (error) {
         return '#ccc';
     } else {
-        return;
-        props.src === 'null' ? '#ccc' : 'none';
+        return props.src === 'null' ? '#ccc' : 'none';
     }
 };
 

@@ -11,7 +11,7 @@ class ImageField extends React.Component {
     input = React.createRef();
     state = {
         value: this.props.value ? this.props.value : '',
-        tempValue: null,
+        tempValue: '',
         mode: null,
     };
     updateURL = () => {
@@ -27,10 +27,10 @@ class ImageField extends React.Component {
             {
                 ...this.state,
                 value: temp,
-                tempValue: null,
+                tempValue: '',
             },
             () => {
-                this.changeMode('');
+                this.changeMode(null);
                 this.props.update(this.state.value);
             }
         );
@@ -39,9 +39,9 @@ class ImageField extends React.Component {
         this.setState(
             {
                 ...this.state,
-                tempValue: null,
+                tempValue: '',
             },
-            () => this.changeMode('')
+            () => this.changeMode(null)
         );
     };
     changeMode = (mode) => {
@@ -129,6 +129,10 @@ class ImageField extends React.Component {
     };
     render() {
         let ColumnTwo = this.columnTwo;
+        let value =
+            this.state.mode === null
+                ? this.state.value
+                : this.state.tempValue;
         return (
             <fieldset className="form-group">
                 <label>{this.props.label}:</label>
@@ -137,7 +141,7 @@ class ImageField extends React.Component {
                         <tr>
                             <td>
                                 <Image
-                                    src={this.state.value}
+                                    src={value}
                                     alt="Image Preview"
                                 />
                             </td>
