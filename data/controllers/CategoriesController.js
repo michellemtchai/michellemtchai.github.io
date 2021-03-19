@@ -8,7 +8,8 @@ module.exports = class CategoriesController extends Controller {
         'icon_class',
         'description',
     ];
-    updatePermitted = [...this.createRequired, 'projects'];
+    updateable = [...this.createRequired, 'projects'];
+    containsObjectId = ['projects'];
 
     index = (req, res) => {
         this.Category.renderAll(res, {
@@ -22,10 +23,11 @@ module.exports = class CategoriesController extends Controller {
 
     create = (req, res) => {
         let createCategory = () => {
-            this.Category.createOne(
+            this.createModel(
+                req.body,
                 res,
                 (i) => res.json(i),
-                this.createPermitted(req, this.Category)
+                this.Category
             );
         };
         this.requiredParams(
@@ -39,11 +41,12 @@ module.exports = class CategoriesController extends Controller {
     update = (req, res) => {
         let next = (i) => res.json(i);
         let updateCategory = () => {
-            this.Category.update(
+            this.updateModel(
+                req.params.id,
+                req.body,
                 res,
                 next,
-                req.params.id,
-                this.updateModel(req.body, this.updatePermitted)
+                this.Category
             );
         };
         this.requiredParams(

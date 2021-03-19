@@ -16,10 +16,11 @@ module.exports = class TagsController extends Controller {
 
     create = (req, res) => {
         let createTag = () => {
-            this.Tag.createOne(
+            this.createModel(
+                req.body,
                 res,
                 (i) => res.json(i),
-                this.createPermitted(req, this.Tag)
+                this.Tag
             );
         };
         this.requiredParams(

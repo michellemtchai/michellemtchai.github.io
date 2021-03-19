@@ -3,7 +3,7 @@ const Controller = require('../classes/Controller');
 module.exports = class TechnologiesController extends Controller {
     Technology = this.models['Technology'];
     createRequired = ['name', 'source_url', 'icon_url'];
-    updatePermitted = ['source_url', 'icon_url'];
+    updateable = ['source_url', 'icon_url'];
 
     index = (req, res) => {
         this.Technology.renderAll(res, {
@@ -17,10 +17,11 @@ module.exports = class TechnologiesController extends Controller {
 
     create = (req, res) => {
         let createTechnology = () => {
-            this.Technology.createOne(
+            this.createModel(
+                req.body,
                 res,
                 (i) => res.json(i),
-                this.createPermitted(req, this.Technology)
+                this.Technology
             );
         };
         this.requiredParams(
@@ -34,11 +35,12 @@ module.exports = class TechnologiesController extends Controller {
     update = (req, res) => {
         let next = (i) => res.json(i);
         let updateTechnology = () => {
-            this.Technology.update(
+            this.updateModel(
+                req.params.id,
+                req.body,
                 res,
                 next,
-                req.params.id,
-                this.updateModel(req.body, this.updatePermitted)
+                this.Technology
             );
         };
         this.requiredParams(

@@ -3,7 +3,7 @@ const Controller = require('../classes/Controller');
 module.exports = class ProjectsController extends Controller {
     Project = this.models['Project'];
     createRequired = ['name', 'summary', 'description', 'source_url'];
-    updatePermitted = [
+    updateable = [
         ...this.createRequired,
         'image_url',
         'demo_url',
@@ -23,10 +23,11 @@ module.exports = class ProjectsController extends Controller {
 
     create = (req, res) => {
         let createProject = () => {
-            this.Project.createOne(
+            this.createModel(
+                req.body,
                 res,
                 (i) => res.json(i),
-                this.createPermitted(req, this.Project)
+                this.Project
             );
         };
         this.requiredParams(
@@ -40,11 +41,12 @@ module.exports = class ProjectsController extends Controller {
     update = (req, res) => {
         let next = (i) => res.json(i);
         let updateProject = () => {
-            this.Project.update(
+            this.updateModel(
+                req.params.id,
+                req.body,
                 res,
                 next,
-                req.params.id,
-                this.updateModel(req.body, this.updatePermitted)
+                this.Project
             );
         };
         this.requiredParams(
