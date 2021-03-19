@@ -10,7 +10,6 @@ class List extends React.Component {
         let className = this.props.clickable
             ? 'items clickable'
             : 'items';
-        console.log('pages', pages.length);
         let pagination = (
             <PageButtons
                 {...this.props}
