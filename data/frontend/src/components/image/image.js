@@ -1,22 +1,29 @@
-import './index.css';
 import React from 'react';
 import noImageSvg from './no-image.svg';
+import brokenSvg from './broken-image.svg';
 
 class Image extends React.Component {
     state = {
         errored: false,
+        style: style(this.props, false),
+        alt: this.props.alt,
     };
     onError = () => {
-        if (!this.state.errored) {
-            this.setState({
-                errored: true,
-            });
-        }
+        this.setState({
+            errored: true,
+            style: style(this.props, true),
+            alt: 'Broken Image - ' + this.props.alt,
+        });
     };
-    style = {
-        width: this.props.width ? this.props.width : '200px',
-        height: this.props.height ? this.props.height : '150px',
-        background: this.props.src === 'null' ? '#ccc' : 'none',
+
+    src = () => {
+        if (this.state.errored) {
+            return brokenSvg;
+        } else {
+            return this.props.src === 'null'
+                ? noImageSvg
+                : this.props.src;
+        }
     };
     componentDidUpdate(prevProps) {
         if (prevProps.src !== this.props.src) {
@@ -26,24 +33,34 @@ class Image extends React.Component {
         }
     }
     render() {
-        let src =
-            this.props.src === 'null' ? noImageSvg : this.props.src;
-        return !this.state.errored ? (
+        return (
             <img
                 className="image"
-                src={src}
+                src={this.src()}
                 onError={this.onError}
-                alt={this.props.alt}
-                title={this.props.alt}
-                style={this.style}
+                alt={this.state.alt}
+                title={this.state.alt}
+                style={this.state.style}
             />
-        ) : (
-            <article className="image" style={this.style}>
-                <h3>Broken Image</h3>
-                <p>{this.props.alt}</p>
-            </article>
         );
     }
 }
 
 export default Image;
+
+const background = (props, error) => {
+    if (error) {
+        return '#ccc';
+    } else {
+        return;
+        props.src === 'null' ? '#ccc' : 'none';
+    }
+};
+
+const style = (props, error) => {
+    return {
+        width: props.width ? props.width : '200px',
+        height: props.height ? props.height : '150px',
+        background: background(props, error),
+    };
+};
