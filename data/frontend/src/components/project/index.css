@@ -86,3 +86,7 @@
     background: #fff;
     border-bottom: 2px solid #fff;
 }
+.gallery p {
+    padding: 20px;
+    text-align: center;
+}

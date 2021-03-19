@@ -39,7 +39,7 @@ const tabData = (project) => [
         ),
     },
     {
-        name: 'Gallery',
+        name: `Gallery (${project.gallery.length})`,
         component: <Gallery {...project} />,
     },
 ];

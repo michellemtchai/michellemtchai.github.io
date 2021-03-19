@@ -56,7 +56,6 @@ const tabData = (comp) => [
                 onChange={comp.handleChange}
                 value={comp.state.value}
                 readOnly={comp.readonly()}
-                rows={comp.props.rows ? comp.props.rows : 3}
                 placeholder={comp.props.placeholder}
             />
         ),

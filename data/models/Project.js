@@ -1,6 +1,6 @@
 const ObjectId = require('mongodb').ObjectID;
 
-module.exports = (app) =>{
+module.exports = (app) => {
     return app.shared.createModel('Project', {
         name: {
             type: String,
@@ -9,30 +9,46 @@ module.exports = (app) =>{
         },
         summary: {
             type: String,
-            required: true
+            required: true,
         },
         description: {
             type: String,
-            required: true
+            required: true,
         },
         source_url: {
             type: String,
-            required: true
+            required: true,
         },
         demo_url: {
-            type: String
+            type: String,
         },
         image_url: {
             type: String,
-            required: true
+            required: true,
         },
-        technologies: [{
-            type : ObjectId,
-            ref: 'Technology'
-        }],
-        tags: [{
-            type : ObjectId,
-            ref: 'Tag'
-        }],
-    })
+        technologies: [
+            {
+                type: ObjectId,
+                ref: 'Technology',
+            },
+        ],
+        tags: [
+            {
+                type: ObjectId,
+                ref: 'Tag',
+            },
+        ],
+        gallery: [
+            {
+                url: {
+                    type: String,
+                    required: true,
+                },
+                caption: {
+                    type: String,
+                    required: true,
+                },
+            },
+        ],
+    });
 };
