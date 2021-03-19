@@ -16,7 +16,6 @@ module.exports = class TechnologiesController extends Controller {
     };
 
     create = (req, res) => {
-        console.log('permitted', this.Technology.schema);
         let createTechnology = () => {
             this.Technology.createOne(
                 res,
