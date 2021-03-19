@@ -8,7 +8,6 @@ marked.setOptions({
 class Markdown extends React.Component {
     parsedText = () => {
         let text = this.props.text.replace(/([#]+)(.+\n)/g, '$1##$2');
-        console.log(text, this.props.text);
         return marked(text);
     };
     render() {

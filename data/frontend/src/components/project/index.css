@@ -65,3 +65,24 @@
     color: darkblue;
     text-decoration: underline;
 }
+.tabs {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    padding-bottom: 6px;
+    border-bottom: 3px solid #eee;
+}
+.tabs li {
+    display: inline;
+    border: 1px solid #ddd;
+    background: #eee;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+.tabs > .selected {
+    font-weight: bold;
+    background: #fff;
+    border-bottom: 2px solid #fff;
+}

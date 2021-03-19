@@ -3,6 +3,8 @@ import { api } from '../config/api';
 import { goToPage } from '../shared/router';
 import Image from '../components/image/image';
 import ProjectInfo from '../components/project/projectInfo';
+import Tabs from '../components/project/tabs';
+import Gallery from '../components/project/gallery';
 import Markdown from '../components/markdown';
 import NotFound from './notFound';
 
@@ -14,7 +16,7 @@ class Project extends React.Component {
         return project ? (
             <article>
                 <ProjectInfo project={project} />
-                <Markdown text={project.description} />
+                <Tabs tabs={tabData(project)} />
             </article>
         ) : (
             <NotFound {...this.props} />
@@ -23,3 +25,14 @@ class Project extends React.Component {
 }
 
 export default Project;
+
+const tabData = (project) => [
+    {
+        name: 'Description',
+        component: <Markdown text={project.description} />,
+    },
+    {
+        name: 'Gallery',
+        component: <Gallery {...project} />,
+    },
+];
