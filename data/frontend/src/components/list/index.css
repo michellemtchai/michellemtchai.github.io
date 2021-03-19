@@ -65,6 +65,7 @@
     border: 1px solid #eee;
     margin-right: 5px;
     padding: 10px 0;
+    background: #fff;
 }
 .clickable li {
     cursor: pointer;
