@@ -26,7 +26,6 @@ class ProjectEditor extends React.Component {
         });
     };
     render() {
-        console.log(this.schema);
         return this.schema.data ? (
             <div>
                 <Form ref={this.form} {...this.schema} />
