@@ -38,3 +38,17 @@
     line-height: 25px;
     vertical-align: top;
 }
+.tab-link {
+    color: royalblue;
+    text-decoration: none;
+    outline: 0;
+}
+.tab-link:hover,
+.tab-link:focus:hover {
+    color: royalblue;
+    text-decoration: underline;
+}
+.tab-link:focus {
+    color: darkblue;
+    text-decoration: underline;
+}
