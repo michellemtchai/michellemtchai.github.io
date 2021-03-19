@@ -21,7 +21,7 @@ class ProjectEditor extends React.Component {
         });
         api.updateProject(this.props, id, data, (err) => {
             if (!err) {
-                goToPage('/', this.props);
+                goToPage('/projects/' + id, this.props);
             }
         });
     };

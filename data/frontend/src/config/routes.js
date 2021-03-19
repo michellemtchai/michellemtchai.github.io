@@ -29,6 +29,7 @@ export const routes = {
     '/projects/:project': {
         component: Project,
         title: 'Project',
+        exact: true,
     },
     '/projects/:project/edit': {
         component: ProjectEditor,
