@@ -10,12 +10,13 @@ class List extends React.Component {
         let className = this.props.clickable
             ? 'items clickable'
             : 'items';
+        console.log('pages', pages.length);
         let pagination = (
             <PageButtons
+                {...this.props}
                 index={page + 1}
                 pages={pages.length}
-                baseUrl={this.props.baseUrl}
-                {...this.props}
+                baseUrl={this.props.baseUrl + '/'}
             />
         );
         return (

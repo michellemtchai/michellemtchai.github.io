@@ -15,7 +15,7 @@ class PageButtons extends React.Component {
     };
     render() {
         let page = this.props.index;
-        let pages = this.props.pages.length;
+        let pages = this.props.pages;
         return (
             <div className="pagination">
                 {prev(page, this.prevPage)}
