@@ -29,6 +29,7 @@ class Image extends React.Component {
         if (prevProps.src !== this.props.src) {
             this.setState({
                 errored: false,
+                style: style(this.props, false),
             });
         }
     }
