@@ -39,7 +39,6 @@ const style = {
     height: '200px',
     overflowY: 'auto',
     border: '1px solid #eee',
-    marginTop: '-10px',
     padding: '10px 20px',
     borderRadius: '0',
 };

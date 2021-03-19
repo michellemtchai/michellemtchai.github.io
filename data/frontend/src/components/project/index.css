@@ -68,7 +68,7 @@
 .tabs {
     list-style: none;
     padding: 0;
-    margin-top: 20px;
+    margin: 20px 0 0 0;
     padding-bottom: 6px;
     border-bottom: 3px solid #eee;
 }
