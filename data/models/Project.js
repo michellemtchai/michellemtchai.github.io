@@ -24,7 +24,7 @@ module.exports = (app) => {
         },
         image_url: {
             type: String,
-            required: true,
+            default: '',
         },
         technologies: [
             {

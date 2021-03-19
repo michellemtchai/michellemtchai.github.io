@@ -2,15 +2,10 @@ const Controller = require('../classes/Controller');
 
 module.exports = class ProjectsController extends Controller {
     Project = this.models['Project'];
-    createRequired = [
-        'name',
-        'summary',
-        'description',
-        'source_url',
-        'image_url',
-    ];
+    createRequired = ['name', 'summary', 'description', 'source_url'];
     updatePermitted = [
         ...this.createRequired,
+        'image_url',
         'demo_url',
         'technologies',
         'tags',

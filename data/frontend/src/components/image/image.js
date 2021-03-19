@@ -20,7 +20,7 @@ class Image extends React.Component {
         if (this.state.errored) {
             return brokenSvg;
         } else {
-            return this.props.src === 'null'
+            return this.props.src.length === 0
                 ? noImageSvg
                 : this.props.src;
         }
@@ -53,7 +53,7 @@ const background = (props, error) => {
     if (error) {
         return '#ccc';
     } else {
-        return props.src === 'null' ? '#ccc' : 'none';
+        return props.src.length === 0 ? '#ccc' : 'none';
     }
 };
 
