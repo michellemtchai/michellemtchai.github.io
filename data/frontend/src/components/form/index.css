@@ -27,3 +27,11 @@
     display: inline-block;
     vertical-align: top;
 }
+.form-check {
+    display: inline-block;
+    margin: 0 10px 0 0;
+}
+.form-check .form-check-input {
+    margin: 5px;
+    outline: 0;
+}

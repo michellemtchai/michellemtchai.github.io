@@ -9,7 +9,7 @@ class CategoryCreator extends React.Component {
             <Creator
                 {...this.props}
                 type="Category"
-                schema={categorySchema}
+                schema={categorySchema(this.props)}
                 page="/categories"
                 create={api.createCategory}
             />

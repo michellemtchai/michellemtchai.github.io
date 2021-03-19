@@ -6,6 +6,7 @@ import MarkdownField from './markdownField';
 import TextBox from './textBox';
 import ImageField from './imageField';
 import Options from './options';
+import CheckList from './checkList';
 
 class Form extends React.Component {
     form = React.createRef();
@@ -50,8 +51,10 @@ class Form extends React.Component {
                 );
             case 'image':
                 return <ImageField key={this.key(i)} {...property} />;
-            case 'enum':
+            case 'select':
                 return <Options key={this.key(i)} {...property} />;
+            case 'checkbox':
+                return <CheckList key={this.key(i)} {...property} />;
             default:
                 return <TextField key={this.key(i)} {...property} />;
         }

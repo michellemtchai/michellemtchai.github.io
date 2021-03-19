@@ -17,6 +17,7 @@ class CategoryListItem extends React.Component {
     };
     render() {
         let category = this.props.category;
+        let projects = this.props.state.data.projects;
         return (
             <li>
                 <i
@@ -24,12 +25,6 @@ class CategoryListItem extends React.Component {
                 ></i>
                 <article>
                     <h2>{category.name}</h2>
-                    <p>
-                        <b>Base URL:</b> {category.base_url}
-                    </p>
-                    <p>
-                        <b>Description:</b> {category.description}
-                    </p>
                     <Button
                         text="Edit Category"
                         click={this.editCategory}
@@ -39,6 +34,19 @@ class CategoryListItem extends React.Component {
                         click={this.deleteCategory}
                         type="danger"
                     />
+                    <p>
+                        <b>Base URL:</b> {category.base_url}
+                    </p>
+                    <p>
+                        <b>Description:</b> {category.description}
+                    </p>
+                    <ol>
+                        {category.projects.map((project, i) => (
+                            <li key={'projects-' + i}>
+                                {projects[project].name}
+                            </li>
+                        ))}
+                    </ol>
                 </article>
             </li>
         );

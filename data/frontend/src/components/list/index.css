@@ -2,46 +2,46 @@
     margin: 30px 0 40px 0;
     padding: 0;
 }
-.items li {
+.items > li {
     list-style: none;
     padding: 5px 10px;
     border-bottom: 1px solid #eee;
 }
-.items li:first-child {
+.items > li:first-child {
     padding: 5px 0;
 }
-.items li:first-child > p {
+.items > li:first-child > p {
     width: calc(100% - 240px);
     display: inline-block;
 }
-.items li:first-child > .pagination {
+.items > li:first-child > .pagination {
     width: 240px;
     display: inline-block;
     text-align: right;
     margin: 0;
 }
-.items li:last-child {
+.items > li:last-child {
     border: none;
 }
-.items li:last-child > .pagination,
-.items li:last-child > p {
+.items > li:last-child > .pagination,
+.items > li:last-child > p {
     display: block;
     margin: 10px auto;
     text-align: center;
 }
-.items li article {
+.items > li article {
     display: inline-block;
     width: calc(100% - 220px);
     padding: 0;
     margin: 10px;
 }
-.items li article h2 {
+.items > li article h2 {
     padding: 0;
     margin: 0 0 5px 0;
     font-size: 22px;
     font-weight: bold;
 }
-.items li article h2 > span {
+.items > li article h2 > span {
     font-size: 12px;
     background: #eee;
     border: 2px solid #ddd;
@@ -51,10 +51,10 @@
     line-height: 25px;
     vertical-align: top;
 }
-.items li > .image {
+.items > li > .image {
     vertical-align: top;
 }
-.items li > i.font-awesome {
+.items > li > i.font-awesome {
     width: 120px;
     height: 100px;
     font-size: 70px;
@@ -67,22 +67,28 @@
     padding: 10px 0;
     background: #fff;
 }
-.clickable li {
+.items > li ol {
+    padding: 10px 15px;
+}
+.items > li p {
+    margin: 10px 0 0 0;
+}
+.clickable > li {
     cursor: pointer;
 }
-.clickable li:first-child:hover,
-.clickable li:last-child:hover {
+.clickable > li:first-child:hover,
+.clickable > li:last-child:hover {
     background: #fff;
     cursor: default;
 }
-.clickable li:hover {
+.clickable > li:hover {
     background: #eee;
 }
-.clickable li:hover article h2 > span {
+.clickable > li:hover article h2 > span {
     background: #ddd;
     border: 2px solid #fff;
 }
-.clickable li > .image,
-.clickable li > i.font-awesome {
+.clickable > li > .image,
+.clickable > li > i.font-awesome {
     cursor: pointer;
 }

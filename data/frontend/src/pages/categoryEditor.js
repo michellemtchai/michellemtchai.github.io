@@ -13,7 +13,7 @@ class CategoryEditor extends React.Component {
                 id={id}
                 item={this.props.state.data.categories}
                 readonly={readonly}
-                schema={categorySchema}
+                schema={categorySchema(this.props)}
                 update={api.updateCategory}
                 page={'/categories'}
             />

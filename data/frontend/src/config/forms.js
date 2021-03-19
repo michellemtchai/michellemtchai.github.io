@@ -60,29 +60,45 @@ export const technologySchema = {
         },
     },
 };
-export const categorySchema = {
-    name: 'category',
-    properties: {
-        name: {
-            type: 'string',
-            label: 'Category Name',
-            placeholder: 'Enter a category name',
+export const categorySchema = (props) => {
+    let projects = props.state.data.projects;
+    let keys = Object.keys(projects);
+    let options = keys.map((key) => {
+        let project = projects[key];
+        return {
+            label: project.name,
+            value: project._id,
+        };
+    });
+    return {
+        name: 'category',
+        properties: {
+            name: {
+                type: 'string',
+                label: 'Category Name',
+                placeholder: 'Enter a category name',
+            },
+            base_url: {
+                type: 'string',
+                label: 'Category Base URL',
+                placeholder: 'Enter a category base URL',
+            },
+            icon_class: {
+                type: 'font-awesome',
+                label: 'Category Icon Class',
+                placeholder:
+                    'Enter a category icon class name (FontAwesome)',
+            },
+            description: {
+                type: 'text',
+                label: 'Category Description',
+                placeholder: 'Enter category description',
+            },
+            projects: {
+                type: 'checkbox',
+                label: 'Category Projects',
+                options: options,
+            },
         },
-        base_url: {
-            type: 'string',
-            label: 'Category Base URL',
-            placeholder: 'Enter a category base URL',
-        },
-        icon_class: {
-            type: 'font-awesome',
-            label: 'Category Icon Class',
-            placeholder:
-                'Enter a category icon class name (FontAwesome)',
-        },
-        description: {
-            type: 'text',
-            label: 'Category Description',
-            placeholder: 'Enter category description',
-        },
-    },
+    };
 };
