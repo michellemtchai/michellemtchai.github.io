@@ -10,6 +10,7 @@ class TabLink extends React.Component {
                 title={this.props.link}
             >
                 {this.props.link}
+                <i className="fas fa-external-link-alt"></i>
             </a>
         );
     }
