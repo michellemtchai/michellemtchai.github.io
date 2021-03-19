@@ -11,6 +11,7 @@
     float: left;
     margin-right: 10px;
     margin-bottom: 10px;
+    border: 1px solid #ccc;
 }
 .project-info > .btn {
     margin-right: 10px;

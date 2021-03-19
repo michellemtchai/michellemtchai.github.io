@@ -2,7 +2,6 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="430px" height="314px" viewBox="0 0 430 314" enable-background="new 0 0 430 314" xml:space="preserve">
-	<rect width="100%" height="100%" fill="#cccccc"/>
 	<polygon fill-rule="evenodd" fill="#ffffff" points="
 		190.981,83.802 175.419,111.036 175.419,120.762 253.246,120.762 222.105,94.501 214.325,107.146 	"/>
 	<polygon fill-rule="evenodd" fill="#ffffff" points="156.912,55.596 156.912,138.464 273.644,138.464 273.644,55.596
