@@ -5,10 +5,12 @@
 }
 .project-info h2 {
     line-height: 25px;
+    margin: 10px 0;
 }
 .project-info > .image {
     float: left;
-    margin: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
 }
 .project-info > .btn {
     margin-right: 10px;
