@@ -1,30 +1,16 @@
 import React from 'react';
-import { api } from '../config/api';
-import { goToPage } from '../shared/router';
-import { getPages, validPage, getPage } from '../shared/pages';
-import LongButton from '../components/form/longButton';
+import Items from '../components/items';
 import ProjectList from '../components/projects/projectList';
-import NotFound from './notFound';
 
 class Projects extends React.Component {
     render() {
-        let page = getPage(this.props);
-        let [total, pages] = getPages(this.props, 'projects');
-        return validPage(pages, page) ? (
-            <div>
-                <LongButton
-                    text="+ Project"
-                    click={() => goToPage('/projects/new')}
-                />
-                <ProjectList
-                    {...this.props}
-                    total={total}
-                    pages={pages}
-                    page={page}
-                />
-            </div>
-        ) : (
-            <NotFound {...this.props} />
+        return (
+            <Items
+                {...this.props}
+                name="Project"
+                keyName="projects"
+                list={ProjectList}
+            />
         );
     }
 }

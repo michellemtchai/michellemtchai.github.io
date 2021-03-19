@@ -1,0 +1,32 @@
+import React from 'react';
+import { goToPage } from '../shared/router';
+import { getPages, validPage, getPage } from '../shared/pages';
+import LongButton from './form/longButton';
+import NotFound from '../pages/notFound';
+
+class Items extends React.Component {
+    render() {
+        let page = getPage(this.props);
+        let [total, pages] = getPages(this.props, this.props.keyName);
+        return validPage(pages, page) ? (
+            <div>
+                <LongButton
+                    text={`+ ${this.props.name}`}
+                    click={() =>
+                        goToPage(`/${this.props.keyName}/new`)
+                    }
+                />
+                <this.props.list
+                    {...this.props}
+                    total={total}
+                    pages={pages}
+                    page={page}
+                />
+            </div>
+        ) : (
+            <NotFound {...this.props} />
+        );
+    }
+}
+
+export default Items;
