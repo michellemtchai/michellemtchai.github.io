@@ -5,9 +5,12 @@ import ProjectEditor from '../pages/projectEditor';
 import Technologies from '../pages/technologies';
 import TechnologyCreator from '../pages/technologyCreator';
 import TechnologyEditor from '../pages/technologyEditor';
+import Categories from '../pages/categories';
+import CategoryCreator from '../pages/categoryCreator';
+import CategoryEditor from '../pages/categoryEditor';
 import NotFound from '../pages/notFound';
 
-export const navlinks = ['/', '/technologies'];
+export const navlinks = ['/', '/technologies', '/categories'];
 
 export const routes = {
     '/': {
@@ -59,6 +62,28 @@ export const routes = {
     '/technologies/:technology/edit': {
         component: TechnologyEditor,
         title: 'Edit Technology',
+    },
+    '/categories': {
+        component: Categories,
+        title: 'Categories',
+        exact: true,
+        children: [
+            '/categories/page/:page',
+            '/categories/new',
+            '/categories/:category/edit',
+        ],
+    },
+    '/categories/page/:page': {
+        component: Categories,
+        title: 'Categories',
+    },
+    '/categories/new': {
+        component: CategoryCreator,
+        title: 'New Category',
+    },
+    '/categories/:category/edit': {
+        component: CategoryEditor,
+        title: 'Edit Category',
     },
     '': {
         component: NotFound,

@@ -60,3 +60,18 @@ export const technologySchema = {
         },
     },
 };
+export const categorySchema = {
+    name: 'category',
+    properties: {
+        name: {
+            type: 'string',
+            label: 'Category Name',
+            placeholder: 'Enter a category name',
+        },
+        description: {
+            type: 'markdown',
+            label: 'Category Description',
+            placeholder: 'Enter category description',
+        },
+    },
+};
