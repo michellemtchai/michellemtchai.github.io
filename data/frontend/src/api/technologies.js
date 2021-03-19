@@ -22,6 +22,7 @@ export const createTechnology = (props, params, next = null) => {
         props.endFetching();
         getAllTechnologies(props, next);
     };
+    console.log(params, next);
     fetchAPIData(props, '/technologies/', updateData, {
         method: 'POST',
         params: params,

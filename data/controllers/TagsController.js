@@ -19,10 +19,15 @@ module.exports = class TagsController extends Controller {
             this.Tag.createOne(
                 res,
                 (i) => res.json(i),
-                this.createPermitted(req)
+                this.createPermitted(req, this.Tag)
             );
         };
-        this.requiredParams(req.body, res, this.createRequired, createTag);
+        this.requiredParams(
+            req.body,
+            res,
+            this.createRequired,
+            createTag
+        );
     };
 
     destroy = (req, res) => {

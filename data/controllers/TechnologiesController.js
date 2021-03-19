@@ -16,11 +16,12 @@ module.exports = class TechnologiesController extends Controller {
     };
 
     create = (req, res) => {
+        console.log('permitted', this.Technology.schema);
         let createTechnology = () => {
             this.Technology.createOne(
                 res,
                 (i) => res.json(i),
-                this.createPermitted(req)
+                this.createPermitted(req, this.Technology)
             );
         };
         this.requiredParams(
@@ -50,6 +51,10 @@ module.exports = class TechnologiesController extends Controller {
     };
 
     destroy = (req, res) => {
-        this.Technology.removeById(res, (i) => res.json(i), req.params.id);
+        this.Technology.removeById(
+            res,
+            (i) => res.json(i),
+            req.params.id
+        );
     };
 };

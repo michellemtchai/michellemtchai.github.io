@@ -20,10 +20,15 @@ module.exports = class CategoriesController extends Controller {
             this.Category.createOne(
                 res,
                 (i) => res.json(i),
-                this.createPermitted(req)
+                this.createPermitted(req, this.Category)
             );
         };
-        this.requiredParams(req.body, res, this.createRequired, createCategory);
+        this.requiredParams(
+            req.body,
+            res,
+            this.createRequired,
+            createCategory
+        );
     };
 
     update = (req, res) => {
@@ -36,10 +41,19 @@ module.exports = class CategoriesController extends Controller {
                 this.updateModel(req.body, this.updatePermitted)
             );
         };
-        this.requiredParams(req.body, res, this.updateRequired, updateCategory);
+        this.requiredParams(
+            req.body,
+            res,
+            this.updateRequired,
+            updateCategory
+        );
     };
 
     destroy = (req, res) => {
-        this.Category.removeById(res, (i) => res.json(i), req.params.id);
+        this.Category.removeById(
+            res,
+            (i) => res.json(i),
+            req.params.id
+        );
     };
 };

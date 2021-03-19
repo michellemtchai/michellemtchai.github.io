@@ -9,7 +9,8 @@ module.exports = class Controller {
         this.updatePermitted = [];
     }
 
-    createPermitted = (req) => this.permit(req.body, this.updatePermitted);
+    createPermitted = (req, model) =>
+        this.permit(req.body, Object.keys(model.schema));
 
     requiredParams = (params, res, required, action) => {
         let lacking = [];

@@ -1,7 +1,7 @@
 import './index.css';
 import React from 'react';
 import { api } from '../../config/api';
-import { goToPage } from '../../shared/router';
+import { editItem, deleteItem } from '../../shared/pages';
 import Image from '../image/image';
 import Demo from './demo';
 import TabLink from './tabLink';
@@ -9,21 +9,10 @@ import Button from '../form/button';
 
 class ProjectInfo extends React.Component {
     editProject = () => {
-        goToPage(`/projects/${this.props.project._id}/edit`);
+        editItem(this.props, '/projects', 'project');
     };
     deleteProject = () => {
-        let text = 'Are you sure you want to delete this project?';
-        if (confirm(text)) {
-            api.removeProjectById(
-                this.props,
-                this.props.project._id,
-                (err) => {
-                    if (!err) {
-                        goToPage('/');
-                    }
-                }
-            );
-        }
+        deleteItem(this.props, 'project', api.removeProjectById, '/');
     };
     render() {
         let project = this.props.project;

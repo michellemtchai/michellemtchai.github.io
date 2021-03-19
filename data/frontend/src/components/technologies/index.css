@@ -1,0 +1,45 @@
+.technologies {
+    margin: 30px 0 40px 0;
+    padding: 0;
+}
+.technologies li {
+    list-style: none;
+    padding: 5px 10px;
+    border-bottom: 1px solid #eee;
+}
+.technologies li:first-child {
+    padding: 5px 0;
+}
+.technologies li:first-child > p {
+    width: calc(100% - 240px);
+    display: inline-block;
+}
+.technologies li:first-child > .pagination {
+    width: 240px;
+    display: inline-block;
+    text-align: right;
+    margin: 0;
+}
+.technologies li:last-child {
+    border: none;
+}
+.technologies li:last-child > .pagination {
+    display: block;
+    margin: 10px auto;
+    text-align: center;
+}
+.technologies li article {
+    display: inline-block;
+    width: calc(100% - 220px);
+    padding: 0;
+    margin: 10px;
+}
+.technologies li article h2 {
+    padding: 0;
+    margin: 0 0 5px 0;
+    font-size: 22px;
+    font-weight: bold;
+}
+.technologies li > .image {
+    vertical-align: top;
+}

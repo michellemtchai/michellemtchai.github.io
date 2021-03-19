@@ -15,9 +15,24 @@ module.exports = class DataController extends Controller {
                         reload: false,
                     });
                 };
-                readFile(file, res, (json) =>
-                    writeJson(res, next, data, json)
-                );
+                readFile(file, res, (json) => {
+                    let exported = new Date();
+                    let updateExport = (res) =>
+                        updateExported(res, exported);
+                    writeToFile(
+                        file,
+                        formatJsonData(req.body, exported),
+                        res,
+                        () => {
+                            this.Data.update(
+                                res,
+                                next,
+                                data[0]._id,
+                                updateExport
+                            );
+                        }
+                    );
+                });
             } else {
                 let readData = (data) =>
                     readFile(file, res, updateDb);
@@ -137,26 +152,5 @@ const chainInsert = (res, models, data) => {
         res.status(200).json({
             reload: true,
         });
-    }
-};
-const writeJson = (res, next, data, json) => {
-    if (data[0].exported.toISOString() !== json.exported) {
-        let exported = new Date();
-        let updateExport = (res) => updateExported(res, exported);
-        writeToFile(
-            file,
-            formatJsonData(req.body, exported),
-            res,
-            () => {
-                this.Data.update(
-                    res,
-                    next,
-                    data[0]._id,
-                    updateExport
-                );
-            }
-        );
-    } else {
-        next(null);
     }
 };

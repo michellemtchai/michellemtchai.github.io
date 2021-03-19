@@ -5,19 +5,20 @@ const db = require('../helpers/db');
 
 module.exports = class Model {
     constructor(name, schema) {
+        this.schema = {
+            ...schema,
+            created: {
+                type: Date,
+                default: Date.now,
+            },
+            updated: {
+                type: Date,
+                default: Date.now,
+            },
+        };
         this.model = mongoose.model(
             name,
-            new mongoose.Schema({
-                ...schema,
-                created: {
-                    type: Date,
-                    default: Date.now,
-                },
-                updated: {
-                    type: Date,
-                    default: Date.now,
-                },
-            })
+            new mongoose.Schema(this.schema)
         );
     }
 

@@ -43,20 +43,26 @@ export const resizeImage = (
         width = null,
         height = null,
         resolution = 0.75,
+        transparent = false,
     } = {}
 ) => {
     let image = new Image();
     image.onload = (event) => {
-        console.log(scale, maxSize, width, height, resolution);
         let imageUrl = scale
-            ? scaleCanvas(image, maxSize, resolution)
-            : squashCanvas(image, width, height, resolution);
+            ? scaleCanvas(image, maxSize, resolution, transparency)
+            : squashCanvas(
+                  image,
+                  width,
+                  height,
+                  resolution,
+                  transparent
+              );
         setImage(imageUrl);
     };
     image.src = urlImageData;
 };
 
-const scaleCanvas = (image, maxSize, resolution) => {
+const scaleCanvas = (image, maxSize, resolution, transparent) => {
     let canvas = document.createElement('canvas');
     let width = image.width,
         height = image.height;
@@ -74,13 +80,23 @@ const scaleCanvas = (image, maxSize, resolution) => {
     canvas.width = width;
     canvas.height = height;
     canvas.getContext('2d').drawImage(image, 0, 0, width, height);
-    return canvas.toDataURL('image/jpeg', resolution);
+    return canvas.toDataURL(fileType(transparent), resolution);
 };
 
-const squashCanvas = (image, width, height, resolution) => {
+const squashCanvas = (
+    image,
+    width,
+    height,
+    resolution,
+    transparent
+) => {
     let canvas = document.createElement('canvas');
     canvas.width = width;
     canvas.height = height;
     canvas.getContext('2d').drawImage(image, 0, 0, width, height);
-    return canvas.toDataURL('image/jpeg', resolution);
+    return canvas.toDataURL(fileType(transparent), resolution);
+};
+
+const fileType = (transparent) => {
+    return transparent ? 'image/png' : 'image/jpeg';
 };

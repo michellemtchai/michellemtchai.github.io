@@ -38,6 +38,9 @@ nav ul {
     list-style: none;
     padding: 0;
 }
+nav ul li {
+    display: inline;
+}
 nav ul li a {
     margin-right: 30px;
     text-decoration: none;

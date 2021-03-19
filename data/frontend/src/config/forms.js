@@ -36,3 +36,27 @@ export const projectSchema = {
         },
     },
 };
+export const technologySchema = {
+    name: 'technology',
+    properties: {
+        name: {
+            type: 'string',
+            label: 'Technology Name',
+            placeholder: 'Enter a technology name',
+        },
+        source_url: {
+            type: 'string',
+            label: 'Technology Source URL',
+            placeholder: 'Enter technology source URL',
+        },
+        icon_url: {
+            type: 'image',
+            label: 'Technology Icon URL',
+            scale: false,
+            width: 192,
+            height: 192,
+            resolution: 1,
+            transparent: true,
+        },
+    },
+};

@@ -31,10 +31,15 @@ module.exports = class ProjectsController extends Controller {
             this.Project.createOne(
                 res,
                 (i) => res.json(i),
-                this.createPermitted(req)
+                this.createPermitted(req, this.Project)
             );
         };
-        this.requiredParams(req.body, res, this.createRequired, createProject);
+        this.requiredParams(
+            req.body,
+            res,
+            this.createRequired,
+            createProject
+        );
     };
 
     update = (req, res) => {
@@ -47,10 +52,19 @@ module.exports = class ProjectsController extends Controller {
                 this.updateModel(req.body, this.updatePermitted)
             );
         };
-        this.requiredParams(req.body, res, this.updateRequired, updateProject);
+        this.requiredParams(
+            req.body,
+            res,
+            this.updateRequired,
+            updateProject
+        );
     };
 
     destroy = (req, res) => {
-        this.Project.removeById(res, (i) => res.json(i), req.params.id);
+        this.Project.removeById(
+            res,
+            (i) => res.json(i),
+            req.params.id
+        );
     };
 };

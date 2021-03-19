@@ -15,7 +15,7 @@ class Project extends React.Component {
         ];
         return project ? (
             <article>
-                <ProjectInfo project={project} />
+                <ProjectInfo project={project} {...this.props} />
                 <Tabs tabs={tabData(project)} />
             </article>
         ) : (
