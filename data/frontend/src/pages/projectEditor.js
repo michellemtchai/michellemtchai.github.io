@@ -13,6 +13,7 @@ class ProjectEditor extends React.Component {
         ? schemaForm(this.props)
         : schema(this.props);
     form = React.createRef();
+    projectPage = '/projects/' + this.props.match.params.project;
     updateProject = () => {
         let id = this.props.match.params.project;
         let data = formData(this.form);
@@ -21,7 +22,7 @@ class ProjectEditor extends React.Component {
         });
         api.updateProject(this.props, id, data, (err) => {
             if (!err) {
-                goToPage('/projects/' + id, this.props);
+                goToPage(this.projectPage, this.props);
             }
         });
     };
@@ -30,7 +31,9 @@ class ProjectEditor extends React.Component {
             <div>
                 <Form ref={this.form} {...this.schema} />
                 <ActionButtons
-                    cancel={() => goToPage('/', this.props)}
+                    cancel={() =>
+                        goToPage(this.projectPage, this.props)
+                    }
                     save={this.updateProject}
                 />
             </div>
