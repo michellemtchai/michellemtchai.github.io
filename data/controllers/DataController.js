@@ -68,10 +68,7 @@ const readFile = (file, res, next) => {
     });
 };
 
-const updateExported = (res) => {
-    res.exported = new Date();
-    return res;
-};
+const updateExported = (res) => res;
 
 const formatJsonData = (json) => {
     return JSON.stringify(sortObject(json)) + '\n';
