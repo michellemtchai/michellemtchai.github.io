@@ -1,3 +1,4 @@
+import './index.css';
 import React from 'react';
 import { api } from '../../config/api';
 import { goToPage } from '../../shared/router';
@@ -27,7 +28,7 @@ class ProjectInfo extends React.Component {
     render() {
         let project = this.props.project;
         return (
-            <section>
+            <section className="project-info">
                 <Image src={project.image_url} alt={project.name} />
                 <h2>
                     {project.name}
@@ -42,8 +43,10 @@ class ProjectInfo extends React.Component {
                     click={this.deleteProject}
                     type="danger"
                 />
-                <h3>Summary: </h3>
-                <p>{project.summary}</p>
+                <p>
+                    <b>Summary: </b>
+                    {project.summary}
+                </p>
                 <ul>
                     <li>
                         <b>Source: </b>
