@@ -69,7 +69,7 @@ export const categorySchema = {
             placeholder: 'Enter a category name',
         },
         description: {
-            type: 'markdown',
+            type: 'text',
             label: 'Category Description',
             placeholder: 'Enter category description',
         },
