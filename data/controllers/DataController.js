@@ -16,19 +16,16 @@ module.exports = class DataController extends Controller {
                     });
                 };
                 readFile(file, res, (json) => {
-                    let exported = new Date();
-                    let updateExport = (res) =>
-                        updateExported(res, exported);
                     writeToFile(
                         file,
-                        formatJsonData(req.body, exported),
+                        formatJsonData(req.body),
                         res,
                         () => {
                             this.Data.update(
                                 res,
                                 next,
                                 data[0]._id,
-                                updateExport
+                                updateExported
                             );
                         }
                     );
@@ -71,18 +68,13 @@ const readFile = (file, res, next) => {
     });
 };
 
-const updateExported = (res, exported) => {
-    res.exported = exported;
+const updateExported = (res) => {
+    res.exported = new Date();
     return res;
 };
 
-const formatJsonData = (json, exported) => {
-    return (
-        JSON.stringify({
-            exported: exported,
-            data: sortObject(json),
-        }) + '\n'
-    );
+const formatJsonData = (json) => {
+    return JSON.stringify(sortObject(json)) + '\n';
 };
 
 const sortObject = (data) => {
