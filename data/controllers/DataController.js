@@ -140,9 +140,7 @@ const chainInsert = (res, models, data) => {
     }
 };
 const writeJson = (res, next, data, json) => {
-    console.log(data[0].exported.toISOString() !== json.exported);
     if (data[0].exported.toISOString() !== json.exported) {
-        console.log('exported');
         let exported = new Date();
         let updateExport = (res) => updateExported(res, exported);
         writeToFile(
@@ -159,7 +157,6 @@ const writeJson = (res, next, data, json) => {
             }
         );
     } else {
-        console.log('not exported');
         next(null);
     }
 };
