@@ -9,7 +9,7 @@ class ProjectCreator extends React.Component {
             <Creator
                 {...this.props}
                 type="Project"
-                schema={projectSchema}
+                schema={projectSchema(this.props)}
                 page="/"
                 create={api.createProject}
             />

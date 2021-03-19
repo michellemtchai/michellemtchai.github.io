@@ -1,40 +1,57 @@
-export const projectSchema = {
-    name: 'project',
-    properties: {
-        name: {
-            type: 'string',
-            label: 'Project Name',
-            placeholder: 'Enter a project name',
+export const projectSchema = (props) => {
+    let technologies = props.state.data.technologies;
+    let keys = Object.keys(technologies);
+    let options = keys.map((key) => {
+        let technology = technologies[key];
+        return {
+            label: technology.name,
+            value: technology._id,
+            image: technology.icon_url,
+        };
+    });
+    return {
+        name: 'project',
+        properties: {
+            name: {
+                type: 'string',
+                label: 'Project Name',
+                placeholder: 'Enter a project name',
+            },
+            source_url: {
+                type: 'string',
+                label: 'Project Source URL',
+                placeholder: 'Enter project source URL',
+            },
+            image_url: {
+                type: 'image',
+                label: 'Project Image URL',
+                scale: false,
+                width: 550,
+                height: 300,
+                resolution: 1,
+            },
+            summary: {
+                type: 'text',
+                label: 'Project Summary',
+                placeholder: 'Enter project summary',
+            },
+            description: {
+                type: 'markdown',
+                label: 'Project Description',
+                placeholder: 'Enter project description',
+            },
+            demo_url: {
+                type: 'string',
+                label: 'Project Demo URL',
+                placeholder: 'Enter project demo URL',
+            },
+            technologies: {
+                type: 'checkbox',
+                label: 'Project Stack',
+                options: options,
+            },
         },
-        source_url: {
-            type: 'string',
-            label: 'Project Source URL',
-            placeholder: 'Enter project source URL',
-        },
-        image_url: {
-            type: 'image',
-            label: 'Project Image URL',
-            scale: false,
-            width: 550,
-            height: 300,
-            resolution: 1,
-        },
-        summary: {
-            type: 'text',
-            label: 'Project Summary',
-            placeholder: 'Enter project summary',
-        },
-        description: {
-            type: 'markdown',
-            label: 'Project Description',
-            placeholder: 'Enter project description',
-        },
-        demo_url: {
-            type: 'string',
-            label: 'Project Demo URL',
-            placeholder: 'Enter project demo URL',
-        },
-    },
+    };
 };
 export const technologySchema = {
     name: 'technology',

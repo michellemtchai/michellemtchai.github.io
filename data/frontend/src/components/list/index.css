@@ -4,8 +4,14 @@
 }
 .items > li {
     list-style: none;
-    padding: 5px 10px;
     border-bottom: 1px solid #eee;
+    padding: 5px 10px;
+}
+.items > li a {
+    display: block;
+    width: 100%;
+    color: #333;
+    outline: 0;
 }
 .items > li:first-child {
     padding: 5px 0;
@@ -34,12 +40,14 @@
     width: calc(100% - 220px);
     padding: 0;
     margin: 10px;
+    vertical-align: top;
 }
 .items > li article h2 {
     padding: 0;
     margin: 0 0 5px 0;
     font-size: 22px;
     font-weight: bold;
+    vertical-align: top;
 }
 .items > li article h2 > span {
     font-size: 12px;

@@ -13,7 +13,7 @@ class ProjectEditor extends React.Component {
                 id={id}
                 item={this.props.state.data.projects}
                 readonly={readonly}
-                schema={projectSchema}
+                schema={projectSchema(this.props)}
                 update={api.updateProject}
                 page={'/projects/' + id}
             />

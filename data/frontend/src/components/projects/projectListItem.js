@@ -3,7 +3,8 @@ import Image from '../image/image';
 import { goToPage } from '../../shared/router';
 
 class ProjectListItem extends React.Component {
-    project = () => {
+    project = (event) => {
+        event.preventDefault();
         let project = this.props.project;
         goToPage(`/projects/${project._id}`);
     };
@@ -13,14 +14,19 @@ class ProjectListItem extends React.Component {
         let title = `See details about ${project.name}`;
         let demo = project.demo_url ? <span>Demo</span> : '';
         return (
-            <li onClick={this.project} title={title}>
-                <Image src={project.image_url} alt={alt} />
-                <article>
-                    <h2>
-                        {project.name} {demo}
-                    </h2>
-                    <p>{project.summary}</p>
-                </article>
+            <li title={title} onClick={this.project}>
+                <a
+                    href={`/projects/${project._id}`}
+                    onClick={this.project}
+                >
+                    <Image src={project.image_url} alt={alt} />
+                    <article>
+                        <h2>
+                            {project.name} {demo}
+                        </h2>
+                        <p>{project.summary}</p>
+                    </article>
+                </a>
             </li>
         );
     }
