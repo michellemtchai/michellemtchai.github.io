@@ -1,6 +1,7 @@
 import './index.css';
 import React from 'react';
 import TextField from './textField';
+import MarkdownField from './markdownField';
 import TextBox from './textBox';
 import ImageField from './imageField';
 import Options from './options';
@@ -35,6 +36,10 @@ class Form extends React.Component {
                 return <TextField key={this.key(i)} {...property} />;
             case 'text':
                 return <TextBox key={this.key(i)} {...property} />;
+            case 'markdown':
+                return (
+                    <MarkdownField key={this.key(i)} {...property} />
+                );
             case 'image':
                 return <ImageField key={this.key(i)} {...property} />;
             case 'enum':

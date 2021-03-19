@@ -25,7 +25,7 @@ export const projectSchema = {
             placeholder: 'Enter project summary',
         },
         description: {
-            type: 'text',
+            type: 'markdown',
             label: 'Project Description',
             placeholder: 'Enter project description',
         },
