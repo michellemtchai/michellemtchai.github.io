@@ -52,16 +52,13 @@ module.exports = class Controller {
         let error = false;
         for (let i = 0; i < permitted.length; i++) {
             let key = permitted[i];
-            console.log('keys', key);
             if (common.hasKey(params, key)) {
                 let value = params[key];
-                console.log('value', value);
                 if (typeof params === 'string') {
                     value = value.trim();
                 }
                 if (this.containsObjectId.includes(key)) {
                     let [err, result] = convertToObjectId(value);
-                    console.log('objectid', err, result);
                     if (!err) {
                         value = result;
                     } else {
@@ -72,7 +69,6 @@ module.exports = class Controller {
                 result[key] = value;
             }
         }
-        console.log('result', error, result);
         return [error, result];
     };
 
@@ -80,7 +76,6 @@ module.exports = class Controller {
 
     updateModel = (id, data, res, next, model) => {
         let [err, permittedData] = this.updatePermitted(data);
-        console.log('permitted', err, permittedData);
         if (err) {
             res.status(404).json(err.message);
         } else {
