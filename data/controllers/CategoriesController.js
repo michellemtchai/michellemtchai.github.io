@@ -2,7 +2,12 @@ const Controller = require('../classes/Controller');
 
 module.exports = class CategoriesController extends Controller {
     Category = this.models['Category'];
-    createRequired = ['name', 'description'];
+    createRequired = [
+        'name',
+        'base_url',
+        'icon_class',
+        'description',
+    ];
     updatePermitted = [...this.createRequired, 'projects'];
 
     index = (req, res) => {

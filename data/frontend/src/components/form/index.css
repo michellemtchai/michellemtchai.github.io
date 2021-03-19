@@ -10,3 +10,20 @@
     width: 150px;
     padding-right: 20px;
 }
+.font-awesome i.preview {
+    font-size: 70px;
+    width: 120px;
+    height: 100px;
+    line-height: 70px;
+    vertical-align: top;
+    display: inline-block;
+    text-align: center;
+    border: 1px solid #eee;
+    margin-right: 5px;
+    padding: 10px 0;
+}
+.font-awesome input {
+    width: calc(100% - 130px);
+    display: inline-block;
+    vertical-align: top;
+}

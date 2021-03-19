@@ -1,6 +1,7 @@
 import './index.css';
 import React from 'react';
 import TextField from './textField';
+import FontAwesomeField from './fontAwesomeField';
 import MarkdownField from './markdownField';
 import TextBox from './textBox';
 import ImageField from './imageField';
@@ -34,6 +35,13 @@ class Form extends React.Component {
         switch (property.type) {
             case 'string':
                 return <TextField key={this.key(i)} {...property} />;
+            case 'font-awesome':
+                return (
+                    <FontAwesomeField
+                        key={this.key(i)}
+                        {...property}
+                    />
+                );
             case 'text':
                 return <TextBox key={this.key(i)} {...property} />;
             case 'markdown':

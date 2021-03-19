@@ -7,6 +7,14 @@ module.exports = (app) => {
             required: true,
             unique: true,
         },
+        base_url: {
+            type: String,
+            required: true,
+        },
+        icon_class: {
+            type: String,
+            required: true,
+        },
         description: {
             type: String,
             required: true,

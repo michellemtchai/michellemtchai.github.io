@@ -19,8 +19,14 @@ class CategoryListItem extends React.Component {
         let category = this.props.category;
         return (
             <li>
+                <i
+                    className={`font-awesome ${category.icon_class}`}
+                ></i>
                 <article>
                     <h2>{category.name}</h2>
+                    <p>
+                        <b>Base URL:</b> {category.base_url}
+                    </p>
                     <p>
                         <b>Description:</b> {category.description}
                     </p>

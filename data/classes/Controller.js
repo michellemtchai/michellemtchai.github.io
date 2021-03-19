@@ -40,7 +40,7 @@ module.exports = class Controller {
         let result = {};
         permitted.forEach((i) => {
             if (common.hasKey(params, i)) {
-                result[i] = params[i];
+                result[i] = params[i].trim();
             }
         });
         return result;

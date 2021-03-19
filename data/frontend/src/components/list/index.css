@@ -54,6 +54,18 @@
 .items li > .image {
     vertical-align: top;
 }
+.items li > i.font-awesome {
+    width: 120px;
+    height: 100px;
+    font-size: 70px;
+    line-height: 70px;
+    vertical-align: top;
+    display: inline-block;
+    text-align: center;
+    border: 1px solid #eee;
+    margin-right: 5px;
+    padding: 10px 0;
+}
 .clickable li {
     cursor: pointer;
 }
@@ -69,6 +81,7 @@
     background: #ddd;
     border: 2px solid #fff;
 }
-.clickabel li > .image {
+.clickable li > .image,
+.clickable li > i.font-awesome {
     cursor: pointer;
 }

@@ -68,6 +68,17 @@ export const categorySchema = {
             label: 'Category Name',
             placeholder: 'Enter a category name',
         },
+        base_url: {
+            type: 'string',
+            label: 'Category Base URL',
+            placeholder: 'Enter a category base URL',
+        },
+        icon_class: {
+            type: 'font-awesome',
+            label: 'Category Icon Class',
+            placeholder:
+                'Enter a category icon class name (FontAwesome)',
+        },
         description: {
             type: 'text',
             label: 'Category Description',
