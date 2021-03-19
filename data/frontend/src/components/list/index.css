@@ -1,59 +1,46 @@
-.projects {
+.items {
     margin: 30px 0 40px 0;
     padding: 0;
 }
-.projects li {
+.items li {
     list-style: none;
-    cursor: pointer;
     padding: 5px 10px;
     border-bottom: 1px solid #eee;
 }
-.projects li:first-child {
+.items li:first-child {
     padding: 5px 0;
 }
-.projects li:first-child > p {
+.items li:first-child > p {
     width: calc(100% - 240px);
     display: inline-block;
 }
-.projects li:first-child > .pagination {
+.items li:first-child > .pagination {
     width: 240px;
     display: inline-block;
     text-align: right;
     margin: 0;
 }
-.projects li:last-child {
+.items li:last-child {
     border: none;
 }
-.projects li:last-child > .pagination {
+.items li:last-child > .pagination {
     display: block;
     margin: 10px auto;
     text-align: center;
 }
-.projects li:first-child:hover,
-.projects li:last-child:hover {
-    background: #fff;
-    cursor: default;
-}
-.projects li:hover {
-    background: #eee;
-}
-.projects li:hover article h2 > span {
-    background: #ddd;
-    border: 2px solid #fff;
-}
-.projects li article {
+.items li article {
     display: inline-block;
     width: calc(100% - 220px);
     padding: 0;
     margin: 10px;
 }
-.projects li article h2 {
+.items li article h2 {
     padding: 0;
     margin: 0 0 5px 0;
     font-size: 22px;
     font-weight: bold;
 }
-.projects li article h2 > span {
+.items li article h2 > span {
     font-size: 12px;
     background: #eee;
     border: 2px solid #ddd;
@@ -63,7 +50,24 @@
     line-height: 25px;
     vertical-align: top;
 }
-.projects li > .image {
-    cursor: pointer;
+.items li > .image {
     vertical-align: top;
+}
+.clickable li {
+    cursor: pointer;
+}
+.clickable li:first-child:hover,
+.clickable li:last-child:hover {
+    background: #fff;
+    cursor: default;
+}
+.clickable li:hover {
+    background: #eee;
+}
+.clickable li:hover article h2 > span {
+    background: #ddd;
+    border: 2px solid #fff;
+}
+.clickabel li > .image {
+    cursor: pointer;
 }

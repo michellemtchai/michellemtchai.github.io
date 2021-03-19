@@ -23,9 +23,14 @@ class TechnologyListItem extends React.Component {
                 <Image
                     src={technology.icon_url}
                     alt={technology.name}
+                    width="100px"
+                    height="100px"
                 />
                 <article>
                     <h2>{technology.name}</h2>
+                    <p>
+                        <b>Source:</b> {technology.source_url}
+                    </p>
                     <Button
                         text="Edit Technology"
                         click={this.editTechnology}
@@ -35,7 +40,6 @@ class TechnologyListItem extends React.Component {
                         click={this.deleteTechnology}
                         type="danger"
                     />
-                    <p>Source: {technology.source_url}</p>
                 </article>
             </li>
         );
