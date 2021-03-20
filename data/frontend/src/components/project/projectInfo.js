@@ -55,6 +55,7 @@ class ProjectInfo extends React.Component {
                         <TechList
                             {...this.props}
                             tech={project.technologies}
+                            clickable={true}
                         />
                     </li>
                 </ul>

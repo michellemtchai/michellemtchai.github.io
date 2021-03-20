@@ -10,7 +10,7 @@
     margin-left: 0;
     border: 3px solid #eee;
     padding: 5px 8px;
-    background: #fff;
+    background: #fff !important;
     border-radius: 10px;
     font-weight: bold;
     font-size: 14px;
@@ -21,16 +21,16 @@
     outline: 0;
     text-decoration: none;
 }
-.tech li:hover {
-    background: #eee;
+.tech-clickable li:hover {
+    background: #eee !important;
     border: 3px solid #ccc;
     cursor: pointer;
 }
-.tech li:hover a {
+.tech-clickable li:hover a {
     color: #000;
 }
-.tech li:focus a,
-.tech li:active a {
+.tech-clickable li:focus a,
+.tech-clickable li:active a {
     color: royalblue;
     text-decoration: underline;
 }

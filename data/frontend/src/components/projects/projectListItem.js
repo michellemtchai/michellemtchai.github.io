@@ -30,6 +30,7 @@ class ProjectListItem extends React.Component {
                         <TechList
                             {...this.props}
                             tech={project.technologies}
+                            clickable={false}
                         />
                     </article>
                 </a>
