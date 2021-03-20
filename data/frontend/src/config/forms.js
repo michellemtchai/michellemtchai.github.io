@@ -49,6 +49,7 @@ export const projectSchema = (props) => {
                 type: 'checkbox',
                 label: 'Project Stack',
                 options: options,
+                columns: 5,
             },
         },
     };

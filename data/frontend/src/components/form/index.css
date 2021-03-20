@@ -28,7 +28,7 @@
     vertical-align: top;
 }
 .form-check {
-    display: inline-block;
+    display: block;
     margin: 0 10px 0 0;
 }
 .form-check .form-check-input {

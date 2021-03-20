@@ -48,6 +48,11 @@ class CheckList extends React.Component {
                 ref={this.list}
                 className="form-group"
                 onChange={this.handleChange}
+                style={{
+                    columnCount: this.props.columns
+                        ? this.props.columns
+                        : 3,
+                }}
             >
                 <label>{this.props.label}:</label>
                 <br />
