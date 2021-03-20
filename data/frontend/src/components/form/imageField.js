@@ -75,7 +75,7 @@ class ImageField extends React.Component {
         switch (this.state.mode) {
             case 'url':
                 return (
-                    <td>
+                    <li>
                         <TextField
                             ref={this.input}
                             {...this.textFieldData()}
@@ -85,11 +85,11 @@ class ImageField extends React.Component {
                             save={this.saveChanges}
                             cancel={this.cancelChanges}
                         />
-                    </td>
+                    </li>
                 );
             case 'upload':
                 return (
-                    <td>
+                    <li>
                         <UploadButton
                             ref={this.input}
                             update={this.updateURL}
@@ -101,11 +101,11 @@ class ImageField extends React.Component {
                             save={this.saveChanges}
                             cancel={this.cancelChanges}
                         />
-                    </td>
+                    </li>
                 );
             default:
                 return (
-                    <td>
+                    <li>
                         <input
                             className="form-control"
                             id={this.props.id}
@@ -121,7 +121,7 @@ class ImageField extends React.Component {
                             text="Upload Image"
                             click={() => this.changeMode('upload')}
                         />
-                    </td>
+                    </li>
                 );
         }
     };
@@ -134,19 +134,12 @@ class ImageField extends React.Component {
         return (
             <fieldset className="form-group">
                 <label>{this.props.label}:</label>
-                <table>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <Image
-                                    src={value}
-                                    alt="Image Preview"
-                                />
-                            </td>
-                            <ColumnTwo />
-                        </tr>
-                    </tbody>
-                </table>
+                <ul className="image-field">
+                    <li>
+                        <Image src={value} alt="Image Preview" />
+                    </li>
+                    <ColumnTwo />
+                </ul>
             </fieldset>
         );
     }

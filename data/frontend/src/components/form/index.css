@@ -35,3 +35,20 @@
     margin: 5px;
     outline: 0;
 }
+.image-field {
+    padding: 0;
+}
+.image-field li {
+    display: inline-block;
+    vertical-align: top;
+}
+.image-field li:first-child {
+    width: 200px;
+}
+.image-field li:nth-child(2) {
+    width: calc(100% - 210px);
+    margin-left: 10px;
+}
+.image-field li:nth-child(2) hr {
+    margin: 10px 0;
+}
