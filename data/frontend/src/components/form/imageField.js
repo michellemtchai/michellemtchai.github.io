@@ -12,7 +12,7 @@ class ImageField extends React.Component {
     state = {
         value: this.props.value ? this.props.value : '',
         tempValue: this.props.value ? this.props.value : '',
-        mode: null,
+        mode: '',
     };
     updateURL = () => {
         let value = this.input.current.state.value;
@@ -28,7 +28,7 @@ class ImageField extends React.Component {
                 value: this.state.tempValue,
             },
             () => {
-                this.changeMode(null);
+                this.changeMode('');
                 this.props.update(this.state.value);
             }
         );
@@ -39,10 +39,11 @@ class ImageField extends React.Component {
                 ...this.state,
                 tempValue: this.state.value,
             },
-            () => this.changeMode(null)
+            () => this.changeMode('')
         );
     };
     changeMode = (mode) => {
+        console.log('mode', mode);
         this.setState({
             ...this.state,
             mode: mode,
@@ -128,7 +129,7 @@ class ImageField extends React.Component {
     render() {
         let ColumnTwo = this.columnTwo;
         let value =
-            this.state.mode === null
+            this.state.mode === ''
                 ? this.state.value
                 : this.state.tempValue;
         return (

@@ -18,6 +18,11 @@ class FontAwesomeField extends React.Component {
             : false;
         return result;
     };
+    onKeyPress = (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+        }
+    };
     render() {
         return (
             <fieldset className="form-group font-awesome">
@@ -36,6 +41,7 @@ class FontAwesomeField extends React.Component {
                     value={this.state.value}
                     readOnly={this.readonly()}
                     placeholder={this.props.placeholder}
+                    onKeyPress={this.onKeyPress}
                 />
             </fieldset>
         );

@@ -23,12 +23,24 @@ class TagsField extends React.Component {
             : false;
         return result;
     };
+    onKeyPress = (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+        }
+    };
     render() {
         return (
             <fieldset className="form-group">
                 <label htmlFor={this.props.id}>
                     {this.props.label}:
                 </label>
+                <ul>
+                    {this.state.value.map((name, i) => (
+                        <li key={'tag-' + i}>
+                            {this.props.map[name]}
+                        </li>
+                    ))}
+                </ul>
                 <input
                     className="form-control"
                     key={this.props.id}
@@ -39,6 +51,7 @@ class TagsField extends React.Component {
                     value={this.state.value}
                     readOnly={this.readonly()}
                     placeholder={this.props.placeholder}
+                    onKeyPress={this.onKeyPress}
                 />
             </fieldset>
         );

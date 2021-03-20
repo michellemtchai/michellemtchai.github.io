@@ -8,6 +8,11 @@ export const projectSchema = (props) => {
             value: technology._id,
         };
     });
+    let tags = props.state.data.tags;
+    let mapping = {};
+    Object.keys(tags).forEach(
+        (tag) => (mapping[tags[tag].name] = tag)
+    );
     return {
         name: 'project',
         properties: {
@@ -50,6 +55,7 @@ export const projectSchema = (props) => {
                 label: 'Project Tags',
                 placeholder:
                     'Enter project tags (press Enter to add)',
+                map: mapping,
             },
             description: {
                 type: 'markdown',
