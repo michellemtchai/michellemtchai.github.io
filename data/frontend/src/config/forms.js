@@ -6,7 +6,6 @@ export const projectSchema = (props) => {
         return {
             label: technology.name,
             value: technology._id,
-            image: technology.icon_url,
         };
     });
     return {

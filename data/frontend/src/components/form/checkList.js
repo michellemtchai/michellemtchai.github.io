@@ -55,7 +55,6 @@ class CheckList extends React.Component {
                 }}
             >
                 <label>{this.props.label}:</label>
-                <br />
                 {options.map((option, i) => (
                     <label
                         key={id(i)}
