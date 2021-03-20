@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from '../image/image';
 import { goToPage } from '../../shared/router';
+import TechList from '../project/techList';
 
 class ProjectListItem extends React.Component {
     project = (event) => {
@@ -10,6 +11,7 @@ class ProjectListItem extends React.Component {
     };
     render() {
         let project = this.props.project;
+        let technologies = this.props.state.data.technologies;
         let alt = `Preview of ${project.name}`;
         let title = `See details about ${project.name}`;
         let demo = project.demo_url ? <span>Demo</span> : '';
@@ -25,6 +27,10 @@ class ProjectListItem extends React.Component {
                             {project.name} {demo}
                         </h2>
                         <p>{project.summary}</p>
+                        <TechList
+                            {...this.props}
+                            tech={project.technologies}
+                        />
                     </article>
                 </a>
             </li>

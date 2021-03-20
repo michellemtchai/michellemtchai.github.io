@@ -5,6 +5,7 @@ import { editItem, deleteItem } from '../../shared/pages';
 import Image from '../image/image';
 import Demo from './demo';
 import TabLink from './tabLink';
+import TechList from './techList';
 import Button from '../form/button';
 
 class ProjectInfo extends React.Component {
@@ -49,6 +50,13 @@ class ProjectInfo extends React.Component {
                     ) : (
                         ''
                     )}
+                    <li>
+                        <b>Stacks:</b>
+                        <TechList
+                            {...this.props}
+                            tech={project.technologies}
+                        />
+                    </li>
                 </ul>
             </section>
         );

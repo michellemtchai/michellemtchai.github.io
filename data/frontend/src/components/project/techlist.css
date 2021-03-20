@@ -1,0 +1,43 @@
+.tech {
+    list-style: none;
+    padding: 0;
+    display: inline;
+    margin: 5px;
+}
+.tech li {
+    display: inline-block;
+    margin: 2px;
+    margin-left: 0;
+    border: 3px solid #eee;
+    padding: 5px 8px;
+    background: #fff;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 20px;
+}
+.tech li a {
+    color: #333;
+    outline: 0;
+    text-decoration: none;
+}
+.tech li:hover {
+    background: #eee;
+    border: 3px solid #ccc;
+    cursor: pointer;
+}
+.tech li:hover a {
+    color: #000;
+}
+.tech li:focus a,
+.tech li:active a {
+    color: royalblue;
+    text-decoration: underline;
+}
+.tech li > .image,
+.tech li a > .image {
+    margin-right: 5px;
+}
+.items > li:hover .tech li {
+    border: 3px solid #ccc;
+}
