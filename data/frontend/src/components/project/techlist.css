@@ -2,7 +2,7 @@
     list-style: none;
     padding: 0;
     display: inline;
-    margin: 5px;
+    margin: 5px 0;
 }
 .tech li {
     display: inline-block;
@@ -15,6 +15,9 @@
     font-weight: bold;
     font-size: 14px;
     line-height: 20px;
+}
+.tech-clickable {
+    margin: 5px;
 }
 .tech-clickable li {
     padding: 0;
