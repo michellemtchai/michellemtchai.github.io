@@ -21,6 +21,11 @@ export const projectSchema = (props) => {
                 label: 'Project Source URL',
                 placeholder: 'Enter project source URL',
             },
+            demo_url: {
+                type: 'string',
+                label: 'Project Demo URL',
+                placeholder: 'Enter project demo URL',
+            },
             image_url: {
                 type: 'image',
                 label: 'Project Image URL',
@@ -34,21 +39,22 @@ export const projectSchema = (props) => {
                 label: 'Project Summary',
                 placeholder: 'Enter project summary',
             },
-            description: {
-                type: 'markdown',
-                label: 'Project Description',
-                placeholder: 'Enter project description',
-            },
-            demo_url: {
-                type: 'string',
-                label: 'Project Demo URL',
-                placeholder: 'Enter project demo URL',
-            },
             technologies: {
                 type: 'checkbox',
                 label: 'Project Stack',
                 options: options,
                 columns: 5,
+            },
+            tags: {
+                type: 'tags',
+                label: 'Project Tags',
+                placeholder:
+                    'Enter project tags (press Enter to add)',
+            },
+            description: {
+                type: 'markdown',
+                label: 'Project Description',
+                placeholder: 'Enter project description',
             },
         },
     };

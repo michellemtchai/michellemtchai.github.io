@@ -1,6 +1,7 @@
 import './index.css';
 import React from 'react';
 import TextField from './textField';
+import TagsField from './tagsField';
 import FontAwesomeField from './fontAwesomeField';
 import MarkdownField from './markdownField';
 import TextBox from './textBox';
@@ -33,31 +34,8 @@ class Form extends React.Component {
             update: (val) => this.handleChange(key, val),
             value: this.state.form[key],
         };
-        switch (property.type) {
-            case 'string':
-                return <TextField key={this.key(i)} {...property} />;
-            case 'font-awesome':
-                return (
-                    <FontAwesomeField
-                        key={this.key(i)}
-                        {...property}
-                    />
-                );
-            case 'text':
-                return <TextBox key={this.key(i)} {...property} />;
-            case 'markdown':
-                return (
-                    <MarkdownField key={this.key(i)} {...property} />
-                );
-            case 'image':
-                return <ImageField key={this.key(i)} {...property} />;
-            case 'select':
-                return <Options key={this.key(i)} {...property} />;
-            case 'checkbox':
-                return <CheckList key={this.key(i)} {...property} />;
-            default:
-                return <TextField key={this.key(i)} {...property} />;
-        }
+        let Component = typeToComponent(property.type);
+        return <Component key={this.key(i)} {...property} />;
     };
     render() {
         return (
@@ -78,4 +56,27 @@ const formData = (props) => {
         data[key] = props.data !== undefined ? props.data[key] : '';
     });
     return data;
+};
+
+const typeToComponent = (type) => {
+    switch (type) {
+        case 'string':
+            return TextField;
+        case 'tags':
+            return TagsField;
+        case 'font-awesome':
+            return FontAwesomeField;
+        case 'text':
+            return TextBox;
+        case 'markdown':
+            return MarkdownField;
+        case 'image':
+            return ImageField;
+        case 'select':
+            return Options;
+        case 'checkbox':
+            return CheckList;
+        default:
+            return TextField;
+    }
 };
