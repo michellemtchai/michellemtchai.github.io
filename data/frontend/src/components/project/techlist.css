@@ -10,19 +10,24 @@
     margin-left: 0;
     border: 3px solid #eee;
     padding: 5px 8px;
-    background: #fff !important;
+    background: #fff;
     border-radius: 10px;
     font-weight: bold;
     font-size: 14px;
     line-height: 20px;
 }
-.tech li a {
+.tech-clickable li {
+    padding: 0;
+}
+.tech-clickable li a {
     color: #333;
     outline: 0;
     text-decoration: none;
+    padding: 5px 8px;
+    display: block;
 }
 .tech-clickable li:hover {
-    background: #eee !important;
+    background: #eee;
     border: 3px solid #ccc;
     cursor: pointer;
 }
