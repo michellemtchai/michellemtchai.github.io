@@ -18,7 +18,7 @@ module.exports = class TagsController extends Controller {
         this.createManyModels(
             req.body,
             res,
-            (i) => res.json(i),
+            (i) => this.renderSuccess(res, i),
             this.Tag
         );
     };
@@ -26,7 +26,7 @@ module.exports = class TagsController extends Controller {
     destroy = (req, res) => {
         this.Tag.removeById(
             res,
-            (i) => res.json(i),
+            (i) => this.renderSuccess(res, i),
             req.params.id
         );
     };

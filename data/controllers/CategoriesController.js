@@ -25,18 +25,17 @@ module.exports = class CategoriesController extends Controller {
         this.createModel(
             req.body,
             res,
-            (i) => res.json(i),
+            (i) => this.renderSuccess(res, i),
             this.Category
         );
     };
 
     update = (req, res) => {
-        let next = (i) => res.json(i);
         this.updateModel(
             req.params.id,
             req.body,
             res,
-            next,
+            (i) => this.renderSuccess(res, i),
             this.Category
         );
     };
@@ -44,7 +43,7 @@ module.exports = class CategoriesController extends Controller {
     destroy = (req, res) => {
         this.Category.removeById(
             res,
-            (i) => res.json(i),
+            (i) => this.renderSuccess(res, i),
             req.params.id
         );
     };

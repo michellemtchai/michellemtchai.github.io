@@ -10,7 +10,7 @@ module.exports = class DataController extends Controller {
         this.Data.find(res, (data) => {
             if (data[0] !== undefined) {
                 let next = (i) => {
-                    res.status(200).json({
+                    this.renderSuccess(res, {
                         reload: false,
                     });
                 };
@@ -35,6 +35,7 @@ module.exports = class DataController extends Controller {
                     readFile(file, res, updateDb);
                 let updateDb = (data) => {
                     chainInsert(
+                        this,
                         res,
                         this.models,
                         insertData(formatDbData(data))
@@ -123,7 +124,7 @@ const insertData = (data) => [
     },
 ];
 
-const chainInsert = (res, models, data) => {
+const chainInsert = (self, res, models, data) => {
     if (data.length > 0) {
         let model = models[data[0].model];
         let copy = [...data];
@@ -138,7 +139,7 @@ const chainInsert = (res, models, data) => {
             chainInsert(res, models, copy);
         }
     } else {
-        res.status(200).json({
+        self.renderSuccess(res, {
             reload: true,
         });
     }

@@ -21,18 +21,17 @@ module.exports = class TechnologiesController extends (
         this.createModel(
             req.body,
             res,
-            (i) => res.json(i),
+            (i) => this.renderSuccess(res, i),
             this.Technology
         );
     };
 
     update = (req, res) => {
-        let next = (i) => res.json(i);
         this.updateModel(
             req.params.id,
             req.body,
             res,
-            next,
+            (i) => this.renderSuccess(res, i),
             this.Technology
         );
     };
@@ -40,7 +39,7 @@ module.exports = class TechnologiesController extends (
     destroy = (req, res) => {
         this.Technology.removeById(
             res,
-            (i) => res.json(i),
+            (i) => this.renderSuccess(res, i),
             req.params.id
         );
     };

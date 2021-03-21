@@ -25,18 +25,17 @@ module.exports = class ProjectsController extends Controller {
         this.createModel(
             req.body,
             res,
-            (i) => res.json(i),
+            (i) => this.renderSuccess(res, i),
             this.Project
         );
     };
 
     update = (req, res) => {
-        let next = (i) => res.json(i);
         this.updateModel(
             req.params.id,
             req.body,
             res,
-            next,
+            (i) => this.renderSuccess(res, i),
             this.Project
         );
     };
@@ -44,7 +43,7 @@ module.exports = class ProjectsController extends Controller {
     destroy = (req, res) => {
         this.Project.removeById(
             res,
-            (i) => res.json(i),
+            (i) => this.renderSuccess(res, i),
             req.params.id
         );
     };

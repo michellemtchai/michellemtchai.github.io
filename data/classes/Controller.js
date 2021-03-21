@@ -19,22 +19,23 @@ module.exports = class Controller {
         });
     };
 
+    renderSuccess = (res, json) => {
+        this.log('Info', 'Renders JSON with status 200');
+        res.status(200).json(json);
+    };
+
     renderAll = (model, res, options = {}) => {
-        this.log(
-            'Info',
-            `Get ${model.model.modelName} data success`
+        model.find(
+            res,
+            (i) => this.renderSuccess(res, i),
+            options
         );
-        model.find(res, (i) => res.json(i), options);
     };
 
     renderOneWithId = (model, res, id, select = null) => {
         let handleData = (data) => {
             if (data) {
-                this.log(
-                    'Info',
-                    `Get ${model.model.modelName} data by ID Success`
-                );
-                res.json(data);
+                this.renderSuccess(res, data);
             } else {
                 invalidId(this, res, id);
             }
