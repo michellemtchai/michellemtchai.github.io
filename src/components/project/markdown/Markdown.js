@@ -1,3 +1,4 @@
+import './index.css';
 import React from 'react';
 import marked from 'marked';
 marked.setOptions({
@@ -7,10 +8,12 @@ marked.setOptions({
 
 class Markdown extends React.Component {
     parsedText = () => {
-        let text = this.props.text.replace(
-            /([#]+)(.+\n)/g,
-            '$1##$2'
-        );
+        let parts = this.props.value.split('\n');
+        let text = parts
+            .map((part) =>
+                part.replace(/(^[#]+)(.+$)/g, '$1##$2')
+            )
+            .join('\n');
         return marked(text);
     };
     render() {

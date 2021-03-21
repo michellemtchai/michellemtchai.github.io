@@ -7,7 +7,12 @@ marked.setOptions({
 
 class Markdown extends React.Component {
     parsedText = () => {
-        let text = this.props.text.replace(/([#]+)(.+\n)/g, '$1##$2');
+        let parts = this.props.value.split('\n');
+        let text = parts
+            .map((part) =>
+                part.replace(/(^[#]+)(.+$)/g, '$1##$2')
+            )
+            .join('\n');
         return marked(text);
     };
     render() {
@@ -16,7 +21,10 @@ class Markdown extends React.Component {
                 dangerouslySetInnerHTML={{
                     __html: this.parsedText(),
                 }}
-                style={{ cursor: 'default', ...this.props.style }}
+                style={{
+                    cursor: 'default',
+                    ...this.props.style,
+                }}
             ></section>
         );
     }

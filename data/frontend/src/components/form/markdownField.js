@@ -63,15 +63,7 @@ const tabData = (comp) => [
     {
         name: 'Preview',
         component: (
-            <>
-                <Markdown text={comp.props.value} style={style} />
-                <input
-                    id={comp.props.id}
-                    name={comp.props.name}
-                    value={comp.state.value}
-                    type="hidden"
-                />
-            </>
+            <Markdown value={comp.state.value} style={style} />
         ),
     },
 ];

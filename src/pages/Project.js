@@ -30,7 +30,7 @@ const tabData = (project) => [
         name: 'Description',
         component: (
             <Markdown
-                text={project.description}
+                value={project.description}
                 style={{
                     padding: '20px',
                 }}
