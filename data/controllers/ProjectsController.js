@@ -2,17 +2,17 @@ const Controller = require('../classes/Controller');
 
 module.exports = class ProjectsController extends Controller {
     Project = this.models['Project'];
-    createRequired = ['name', 'summary', 'description', 'source_url'];
-    updateable = [
-        ...this.createRequired,
-        'image_url',
-        'demo_url',
-        'technologies',
-        'tags',
+    createRequired = [
+        'name',
+        'summary',
+        'description',
+        'source_url',
     ];
+    updateForbidden = ['name'];
+    containsObjectId = ['technologies', 'tags'];
 
     index = (req, res) => {
-        this.Project.renderAll(res, {
+        this.renderAll(this.Project, res, {
             select: {
                 __v: 0,
                 created: 0,
@@ -22,38 +22,22 @@ module.exports = class ProjectsController extends Controller {
     };
 
     create = (req, res) => {
-        let createProject = () => {
-            this.createModel(
-                req.body,
-                res,
-                (i) => res.json(i),
-                this.Project
-            );
-        };
-        this.requiredParams(
+        this.createModel(
             req.body,
             res,
-            this.createRequired,
-            createProject
+            (i) => res.json(i),
+            this.Project
         );
     };
 
     update = (req, res) => {
         let next = (i) => res.json(i);
-        let updateProject = () => {
-            this.updateModel(
-                req.params.id,
-                req.body,
-                res,
-                next,
-                this.Project
-            );
-        };
-        this.requiredParams(
+        this.updateModel(
+            req.params.id,
             req.body,
             res,
-            this.updateRequired,
-            updateProject
+            next,
+            this.Project
         );
     };
 

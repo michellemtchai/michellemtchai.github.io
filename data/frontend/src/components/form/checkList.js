@@ -3,7 +3,7 @@ import React from 'react';
 class CheckList extends React.Component {
     list = React.createRef();
     state = {
-        value: this.props.value !== '' ? this.props.value : [],
+        value: this.props.value,
     };
     valueToLabelMap = () => {
         let mapping = {};
@@ -60,6 +60,7 @@ class CheckList extends React.Component {
                         key={id(i)}
                         htmlFor={id(i)}
                         className="form-check form-check-label"
+                        onClick={this.handleChange}
                     >
                         <input
                             type="checkbox"

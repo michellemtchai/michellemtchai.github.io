@@ -8,11 +8,11 @@ module.exports = class CategoriesController extends Controller {
         'icon_class',
         'description',
     ];
-    updateable = [...this.createRequired, 'projects'];
+    updateForbidden = ['name'];
     containsObjectId = ['projects'];
 
     index = (req, res) => {
-        this.Category.renderAll(res, {
+        this.renderAll(this.Category, res, {
             select: {
                 __v: 0,
                 created: 0,
@@ -22,38 +22,22 @@ module.exports = class CategoriesController extends Controller {
     };
 
     create = (req, res) => {
-        let createCategory = () => {
-            this.createModel(
-                req.body,
-                res,
-                (i) => res.json(i),
-                this.Category
-            );
-        };
-        this.requiredParams(
+        this.createModel(
             req.body,
             res,
-            this.createRequired,
-            createCategory
+            (i) => res.json(i),
+            this.Category
         );
     };
 
     update = (req, res) => {
         let next = (i) => res.json(i);
-        let updateCategory = () => {
-            this.updateModel(
-                req.params.id,
-                req.body,
-                res,
-                next,
-                this.Category
-            );
-        };
-        this.requiredParams(
+        this.updateModel(
+            req.params.id,
             req.body,
             res,
-            this.updateRequired,
-            updateCategory
+            next,
+            this.Category
         );
     };
 

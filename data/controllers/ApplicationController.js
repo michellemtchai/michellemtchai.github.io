@@ -8,10 +8,6 @@ module.exports = class ApplicationController extends Controller {
      * @apiGroup Application
      */
     index = (req, res) => {
-        res.render('pages/index', {
-            css: this.assets.css,
-            scripts: this.assets.scripts,
-        });
-    }
-
+        res.render('pages/index');
+    };
 };

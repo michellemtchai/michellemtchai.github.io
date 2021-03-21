@@ -2,7 +2,7 @@ import React from 'react';
 
 class FontAwesomeField extends React.Component {
     state = {
-        value: this.props.value ? this.props.value : '',
+        value: this.props.value,
     };
     handleChange = (event) => {
         this.setState(

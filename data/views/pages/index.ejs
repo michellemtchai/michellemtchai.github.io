@@ -15,12 +15,7 @@
                 to see the frontend.
             </p>
         <% } else { %>
-            <% for (let i=0; i< css.length; i++) { %>
-                <link rel="stylesheet" href="/assets/<%= css[i] %>">
-            <% } %>
-            <% for (let i=0; i< scripts.length; i++) { %>
-                <script defer="defer" src="/assets/<%= scripts[i] %>"></script>
-            <% } %>
+            <p>Production Mode</p>
         <% } %>
     </body>
 </html>

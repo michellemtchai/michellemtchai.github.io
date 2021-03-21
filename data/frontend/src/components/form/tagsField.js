@@ -1,18 +1,23 @@
 import React from 'react';
+import { api } from '../../config/api';
 
 class TagsField extends React.Component {
     state = {
-        value: this.props.value ? this.props.value : [],
+        value: tagValues(this.props),
+        input: '',
     };
     handleChange = (event) => {
-        let value = event.target.value;
-        let values = [...this.state.value];
-        if (!values.includes(value)) {
-            values.push(value);
-        }
+        this.setState({
+            input: event.target.value,
+        });
+    };
+    removeTag = (index) => {
+        let tags = [...this.state.value];
+        tags.splice(index, 1);
         this.setState(
             {
-                value: values,
+                ...this.state,
+                value: tags,
             },
             () => this.props.update(this.state.value)
         );
@@ -26,6 +31,15 @@ class TagsField extends React.Component {
     onKeyPress = (event) => {
         if (event.key === 'Enter') {
             event.preventDefault();
+            let tags = [...this.state.value];
+            tags.push(this.state.input);
+            this.setState(
+                {
+                    value: tags,
+                    input: '',
+                },
+                () => this.props.update(this.state.value)
+            );
         }
     };
     render() {
@@ -34,10 +48,15 @@ class TagsField extends React.Component {
                 <label htmlFor={this.props.id}>
                     {this.props.label}:
                 </label>
-                <ul>
-                    {this.state.value.map((name, i) => (
+                <ul className="tags">
+                    {this.state.value.map((tag, i) => (
                         <li key={'tag-' + i}>
-                            {this.props.map[name]}
+                            <span>{tag}</span>
+                            <span
+                                onClick={() => this.removeTag(i)}
+                            >
+                                &times;
+                            </span>
                         </li>
                     ))}
                 </ul>
@@ -48,7 +67,7 @@ class TagsField extends React.Component {
                     type="text"
                     name={this.props.name}
                     onChange={this.handleChange}
-                    value={this.state.value}
+                    value={this.state.input}
                     readOnly={this.readonly()}
                     placeholder={this.props.placeholder}
                     onKeyPress={this.onKeyPress}
@@ -59,6 +78,11 @@ class TagsField extends React.Component {
 }
 
 export default TagsField;
+
+const tagValues = (props) => {
+    let tags = props.value;
+    return tags.map((tag) => props.mapping[tag]);
+};
 
 const focusStyle = {
     border: '1px solid #ccc',

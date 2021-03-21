@@ -58,7 +58,7 @@ export const fetchData = (url, config) => {
 			fetchData(url, config);
 		} else {
 			config.setState(config.formatData(data.data));
-			config.next(false);
+			config.next(false, data.data);
 		}
 	} else {
 		config.fetching();
@@ -83,22 +83,26 @@ export const fetchData = (url, config) => {
 							data: data,
 						})
 					);
-					config.setState(config.formatData(data));
-					config.next(false);
+					data = config.formatData(data);
+					config.setState(data);
+					config.next(false, data);
 				} else {
-					config.setError(data.msg);
-					config.next(true);
+					config.setError(data.message);
+					config.next(true, null);
 				}
 			})
 			.catch((error) => {
 				config.setError(error.message);
-				config.next(true);
+				config.next(true, null);
 			});
 	}
 };
 
 const setUpURL = (url, config) => {
-	if (config.method == 'GET' && Object.keys(config.params).length > 0) {
+	if (
+		config.method == 'GET' &&
+		Object.keys(config.params).length > 0
+	) {
 		url += `?${paramsToQueryString(config.params)}`;
 	}
 	return url;
@@ -125,7 +129,9 @@ export const paramsToQueryString = (params) => {
 	return Object.keys(params)
 		.map(
 			(key) =>
-				`${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`
+				`${encodeURIComponent(key)}=${encodeURIComponent(
+					params[key]
+				)}`
 		)
 		.join('&');
 };

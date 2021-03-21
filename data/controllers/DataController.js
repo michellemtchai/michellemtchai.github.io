@@ -1,5 +1,4 @@
 const Controller = require('../classes/Controller');
-const common = require('../helpers/common');
 const ObjectId = require('mongodb').ObjectID;
 const fs = require('fs');
 const file = '/app/src/config/data.json';
@@ -15,8 +14,9 @@ module.exports = class DataController extends Controller {
                         reload: false,
                     });
                 };
-                readFile(file, res, (json) => {
+                readFile(this, file, res, (json) => {
                     writeToFile(
+                        this,
                         file,
                         formatJsonData(req.body),
                         res,
@@ -48,20 +48,20 @@ module.exports = class DataController extends Controller {
     };
 };
 
-const writeToFile = (file, content, res, next) => {
+const writeToFile = (self, file, content, res, next) => {
     fs.writeFile(file, content, function (err, file) {
         if (err) {
-            common.renderError(res, err.message);
+            self.renderError(res, err);
         } else {
             next();
         }
     });
 };
 
-const readFile = (file, res, next) => {
+const readFile = (self, file, res, next) => {
     fs.readFile(file, 'utf8', (err, data) => {
         if (err) {
-            common.renderError(res, err.message);
+            self.renderError(res, err);
         } else {
             next(JSON.parse(data));
         }

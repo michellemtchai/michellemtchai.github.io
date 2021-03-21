@@ -11,9 +11,10 @@ module.exports = (app) => {
         app.router.use(cors());
     }
     // parse request body
-    app.router.use(bodyParser.urlencoded({ extended: false }));
-    app.router.use(bodyParser({ limit: '50mb' }));
-    app.router.use(bodyParser.json());
+    app.router.use(
+        bodyParser.urlencoded({ extended: false, limit: '50mb' })
+    );
+    app.router.use(bodyParser.json({ limit: '50mb' }));
 
     // make static files in /public availiable
     app.router.use('/assets', app.express.static('public'));

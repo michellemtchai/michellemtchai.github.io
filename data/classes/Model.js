@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 const ObjectId = require('mongodb').ObjectID;
-const common = require('../helpers/common');
 const db = require('../helpers/db');
 
 module.exports = class Model {
-    constructor(name, schema) {
+    constructor(name, schema, logger) {
+        this.log = logger;
         this.attributes = Object.keys(schema);
         this.model = mongoose.model(
             name,
@@ -22,10 +22,22 @@ module.exports = class Model {
         );
     }
 
+    renderError = (res, message) => {
+        this.log('Error', message);
+        res.status(404).json({
+            message: message,
+        });
+    };
+
     find = (
         res,
         next,
-        { query = [], sort = null, limit = null, select = null } = {}
+        {
+            query = [],
+            sort = null,
+            limit = null,
+            select = null,
+        } = {}
     ) => {
         let model = this.model.find(...query);
         if (sort) {
@@ -37,7 +49,7 @@ module.exports = class Model {
         if (select) {
             model = model.select(select);
         }
-        handleDbAction(res, next, model, 'exec');
+        handleDbAction(this, res, next, model, 'exec');
     };
 
     findById = (res, next, id, select = null) => {
@@ -55,11 +67,13 @@ module.exports = class Model {
 
     createOne = (res, next, params) => {
         let model = new this.model(params);
-        handleDbAction(res, next, model, 'save');
+        handleDbAction(this, res, next, model, 'save');
     };
 
     createMany = (res, next, entries) => {
-        handleDbAction(res, next, this.model, 'create', [entries]);
+        handleDbAction(this, res, next, this.model, 'create', [
+            entries,
+        ]);
     };
 
     update = (res, next, id, change) => {
@@ -70,9 +84,15 @@ module.exports = class Model {
         };
         let handleData = (data) => {
             if (data) {
-                handleDbAction(res, next, changeAction(data), 'save');
+                handleDbAction(
+                    this,
+                    res,
+                    next,
+                    changeAction(data),
+                    'save'
+                );
             } else {
-                invalidId(res, id);
+                invalidId(this, res, id);
             }
         };
         this.findById(res, handleData, id);
@@ -81,6 +101,7 @@ module.exports = class Model {
     remove = (res, next, params) => {
         let handleData = (data) => {
             handleDbAction(
+                this,
                 res,
                 (i) => next(data),
                 this.model,
@@ -96,52 +117,48 @@ module.exports = class Model {
     removeById = (res, next, id) => {
         let handleData = (data) => {
             if (data) {
-                handleDbAction(res, next, data, 'remove');
+                handleDbAction(this, res, next, data, 'remove');
             } else {
-                invalidId(res, id);
+                invalidId(this, res, id);
             }
         };
         this.findById(res, handleData, id);
     };
-
-    renderAll = (res, options = {}) => {
-        this.find(res, (i) => res.json(i), options);
-    };
-
-    renderOneWithId = (res, id, select = null) => {
-        let handleData = (data) => {
-            if (data) {
-                res.json(data);
-            } else {
-                invalidId(res, id);
-            }
-        };
-        this.findById(res, handleData, id, select);
-    };
 };
 
 // private functions
-const handleDbAction = (res, next, model, fnName, params = []) => {
-    let t = timeOut(res);
+const handleDbAction = (
+    self,
+    res,
+    next,
+    model,
+    fnName,
+    params = []
+) => {
+    let t = timeOut(self, res);
     try {
         model[fnName](...params, (err, data) => {
             clearTimeout(t);
             if (!err) {
+                self.log(
+                    'Info',
+                    `Database Action "${fnName}" Success`
+                );
                 next(data);
             } else {
-                common.renderError(res, err.message);
+                self.renderError(res, err.message);
             }
         });
     } catch (err) {
         clearTimeout(t);
-        common.renderError(res, err.message);
+        self.renderError(res, err.message);
     }
 };
 
-const timeOut = (res) => {
+const timeOut = (self, res) => {
     let timeout = 10000;
     return setTimeout(() => {
-        common.renderError(res, 'Database Timeout');
+        self.renderError(res, 'Database Timeout');
     }, timeout);
 };
 
@@ -158,6 +175,6 @@ const idParam = (res, id) => {
     }
 };
 
-const invalidId = (res, id) => {
-    common.renderError(res, `'${id}' is not a valid id.`);
+const invalidId = (self, res, id) => {
+    self.renderError(res, `'${id}' is not a valid id.`);
 };

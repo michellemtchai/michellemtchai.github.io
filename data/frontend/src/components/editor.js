@@ -6,13 +6,23 @@ import ActionButtons from '../components/form/actionButtons';
 import NotFound from '../pages/notFound';
 
 class Editor extends React.Component {
+    state = {
+        form: null,
+    };
+    updateForm = (value) => {
+        this.setState(
+            {
+                form: value,
+            },
+            () => console.log(this.state.form)
+        );
+    };
     schema = this.props.state.data.form
         ? schemaForm(this.props)
         : schema(this.props);
-    form = React.createRef();
     update = () => {
         let id = this.props.id;
-        let data = formData(this.form);
+        let data = this.state.form;
         this.props.setData({
             form: data,
         });
@@ -25,7 +35,10 @@ class Editor extends React.Component {
     render() {
         return this.schema.data ? (
             <div>
-                <Form ref={this.form} {...this.schema} />
+                <Form
+                    {...this.schema}
+                    update={this.updateForm}
+                />
                 <ActionButtons
                     cancel={() =>
                         goToPage(this.props.page, this.props)

@@ -5,7 +5,7 @@ module.exports = class TagsController extends Controller {
     createRequired = ['name'];
 
     index = (req, res) => {
-        this.Tag.renderAll(res, {
+        this.renderAll(this.Tag, res, {
             select: {
                 __v: 0,
                 created: 0,
@@ -15,23 +15,19 @@ module.exports = class TagsController extends Controller {
     };
 
     create = (req, res) => {
-        let createTag = () => {
-            this.createModel(
-                req.body,
-                res,
-                (i) => res.json(i),
-                this.Tag
-            );
-        };
-        this.requiredParams(
+        this.createManyModels(
             req.body,
             res,
-            this.createRequired,
-            createTag
+            (i) => res.json(i),
+            this.Tag
         );
     };
 
     destroy = (req, res) => {
-        this.Tag.removeById(res, (i) => res.json(i), req.params.id);
+        this.Tag.removeById(
+            res,
+            (i) => res.json(i),
+            req.params.id
+        );
     };
 };

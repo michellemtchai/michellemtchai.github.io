@@ -5,9 +5,17 @@ import Form from './form/form';
 import ActionButtons from './form/actionButtons';
 
 class Creator extends React.Component {
+    state = {
+        form: null,
+    };
+    updateForm = (value) => {
+        this.setState({
+            form: value,
+        });
+    };
     form = React.createRef();
     create = () => {
-        let data = formData(this.form);
+        let data = this.state.form;
         this.props.setData({
             form: data,
         });
@@ -26,7 +34,7 @@ class Creator extends React.Component {
             : this.props.schema;
         return (
             <div>
-                <Form ref={this.form} {...schema} />
+                <Form {...schema} update={this.updateForm} />
                 <ActionButtons
                     text={`Create New ${this.props.type}`}
                     cancel={() =>

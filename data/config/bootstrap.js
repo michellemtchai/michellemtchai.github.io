@@ -1,18 +1,18 @@
-module.exports = (router, express) =>{
+module.exports = (router, express) => {
     let app = {
         router: router,
         express: express,
-        shared: require('./shared')
+        shared: require('./shared'),
     };
+
+    // loads logger
+    require('./logger')();
 
     // initialize app
     require('./initialize')(app);
 
     // connect to mongodb
-    require('./database')(()=>{
-        // get list of all assets
-        app.shared.getAssets(app);
-
+    require('./database')(() => {
         // create schema
         app.shared.importModels(app);
 

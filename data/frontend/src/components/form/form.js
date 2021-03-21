@@ -10,17 +10,19 @@ import Options from './options';
 import CheckList from './checkList';
 
 class Form extends React.Component {
-    form = React.createRef();
     state = {
-        form: formData(this.props),
+        form: {},
     };
     handleChange = (key, value) => {
-        this.setState({
-            form: {
-                ...this.state.form,
-                [key]: value,
+        this.setState(
+            {
+                form: {
+                    ...this.state.form,
+                    [key]: value,
+                },
             },
-        });
+            () => this.props.update(this.state.form)
+        );
     };
     key = (index) => {
         return `${this.props.name}-${index}`;
@@ -32,17 +34,25 @@ class Form extends React.Component {
             name: key,
             id: `${this.props.name}-${key}`,
             update: (val) => this.handleChange(key, val),
-            value: this.state.form[key],
+            value: getValueByKey(this.props, key),
         };
         let Component = typeToComponent(property.type);
         return <Component key={this.key(i)} {...property} />;
     };
+    componentDidMount() {
+        this.setState(
+            {
+                form: formData(this.props),
+            },
+            () => this.props.update(this.state.form)
+        );
+    }
     render() {
         return (
-            <form ref={this.form}>
-                {Object.keys(this.props.properties).map((key, i) =>
-                    this.typeInput(key, i)
-                )}
+            <form>
+                {Object.keys(
+                    this.props.properties
+                ).map((key, i) => this.typeInput(key, i))}
             </form>
         );
     }
@@ -52,11 +62,22 @@ export default Form;
 
 const formData = (props) => {
     let data = {};
-    Object.keys(props.properties).forEach((key) => {
-        data[key] = props.data !== undefined ? props.data[key] : '';
-    });
+    Object.keys(props.properties).forEach(
+        (key) => (data[key] = getValueByKey(props, key))
+    );
     return data;
 };
+
+const getValueByKey = (props, key) => {
+    if (props.data === undefined) {
+        let entry = props.properties[key];
+        return arrayTypes.includes(entry.type) ? [] : '';
+    } else {
+        return props.data[key];
+    }
+};
+
+const arrayTypes = ['tags', 'checkbox'];
 
 const typeToComponent = (type) => {
     switch (type) {

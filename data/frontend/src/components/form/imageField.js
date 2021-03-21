@@ -10,8 +10,8 @@ import { readFile, resizeImage } from '../../shared/file';
 class ImageField extends React.Component {
     input = React.createRef();
     state = {
-        value: this.props.value ? this.props.value : '',
-        tempValue: this.props.value ? this.props.value : '',
+        value: this.props.value,
+        tempValue: this.props.value,
         mode: '',
     };
     updateURL = () => {
@@ -120,7 +120,9 @@ class ImageField extends React.Component {
                         />
                         <LongButton
                             text="Upload Image"
-                            click={() => this.changeMode('upload')}
+                            click={() =>
+                                this.changeMode('upload')
+                            }
                         />
                     </li>
                 );
