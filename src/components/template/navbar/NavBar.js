@@ -1,7 +1,7 @@
 import './index.css';
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { routes, navlinks, routeKey } from '../../../config';
+import { goToPage } from '../../../shared/router';
 
 class NavBar extends React.Component {
     state = {
@@ -16,6 +16,10 @@ class NavBar extends React.Component {
             routeKey(this.props, link) == route ||
             children.includes(route);
         return current ? 'curr-page' : '';
+    };
+    clickLink = (event, link) => {
+        event.preventDefault();
+        goToPage(link);
     };
     componentDidUpdate(prevProps) {
         if (prevProps.minimized !== this.props.minimized) {
@@ -34,14 +38,17 @@ class NavBar extends React.Component {
                             key={'link-' + i}
                             className={minimized}
                         >
-                            <Link
-                                to={link}
+                            <a
+                                href={link}
+                                onClick={(e) =>
+                                    this.clickLink(e, link)
+                                }
                                 className={this.currentPage(
                                     link
                                 )}
                             >
                                 {title(this.props, link)}
-                            </Link>
+                            </a>
                         </li>
                     ))}
                 </ul>
