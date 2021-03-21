@@ -1,0 +1,14 @@
+.page-body {
+    width: 95%;
+    min-height: calc(100vh - 110px);
+    display: block;
+    background: #fff;
+    border: #fff 1px solid;
+    margin: 0 auto;
+    padding: 10px 20px;
+}
+@media only screen and (max-width: 530px) {
+    .page-body {
+        min-height: calc(100vh - 130px);
+    }
+}

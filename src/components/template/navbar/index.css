@@ -12,7 +12,7 @@
 .navbar ul li {
     padding: 10px;
     font-size: 16px;
-    display: inline-block;
+    display: block;
     text-align: left;
 }
 .navbar ul li.minimized {
@@ -48,4 +48,17 @@
     text-decoration: underline;
     font-weight: bold;
     color: #000;
+}
+.navbar {
+    height: calc(100vh - 60px);
+    overflow-y: auto;
+}
+.navbar .icon {
+    width: 30px;
+    text-align: center;
+}
+@media only screen and (max-width: 530px) {
+    .navbar {
+        height: calc(100vh - 80px);
+    }
 }

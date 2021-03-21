@@ -1,11 +1,11 @@
-import './footer.css';
+import './index.css';
 import React from 'react';
-import { footer } from '../../config';
+import { footer } from '../../../config';
 
 class Footer extends React.Component {
     render() {
         return (
-            <footer className='footer'>
+            <footer className="footer">
                 <p>{footer}</p>
             </footer>
         );

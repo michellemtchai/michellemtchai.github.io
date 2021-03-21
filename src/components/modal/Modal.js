@@ -1,4 +1,4 @@
-import './modal.css';
+import './index.css';
 import React from 'react';
 
 class Modal extends React.Component {
@@ -33,10 +33,18 @@ class Modal extends React.Component {
         }
     }
     componentDidMount() {
-        document.addEventListener('keydown', this.escModal, false);
+        document.addEventListener(
+            'keydown',
+            this.escModal,
+            false
+        );
     }
     componentWillUnmount() {
-        document.removeEventListener('keydown', this.escModal, false);
+        document.removeEventListener(
+            'keydown',
+            this.escModal,
+            false
+        );
     }
     componentDidUpdate(prevProps) {
         if (prevProps.show !== this.props.show) {
@@ -52,7 +60,9 @@ class Modal extends React.Component {
                     className="modal-background"
                     onClick={this.closeModal}
                 ></div>
-                <div className="modal-body-content">{this.props.children}</div>
+                <div className="modal-body-content">
+                    {this.props.children}
+                </div>
             </div>
         ) : (
             ''

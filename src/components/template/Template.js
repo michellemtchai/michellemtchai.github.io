@@ -1,7 +1,7 @@
+import './index.css';
 import React from 'react';
-import Header from './Header';
-import NavContent from './NavContent';
-import Home from '../../pages/Home';
+import Header from './header/Header';
+import NavContent from './navcontent/NavContent';
 
 import { withRouter } from 'react-router';
 import { routes, routeKey } from '../../config';
@@ -18,9 +18,12 @@ class Template extends React.Component {
         });
     };
     render() {
-        let location = routeKey(this.props.location.pathname);
-        let route = routes[location];
-        return (
+        let location = routeKey(
+            this.props,
+            this.props.location.pathname
+        );
+        let route = routes(this.props)[location];
+        return route ? (
             <div>
                 <Header updateNav={this.updateNav} />
                 <NavContent
@@ -32,6 +35,8 @@ class Template extends React.Component {
                     updateNav={this.updateNav}
                 />
             </div>
+        ) : (
+            ''
         );
     }
 }

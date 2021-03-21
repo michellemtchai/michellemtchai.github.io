@@ -1,9 +1,9 @@
-import './navcontent.css';
+import './index.css';
 import React from 'react';
-import Modal from '../modal/Modal';
-import Header from './Header';
-import NavBar from './NavBar';
-import Footer from './Footer';
+import Modal from '../../modal/Modal';
+import Header from '../header/Header';
+import NavBar from '../navbar/NavBar';
+import Footer from '../footer/Footer';
 
 class NavContent extends React.Component {
     state = {
@@ -26,7 +26,6 @@ class NavContent extends React.Component {
                 </li>
                 <li style={this.state.width.content}>
                     <div className="content">
-                        <h2>{this.props.title}</h2>
                         {this.props.children}
                     </div>
                     <Footer />
@@ -57,7 +56,10 @@ const NavModal = (props, expanded) => {
     switch (props.navWidth) {
         case 0:
             return (
-                <Modal show={expanded} updateShow={props.updateNav}>
+                <Modal
+                    show={expanded}
+                    updateShow={props.updateNav}
+                >
                     <Header {...props} />
                     <NavBar {...props} minimized={false} />
                 </Modal>
@@ -66,7 +68,10 @@ const NavModal = (props, expanded) => {
             return (
                 <>
                     <NavBar {...props} minimized={true} />
-                    <Modal show={expanded} updateShow={props.updateNav}>
+                    <Modal
+                        show={expanded}
+                        updateShow={props.updateNav}
+                    >
                         <Header {...props} />
                         <NavBar {...props} minimized={false} />
                     </Modal>

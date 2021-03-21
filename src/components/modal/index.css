@@ -25,7 +25,5 @@
 }
 .modal-body-content > .navbar {
     width: 250px;
-    height: 100vh;
     position: fixed;
-    margin-top: 0;
 }

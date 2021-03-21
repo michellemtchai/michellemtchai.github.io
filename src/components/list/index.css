@@ -1,0 +1,98 @@
+.items > li {
+    list-style: none;
+    border-bottom: 1px solid #eee;
+    padding: 5px 10px;
+}
+.items > li a {
+    display: block;
+    width: 100%;
+    color: #333;
+    outline: 0;
+}
+.items > li:first-child {
+    padding: 5px 0;
+}
+.items > li:first-child > p {
+    width: calc(100% - 240px);
+    display: inline-block;
+}
+.items > li:first-child > .pagination {
+    width: 240px;
+    display: inline-block;
+    text-align: right;
+    margin: 0;
+}
+.items > li:last-child {
+    border: none;
+}
+.items > li:last-child > .pagination,
+.items > li:last-child > p {
+    display: block;
+    margin: 10px auto;
+    text-align: center;
+}
+.items > li article {
+    display: inline-block;
+    width: calc(100% - 220px);
+    padding: 0;
+    margin: 10px;
+    vertical-align: top;
+}
+.items > li article h2 {
+    padding: 0;
+    margin: 0 0 5px 0;
+    font-size: 22px;
+    font-weight: bold;
+    vertical-align: top;
+}
+.items > li article h2 > span {
+    font-size: 12px;
+    background: #eee;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    margin: 10px 5px;
+    padding: 5px;
+    line-height: 25px;
+    vertical-align: top;
+}
+.items > li > .image {
+    vertical-align: top;
+}
+.items > li > i.font-awesome {
+    width: 120px;
+    height: 100px;
+    font-size: 70px;
+    line-height: 70px;
+    vertical-align: top;
+    display: inline-block;
+    text-align: center;
+    border: 1px solid #eee;
+    margin-right: 5px;
+    padding: 10px 0;
+    background: #fff;
+}
+.items > li ol {
+    padding: 10px 15px;
+}
+.items > li p {
+    margin: 10px 0 0 0;
+}
+.clickable > li {
+    cursor: pointer;
+}
+.clickable > li:first-child:hover,
+.clickable > li:last-child:hover {
+    background: #fff;
+    cursor: default;
+}
+.clickable > li:hover {
+    background: #eee;
+}
+.clickable > li:hover article h2 > span {
+    background: #ddd;
+    border: 2px solid #fff;
+}
+.clickable > li > .image,
+.clickable > li > i.font-awesome {
+    cursor: pointer;
+}

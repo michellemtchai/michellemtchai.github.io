@@ -1,0 +1,56 @@
+.tech {
+    list-style: none;
+    padding: 0;
+    display: inline;
+    margin: 5px 0;
+}
+.tech li {
+    display: inline-block;
+    margin: 2px;
+    margin-left: 0;
+    border: 3px solid #eee;
+    background: #fff;
+    border-radius: 10px;
+}
+.tech li span {
+    margin-top: 5px;
+    padding: 0 10px 0 5px;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: top;
+}
+.tech-clickable {
+    margin: 5px;
+}
+.tech-clickable li {
+    padding: 0;
+}
+.tech-clickable li a {
+    color: #333;
+    outline: 0;
+    text-decoration: none;
+    display: block;
+}
+.tech-clickable li:hover {
+    background: #eee;
+    border: 3px solid #ccc;
+    cursor: pointer;
+}
+.tech-clickable li:hover a {
+    color: #000;
+}
+.tech-clickable li:focus a,
+.tech-clickable li:active a {
+    color: royalblue;
+    text-decoration: underline;
+}
+.tech li > .image,
+.tech li a > .image {
+    margin: 5px 0 0 10px;
+}
+.items > li:hover .tech li {
+    border: 3px solid #ccc;
+}

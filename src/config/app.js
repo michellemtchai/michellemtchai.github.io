@@ -12,7 +12,9 @@ class App extends React.Component {
     };
 
     route = (key, i) => {
-        let Component = withRouter(routes[key].component);
+        let Component = withRouter(
+            routes(this.props)[key].component
+        );
         let props = {
             ...this.props,
             ...this.state,
@@ -25,7 +27,9 @@ class App extends React.Component {
         return (
             <Route
                 key={'route-' + i}
-                exact={routes[key].exact ? true : false}
+                exact={
+                    routes(this.props)[key].exact ? true : false
+                }
                 path={key}
                 component={pageTemplate}
             />
@@ -44,14 +48,19 @@ class App extends React.Component {
     }
 
     componentWillUnmount() {
-        window.removeEventListener('resize', this.updateDimensions);
+        window.removeEventListener(
+            'resize',
+            this.updateDimensions
+        );
     }
 
     render() {
         return (
             <>
                 <Switch>
-                    {Object.keys(routes).map((key, i) => this.route(key, i))}
+                    {Object.keys(
+                        routes(this.props)
+                    ).map((key, i) => this.route(key, i))}
                 </Switch>
             </>
         );

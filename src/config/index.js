@@ -1,34 +1,66 @@
 import React from 'react';
 import Home from '../pages/Home';
 import Project from '../pages/Project';
+import Projects from '../pages/Projects';
 import NotFound from '../pages/NotFound';
 
 export const title = "Michelle's Home Page";
 
-export const navlinks = ['/', '/projec', '/projects/1'];
-
-export const routes = {
-    '/': {
-        component: Home,
-        title: 'Home',
-        exact: true,
-        icon: 'fas fa-home',
-    },
-    '/projects/:project': {
-        component: Project,
-        title: 'Project',
-        icon: 'fas fa-tasks',
-    },
-    '': {
-        component: NotFound,
-        title: 'Not Found',
-        icon: 'fas fa-dizzy',
-    },
+export const navlinks = (props) => {
+    let labels = props.state.categories;
+    let links = ['/'];
+    Object.keys(labels).forEach((key) => {
+        links.push(labels[key].base_url);
+    });
+    return links;
 };
 
-export const routeKey = (location) => {
+export const routes = (props) => {
+    let labels = props.state.categories;
+    let categories = {};
+    Object.keys(labels).forEach((key) => {
+        let label = labels[key];
+        let pagesUrl = `${label.base_url}/pages`;
+        let Component = (props) => (
+            <Projects
+                baseUrl={pagesUrl}
+                keyName={label._id}
+                {...props}
+            />
+        );
+        categories[label.base_url] = {
+            title: label.name,
+            component: Component,
+            icon: label.icon_class,
+            exact: true,
+        };
+        categories[`${pagesUrl}/:page`] =
+            categories[label.base_url];
+    });
+    return {
+        '/': {
+            component: Home,
+            title: 'Home',
+            exact: true,
+            icon: 'fas fa-home',
+        },
+        ...categories,
+        '/projects/:project': {
+            component: Project,
+            title: 'Project',
+            icon: 'fas fa-tasks',
+        },
+        '': {
+            component: NotFound,
+            title: 'Not Found',
+            icon: 'fas fa-dizzy',
+        },
+    };
+};
+
+export const routeKey = (props, location) => {
     let index = 0;
-    let paths = Object.keys(routes);
+    let paths = Object.keys(routes(props));
     while (index < paths.length) {
         let path = paths[index];
         if (path === '') {
@@ -43,7 +75,10 @@ export const routeKey = (location) => {
 
 const matchingRoute = (path, location) => {
     path = path.replace(/\//g, '\\/');
-    path = path.replace(/:[a-z\d]+/gi, '[a-zA-Z\\d_\\-\\.~&$+,=@#;]+');
+    path = path.replace(
+        /:[a-z\d]+/gi,
+        '[a-zA-Z\\d_\\-\\.~&$+,=@#;]+'
+    );
     let regex = new RegExp(`^${path}$`);
     let result = location.match(regex);
     return result ? true : false;

@@ -1,7 +1,7 @@
-import './header.css';
+import './index.css';
 import React from 'react';
-import IconLink from './IconLink';
-import { title, socialLinks } from '../../config';
+import IconLink from '../iconLink/IconLink';
+import { title, socialLinks } from '../../../config';
 
 class Header extends React.Component {
     render() {
@@ -16,7 +16,10 @@ class Header extends React.Component {
                 <li>
                     Find me
                     {socialLinks.map((item, i) => (
-                        <IconLink key={'social-link-' + i} {...item} />
+                        <IconLink
+                            key={'social-link-' + i}
+                            {...item}
+                        />
                     ))}
                 </li>
             </ul>

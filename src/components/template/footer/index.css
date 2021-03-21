@@ -1,9 +1,9 @@
-.footer{
+.footer {
     height: 50px;
-    background: #eee;
+    background: #fff;
     border-top: 2px solid #ddd;
 }
-.footer p{
+.footer p {
     padding: 10px 20px;
     color: #555;
 }

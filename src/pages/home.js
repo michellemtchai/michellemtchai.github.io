@@ -1,9 +1,8 @@
 import React from 'react';
-import Sample from '../components/sample';
 
 class Home extends React.Component {
     render() {
-        return <div></div>;
+        return <div className="page-body">Home</div>;
     }
 }
 
