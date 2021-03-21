@@ -8,6 +8,7 @@ import Demo from '../demo/Demo';
 class ProjectInfo extends React.Component {
     render() {
         let project = this.props.project;
+        let className = project.demo_url ? 'demo-p' : '';
         return (
             <section className="project-info">
                 <Image
@@ -18,7 +19,7 @@ class ProjectInfo extends React.Component {
                     {project.name}{' '}
                     <Demo url={project.demo_url} />
                 </h2>
-                <p>
+                <p className={className}>
                     <b>Summary: </b>
                     {project.summary}
                 </p>

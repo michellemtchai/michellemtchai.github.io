@@ -15,7 +15,11 @@
 }
 .project-info > p {
     margin-top: 15px;
-    min-height: 50px;
+    min-height: 40px;
+    display: block;
+}
+.project-info > .demo-p {
+    min-height: 55px;
 }
 .project-info > ul {
     list-style: none;
