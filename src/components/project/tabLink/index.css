@@ -14,12 +14,12 @@
 .tab-link:focus i {
     color: #000;
 }
-.tab-link:hover,
-.tab-link:focus:hover {
+.tab-link:hover {
     color: royalblue;
     text-decoration: underline;
 }
+.tab-link:active,
 .tab-link:focus {
-    color: darkblue;
+    color: #000;
     text-decoration: underline;
 }
