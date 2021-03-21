@@ -14,18 +14,15 @@
     border: 1px solid #ccc;
 }
 .project-info > p {
-    margin: 20px 0;
-    min-height: 30px;
+    margin-top: 15px;
+    min-height: 50px;
 }
 .project-info > ul {
     list-style: none;
     padding: 0;
 }
 .project-info > ul > li {
-    margin: 8px 0 8px 0;
-}
-.project-info .tech-list {
-    margin: 0 !important;
+    margin-bottom: 10px;
 }
 .project-info .tech-list b {
     display: inline-block;

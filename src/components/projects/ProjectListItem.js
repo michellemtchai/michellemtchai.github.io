@@ -16,7 +16,11 @@ class ProjectListItem extends React.Component {
         let title = `See details about ${project.name}`;
         let demo = project.demo_url ? <span>Demo</span> : '';
         return (
-            <li title={title} onClick={this.project}>
+            <li
+                className="list-item"
+                title={title}
+                onClick={this.project}
+            >
                 <a
                     href={`/projects/${project._id}`}
                     onClick={this.project}

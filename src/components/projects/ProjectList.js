@@ -1,3 +1,4 @@
+import './index.css';
 import React from 'react';
 import ProjectListItem from './ProjectListItem';
 import List from '../list/List';
