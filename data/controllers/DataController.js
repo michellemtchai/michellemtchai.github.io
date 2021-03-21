@@ -31,19 +31,23 @@ module.exports = class DataController extends Controller {
                     );
                 });
             } else {
-                let readData = (data) =>
-                    readFile(file, res, updateDb);
+                let renderResponse = (_) => {
+                    this.renderSuccess(res, {
+                        reload: true,
+                    });
+                };
+                let createData = () => {
+                    this.Data.createOne(res, renderResponse, {});
+                };
                 let updateDb = (data) => {
                     chainInsert(
-                        this,
                         res,
                         this.models,
-                        insertData(formatDbData(data))
+                        insertData(formatDbData(data)),
+                        createData
                     );
                 };
-                this.Data.createOne(res, readData, {
-                    exported: new Date(),
-                });
+                readFile(this, file, res, updateDb);
             }
         });
     };
@@ -124,7 +128,7 @@ const insertData = (data) => [
     },
 ];
 
-const chainInsert = (self, res, models, data) => {
+const chainInsert = (res, models, data, next) => {
     if (data.length > 0) {
         let model = models[data[0].model];
         let copy = [...data];
@@ -132,15 +136,13 @@ const chainInsert = (self, res, models, data) => {
         if (data[0].data.length > 0) {
             model.createMany(
                 res,
-                (_) => chainInsert(res, models, copy),
+                (_) => chainInsert(res, models, copy, next),
                 data[0].data
             );
         } else {
-            chainInsert(res, models, copy);
+            chainInsert(res, models, copy, next);
         }
     } else {
-        self.renderSuccess(res, {
-            reload: true,
-        });
+        next();
     }
 };
