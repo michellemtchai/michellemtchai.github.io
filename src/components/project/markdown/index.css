@@ -49,18 +49,3 @@
     content: counter(item) '.';
     margin-right: 10px;
 }
-
-.markdown a {
-    color: royalblue;
-    text-decoration: none;
-    outline: 0;
-}
-.markdown a:hover {
-    color: royalblue;
-    text-decoration: underline;
-}
-.markdown a:active,
-.markdown a:focus {
-    color: #000;
-    text-decoration: underline;
-}

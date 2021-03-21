@@ -14,7 +14,7 @@ class Markdown extends React.Component {
                 part.replace(/(^[#]+)(.+$)/g, '$1##$2')
             )
             .join('\n');
-        return marked(text);
+        return plainLinkToTabLink(marked(text));
     };
     render() {
         return (
@@ -33,3 +33,12 @@ class Markdown extends React.Component {
 }
 
 export default Markdown;
+
+const plainLinkToTabLink = (html) => {
+    let linkRegex = /(\<a)(\s+href=\".+\"\>.+)(\<\/a\>)/g;
+    let attributes =
+        'class="tab-link" target="_blank" rel="noopener"';
+    let icon = '<i class="fas fa-external-link-alt"></i>';
+    let newLink = `$1 ${attributes}$2${icon}$3`;
+    return html.replace(linkRegex, newLink);
+};
