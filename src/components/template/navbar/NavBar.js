@@ -2,10 +2,17 @@ import './index.css';
 import React from 'react';
 import { routes, navlinks, routeKey } from '../../../config';
 import { goToPage } from '../../../shared/router';
+import {
+    EXPANDED_NAV_WIDTH,
+    MINIMIZED_NAV_WIDTH,
+} from './constants';
 
 class NavBar extends React.Component {
     state = {
         minimized: this.props.minimized,
+        width: this.props.minimized
+            ? MINIMIZED_NAV_WIDTH
+            : EXPANDED_NAV_WIDTH,
     };
     currentPage = (link) => {
         let route = this.props.route;
@@ -22,16 +29,22 @@ class NavBar extends React.Component {
         goToPage(link);
     };
     componentDidUpdate(prevProps) {
-        if (prevProps.minimized !== this.props.minimized) {
+        if (
+            prevProps.minimized !== this.props.minimized ||
+            prevProps.navWidth !== this.props.navWidth
+        ) {
             this.setState({
                 minimized: this.props.minimized,
+                width: this.props.minimized
+                    ? MINIMIZED_NAV_WIDTH
+                    : EXPANDED_NAV_WIDTH,
             });
         }
     }
     render() {
         let minimized = this.state.minimized ? ' minimized' : '';
-        let ulStyle = { width: this.props.navWidth + 17 + 'px' };
-        let liStyle = { width: this.props.navWidth + 'px' };
+        let ulStyle = { width: this.state.width + 17 + 'px' };
+        let liStyle = { width: this.state.width + 'px' };
         return (
             <nav className="navbar">
                 <ul style={ulStyle}>

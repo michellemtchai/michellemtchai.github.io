@@ -5,11 +5,15 @@ import NavContent from './navcontent/NavContent';
 
 import { withRouter } from 'react-router';
 import { routes, routeKey } from '../../config';
+import {
+    EXPANDED_NAV_WIDTH,
+    MINIMIZED_NAV_WIDTH,
+} from './navbar/constants';
 
 class Template extends React.Component {
     state = {
         navWidth: navWidth(this.props),
-        navExpanded: navWidth(this.props) === 250,
+        navExpanded: navWidth(this.props) === EXPANDED_NAV_WIDTH,
     };
     updateNav = () => {
         this.setState({
@@ -46,9 +50,9 @@ export default withRouter(Template);
 const navWidth = (props) => {
     let screenWidth = props.width;
     if (screenWidth > 1320) {
-        return 250;
+        return EXPANDED_NAV_WIDTH;
     } else if (screenWidth > 800) {
-        return 70;
+        return MINIMIZED_NAV_WIDTH;
     } else {
         return 0;
     }

@@ -2,8 +2,12 @@ import './index.css';
 import React from 'react';
 import Modal from '../../modal/Modal';
 import Header from '../header/Header';
-import NavBar from '../navbar/NavBar';
 import Footer from '../footer/Footer';
+import NavBar from '../navbar/NavBar';
+import {
+    EXPANDED_NAV_WIDTH,
+    MINIMIZED_NAV_WIDTH,
+} from '../navbar/constants';
 
 class NavContent extends React.Component {
     state = {
@@ -39,8 +43,10 @@ export default NavContent;
 
 const widths = (props) => {
     let width = props.navWidth;
-    if (props.navWidth > 70) {
-        width = props.navExpanded ? props.navWidth : 70;
+    if (props.navWidth > MINIMIZED_NAV_WIDTH) {
+        width = props.navExpanded
+            ? props.navWidth
+            : MINIMIZED_NAV_WIDTH;
     }
     return {
         nav: {
@@ -64,7 +70,7 @@ const NavModal = (props, expanded) => {
                     <NavBar {...props} minimized={false} />
                 </Modal>
             );
-        case 70:
+        case MINIMIZED_NAV_WIDTH:
             return (
                 <>
                     <NavBar {...props} minimized={true} />
