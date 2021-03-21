@@ -2,6 +2,7 @@ import './index.css';
 import React from 'react';
 import IconLink from '../iconLink/IconLink';
 import { title, socialLinks } from '../../../config';
+import { goToPage } from '../../../shared/router';
 
 class Header extends React.Component {
     render() {
@@ -11,7 +12,9 @@ class Header extends React.Component {
                     <i className="fas fa-bars"></i>
                 </li>
                 <li>
-                    <h1>{title}</h1>
+                    <h1 onClick={() => goToPage('/')}>
+                        {title}
+                    </h1>
                 </li>
                 <li>
                     Find me

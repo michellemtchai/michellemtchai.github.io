@@ -6,6 +6,9 @@
     padding: 15px;
     background: #fff;
 }
+.header h1 {
+    cursor: pointer;
+}
 .header li {
     display: inline-block;
     vertical-align: top;
