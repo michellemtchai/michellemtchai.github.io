@@ -36,7 +36,7 @@
     font-size: 16px;
 }
 .markdown ol {
-    padding-left: 20px;
+    padding: 0;
 }
 .markdown ol > li {
     list-style: none;
@@ -47,5 +47,8 @@
 .markdown ol > li:before {
     font-weight: bold;
     content: counter(item) '.';
+    text-align: right;
     margin-right: 10px;
+    min-width: 40px;
+    display: inline-block;
 }
