@@ -1,12 +1,3 @@
-Number.isInteger =
-    Number.isInteger ||
-    function (value) {
-        return (
-            typeof value === 'number' &&
-            isFinite(value) &&
-            Math.floor(value) === value
-        );
-    };
 export const getPages = (props, key) => {
     let projects = props.state.projects;
     let list = props.state.categories[key].projects;
