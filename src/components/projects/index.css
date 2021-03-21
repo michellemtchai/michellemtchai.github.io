@@ -52,3 +52,10 @@
         margin-top: 10px;
     }
 }
+@media only screen and (max-width: 550px) {
+    .list-item article p {
+        border: red 1px solid;
+        padding-bottom: 0px;
+        min-height: 40px;
+    }
+}
