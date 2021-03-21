@@ -46,73 +46,38 @@ module.exports = class Controller {
         this.permit(data, model.attributes);
 
     createModel = (data, res, next, model) => {
-        let [
-            validParams,
-            requiredError,
-        ] = this.hasRequiredParams(data, this.createRequired);
-        if (validParams) {
-            let [err, permittedData] = this.createPermitted(
-                data,
-                model
-            );
-            if (err) {
-                this.renderError(res, err);
-            } else {
+        checkModelData(
+            this,
+            data,
+            model,
+            this.createRequired,
+            this.createPermitted,
+            (permittedData) => {
                 model.createOne(res, next, permittedData);
-            }
-        } else {
-            this.renderError(res, requiredError);
-        }
+            },
+            (error) => this.renderError(res, error)
+        );
     };
 
     createManyModels = (data, res, next, model) => {
-        let permittedData = [],
-            err = null;
-        for (let i = 0; i < data.length; i++) {
-            let [
-                validParams,
-                requiredError,
-            ] = this.hasRequiredParams(
-                data[i],
-                this.createRequired
-            );
-
-            if (validParams) {
-                let [
-                    entryErr,
-                    permittedEntry,
-                ] = this.createPermitted(data[i], model);
-                if (entryErr) {
-                    err = entryErr;
-                    break;
-                } else {
-                    permittedData.push(permittedEntry);
-                }
-            } else {
-                err = requiredError;
-                break;
-            }
-        }
-        if (err) {
-            this.renderError(res, err);
-        } else {
-            model.createMany(res, next, permittedData);
-        }
+        checkModelBatchData(
+            this,
+            data,
+            model,
+            this.createRequired,
+            this.createPermitted,
+            (permittedData) => {
+                model.createMany(res, next, permittedData);
+            },
+            (error) => this.renderError(res, error)
+        );
     };
 
     hasRequiredParams = (params, required) => {
-        let lacking = [];
-        required.forEach((i) => {
-            if (!common.hasKey(params, i)) {
-                lacking.push(i);
-            } else if (common.emptyString(params[i])) {
-                lacking.push(i);
-            }
-        });
+        let lacking = lackingParams(params, required);
         if (lacking.length == 0) {
             return [true, null];
         } else {
-            lacking = lacking.map((i) => `'${i}'`);
             let error = `${lacking[0]} is a required parameter.`;
             if (lacking.length > 1) {
                 let last = lacking.pop();
@@ -136,26 +101,19 @@ module.exports = class Controller {
             let key = permitted[i];
             if (common.hasKey(params, key)) {
                 let value = params[key];
-                if (typeof params === 'string') {
+                if (typeof value === 'string') {
                     value = value.trim();
                 }
                 if (this.containsObjectId.includes(key)) {
-                    if (
-                        common.isArray(value) &&
-                        value.length === 1 &&
-                        value[0] === ''
-                    ) {
-                        value = [];
+                    let [
+                        convertError,
+                        result,
+                    ] = convertToObjectId(value);
+                    if (!convertError) {
+                        value = result;
                     } else {
-                        let [err, result] = convertToObjectId(
-                            value
-                        );
-                        if (!err) {
-                            value = result;
-                        } else {
-                            error = err;
-                            break;
-                        }
+                        error = convertError;
+                        break;
                     }
                 }
                 result[key] = value;
@@ -176,30 +134,39 @@ module.exports = class Controller {
     };
 
     updateModel = (id, data, res, next, model) => {
-        let [
-            validParams,
-            requiredError,
-        ] = this.hasRequiredParams(data, this.updateRequired);
-        if (validParams) {
-            let [err, permittedData] = this.updatePermitted(
-                data,
-                model
-            );
-            if (err) {
-                this.renderError(res, err);
-            } else {
-                let modifyModel = (model) => {
-                    Object.keys(permittedData).forEach((key) => {
-                        model[key] = permittedData[key];
-                    });
-                    return model;
-                };
-                model.update(res, next, id, modifyModel);
-            }
-        } else {
-            this.renderError(res, err);
-        }
+        checkModelData(
+            this,
+            data,
+            model,
+            this.updateRequired,
+            this.updatePermitted,
+            (permittedData) => {
+                model.update(res, next, id, (model) =>
+                    modifyModel(permittedData, model)
+                );
+            },
+            (error) => this.renderError(res, error)
+        );
     };
+};
+
+const modifyModel = (permittedData, model) => {
+    Object.keys(permittedData).forEach((key) => {
+        model[key] = permittedData[key];
+    });
+    return model;
+};
+
+const lackingParams = (params, required) => {
+    let lacking = [];
+    required.forEach((i) => {
+        if (!common.hasKey(params, i)) {
+            lacking.push(i);
+        } else if (common.emptyString(params[i])) {
+            lacking.push(`'${i}'`);
+        }
+    });
+    return lacking;
 };
 
 const convertToObjectId = (value) => {
@@ -226,5 +193,61 @@ const strArrayToObjectId = (ids) => {
         return [null, converted];
     } catch (err) {
         return [err, null];
+    }
+};
+
+const checkModelData = (
+    self,
+    data,
+    model,
+    required,
+    permit,
+    action,
+    errorAction
+) => {
+    let [validParams, requiredError] = self.hasRequiredParams(
+        data,
+        required
+    );
+    if (validParams) {
+        let [err, permittedData] = permit(data, model);
+        if (err) {
+            errorAction(err);
+        } else {
+            action(permittedData);
+        }
+    } else {
+        errorAction(requiredError);
+    }
+};
+
+const checkModelBatchData = (
+    self,
+    data,
+    model,
+    required,
+    permit,
+    action,
+    errorAction
+) => {
+    let permittedData = [],
+        err = null;
+    for (let i = 0; i < data.length; i++) {
+        checkModelData(
+            self,
+            data[i],
+            model,
+            required,
+            permit,
+            (permittedEntry) =>
+                permittedData.push(permittedEntry),
+            (entryError) => (err = entryError)
+        );
+        if (err) break;
+    }
+    if (err) {
+        errorAction(err);
+    } else {
+        action(permittedData);
     }
 };
