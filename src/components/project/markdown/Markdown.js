@@ -19,6 +19,7 @@ class Markdown extends React.Component {
     render() {
         return (
             <section
+                className="markdown"
                 dangerouslySetInnerHTML={{
                     __html: this.parsedText(),
                 }}
