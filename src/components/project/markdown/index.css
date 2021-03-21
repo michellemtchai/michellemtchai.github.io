@@ -36,19 +36,13 @@
     font-size: 16px;
 }
 .markdown ol {
-    padding: 0;
+    padding-left: 50px;
 }
 .markdown ol > li {
-    list-style: none;
-    counter-increment: item;
-    padding: 5px 0;
+    padding: 5px;
     font-size: 16px;
-}
-.markdown ol > li:before {
     font-weight: bold;
-    content: counter(item) '.';
-    text-align: right;
-    margin-right: 10px;
-    min-width: 40px;
-    display: inline-block;
+}
+.markdown ol > li > span {
+    font-weight: normal;
 }
