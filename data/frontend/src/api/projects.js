@@ -18,7 +18,6 @@ export const getAllProjects = (props, next = null) => {
 
 export const createProject = (props, params, next = null) => {
     let updateData = (data) => {
-        console.log('new', data);
         props.endFetching();
         getAllProjects(props, next);
     };
@@ -28,9 +27,13 @@ export const createProject = (props, params, next = null) => {
     });
 };
 
-export const updateProject = (props, id, params, next = null) => {
+export const updateProject = (
+    props,
+    id,
+    params,
+    next = null
+) => {
     let updateData = (data) => {
-        console.log('updated', data);
         props.endFetching();
         getAllProjects(props, next);
     };
@@ -42,7 +45,6 @@ export const updateProject = (props, id, params, next = null) => {
 
 export const removeProjectById = (props, id, next = null) => {
     let updateData = (data) => {
-        console.log('deleted', data);
         props.endFetching();
         getAllProjects(props, next);
     };

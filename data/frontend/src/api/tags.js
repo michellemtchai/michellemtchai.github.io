@@ -18,7 +18,6 @@ export const getAllTags = (props, next = null) => {
 
 export const createTag = (props, params, next = null) => {
     let updateData = (data) => {
-        console.log('new', data);
         props.endFetching();
         getAllTags(props, next);
     };
@@ -30,7 +29,6 @@ export const createTag = (props, params, next = null) => {
 
 export const removeTagById = (props, id, next = null) => {
     let updateData = (data) => {
-        console.log('deleted', data);
         props.endFetching();
         getAllTags(props, next);
     };

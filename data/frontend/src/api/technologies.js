@@ -18,7 +18,6 @@ export const getAllTechnologies = (props, next = null) => {
 
 export const createTechnology = (props, params, next = null) => {
     let updateData = (data) => {
-        console.log('new', data);
         props.endFetching();
         getAllTechnologies(props, next);
     };
@@ -28,9 +27,13 @@ export const createTechnology = (props, params, next = null) => {
     });
 };
 
-export const updateTechnology = (props, id, params, next = null) => {
+export const updateTechnology = (
+    props,
+    id,
+    params,
+    next = null
+) => {
     let updateData = (data) => {
-        console.log('updated', data);
         props.endFetching();
         getAllTechnologies(props, next);
     };
@@ -42,7 +45,6 @@ export const updateTechnology = (props, id, params, next = null) => {
 
 export const removeTechnologyById = (props, id, next = null) => {
     let updateData = (data) => {
-        console.log('deleted', data);
         props.endFetching();
         getAllTechnologies(props, next);
     };

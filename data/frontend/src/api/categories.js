@@ -18,7 +18,6 @@ export const getAllCategories = (props, next = null) => {
 
 export const createCategory = (props, params, next = null) => {
     let updateData = (data) => {
-        console.log('new', data);
         props.endFetching();
         getAllCategories(props, next);
     };
@@ -28,9 +27,13 @@ export const createCategory = (props, params, next = null) => {
     });
 };
 
-export const updateCategory = (props, id, params, next = null) => {
+export const updateCategory = (
+    props,
+    id,
+    params,
+    next = null
+) => {
     let updateData = (data) => {
-        console.log('updated', data);
         props.endFetching();
         getAllCategories(props, next);
     };
@@ -42,7 +45,6 @@ export const updateCategory = (props, id, params, next = null) => {
 
 export const removeCategoryById = (props, id, next = null) => {
     let updateData = (data) => {
-        console.log('deleted', data);
         props.endFetching();
         getAllCategories(props, next);
     };
