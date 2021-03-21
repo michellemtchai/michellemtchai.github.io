@@ -19,6 +19,9 @@
 .items > li:first-child > p {
     width: calc(100% - 240px);
     display: inline-block;
+    margin: 0;
+    padding: 0 10px;
+    vertical-align: bottom;
 }
 .items > li:first-child > .pagination {
     width: 240px;
@@ -28,6 +31,7 @@
 }
 .items > li:last-child {
     border: none;
+    height: 50px;
 }
 .items > li:last-child > .pagination,
 .items > li:last-child > p {
