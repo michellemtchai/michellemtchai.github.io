@@ -6,6 +6,7 @@
     border: #fff 1px solid;
     margin: 0 auto;
     padding: 10px 20px;
+    max-width: 1200px;
 }
 @media only screen and (max-width: 530px) {
     .page-body {
