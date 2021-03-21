@@ -10,12 +10,9 @@ class Editor extends React.Component {
         form: null,
     };
     updateForm = (value) => {
-        this.setState(
-            {
-                form: value,
-            },
-            () => console.log(this.state.form)
-        );
+        this.setState({
+            form: value,
+        });
     };
     schema = this.props.state.data.form
         ? schemaForm(this.props)

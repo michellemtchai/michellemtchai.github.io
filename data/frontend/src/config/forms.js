@@ -1,13 +1,27 @@
+const stringCompare = (key) => {
+    return (a, b) => {
+        if (a[key] === b[key]) {
+            return 0;
+        } else if (a[key] < b[key]) {
+            return -1;
+        } else {
+            return 1;
+        }
+    };
+};
+
 export const projectSchema = (props) => {
     let technologies = props.state.data.technologies;
     let keys = Object.keys(technologies);
-    let options = keys.map((key) => {
-        let technology = technologies[key];
-        return {
-            label: technology.name,
-            value: technology._id,
-        };
-    });
+    let options = keys
+        .map((key) => {
+            let technology = technologies[key];
+            return {
+                label: technology.name,
+                value: technology._id,
+            };
+        })
+        .sort(stringCompare('label'));
     let tags = props.state.data.tags;
     let mapping = {};
     Object.keys(tags).forEach((tag) => {
@@ -92,13 +106,15 @@ export const technologySchema = {
 export const categorySchema = (props) => {
     let projects = props.state.data.projects;
     let keys = Object.keys(projects);
-    let options = keys.map((key) => {
-        let project = projects[key];
-        return {
-            label: project.name,
-            value: project._id,
-        };
-    });
+    let options = keys
+        .map((key) => {
+            let project = projects[key];
+            return {
+                label: project.name,
+                value: project._id,
+            };
+        })
+        .sort(stringCompare('label'));
     return {
         name: 'category',
         properties: {

@@ -15,7 +15,9 @@ class TechList extends React.Component {
                     <li key={'tech-' + i}>
                         {this.props.clickable ? (
                             <a
-                                href={technologies[key].source_url}
+                                href={
+                                    technologies[key].source_url
+                                }
                                 target="_blank"
                             >
                                 <TechListItem
@@ -23,7 +25,9 @@ class TechList extends React.Component {
                                 />
                             </a>
                         ) : (
-                            <TechListItem {...technologies[key]} />
+                            <TechListItem
+                                {...technologies[key]}
+                            />
                         )}
                     </li>
                 ))}

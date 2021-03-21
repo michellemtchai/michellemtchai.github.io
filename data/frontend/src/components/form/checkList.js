@@ -60,7 +60,6 @@ class CheckList extends React.Component {
                         key={id(i)}
                         htmlFor={id(i)}
                         className="form-check form-check-label"
-                        onClick={this.handleChange}
                     >
                         <input
                             type="checkbox"
