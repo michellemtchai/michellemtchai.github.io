@@ -30,13 +30,16 @@ class NavBar extends React.Component {
     }
     render() {
         let minimized = this.state.minimized ? ' minimized' : '';
+        let ulStyle = { width: this.props.navWidth + 17 + 'px' };
+        let liStyle = { width: this.props.navWidth + 'px' };
         return (
             <nav className="navbar">
-                <ul>
+                <ul style={ulStyle}>
                     {navlinks(this.props).map((link, i) => (
                         <li
                             key={'link-' + i}
                             className={minimized}
+                            style={liStyle}
                         >
                             <a
                                 href={link}
