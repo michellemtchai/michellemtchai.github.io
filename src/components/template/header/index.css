@@ -5,13 +5,18 @@
     border-bottom: #eee 2px solid;
     padding: 15px;
     background: #fff;
+    margin: 0;
 }
 .header h1 {
     cursor: pointer;
+    margin: 0;
+    padding: 0;
 }
 .header li {
     display: inline-block;
     vertical-align: top;
+    margin: 0;
+    padding: 0;
 }
 .header li:first-child {
     width: 30px;

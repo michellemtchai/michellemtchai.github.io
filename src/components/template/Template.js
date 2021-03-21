@@ -24,7 +24,7 @@ class Template extends React.Component {
         );
         let route = routes(this.props)[location];
         return route ? (
-            <div>
+            <>
                 <Header updateNav={this.updateNav} />
                 <NavContent
                     {...this.props}
@@ -34,7 +34,7 @@ class Template extends React.Component {
                     navExpanded={this.state.navExpanded}
                     updateNav={this.updateNav}
                 />
-            </div>
+            </>
         ) : (
             ''
         );
