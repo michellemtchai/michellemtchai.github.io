@@ -19,6 +19,7 @@ class TechList extends React.Component {
                                     technologies[key].source_url
                                 }
                                 target="_blank"
+                                rel="noopener"
                             >
                                 <TechListItem
                                     {...technologies[key]}

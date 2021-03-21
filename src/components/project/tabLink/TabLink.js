@@ -7,6 +7,7 @@ class TabLink extends React.Component {
             <a
                 href={this.props.link}
                 target="_blank"
+                rel="noopener"
                 className="tab-link"
                 title={this.props.link}
             >

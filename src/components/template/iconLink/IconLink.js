@@ -7,6 +7,7 @@ class IconLink extends React.Component {
                 className="icon-link"
                 href={this.props.link}
                 target="_blank"
+                rel="noopener"
                 alt={this.props.description}
                 title={this.props.description}
             >
