@@ -20,7 +20,7 @@ export const routes = (props) => {
     let categories = {};
     Object.keys(labels).forEach((key) => {
         let label = labels[key];
-        let pagesUrl = `${label.base_url}/pages`;
+        let pagesUrl = `${label.base_url}/page`;
         let Component = (props) => (
             <Projects
                 baseUrl={pagesUrl}
