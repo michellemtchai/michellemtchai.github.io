@@ -44,6 +44,7 @@
     word-wrap: break-word; /* Internet Explorer 5.5+ */
     border: 1px solid #ccc;
     border-radius: 4px;
+    padding: 0;
 }
 .markdown pre > code {
     display: block;
