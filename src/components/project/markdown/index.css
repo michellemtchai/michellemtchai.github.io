@@ -31,6 +31,8 @@
     background-color: #eee;
     padding: 2px 4px;
     border-radius: 4px;
+    vertical-align: top;
+    margin: 5px 0;
 }
 .markdown pre {
     width: 100%;
@@ -55,7 +57,8 @@
 }
 .markdown p {
     font-size: 16px;
-    margin: 15px 0 5px 0;
+    margin: 20px 0 5px 0;
+    line-height: 25px;
 }
 .markdown ol {
     padding-left: 50px;
@@ -73,20 +76,23 @@
     font-size: 16px;
     list-style: initial;
 }
-.markdown ul > li > li {
+.markdown ul > li li {
     list-style: circle;
 }
-.markdown ul > li > li > li {
+.markdown ul > li li li {
     list-style: square;
 }
-.markdown ul > li > li > li > li {
+.markdown ul > li li li li {
     list-style: initial;
 }
-.markdown ul > li > li > li > li > li {
+.markdown ul > li li li li li {
     list-style: circle;
 }
-.markdown ul > li > li > li > li > li > li {
+.markdown ul > li li li li li li {
     list-style: square;
+}
+.markdown li {
+    line-height: 25px;
 }
 
 .markdown table {
