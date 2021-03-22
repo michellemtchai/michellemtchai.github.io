@@ -47,8 +47,3 @@ class TextField extends React.Component {
 }
 
 export default TextField;
-
-const focusStyle = {
-    border: '1px solid #ccc',
-    boxShadow: 'none',
-};

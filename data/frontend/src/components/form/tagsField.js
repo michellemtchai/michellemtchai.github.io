@@ -83,8 +83,3 @@ const tagValues = (props) => {
     let tags = props.value;
     return tags.map((tag) => props.mapping[tag]);
 };
-
-const focusStyle = {
-    border: '1px solid #ccc',
-    boxShadow: 'none',
-};
