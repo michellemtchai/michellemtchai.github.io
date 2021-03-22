@@ -33,6 +33,7 @@ export const routes = (props) => {
             component: Component,
             icon: label.icon_class,
             exact: true,
+            description: label.description,
         };
         categories[`${pagesUrl}/:page`] =
             categories[label.base_url];

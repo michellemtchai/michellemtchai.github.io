@@ -1,32 +1,35 @@
 import './index.css';
 import React from 'react';
+import Head from './Head';
 import NavBar from './navBar';
 import Error from './error';
 import FetchIndicator from './fetchIndicator';
 
-import { withRouter } from "react-router";
+import { withRouter } from 'react-router';
 import { routes } from '../../config/routes';
 import { totalFetches } from '../../config/api';
 
 class Template extends React.Component {
-	render() {
+    render() {
         let route = routes[this.props.match.path];
-        let title = route ? route.title: 'No Title';
+        let title = route ? route.title : 'No Title';
         let data = this.props.state.data;
-		return (
+        return (
             <div>
-                <NavBar route={this.props.match.path}
-                    {...this.props}/>
-                <Error {...this.props}/>
-                <FetchIndicator {...this.props}/>
+                <Head {...route} />
+                <NavBar
+                    route={this.props.match.path}
+                    {...this.props}
+                />
+                <Error {...this.props} />
+                <FetchIndicator {...this.props} />
                 <h1>{title}</h1>
-                {Object.keys(data).length >= totalFetches ?
-                    this.props.children:
-                    ''
-                }
+                {Object.keys(data).length >= totalFetches
+                    ? this.props.children
+                    : ''}
             </div>
         );
-  	}
+    }
 }
 
 export default withRouter(Template);

@@ -1,5 +1,6 @@
 import './index.css';
 import React from 'react';
+import Head from './helmet/Head';
 import Header from './header/Header';
 import NavContent from './navcontent/NavContent';
 
@@ -29,6 +30,7 @@ class Template extends React.Component {
         let route = routes(this.props)[location];
         return route ? (
             <>
+                <Head {...route} />
                 <Header updateNav={this.updateNav} />
                 <NavContent
                     {...this.props}
