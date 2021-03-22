@@ -9,5 +9,6 @@ export const goToPage = (link, props = null) => {
             form: null,
         });
     }
+    window.scrollTo(0, 0);
     history.push(link);
 };

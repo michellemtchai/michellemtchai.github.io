@@ -6,12 +6,10 @@ class PageButtons extends React.Component {
     prevPage = () => {
         let page = this.props.index - 1;
         goToPage(this.props.baseUrl + page);
-        window.scrollTo(0, 0);
     };
     nextPage = () => {
         let page = this.props.index + 1;
         goToPage(this.props.baseUrl + page);
-        window.scrollTo(0, 0);
     };
     render() {
         let page = this.props.index;
