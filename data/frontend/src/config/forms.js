@@ -76,6 +76,13 @@ export const projectSchema = (props) => {
                 label: 'Project Description',
                 placeholder: 'Enter project description',
             },
+            gallery: {
+                type: 'gallery',
+                label: 'Project Gallery',
+                scale: true,
+                mazSize: 300,
+                resolution: 0.75,
+            },
         },
     };
 };

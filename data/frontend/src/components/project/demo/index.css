@@ -1,0 +1,14 @@
+.demo {
+    background: #ddd;
+    border: 2px solid #fff;
+}
+.demo {
+    font-size: 12px;
+    background: #eee;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    margin: 0 5px;
+    padding: 5px;
+    line-height: 25px;
+    vertical-align: top;
+}

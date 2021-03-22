@@ -1,0 +1,25 @@
+.tab-link {
+    color: royalblue;
+    text-decoration: none;
+    outline: 0;
+}
+.tab-link i {
+    color: #777;
+    margin: 0 5px;
+}
+.tab-link:hover i,
+.tab-link:focus:hover i {
+    color: royalblue;
+}
+.tab-link:focus i {
+    color: #000;
+}
+.tab-link:hover,
+.tab-link:focus:hover {
+    color: royalblue;
+    text-decoration: underline;
+}
+.tab-link:focus {
+    color: darkblue;
+    text-decoration: underline;
+}

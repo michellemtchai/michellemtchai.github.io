@@ -1,7 +1,7 @@
 import React from 'react';
-import Image from '../image/image';
+import Image from '../image/Image';
 import { goToPage } from '../../shared/router';
-import TechList from '../project/techList';
+import TechList from '../project/techList/TechList';
 
 class ProjectListItem extends React.Component {
     project = (event) => {

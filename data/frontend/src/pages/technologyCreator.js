@@ -1,7 +1,7 @@
 import React from 'react';
 import { api } from '../config/api';
 import { technologySchema } from '../config/forms';
-import Creator from '../components/creator';
+import Creator from '../components/Creator';
 
 class TechnologyCreator extends React.Component {
     render() {

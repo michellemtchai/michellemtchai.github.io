@@ -1,6 +1,6 @@
 import React from 'react';
-import CategoryListItem from './categoryListItem';
-import List from '../list/list';
+import CategoryListItem from './CategoryListItem';
+import List from '../list/List';
 
 class CategoryList extends React.Component {
     render() {

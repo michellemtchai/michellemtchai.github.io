@@ -1,6 +1,6 @@
 import React from 'react';
-import Image from '../image/image';
-import Button from '../form/button';
+import Image from '../image/Image';
+import Button from '../form/buttons/Button';
 import { editItem, deleteItem } from '../../shared/pages';
 import { api } from '../../config/api';
 

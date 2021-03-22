@@ -1,9 +1,9 @@
 import React from 'react';
 import { goToPage } from '../shared/router';
 import { formData, clone } from '../shared/form';
-import Form from '../components/form/form';
-import ActionButtons from '../components/form/actionButtons';
-import NotFound from '../pages/notFound';
+import Form from '../components/form/Form';
+import ActionButtons from '../components/form/buttons/ActionButtons';
+import NotFound from '../pages/NotFound';
 
 class Editor extends React.Component {
     state = {

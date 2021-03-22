@@ -1,6 +1,6 @@
 import './index.css';
 import React from 'react';
-import PageButtons from './pageButtons';
+import PageButtons from './pageButton/PageButtons';
 
 class List extends React.Component {
     render() {
@@ -22,8 +22,8 @@ class List extends React.Component {
             <ul className={className}>
                 <li>
                     <p>
-                        Showing {items.length} of {this.props.total}{' '}
-                        items
+                        Showing {items.length} of{' '}
+                        {this.props.total} items
                     </p>
                     {pagination}
                 </li>

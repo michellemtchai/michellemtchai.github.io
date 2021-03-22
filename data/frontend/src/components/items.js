@@ -1,13 +1,16 @@
 import React from 'react';
 import { goToPage } from '../shared/router';
 import { getPages, validPage, getPage } from '../shared/pages';
-import LongButton from './form/longButton';
-import NotFound from '../pages/notFound';
+import LongButton from './form/buttons/LongButton';
+import NotFound from '../pages/NotFound';
 
 class Items extends React.Component {
     render() {
         let page = getPage(this.props);
-        let [total, pages] = getPages(this.props, this.props.keyName);
+        let [total, pages] = getPages(
+            this.props,
+            this.props.keyName
+        );
         return validPage(pages, page) ? (
             <div>
                 <LongButton

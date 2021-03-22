@@ -1,6 +1,6 @@
 import React from 'react';
-import Items from '../components/items';
-import CategoryList from '../components/categories/categoryList';
+import Items from '../components/Items';
+import CategoryList from '../components/categories/CategoryList';
 
 class Categories extends React.Component {
     render() {

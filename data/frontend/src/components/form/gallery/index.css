@@ -1,0 +1,53 @@
+p.gallery-list {
+    text-align: center;
+    padding: 20px;
+    border: dotted 4px #eee;
+    border-radius: 5px;
+}
+ul.gallery-list {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+}
+ul.gallery-list li:hover {
+    background: #eee;
+}
+ul.gallery-list li {
+    border-top: 1px solid #ddd;
+    padding: 10px 0;
+    height: 170px;
+}
+ul.gallery-list li .image {
+    float: left;
+    border: 1px solid #eee;
+    margin: 0 10px;
+}
+ul.gallery-list li .form-group {
+    padding: 0 10px;
+}
+ul.gallery-list li section {
+    padding: 0 10px;
+    display: block;
+}
+ul.gallery-list li .row-1 {
+    text-align: right;
+    vertical-align: top;
+}
+ul.gallery-list li .row-2 button:first-child {
+    margin: 0 10px;
+}
+ul.gallery-list li .row-2 button:nth-child(2) {
+    float: right;
+}
+.gallery-field .modal-dialog {
+    background: #fff;
+    border: 1px solid #eee;
+    padding: 20px;
+    border-radius: 5px;
+}
+.gallery-field .modal-dialog .error {
+    padding: 10px;
+}
+.gallery-field .error {
+    margin-top: 0;
+}

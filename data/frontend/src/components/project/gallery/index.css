@@ -1,0 +1,19 @@
+.gallery p {
+    padding: 20px;
+    text-align: center;
+}
+.gallery {
+    padding: 40px 20px;
+}
+.gallery .image {
+    margin: 5px;
+    border: 1px solid #eee;
+    cursor: pointer;
+}
+.gallery .image:hover {
+    opacity: 0.75;
+    background: #000;
+}
+.gallery .image:active {
+    opacity: 0.9;
+}

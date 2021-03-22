@@ -1,7 +1,7 @@
 import React from 'react';
 import { api } from '../config/api';
 import { technologySchema } from '../config/forms';
-import Editor from '../components/editor';
+import Editor from '../components/Editor';
 
 class TechnologyEditor extends React.Component {
     render() {

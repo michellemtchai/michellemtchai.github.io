@@ -1,6 +1,6 @@
 import React from 'react';
-import Items from '../components/items';
-import ProjectList from '../components/projects/projectList';
+import Items from '../components/Items';
+import ProjectList from '../components/projects/ProjectList';
 
 class Projects extends React.Component {
     render() {

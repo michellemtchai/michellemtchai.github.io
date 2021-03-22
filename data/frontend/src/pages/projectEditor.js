@@ -5,8 +5,8 @@ import {
     tagNameMapping,
     projectNewTags,
     tagListMapping,
-} from './projectCreator';
-import Editor from '../components/editor';
+} from './ProjectCreator';
+import Editor from '../components/Editor';
 
 class ProjectEditor extends React.Component {
     render() {

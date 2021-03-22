@@ -49,7 +49,12 @@ export const resizeImage = (
     let image = new Image();
     image.onload = (event) => {
         let imageUrl = scale
-            ? scaleCanvas(image, maxSize, resolution, transparency)
+            ? scaleCanvas(
+                  image,
+                  maxSize,
+                  resolution,
+                  transparent
+              )
             : squashCanvas(
                   image,
                   width,
@@ -62,7 +67,12 @@ export const resizeImage = (
     image.src = urlImageData;
 };
 
-const scaleCanvas = (image, maxSize, resolution, transparent) => {
+const scaleCanvas = (
+    image,
+    maxSize,
+    resolution,
+    transparent
+) => {
     let canvas = document.createElement('canvas');
     let width = image.width,
         height = image.height;
@@ -79,7 +89,9 @@ const scaleCanvas = (image, maxSize, resolution, transparent) => {
     }
     canvas.width = width;
     canvas.height = height;
-    canvas.getContext('2d').drawImage(image, 0, 0, width, height);
+    canvas
+        .getContext('2d')
+        .drawImage(image, 0, 0, width, height);
     return canvas.toDataURL(fileType(transparent), resolution);
 };
 
@@ -93,7 +105,9 @@ const squashCanvas = (
     let canvas = document.createElement('canvas');
     canvas.width = width;
     canvas.height = height;
-    canvas.getContext('2d').drawImage(image, 0, 0, width, height);
+    canvas
+        .getContext('2d')
+        .drawImage(image, 0, 0, width, height);
     return canvas.toDataURL(fileType(transparent), resolution);
 };
 

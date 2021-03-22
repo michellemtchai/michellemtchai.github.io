@@ -1,7 +1,7 @@
 import React from 'react';
 import { api } from '../config/api';
 import { projectSchema } from '../config/forms';
-import Creator from '../components/creator';
+import Creator from '../components/Creator';
 
 class ProjectCreator extends React.Component {
     render() {

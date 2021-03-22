@@ -1,9 +1,9 @@
 import './index.css';
 import React from 'react';
-import Head from './Head';
-import NavBar from './navBar';
-import Error from './error';
-import FetchIndicator from './fetchIndicator';
+import Head from './helmet/Head';
+import NavBar from './navbar/NavBar';
+import Error from './error/Error';
+import FetchIndicator from './fetch/FetchIndicator';
 
 import { withRouter } from 'react-router';
 import { routes } from '../../config/routes';

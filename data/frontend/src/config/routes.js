@@ -1,14 +1,14 @@
-import Projects from '../pages/projects';
-import Project from '../pages/project';
-import ProjectCreator from '../pages/projectCreator';
-import ProjectEditor from '../pages/projectEditor';
-import Technologies from '../pages/technologies';
-import TechnologyCreator from '../pages/technologyCreator';
-import TechnologyEditor from '../pages/technologyEditor';
-import Categories from '../pages/categories';
-import CategoryCreator from '../pages/categoryCreator';
-import CategoryEditor from '../pages/categoryEditor';
-import NotFound from '../pages/notFound';
+import Projects from '../pages/Projects';
+import Project from '../pages/Project';
+import ProjectCreator from '../pages/ProjectCreator';
+import ProjectEditor from '../pages/ProjectEditor';
+import Technologies from '../pages/Technologies';
+import TechnologyCreator from '../pages/TechnologyCreator';
+import TechnologyEditor from '../pages/TechnologyEditor';
+import Categories from '../pages/Categories';
+import CategoryCreator from '../pages/CategoryCreator';
+import CategoryEditor from '../pages/CategoryEditor';
+import NotFound from '../pages/NotFound';
 
 export const navlinks = ['/', '/technologies', '/categories'];
 

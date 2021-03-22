@@ -1,0 +1,29 @@
+.tags {
+    padding: 0;
+    display: block;
+    width: 100%;
+}
+.tags li {
+    display: inline-block;
+    background: #eee;
+    padding: 5px 10px;
+    margin: 5px;
+    border-radius: 10px;
+    word-wrap: break-word;
+    max-width: calc(100% - 10px);
+}
+.tags li span:first-child {
+    display: inline-block;
+    max-width: calc(100% - 25px);
+}
+.tags li span:nth-child(2) {
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 25px;
+    line-height: 20px;
+    vertical-align: top;
+    margin-left: 5px;
+    display: inline-block;
+    width: 20px;
+    text-align: center;
+}

@@ -1,12 +1,12 @@
 import React from 'react';
 import { api } from '../config/api';
 import { goToPage } from '../shared/router';
-import Image from '../components/image/image';
-import ProjectInfo from '../components/project/projectInfo';
-import Tabs from '../components/project/tabs';
-import Gallery from '../components/project/gallery';
+import Image from '../components/image/Image';
+import ProjectInfo from '../components/project/info/ProjectInfo';
+import Tabs from '../components/tabs/Tabs';
+import Gallery from '../components/project/gallery/Gallery';
 import Markdown from '../components/markdown/Markdown';
-import NotFound from './notFound';
+import NotFound from './NotFound';
 
 class Project extends React.Component {
     render() {

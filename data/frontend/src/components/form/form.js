@@ -1,13 +1,14 @@
 import './index.css';
 import React from 'react';
-import TextField from './textField';
-import TagsField from './tagsField';
-import FontAwesomeField from './fontAwesomeField';
-import MarkdownField from './markdownField';
-import TextBox from './textBox';
-import ImageField from './imageField';
-import Options from './options';
-import CheckList from './checkList';
+import TextField from './text/TextField';
+import TagsField from './tags/TagsField';
+import FontAwesomeField from './fontAwesome/FontAwesomeField';
+import MarkdownField from './markdown/MarkdownField';
+import TextBox from './text/TextBox';
+import ImageField from './image/ImageField';
+import GalleryField from './gallery/GalleryField';
+import Options from './options/Options';
+import CheckList from './checkbox/CheckList';
 
 class Form extends React.Component {
     state = {
@@ -77,7 +78,7 @@ const getValueByKey = (props, key) => {
     }
 };
 
-const arrayTypes = ['tags', 'checkbox'];
+const arrayTypes = ['tags', 'checkbox', 'gallery'];
 
 const typeToComponent = (type) => {
     switch (type) {
@@ -93,6 +94,8 @@ const typeToComponent = (type) => {
             return MarkdownField;
         case 'image':
             return ImageField;
+        case 'gallery':
+            return GalleryField;
         case 'select':
             return Options;
         case 'checkbox':

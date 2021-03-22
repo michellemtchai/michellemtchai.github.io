@@ -1,7 +1,7 @@
 import React from 'react';
 import { api } from '../config/api';
 import { categorySchema } from '../config/forms';
-import Editor from '../components/editor';
+import Editor from '../components/Editor';
 
 class CategoryEditor extends React.Component {
     render() {

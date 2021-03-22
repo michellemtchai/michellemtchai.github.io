@@ -1,6 +1,6 @@
 import React from 'react';
-import Items from '../components/items';
-import TechnologyList from '../components/technologies/technologyList';
+import Items from '../components/Items';
+import TechnologyList from '../components/technologies/TechnologyList';
 
 class Technologies extends React.Component {
     render() {

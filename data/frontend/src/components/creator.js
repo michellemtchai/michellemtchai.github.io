@@ -1,8 +1,8 @@
 import React from 'react';
 import { goToPage } from '../shared/router';
 import { formData } from '../shared/form';
-import Form from './form/form';
-import ActionButtons from './form/actionButtons';
+import Form from './form/Form';
+import ActionButtons from './form/buttons/ActionButtons';
 
 class Creator extends React.Component {
     state = {

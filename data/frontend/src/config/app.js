@@ -1,6 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router';
-import Template from '../components/template/template';
+import Template from '../components/template/Template';
 
 import { Switch, Route } from 'react-router-dom';
 import { routes } from '../config/routes';
@@ -32,7 +32,9 @@ class App extends React.Component {
         return (
             <div className="content">
                 <Switch>
-                    {Object.keys(routes).map((key, i) => this.route(key, i))}
+                    {Object.keys(routes).map((key, i) =>
+                        this.route(key, i)
+                    )}
                 </Switch>
             </div>
         );

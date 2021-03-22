@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '../form/button';
+import Button from '../form/buttons/Button';
 import { goToPage } from '../../shared/router';
 import { editItem, deleteItem } from '../../shared/pages';
 import { api } from '../../config/api';
