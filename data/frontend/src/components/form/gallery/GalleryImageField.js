@@ -4,13 +4,7 @@ import ImageField from '../image/ImageField';
 import ActionButtons from '../buttons/ActionButtons';
 
 class GalleryImageField extends React.Component {
-    state = {
-        error: '',
-        value: {
-            url: '',
-            caption: '',
-        },
-    };
+    state = initialState;
     handleChange = (value, key) => {
         this.setState({
             ...this.state,
@@ -21,9 +15,11 @@ class GalleryImageField extends React.Component {
         });
     };
     save = () => {
-        let value = this.state.value;
+        let value = { ...this.state.value };
         if (value.url.length > 0 && value.caption.length > 0) {
-            this.props.update(value);
+            this.setState(initialState, () =>
+                this.props.update(value)
+            );
         } else {
             this.setState({
                 ...this.state,
@@ -66,6 +62,14 @@ class GalleryImageField extends React.Component {
 }
 
 export default GalleryImageField;
+
+const initialState = {
+    error: '',
+    value: {
+        url: '',
+        caption: '',
+    },
+};
 
 const imageProps = (props, value) => {
     return {

@@ -54,7 +54,7 @@ class GalleryField extends React.Component {
                     click={this.openModal}
                 />
                 <GalleryImageList
-                    images={this.state.value}
+                    value={this.state.value}
                     update={this.handleChange}
                 />
                 <Modal

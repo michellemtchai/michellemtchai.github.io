@@ -6,7 +6,7 @@ import { textProps } from './GalleryImageField';
 
 class GalleryImageList extends React.Component {
     state = {
-        value: this.props.images,
+        value: this.props.value,
     };
     removeImage = (index) => {
         let images = [...this.state.value];
@@ -40,6 +40,16 @@ class GalleryImageList extends React.Component {
             () => this.props.update(this.state.value)
         );
     };
+    componentDidUpdate(prevProps) {
+        if (prevProps.value != this.props.value) {
+            this.setState(
+                {
+                    value: this.props.value,
+                },
+                () => this.props.update(this.state.value)
+            );
+        }
+    }
     render() {
         return this.state.value.length > 0 ? (
             <ul className="gallery-list">
@@ -76,7 +86,7 @@ class GalleryImageList extends React.Component {
                                 text="▼"
                                 disabled={
                                     i + 1 >=
-                                    this.props.images.length
+                                    this.state.value.length
                                 }
                                 click={() => this.swap(i, 1)}
                             />

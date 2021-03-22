@@ -3,11 +3,12 @@ p.gallery-list {
     padding: 20px;
     border: dotted 4px #eee;
     border-radius: 5px;
+    margin: 20px 0;
 }
 ul.gallery-list {
     list-style: none;
     padding: 0;
-    margin: 10px 0;
+    margin: 20px 0;
 }
 ul.gallery-list li:hover {
     background: #eee;
