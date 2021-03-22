@@ -6,6 +6,7 @@
     line-height: 1.1;
     margin-top: 30px;
     margin-bottom: 10px;
+    padding-bottom: 5px;
     border-bottom: 1px solid #eee;
 }
 .markdown h3 {
@@ -41,15 +42,15 @@
     white-space: -pre-wrap; /* Opera 4-6 */
     white-space: -o-pre-wrap; /* Opera 7 */
     word-wrap: break-word; /* Internet Explorer 5.5+ */
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
-.markdown pre code {
+.markdown pre > code {
     display: block;
     padding: 10px;
     line-height: 1.5;
     color: #333;
     background-color: #f5f5f5;
-    border: 1px solid #ccc;
-    border-radius: 4px;
 }
 .markdown p {
     font-size: 16px;
