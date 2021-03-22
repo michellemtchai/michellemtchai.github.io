@@ -17,6 +17,9 @@ module.exports = class ProjectsController extends Controller {
                 __v: 0,
                 created: 0,
                 updated: 0,
+                gallery: {
+                    _id: 0,
+                },
             },
         });
     };
