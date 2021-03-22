@@ -23,10 +23,8 @@ class Editor extends React.Component {
         this.props.setData({
             form: data,
         });
-        this.props.update(this.props, id, data, (err) => {
-            if (!err) {
-                goToPage(this.props.page, this.props);
-            }
+        this.props.update(this.props, id, data, (_) => {
+            goToPage(this.props.page, this.props);
         });
     };
     render() {

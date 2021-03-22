@@ -4,6 +4,19 @@ import { projectSchema } from '../config/forms';
 import Creator from '../components/Creator';
 
 class ProjectCreator extends React.Component {
+    state = {
+        tags: this.props.state.data.tags,
+    };
+    componentDidUpdate(prevProps) {
+        if (
+            prevProps.state.data.tags !==
+            this.props.state.data.tags
+        ) {
+            this.setState({
+                tags: this.props.state.data.tags,
+            });
+        }
+    }
     render() {
         let schema = projectSchema(this.props);
         return (
@@ -12,8 +25,8 @@ class ProjectCreator extends React.Component {
                 type="Project"
                 schema={schema}
                 page="/"
-                create={(props, data, next) =>
-                    createProject(props, data, next, schema)
+                create={(...args) =>
+                    createProject(this.state.tags, ...args)
                 }
             />
         );
@@ -22,26 +35,17 @@ class ProjectCreator extends React.Component {
 
 export default ProjectCreator;
 
-const createProject = (props, data, next, schema) => {
-    let mapping = tagNameMapping(props.state.data.tags);
+const createProject = (tags, props, data, next, schema) => {
+    let mapping = tagNameMapping(tags);
     let [projectTags, newTags] = projectNewTags(
         props,
         data.tags
     );
     if (newTags.length > 0) {
-        api.createTag(props, newTags, (err, res) => {
-            if (!err) {
-                mapping = tagNameMapping(res.tags);
-                data.tags = data.tags.map((tag) => mapping[tag]);
-                console.log(
-                    'created tags',
-                    res.tags,
-                    mapping,
-                    data.tags
-                );
-                schema.properties.tags.mapping = mapping;
-                api.createProject(props, data, next);
-            }
+        api.createTag(props, newTags, (res) => {
+            mapping = tagNameMapping(res.tags);
+            data.tags = data.tags.map((tag) => mapping[tag]);
+            api.createProject(props, data, next);
         });
     } else {
         data.tags = projectTags;
@@ -70,14 +74,6 @@ export const tagNameMapping = (tags) => {
     let mapping = {};
     Object.keys(tags).forEach((tag) => {
         mapping[tags[tag].name] = tag;
-    });
-    return mapping;
-};
-
-export const tagListMapping = (tags) => {
-    let mapping = {};
-    tags.forEach((tag) => {
-        mapping[tag.name] = tag._id;
     });
     return mapping;
 };

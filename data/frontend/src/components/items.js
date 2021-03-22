@@ -13,12 +13,18 @@ class Items extends React.Component {
         );
         return validPage(pages, page) ? (
             <div>
-                <LongButton
-                    text={`+ ${this.props.name}`}
-                    click={() =>
-                        goToPage(`/${this.props.keyName}/new`)
-                    }
-                />
+                {this.props.name ? (
+                    <LongButton
+                        text={`+ ${this.props.name}`}
+                        click={() =>
+                            goToPage(
+                                `/${this.props.keyName}/new`
+                            )
+                        }
+                    />
+                ) : (
+                    ''
+                )}
                 <this.props.list
                     {...this.props}
                     total={total}

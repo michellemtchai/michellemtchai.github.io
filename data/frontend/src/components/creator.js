@@ -19,10 +19,8 @@ class Creator extends React.Component {
         this.props.setData({
             form: data,
         });
-        this.props.create(this.props, data, (err) => {
-            if (!err) {
-                goToPage(this.props.page, this.props);
-            }
+        this.props.create(this.props, data, (_) => {
+            goToPage(this.props.page, this.props);
         });
     };
     render() {

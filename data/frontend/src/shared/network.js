@@ -58,7 +58,7 @@ export const fetchData = (url, config) => {
 			fetchData(url, config);
 		} else {
 			config.setState(config.formatData(data.data));
-			config.next(false, data.data);
+			config.next(data.data);
 		}
 	} else {
 		config.fetching();
@@ -85,15 +85,13 @@ export const fetchData = (url, config) => {
 					);
 					data = config.formatData(data);
 					config.setState(data);
-					config.next(false, data);
+					config.next(data);
 				} else {
 					config.setError(data.message);
-					config.next(true, null);
 				}
 			})
 			.catch((error) => {
 				config.setError(error.message);
-				config.next(true, null);
 			});
 	}
 };

@@ -8,9 +8,15 @@ import TechnologyEditor from '../pages/TechnologyEditor';
 import Categories from '../pages/Categories';
 import CategoryCreator from '../pages/CategoryCreator';
 import CategoryEditor from '../pages/CategoryEditor';
+import Tags from '../pages/Tags';
 import NotFound from '../pages/NotFound';
 
-export const navlinks = ['/', '/technologies', '/categories'];
+export const navlinks = [
+    '/',
+    '/technologies',
+    '/categories',
+    '/tags',
+];
 
 export const routes = {
     '/': {
@@ -84,6 +90,16 @@ export const routes = {
     '/categories/:category/edit': {
         component: CategoryEditor,
         title: 'Edit Category',
+    },
+    '/tags': {
+        component: Tags,
+        title: 'Tags',
+        exact: true,
+        children: ['/tags/page/:page'],
+    },
+    '/tags/page/:page': {
+        component: Tags,
+        title: 'Tags',
     },
     '': {
         component: NotFound,

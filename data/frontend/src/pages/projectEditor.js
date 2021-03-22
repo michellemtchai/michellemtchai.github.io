@@ -4,11 +4,23 @@ import { projectSchema } from '../config/forms';
 import {
     tagNameMapping,
     projectNewTags,
-    tagListMapping,
 } from './ProjectCreator';
 import Editor from '../components/Editor';
 
 class ProjectEditor extends React.Component {
+    state = {
+        tags: this.props.state.data.tags,
+    };
+    componentDidUpdate(prevProps) {
+        if (
+            prevProps.state.data.tags !==
+            this.props.state.data.tags
+        ) {
+            this.setState({
+                tags: this.props.state.data.tags,
+            });
+        }
+    }
     render() {
         let id = this.props.match.params.project;
         let readonly = ['name'];
@@ -19,7 +31,9 @@ class ProjectEditor extends React.Component {
                 item={this.props.state.data.projects}
                 readonly={readonly}
                 schema={projectSchema(this.props)}
-                update={updateProject}
+                update={(...args) =>
+                    updateProject(this.state.tags, ...args)
+                }
                 page={'/projects/' + id}
             />
         );
@@ -28,22 +42,21 @@ class ProjectEditor extends React.Component {
 
 export default ProjectEditor;
 
-const updateProject = (props, id, data, next) => {
-    let mapping = tagNameMapping(props.state.data.tags);
+const updateProject = (tags, props, id, data, next) => {
+    let mapping = tagNameMapping(tags);
     let [projectTags, newTags] = projectNewTags(
         props,
         data.tags
     );
+    let copy = Object.assign({}, data);
     if (newTags.length > 0) {
-        api.createTag(props, newTags, (err, data) => {
-            if (!err) {
-                mapping = tagListMapping(data);
-                data.tags = data.tags.map((tag) => mapping[tag]);
-                api.updateProject(props, id, data, next);
-            }
+        api.createTag(props, newTags, (res) => {
+            mapping = tagNameMapping(res.tags);
+            copy.tags = copy.tags.map((tag) => mapping[tag]);
+            api.updateProject(props, id, copy, next);
         });
     } else {
-        data.tags = projectTags;
-        api.updateProject(props, id, data, next);
+        copy.tags = projectTags;
+        api.updateProject(props, id, copy, next);
     }
 };
