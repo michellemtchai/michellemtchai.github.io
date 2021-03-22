@@ -5,7 +5,7 @@ import Image from '../components/image/image';
 import ProjectInfo from '../components/project/projectInfo';
 import Tabs from '../components/project/tabs';
 import Gallery from '../components/project/gallery';
-import Markdown from '../components/project/markdown';
+import Markdown from '../components/markdown/Markdown';
 import NotFound from './notFound';
 
 class Project extends React.Component {

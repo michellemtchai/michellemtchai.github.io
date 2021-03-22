@@ -1,6 +1,6 @@
 import React from 'react';
 import Tabs from '../project/tabs';
-import Markdown from '../project/markdown';
+import Markdown from '../markdown/Markdown';
 
 class MarkdownField extends React.Component {
     state = {

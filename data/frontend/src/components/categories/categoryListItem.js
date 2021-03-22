@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from '../form/button';
+import { goToPage } from '../../shared/router';
 import { editItem, deleteItem } from '../../shared/pages';
 import { api } from '../../config/api';
 
@@ -14,6 +15,10 @@ class CategoryListItem extends React.Component {
             api.removeCategoryById,
             '/categories'
         );
+    };
+    click = (event, project) => {
+        event.preventDefault();
+        goToPage(`/projects/${project}`);
     };
     render() {
         let category = this.props.category;
@@ -38,12 +43,20 @@ class CategoryListItem extends React.Component {
                         <b>Base URL:</b> {category.base_url}
                     </p>
                     <p>
-                        <b>Description:</b> {category.description}
+                        <b>Description:</b>{' '}
+                        {category.description}
                     </p>
                     <ol>
                         {category.projects.map((project, i) => (
                             <li key={'projects-' + i}>
-                                {projects[project].name}
+                                <a
+                                    href={`/projects/${project}`}
+                                    onClick={(e) =>
+                                        this.click(e, project)
+                                    }
+                                >
+                                    {projects[project].name}
+                                </a>
                             </li>
                         ))}
                     </ol>
