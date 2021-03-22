@@ -43,38 +43,43 @@ class CheckList extends React.Component {
     render() {
         let options = this.props.options;
         let id = (i) => `checkbox-${this.props.name}-${i}`;
+        let columns = this.props.columns
+            ? this.props.columns
+            : 3;
         return (
             <fieldset
                 ref={this.list}
                 className="form-group"
                 onChange={this.handleChange}
-                style={{
-                    columnCount: this.props.columns
-                        ? this.props.columns
-                        : 3,
-                }}
             >
                 <label>{this.props.label}:</label>
-                {options.map((option, i) => (
-                    <label
-                        key={id(i)}
-                        htmlFor={id(i)}
-                        className="form-check form-check-label"
-                    >
-                        <input
-                            type="checkbox"
-                            className="form-check-input"
-                            id={id(i)}
-                            value={option.value}
-                            name={`${this.props.name}[]`}
-                            onChange={this.handleChange}
-                            checked={this.state.value.includes(
-                                option.value
-                            )}
-                        />
-                        {option.label}
-                    </label>
-                ))}
+                <section
+                    className="check-list"
+                    style={{
+                        columnCount: columns,
+                    }}
+                >
+                    {options.map((option, i) => (
+                        <label
+                            key={id(i)}
+                            htmlFor={id(i)}
+                            className="form-check form-check-label"
+                        >
+                            <input
+                                type="checkbox"
+                                className="form-check-input"
+                                id={id(i)}
+                                value={option.value}
+                                name={`${this.props.name}[]`}
+                                onChange={this.handleChange}
+                                checked={this.state.value.includes(
+                                    option.value
+                                )}
+                            />
+                            {option.label}
+                        </label>
+                    ))}
+                </section>
             </fieldset>
         );
     }
