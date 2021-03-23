@@ -1,6 +1,5 @@
 import React from 'react';
 import { goToPage } from '../shared/router';
-import { formData } from '../shared/form';
 import Form from './form/Form';
 import ActionButtons from './form/buttons/ActionButtons';
 
@@ -13,13 +12,15 @@ class Creator extends React.Component {
             form: value,
         });
     };
-    form = React.createRef();
     create = () => {
         let data = this.state.form;
         this.props.setData({
             form: data,
         });
+        window.scrollTo(0, 0);
+        this.props.startFetching();
         this.props.create(this.props, data, (_) => {
+            this.props.endFetching();
             goToPage(this.props.page, this.props);
         });
     };

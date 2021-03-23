@@ -1,6 +1,6 @@
 import React from 'react';
 import { goToPage } from '../shared/router';
-import { formData, clone } from '../shared/form';
+import { clone } from '../shared/form';
 import Form from '../components/form/Form';
 import ActionButtons from '../components/form/buttons/ActionButtons';
 import NotFound from '../pages/NotFound';
@@ -23,7 +23,10 @@ class Editor extends React.Component {
         this.props.setData({
             form: data,
         });
+        window.scrollTo(0, 0);
+        this.props.startFetching();
         this.props.update(this.props, id, data, (_) => {
+            this.props.endFetching();
             goToPage(this.props.page, this.props);
         });
     };

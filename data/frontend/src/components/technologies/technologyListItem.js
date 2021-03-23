@@ -18,6 +18,9 @@ class TechnologyListItem extends React.Component {
     };
     render() {
         let technology = this.props.technology;
+        let useCount = this.props.techUseMap[technology._id]
+            ? this.props.techUseMap[technology._id]
+            : 0;
         return (
             <li>
                 <Image
@@ -27,7 +30,9 @@ class TechnologyListItem extends React.Component {
                     height="100px"
                 />
                 <article>
-                    <h2>{technology.name}</h2>
+                    <h2>
+                        {technology.name} ({useCount})
+                    </h2>
                     <p>
                         <b>Source:</b> {technology.source_url}
                     </p>

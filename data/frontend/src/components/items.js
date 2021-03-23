@@ -18,7 +18,8 @@ class Items extends React.Component {
                         text={`+ ${this.props.name}`}
                         click={() =>
                             goToPage(
-                                `/${this.props.keyName}/new`
+                                `/${this.props.keyName}/new`,
+                                this.props
                             )
                         }
                     />
