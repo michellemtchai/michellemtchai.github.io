@@ -3,7 +3,9 @@ const ObjectId = require('mongodb').ObjectID;
 
 module.exports = class Controller {
     constructor(app, name, logger) {
-        this.log = logger;
+        this.db = app.db;
+        this.log = (i) => logger('Info', i);
+        this.error = (i) => logger('Error', i);
         this.models = app.shared.models;
         this.assets = app.shared.assets;
         this.createRequired = [];
@@ -13,14 +15,14 @@ module.exports = class Controller {
     }
 
     renderError = (res, err) => {
-        this.log('Error', err.message);
+        this.error(err.message);
         res.status(404).json({
             message: err.message,
         });
     };
 
     renderSuccess = (res, json) => {
-        this.log('Info', 'Renders JSON with status 200');
+        this.log('Renders JSON with status 200');
         res.status(200).json(json);
     };
 

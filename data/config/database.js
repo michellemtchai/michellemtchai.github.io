@@ -1,7 +1,13 @@
 const mongoose = require('mongoose');
 
-module.exports = (actions) => {
-    let { DB_USERNAME, DB_PASSWORD, DB_HOST, DB_PORT, DB_DATA } = process.env;
+module.exports = (app, actions) => {
+    let {
+        DB_USERNAME,
+        DB_PASSWORD,
+        DB_HOST,
+        DB_PORT,
+        DB_DATA,
+    } = process.env;
 
     let mongoUri = `mongodb://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_DATA}?authSource=admin`;
     mongoose
@@ -12,7 +18,8 @@ module.exports = (actions) => {
         })
         .then(() => {
             console.log('MongoDB Connected');
-            actions();
+            app.db = mongoose.connection.db;
+            actions(app);
         })
         .catch((err) => console.log('Database Error', err));
 };

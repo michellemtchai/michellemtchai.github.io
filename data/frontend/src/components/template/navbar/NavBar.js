@@ -1,3 +1,4 @@
+import './index.css';
 import React from 'react';
 import { routes, navlinks } from '../../../config/routes';
 import { goToPage } from '../../../shared/router';
@@ -17,7 +18,7 @@ class NavBar extends React.Component {
     };
     render() {
         return (
-            <nav>
+            <nav className="nav-bar">
                 <ul>
                     {navlinks.map((link, i) => (
                         <li key={'link-' + i}>

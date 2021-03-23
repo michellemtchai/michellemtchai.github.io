@@ -1,3 +1,4 @@
+import './index.css';
 import React from 'react';
 
 class FetchIndicator extends React.Component {

@@ -1,4 +1,3 @@
-import './index.css';
 import React from 'react';
 import Head from './helmet/Head';
 import NavBar from './navbar/NavBar';
@@ -14,6 +13,7 @@ class Template extends React.Component {
         let route = routes[this.props.match.path];
         let title = route ? route.title : 'No Title';
         let data = this.props.state.data;
+        console.log('fetch length', Object.keys(data).length);
         return (
             <div>
                 <Head {...route} />

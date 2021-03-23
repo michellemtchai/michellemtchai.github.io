@@ -1,0 +1,65 @@
+.image-modal {
+    width: 70%;
+    max-width: 800px;
+    max-height: calc(100vh - 40px);
+    margin: 0 auto;
+    padding: 0;
+    overflow: visible;
+}
+.image-modal > .image {
+    border: 1px solid #eee;
+    display: block;
+}
+.image-modal caption {
+    border: 1px solid #eee;
+    padding: 10px 20px;
+    margin: 0;
+    width: 100%;
+    background: #fff;
+    overflow-y: auto;
+    display: block;
+}
+.image-modal > .image-holder {
+    display: inline-block;
+    width: 100%;
+    vertical-align: top;
+}
+.image-modal button {
+    width: 50px;
+    height: 100px;
+    display: inline-block;
+    border-radius: 0;
+    font-size: 50px;
+    margin-top: calc(50vh - 50px);
+}
+.image-modal button:first-child {
+    margin-left: -50px;
+}
+.image-modal button:nth-child(3) {
+    margin-right: -50px;
+}
+@media only screen and (max-width: 1200px) {
+    .image-modal {
+        width: calc(75% - 100px);
+    }
+}
+@media only screen and (max-width: 1100px) {
+    .image-modal {
+        width: calc(80% - 100px);
+    }
+}
+@media only screen and (max-width: 1000px) {
+    .image-modal {
+        width: calc(85% - 100px);
+    }
+}
+@media only screen and (max-width: 900px) {
+    .image-modal {
+        width: calc(90% - 100px);
+    }
+}
+@media only screen and (max-width: 800px) {
+    .image-modal {
+        width: calc(95% - 100px);
+    }
+}

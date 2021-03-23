@@ -1,0 +1,16 @@
+.error {
+    color: #721c24;
+    background-color: #f8d7da;
+    border: #f5c6cb 1px solid;
+    display: inline-block;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    font-weight: bold;
+}
+.error li {
+    display: inline-block;
+    width: 100%;
+    overflow-wrap: break-word;
+    padding: 20px 0 20px 20px;
+}

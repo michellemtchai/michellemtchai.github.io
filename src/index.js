@@ -10,14 +10,25 @@ import { history } from './shared/router';
 
 import { configureStore } from './store';
 import { Container } from './shared/map';
-import * as jsonData from './config/data.json';
 import * as serviceWorker from './serviceWorker';
 
 const store = configureStore(thunk);
-const data = {
-    state: jsonData.default,
-};
 const helmetContext = {};
+
+let data;
+try {
+    data = {
+        state: require(process.env.REACT_APP_DATA_LOCATION),
+    };
+} catch (error) {
+    data = {
+        error: error.message,
+        state: {
+            categories: {},
+        },
+    };
+}
+
 ReactDOM.render(
     <React.StrictMode>
         <HelmetProvider context={helmetContext}>

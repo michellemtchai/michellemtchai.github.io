@@ -1,0 +1,19 @@
+.nav-bar ul {
+    list-style: none;
+    padding: 0;
+}
+.nav-bar ul li {
+    display: inline;
+}
+.nav-bar ul li a {
+    margin-right: 30px;
+    text-decoration: none;
+    color: black;
+}
+.nav-bar ul li a:hover {
+    color: royalblue;
+}
+.nav-bar .curr-page {
+    text-decoration: underline;
+    font-weight: bold;
+}

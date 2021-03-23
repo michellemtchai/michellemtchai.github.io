@@ -36,9 +36,11 @@ class Image extends React.Component {
     render() {
         return (
             <img
+                ref={this.props.reference}
                 className="image"
                 src={this.src()}
                 onError={this.onError}
+                onClick={this.props.onClick}
                 alt={this.state.alt}
                 title={this.state.alt}
                 style={this.state.style}

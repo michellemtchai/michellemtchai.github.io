@@ -60,7 +60,12 @@ class Modal extends React.Component {
                     className="modal-background"
                     onClick={this.closeModal}
                 ></div>
-                <div className="modal-body-content">
+                <div
+                    className={
+                        'modal-body-content ' +
+                        this.props.className
+                    }
+                >
                     {this.props.children}
                 </div>
             </div>

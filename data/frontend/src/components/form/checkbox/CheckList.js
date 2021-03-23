@@ -1,6 +1,8 @@
 import './index.css';
 import React from 'react';
 
+const noOptions = 'No options available.';
+
 class CheckList extends React.Component {
     list = React.createRef();
     state = {
@@ -60,26 +62,30 @@ class CheckList extends React.Component {
                         columnCount: columns,
                     }}
                 >
-                    {options.map((option, i) => (
-                        <label
-                            key={id(i)}
-                            htmlFor={id(i)}
-                            className="form-check form-check-label"
-                        >
-                            <input
-                                type="checkbox"
-                                className="form-check-input"
-                                id={id(i)}
-                                value={option.value}
-                                name={`${this.props.name}[]`}
-                                onChange={this.handleChange}
-                                checked={this.state.value.includes(
-                                    option.value
-                                )}
-                            />
-                            {option.label}
-                        </label>
-                    ))}
+                    {options.length > 0 ? (
+                        options.map((option, i) => (
+                            <label
+                                key={id(i)}
+                                htmlFor={id(i)}
+                                className="form-check form-check-label"
+                            >
+                                <input
+                                    type="checkbox"
+                                    className="form-check-input"
+                                    id={id(i)}
+                                    value={option.value}
+                                    name={`${this.props.name}[]`}
+                                    onChange={this.handleChange}
+                                    checked={this.state.value.includes(
+                                        option.value
+                                    )}
+                                />
+                                {option.label}
+                            </label>
+                        ))
+                    ) : (
+                        <p>{noOptions}</p>
+                    )}
                 </section>
             </fieldset>
         );
