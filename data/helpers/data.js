@@ -29,7 +29,7 @@ module.exports = dataProc = {
             req.body.exported
         ).getTime();
         let nullDateTime = new Date(null).getTime();
-        let processJsonData = (json) =>
+        let processJsonData = (json) => {
             processDbData(
                 controller,
                 req,
@@ -38,6 +38,7 @@ module.exports = dataProc = {
                 dbExported,
                 json
             );
+        };
         controller.log(
             'Client exported date',
             clientExported,
@@ -54,7 +55,7 @@ module.exports = dataProc = {
                 process.env.REACT_APP_DATA_LOCATION,
                 res,
                 processJsonData,
-                data[0]
+                req.body
             );
         } else {
             controller.log('Client data is outdated.');
@@ -176,10 +177,13 @@ const initJsonFile = (err, controller, file, res, dbData) => {
     };
     let writeDataContent = (data) => {
         controller.log('Got data exported entry.');
-        let content = JSON.stringify({
+        let content = JSON.stringify(data);
+        writeToFile(controller, file, content, res, next);
+    };
+    let processDataContent = (data) => {
+        writeDataContent({
             exported: data.exported.toISOString(),
         });
-        writeToFile(controller, file, content, res, next);
     };
     controller.error(err.message);
     if (dbData) {
@@ -191,7 +195,7 @@ const initJsonFile = (err, controller, file, res, dbData) => {
         controller.log(
             'Create data exported date then use it in file.'
         );
-        controller.Data.createOne(res, writeDataContent, {
+        controller.Data.createOne(res, processDataContent, {
             exported: new Date(),
         });
     }
