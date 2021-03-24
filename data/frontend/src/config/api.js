@@ -25,7 +25,7 @@ export const fetchAll = (props) => {
 
 export const fetchComplete = (state) => {
     let totalFetches = fetchList.length + 1;
-    if (Object.keys(state).length === totalFetches) {
+    if (Object.keys(state).length >= totalFetches) {
         let keys = Object.keys(state.categories);
         if (keys.length > 0) {
             for (let i = 0; i < keys.length; i++) {
