@@ -18,9 +18,7 @@ class Creator extends React.Component {
             form: data,
         });
         window.scrollTo(0, 0);
-        this.props.startFetching();
         this.props.create(this.props, data, (_) => {
-            this.props.endFetching();
             goToPage(this.props.page, this.props);
         });
     };

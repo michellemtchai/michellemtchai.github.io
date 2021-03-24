@@ -11,7 +11,9 @@ export const state = (state = initialState, action) => {
 		case actions.SET_DATA:
 			return {
 				...state,
-				fetching: state.fetching - 1,
+				fetching: action.fetching
+					? state.fetching - 1
+					: state.fetching,
 				data: {
 					...state.data,
 					...action.data,
@@ -21,8 +23,10 @@ export const state = (state = initialState, action) => {
 		case actions.SET_ERROR:
 			return {
 				...state,
+				fetching: action.fetching
+					? state.fetching - 1
+					: state.fetching,
 				error: action.data,
-				fetching: state.fetching - 1,
 			};
 		case actions.START_FETCHING:
 			return { ...state, fetching: state.fetching + 1 };

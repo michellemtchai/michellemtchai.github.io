@@ -1,4 +1,5 @@
 const Controller = require('../classes/Controller');
+const dataProc = require('../helpers/data');
 
 module.exports = class ProjectsController extends Controller {
     Project = this.models['Project'];
@@ -12,16 +13,7 @@ module.exports = class ProjectsController extends Controller {
     containsObjectId = ['technologies', 'tags'];
 
     index = (req, res) => {
-        this.renderAll(this.Project, res, {
-            select: {
-                __v: 0,
-                created: 0,
-                updated: 0,
-                gallery: {
-                    _id: 0,
-                },
-            },
-        });
+        dataProc.renderDbModel(this, res, this.Project);
     };
 
     create = (req, res) => {

@@ -13,7 +13,6 @@ export const api = {
 };
 
 let fetchList = [
-    api.getExported,
     api.getAllCategories,
     api.getAllProjects,
     api.getAllTags,
@@ -24,4 +23,24 @@ export const fetchAll = (props) => {
     fetchList.forEach((getData) => getData(props));
 };
 
-export const totalFetches = fetchList.length;
+export const fetchComplete = (state) => {
+    let totalFetches = fetchList.length + 1;
+    if (Object.keys(state).length === totalFetches) {
+        let keys = Object.keys(state.categories);
+        if (keys.length > 0) {
+            for (let i = 0; i < keys.length; i++) {
+                let category = state.categories[keys[i]];
+                if (category.projects.length > 0) {
+                    return (
+                        Object.keys(state.projects).length > 0
+                    );
+                }
+            }
+            return true;
+        } else {
+            return true;
+        }
+    } else {
+        return false;
+    }
+};

@@ -6,16 +6,6 @@ const fs = require('fs');
 module.exports = class DataController extends Controller {
     Data = this.models['Data'];
 
-    index = (req, res) => {
-        this.renderAll(this.Data, res, {
-            select: {
-                __v: 0,
-                created: 0,
-                _id: 0,
-            },
-        });
-    };
-
     update = (req, res) => {
         this.Data.find(res, (data) => {
             if (data[0] !== undefined) {

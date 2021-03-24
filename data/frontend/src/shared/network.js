@@ -16,7 +16,7 @@ export const fetchConfig = (
 ) => {
 	return {
 		setState: setStateFn,
-		setError: props.setError,
+		setError: (error) => props.setError(error, true),
 		fetching: props.startFetching,
 		formatData: formatData,
 		method: method,

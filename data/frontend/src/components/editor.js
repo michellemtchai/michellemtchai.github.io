@@ -24,9 +24,7 @@ class Editor extends React.Component {
             form: data,
         });
         window.scrollTo(0, 0);
-        this.props.startFetching();
         this.props.update(this.props, id, data, (_) => {
-            this.props.endFetching();
             goToPage(this.props.page, this.props);
         });
     };

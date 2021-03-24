@@ -1,4 +1,5 @@
 const Controller = require('../classes/Controller');
+const dataProc = require('../helpers/data');
 
 module.exports = class TechnologiesController extends (
     Controller
@@ -8,13 +9,7 @@ module.exports = class TechnologiesController extends (
     updateForbidden = ['name'];
 
     index = (req, res) => {
-        this.renderAll(this.Technology, res, {
-            select: {
-                __v: 0,
-                created: 0,
-                updated: 0,
-            },
-        });
+        dataProc.renderDbModel(this, res, this.Technology);
     };
 
     create = (req, res) => {

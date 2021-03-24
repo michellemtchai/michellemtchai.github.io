@@ -23,14 +23,6 @@ class CategoryListItem extends React.Component {
     render() {
         let category = this.props.category;
         let projects = this.props.state.data.projects;
-        console.log('all projects', projects);
-        category.projects.forEach((project, i) =>
-            console.log(
-                'project',
-                project,
-                projects[project].name
-            )
-        );
         return (
             <li>
                 <i

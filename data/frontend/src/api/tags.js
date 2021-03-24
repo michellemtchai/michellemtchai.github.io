@@ -1,38 +1,14 @@
 import { fetchAPIData } from '../shared/network';
-import { updateDataFile, formatData } from './data';
+import { updateDataFile, db } from './data';
 
 export const getAllTags = (props, next = null) => {
-    let updateData = (data) => {
-        props.setData(data);
-        updateDataFile(props, data);
-    };
-    fetchAPIData(props, '/tags', updateData, {
-        formatData: (data) => {
-            return {
-                tags: formatData(data),
-            };
-        },
-        next: next,
-    });
+    db.getAll(props, '/tags', 'tags', next);
 };
 
 export const createTag = (props, params, next = null) => {
-    let updateData = (data) => {
-        props.endFetching();
-        getAllTags(props, next);
-    };
-    fetchAPIData(props, '/tags/', updateData, {
-        method: 'POST',
-        params: params,
-    });
+    db.create(props, params, '/tags', getAllTags, next);
 };
 
 export const removeTagById = (props, id, next = null) => {
-    let updateData = (data) => {
-        props.endFetching();
-        getAllTags(props, next);
-    };
-    fetchAPIData(props, `/tags/${id}`, updateData, {
-        method: 'DELETE',
-    });
+    db.remove(props, id, '/tags', getAllTags, next);
 };

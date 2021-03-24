@@ -1,17 +1,12 @@
 const Controller = require('../classes/Controller');
+const dataProc = require('../helpers/data');
 
 module.exports = class TagsController extends Controller {
     Tag = this.models['Tag'];
     createRequired = ['name'];
 
     index = (req, res) => {
-        this.renderAll(this.Tag, res, {
-            select: {
-                __v: 0,
-                created: 0,
-                updated: 0,
-            },
-        });
+        dataProc.renderDbModel(this, res, this.Tag);
     };
 
     create = (req, res) => {

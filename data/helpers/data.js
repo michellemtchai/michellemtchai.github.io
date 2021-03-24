@@ -1,16 +1,49 @@
 const ObjectId = require('mongodb').ObjectID;
 const fs = require('fs');
 
-module.exports = {
+module.exports = dataProc = {
+    renderDbModel: (controller, res, model) => {
+        let options = {
+            select: {
+                __v: 0,
+                created: 0,
+                updated: 0,
+            },
+        };
+        let renderData = (data1, data2) => {
+            controller.renderSuccess(res, [data1, data2]);
+        };
+        let getDataExported = (data) => {
+            options.select._id = 0;
+            controller.models['Data'].find(
+                res,
+                (i) => renderData(data, i),
+                options
+            );
+        };
+        model.find(res, getDataExported, options);
+    },
     processExistingRecords: (controller, data, req, res) => {
         let dbExported = data[0].exported.getTime();
         let clientExported = new Date(
             req.body.exported
         ).getTime();
         let nullDateTime = new Date(null).getTime();
-        let processDbData = (json) => {
-            writeDbToJson(controller, req, res, data);
-        };
+        let processJsonData = (json) =>
+            processDbData(
+                controller,
+                req,
+                res,
+                data,
+                dbExported,
+                json
+            );
+        controller.log(
+            'Client exported date',
+            clientExported,
+            'DB exported date',
+            dbExported
+        );
         if (
             clientExported === nullDateTime ||
             clientExported >= dbExported
@@ -20,7 +53,7 @@ module.exports = {
                 controller,
                 process.env.REACT_APP_DATA_LOCATION,
                 res,
-                processDbData,
+                processJsonData,
                 data[0]
             );
         } else {
@@ -37,12 +70,13 @@ module.exports = {
                 reload: true,
             });
         };
-        let createData = () => {
+        let createData = (exported) => {
             controller.log(
                 'Finished inserting JSON data into DB.'
             );
+            controller.log('exported date', exported);
             controller.Data.createOne(res, renderResponse, {
-                exported: new Date(),
+                exported: exported,
             });
         };
         let updateDb = (data) => {
@@ -51,7 +85,7 @@ module.exports = {
                 res,
                 controller.models,
                 insertData(formatDbData(data)),
-                createData
+                () => createData(data.exported)
             );
         };
         readFile(
@@ -61,6 +95,42 @@ module.exports = {
             updateDb
         );
     },
+};
+
+const processDbData = (
+    controller,
+    req,
+    res,
+    data,
+    dbExported,
+    json
+) => {
+    let jsonExported = new Date(json.exported).getTime();
+    controller.log(
+        'JSON exported',
+        jsonExported,
+        'DB exported',
+        dbExported
+    );
+    if (jsonExported === dbExported) {
+        controller.log(
+            'Data file up-to-date. Not writing to file.'
+        );
+        controller.renderSuccess(res, {
+            reload: false,
+        });
+    } else if (jsonExported < dbExported) {
+        controller.log('Data file outdated. Writing to it.');
+        writeDbToJson(controller, req, res, data);
+    } else {
+        controller.log(
+            'Data file is more advanced than DB. Overwriting.'
+        );
+        controller.db.dropDatabase(() => {
+            controller.log('Database dropped.');
+            dataProc.readJsonToDb(controller, res);
+        });
+    }
 };
 
 const writeDbToJson = (controller, req, res, data) => {
@@ -78,13 +148,22 @@ const writeDbToJson = (controller, req, res, data) => {
             return res;
         });
     };
-    req.body.exported = newExported.toISOString();
-    writeToFile(
+    let writeJsonData = (json) => {
+        req.body.exported = newExported.toISOString();
+        json = { ...json, ...req.body };
+        writeToFile(
+            controller,
+            process.env.REACT_APP_DATA_LOCATION,
+            formatJsonData(json),
+            res,
+            updateExportedInDb
+        );
+    };
+    readFile(
         controller,
         process.env.REACT_APP_DATA_LOCATION,
-        formatJsonData(req.body),
         res,
-        updateExportedInDb
+        writeJsonData
     );
 };
 

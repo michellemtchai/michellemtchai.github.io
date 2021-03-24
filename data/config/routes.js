@@ -56,7 +56,6 @@ module.exports = (app) => {
         TechnologiesController.destroy
     );
 
-    app.router.get('/data', DataController.index);
     app.router.put('/update-data', DataController.update);
 
     //The 404 Route (ALWAYS Keep this as the last route)

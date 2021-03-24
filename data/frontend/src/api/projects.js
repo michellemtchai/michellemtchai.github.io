@@ -1,30 +1,12 @@
 import { fetchAPIData } from '../shared/network';
-import { updateDataFile, formatData } from './data';
+import { updateDataFile, db } from './data';
 
 export const getAllProjects = (props, next = null) => {
-    let updateData = (data) => {
-        props.setData(data);
-        updateDataFile(props, data);
-    };
-    fetchAPIData(props, '/projects', updateData, {
-        formatData: (data) => {
-            return {
-                projects: formatData(data),
-            };
-        },
-        next: next,
-    });
+    db.getAll(props, '/projects', 'projects', next);
 };
 
 export const createProject = (props, params, next = null) => {
-    let updateData = (data) => {
-        props.endFetching();
-        getAllProjects(props, next);
-    };
-    fetchAPIData(props, '/projects/', updateData, {
-        method: 'POST',
-        params: params,
-    });
+    db.create(props, params, '/projects', getAllProjects, next);
 };
 
 export const updateProject = (
@@ -33,22 +15,16 @@ export const updateProject = (
     params,
     next = null
 ) => {
-    let updateData = (data) => {
-        props.endFetching();
-        getAllProjects(props, next);
-    };
-    fetchAPIData(props, `/projects/${id}`, updateData, {
-        method: 'PUT',
-        params: params,
-    });
+    db.update(
+        props,
+        id,
+        params,
+        '/projects',
+        getAllProjects,
+        next
+    );
 };
 
 export const removeProjectById = (props, id, next = null) => {
-    let updateData = (data) => {
-        props.endFetching();
-        getAllProjects(props, next);
-    };
-    fetchAPIData(props, `/projects/${id}`, updateData, {
-        method: 'DELETE',
-    });
+    db.remove(props, id, '/projects', getAllProjects, next);
 };

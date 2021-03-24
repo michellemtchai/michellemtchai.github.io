@@ -1,26 +1,11 @@
 import { fetchAPIData } from '../shared/network';
-import { fetchAll, totalFetches } from '../config/api';
-let state = {};
+import { fetchAll, fetchComplete } from '../config/api';
 
-export const getExported = (props) => {
-    let updateData = (data) => {
-        props.setData(data);
-        updateDataFile(props, data);
-    };
-    fetchAPIData(props, '/data', updateData, {
-        formatData: (data) => {
-            return data.length > 0
-                ? {
-                      exported: data[0].updated,
-                  }
-                : { exported: null };
-        },
-    });
-};
+let state = {};
 
 export const updateDataFile = (props, data) => {
     state = { ...state, ...data };
-    if (Object.keys(state).length == totalFetches) {
+    if (fetchComplete(state)) {
         let next = (data) => {
             props.endFetching();
             if (data.reload) {
@@ -34,10 +19,63 @@ export const updateDataFile = (props, data) => {
     }
 };
 
-export const formatData = (data) => {
-    let mapping = {};
-    data.forEach((_, i) => {
-        mapping[data[i]._id] = data[i];
+const formatData = (res, entryName) => {
+    let [main, data] = res;
+    let formatted = {
+        [entryName]: {},
+        exported: data[0] ? data[0].exported : null,
+    };
+    main.forEach((entry) => {
+        formatted[entryName][entry._id] = entry;
     });
-    return mapping;
+    return formatted;
+};
+
+export const db = {
+    getAll: (props, route, key, next = null) => {
+        let updateData = (data) => {
+            props.setData(data, true);
+            updateDataFile(props, data);
+        };
+        fetchAPIData(props, route, updateData, {
+            formatData: (res) => formatData(res, key),
+            next: next,
+        });
+    },
+    create: (props, params, route, getAllData, next = null) => {
+        let updateData = (data) => {
+            props.endFetching();
+            getAllData(props, next);
+        };
+        fetchAPIData(props, route + '/', updateData, {
+            method: 'POST',
+            params: params,
+        });
+    },
+    update: (
+        props,
+        id,
+        params,
+        route,
+        getAllData,
+        next = null
+    ) => {
+        let updateData = (data) => {
+            props.endFetching();
+            getAllData(props, next);
+        };
+        fetchAPIData(props, `${route}/${id}`, updateData, {
+            method: 'PUT',
+            params: params,
+        });
+    },
+    remove: (props, id, route, getAllData, next = null) => {
+        let updateData = (data) => {
+            props.endFetching();
+            getAllData(props, next);
+        };
+        fetchAPIData(props, `${route}/${id}`, updateData, {
+            method: 'DELETE',
+        });
+    },
 };

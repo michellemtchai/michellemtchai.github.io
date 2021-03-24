@@ -1,30 +1,18 @@
 import { fetchAPIData } from '../shared/network';
-import { updateDataFile, formatData } from './data';
+import { updateDataFile, db } from './data';
 
 export const getAllCategories = (props, next = null) => {
-    let updateData = (data) => {
-        props.setData(data);
-        updateDataFile(props, data);
-    };
-    fetchAPIData(props, '/categories', updateData, {
-        formatData: (data) => {
-            return {
-                categories: formatData(data),
-            };
-        },
-        next: next,
-    });
+    db.getAll(props, '/categories', 'categories', next);
 };
 
 export const createCategory = (props, params, next = null) => {
-    let updateData = (data) => {
-        props.endFetching();
-        getAllCategories(props, next);
-    };
-    fetchAPIData(props, '/categories/', updateData, {
-        method: 'POST',
-        params: params,
-    });
+    db.create(
+        props,
+        params,
+        '/categories',
+        getAllCategories,
+        next
+    );
 };
 
 export const updateCategory = (
@@ -33,22 +21,16 @@ export const updateCategory = (
     params,
     next = null
 ) => {
-    let updateData = (data) => {
-        props.endFetching();
-        getAllCategories(props, next);
-    };
-    fetchAPIData(props, `/categories/${id}`, updateData, {
-        method: 'PUT',
-        params: params,
-    });
+    db.update(
+        props,
+        id,
+        params,
+        '/categories',
+        getAllCategories,
+        next
+    );
 };
 
 export const removeCategoryById = (props, id, next = null) => {
-    let updateData = (data) => {
-        props.endFetching();
-        getAllCategories(props, next);
-    };
-    fetchAPIData(props, `/categories/${id}`, updateData, {
-        method: 'DELETE',
-    });
+    db.remove(props, id, '/categories', getAllCategories, next);
 };

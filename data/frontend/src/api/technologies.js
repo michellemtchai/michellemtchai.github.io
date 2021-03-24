@@ -1,30 +1,18 @@
 import { fetchAPIData } from '../shared/network';
-import { updateDataFile, formatData } from './data';
+import { updateDataFile, db } from './data';
 
 export const getAllTechnologies = (props, next = null) => {
-    let updateData = (data) => {
-        props.setData(data);
-        updateDataFile(props, data);
-    };
-    fetchAPIData(props, '/technologies', updateData, {
-        formatData: (data) => {
-            return {
-                technologies: formatData(data),
-            };
-        },
-        next: next,
-    });
+    db.getAll(props, '/technologies', 'technologies', next);
 };
 
 export const createTechnology = (props, params, next = null) => {
-    let updateData = (data) => {
-        props.endFetching();
-        getAllTechnologies(props, next);
-    };
-    fetchAPIData(props, '/technologies/', updateData, {
-        method: 'POST',
-        params: params,
-    });
+    db.create(
+        props,
+        params,
+        '/technologies',
+        getAllTechnologies,
+        next
+    );
 };
 
 export const updateTechnology = (
@@ -33,22 +21,22 @@ export const updateTechnology = (
     params,
     next = null
 ) => {
-    let updateData = (data) => {
-        props.endFetching();
-        getAllTechnologies(props, next);
-    };
-    fetchAPIData(props, `/technologies/${id}`, updateData, {
-        method: 'PUT',
-        params: params,
-    });
+    db.update(
+        props,
+        id,
+        params,
+        '/technologies',
+        getAllTechnologies,
+        next
+    );
 };
 
 export const removeTechnologyById = (props, id, next = null) => {
-    let updateData = (data) => {
-        props.endFetching();
-        getAllTechnologies(props, next);
-    };
-    fetchAPIData(props, `/technologies/${id}`, updateData, {
-        method: 'DELETE',
-    });
+    db.remove(
+        props,
+        id,
+        '/technologies',
+        getAllTechnologies,
+        next
+    );
 };
