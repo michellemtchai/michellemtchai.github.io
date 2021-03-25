@@ -83,9 +83,27 @@ module.exports = class Model {
         next,
         { sort = null, select = null } = {}
     ) => {
-        handleDbAction(this, res, next, this.model, 'create', [
-            entries,
-        ]);
+        let processData = next;
+        if (sort || select) {
+            processData = (data) => {
+                let ids = data.map((entry) =>
+                    ObjectId(entry._id)
+                );
+                this.find(res, next, {
+                    query: [db.isIn('_id', ids)],
+                    select: select,
+                    sort: sort,
+                });
+            };
+        }
+        handleDbAction(
+            this,
+            res,
+            processData,
+            this.model,
+            'create',
+            [entries]
+        );
     };
 
     update = (res, next, change, select = null) => {

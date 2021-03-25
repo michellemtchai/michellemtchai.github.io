@@ -9,11 +9,6 @@ export const createTag = (props, params, next = null) => {
     db.create(props, params, '/tags', getAllTags, next);
 };
 
-export const removeTagById = (
-    props,
-    id,
-    params,
-    next = null
-) => {
-    db.remove(props, id, params, '/tags', getAllTags, next);
+export const removeTagById = (props, id, next = null) => {
+    db.remove(props, id, '/tags', getAllTags, next);
 };

@@ -18,16 +18,9 @@ class Creator extends React.Component {
             form: data,
         });
         window.scrollTo(0, 0);
-        this.props.create(
-            this.props,
-            {
-                data: data,
-                exported: this.props.state.data.exported,
-            },
-            (_) => {
-                goToPage(this.props.page, this.props);
-            }
-        );
+        this.props.create(this.props, data, (_) => {
+            goToPage(this.props.page, this.props);
+        });
     };
     render() {
         let schema = this.props.state.data.form

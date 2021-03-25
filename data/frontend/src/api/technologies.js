@@ -31,16 +31,10 @@ export const updateTechnology = (
     );
 };
 
-export const removeTechnologyById = (
-    props,
-    id,
-    params,
-    next = null
-) => {
+export const removeTechnologyById = (props, id, next = null) => {
     db.remove(
         props,
         id,
-        params,
         '/technologies',
         getAllTechnologies,
         next

@@ -10,7 +10,7 @@ module.exports = class TagsController extends Controller {
     };
 
     create = (req, res) => {
-        dataProc.createDbModel(this, req, res, this.Tag);
+        dataProc.createManyDbModels(this, req, res, this.Tag);
     };
 
     destroy = (req, res) => {

@@ -34,6 +34,22 @@ module.exports = dataProc = {
             processDataResponse
         );
     },
+    createManyDbModels: (controller, req, res, model) => {
+        let processDataResponse = (data) => {
+            renderModifyRecordResponse(
+                controller,
+                req,
+                res,
+                data
+            );
+        };
+        controller.createManyModels(
+            res,
+            model,
+            req.body.data,
+            processDataResponse
+        );
+    },
     updateDbModel: (controller, req, res, model) => {
         let processDataResponse = (data) => {
             renderModifyRecordResponse(

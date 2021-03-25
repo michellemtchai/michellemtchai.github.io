@@ -24,17 +24,9 @@ class Editor extends React.Component {
             form: data,
         });
         window.scrollTo(0, 0);
-        this.props.update(
-            this.props,
-            id,
-            {
-                data: data,
-                exported: this.props.state.data.exported,
-            },
-            (_) => {
-                goToPage(this.props.page, this.props);
-            }
-        );
+        this.props.update(this.props, id, data, (_) => {
+            goToPage(this.props.page, this.props);
+        });
     };
     render() {
         return this.schema.data ? (

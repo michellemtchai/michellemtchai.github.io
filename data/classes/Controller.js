@@ -127,10 +127,10 @@ module.exports = class Controller {
     };
 
     createManyModels = (
-        data,
         res,
-        next,
         model,
+        data,
+        next,
         options = {}
     ) => {
         checkModelBatchData(

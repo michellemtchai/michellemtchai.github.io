@@ -31,18 +31,6 @@ export const updateCategory = (
     );
 };
 
-export const removeCategoryById = (
-    props,
-    id,
-    params,
-    next = null
-) => {
-    db.remove(
-        props,
-        id,
-        params,
-        '/categories',
-        getAllCategories,
-        next
-    );
+export const removeCategoryById = (props, id, next = null) => {
+    db.remove(props, id, '/categories', getAllCategories, next);
 };

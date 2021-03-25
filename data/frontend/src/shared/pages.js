@@ -35,15 +35,10 @@ export const editItem = (props, urlBase, type) => {
 export const deleteItem = (props, type, removeFn, page) => {
     let text = `Are you sure you want to delete this ${type}?`;
     if (confirm(text)) {
-        removeFn(
-            props,
-            props[type]._id,
-            { exported: props.state.data.exported },
-            (err) => {
-                if (!err) {
-                    goToPage(page);
-                }
+        removeFn(props, props[type]._id, (err) => {
+            if (!err) {
+                goToPage(page);
             }
-        );
+        });
     }
 };
