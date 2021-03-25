@@ -12,6 +12,7 @@ export const updateDataFile = (props, data) => {
                 fetchAll(props);
             }
         };
+        console.log('state', state);
         fetchAPIData(props, '/update-data', next, {
             method: 'PUT',
             params: state,
@@ -23,7 +24,7 @@ const formatData = (res, entryName) => {
     let [main, data] = res;
     let formatted = {
         [entryName]: {},
-        exported: data[0] ? data[0].exported : null,
+        exported: data[0] ? data[0] : null,
     };
     main.forEach((entry) => {
         formatted[entryName][entry._id] = entry;
@@ -47,7 +48,7 @@ export const db = {
             props.endFetching();
             getAllData(props, next);
         };
-        fetchAPIData(props, route + '/', updateData, {
+        fetchAPIData(props, route, updateData, {
             method: 'POST',
             params: params,
         });
@@ -69,13 +70,21 @@ export const db = {
             params: params,
         });
     },
-    remove: (props, id, route, getAllData, next = null) => {
+    remove: (
+        props,
+        id,
+        params,
+        route,
+        getAllData,
+        next = null
+    ) => {
         let updateData = (data) => {
             props.endFetching();
             getAllData(props, next);
         };
         fetchAPIData(props, `${route}/${id}`, updateData, {
             method: 'DELETE',
+            params: params,
         });
     },
 };

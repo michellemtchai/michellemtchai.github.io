@@ -16,30 +16,23 @@ module.exports = class CategoriesController extends Controller {
         dataProc.renderDbModel(this, res, this.Category);
     };
 
+    show = (req, res) => {
+        this.renderOneWithId(this.Category, res, req.params.id, {
+            __v: 0,
+            created: 0,
+            updated: 0,
+        });
+    };
+
     create = (req, res) => {
-        this.createModel(
-            req.body,
-            res,
-            (i) => this.renderSuccess(res, i),
-            this.Category
-        );
+        dataProc.createDbModel(this, req, res, this.Category);
     };
 
     update = (req, res) => {
-        this.updateModel(
-            req.params.id,
-            req.body,
-            res,
-            (i) => this.renderSuccess(res, i),
-            this.Category
-        );
+        dataProc.updateDbModel(this, req, res, this.Category);
     };
 
     destroy = (req, res) => {
-        this.Category.removeById(
-            res,
-            (i) => this.renderSuccess(res, i),
-            req.params.id
-        );
+        dataProc.removeDbModel(this, req, res, this.Category);
     };
 };

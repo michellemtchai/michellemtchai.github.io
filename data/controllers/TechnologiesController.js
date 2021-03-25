@@ -13,29 +13,14 @@ module.exports = class TechnologiesController extends (
     };
 
     create = (req, res) => {
-        this.createModel(
-            req.body,
-            res,
-            (i) => this.renderSuccess(res, i),
-            this.Technology
-        );
+        dataProc.createDbModel(this, req, res, this.Technology);
     };
 
     update = (req, res) => {
-        this.updateModel(
-            req.params.id,
-            req.body,
-            res,
-            (i) => this.renderSuccess(res, i),
-            this.Technology
-        );
+        dataProc.updateDbModel(this, req, res, this.Technology);
     };
 
     destroy = (req, res) => {
-        this.Technology.removeById(
-            res,
-            (i) => this.renderSuccess(res, i),
-            req.params.id
-        );
+        dataProc.removeDbModel(this, req, res, this.Technology);
     };
 };

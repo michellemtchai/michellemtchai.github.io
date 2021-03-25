@@ -19,6 +19,9 @@ const logger = (type, who, messages) => {
         }
     });
 };
+const log = (name) => {
+    return (...message) => logger(message[0], name, message);
+};
 let models = {};
 let controllers = {};
 
@@ -27,13 +30,7 @@ module.exports = self = {
     controllers: controllers,
     importLogger: () => require('./logger')(),
     createModel: (name, schema) => {
-        let log = (...message) =>
-            logger(
-                message[0],
-                `App:Model:${name}`,
-                message.slice(1)
-            );
-        return new Model(name, schema, log);
+        return new Model(name, schema, log(`App:Model:${name}`));
     },
     fileAction: (dir, action) => {
         fs.readdirSync(dir).forEach((file) =>
@@ -48,13 +45,11 @@ module.exports = self = {
     importControllers: (app) => {
         self.fileAction('controllers', (file) => {
             let controller = require('../controllers/' + file);
-            let log = (...message) =>
-                logger(
-                    message[0],
-                    `App:Controller:${file}`,
-                    message.slice(1)
-                );
-            controllers[file] = new controller(app, file, log);
+            controllers[file] = new controller(
+                app,
+                file,
+                log(`App:Controller:${file}`)
+            );
         });
     },
 };

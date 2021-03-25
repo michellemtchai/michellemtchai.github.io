@@ -29,6 +29,7 @@ module.exports = (app) => {
     app.router.delete('/tags/:id', TagsController.destroy);
 
     app.router.get('/categories', CategoriesController.index);
+    app.router.get('/categories/:id', CategoriesController.show);
     app.router.post('/categories', CategoriesController.create);
     app.router.put(
         '/categories/:id',

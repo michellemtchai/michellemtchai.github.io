@@ -25,6 +25,18 @@ export const updateProject = (
     );
 };
 
-export const removeProjectById = (props, id, next = null) => {
-    db.remove(props, id, '/projects', getAllProjects, next);
+export const removeProjectById = (
+    props,
+    id,
+    params,
+    next = null
+) => {
+    db.remove(
+        props,
+        id,
+        params,
+        '/projects',
+        getAllProjects,
+        next
+    );
 };

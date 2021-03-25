@@ -17,29 +17,14 @@ module.exports = class ProjectsController extends Controller {
     };
 
     create = (req, res) => {
-        this.createModel(
-            req.body,
-            res,
-            (i) => this.renderSuccess(res, i),
-            this.Project
-        );
+        dataProc.createDbModel(this, req, res, this.Project);
     };
 
     update = (req, res) => {
-        this.updateModel(
-            req.params.id,
-            req.body,
-            res,
-            (i) => this.renderSuccess(res, i),
-            this.Project
-        );
+        dataProc.updateDbModel(this, req, res, this.Project);
     };
 
     destroy = (req, res) => {
-        this.Project.removeById(
-            res,
-            (i) => this.renderSuccess(res, i),
-            req.params.id
-        );
+        dataProc.removeDbModel(this, req, res, this.Project);
     };
 };

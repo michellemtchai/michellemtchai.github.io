@@ -15,6 +15,7 @@ module.exports = (app, actions) => {
             useNewUrlParser: true,
             useUnifiedTopology: true,
             useCreateIndex: true,
+            useFindAndModify: false,
         })
         .then(() => {
             console.log('MongoDB Connected');

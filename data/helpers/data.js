@@ -4,17 +4,12 @@ const fs = require('fs');
 module.exports = dataProc = {
     renderDbModel: (controller, res, model) => {
         let options = {
-            select: {
-                __v: 0,
-                created: 0,
-                updated: 0,
-            },
+            select: selectOptions,
         };
         let renderData = (data1, data2) => {
             controller.renderSuccess(res, [data1, data2]);
         };
         let getDataExported = (data) => {
-            options.select._id = 0;
             controller.models['Data'].find(
                 res,
                 (i) => renderData(data, i),
@@ -23,46 +18,63 @@ module.exports = dataProc = {
         };
         model.find(res, getDataExported, options);
     },
-    processExistingRecords: (controller, data, req, res) => {
-        let dbExported = data[0].exported.getTime();
-        let clientExported = new Date(
-            req.body.exported
-        ).getTime();
-        let nullDateTime = new Date(null).getTime();
-        let processJsonData = (json) => {
-            processDbData(
+    createDbModel: (controller, req, res, model) => {
+        let processDataResponse = (data) => {
+            renderModifyRecordResponse(
                 controller,
                 req,
                 res,
-                data,
-                dbExported,
-                json
+                data
             );
         };
-        controller.log(
-            'Client exported date',
-            clientExported,
-            'DB exported date',
-            dbExported
+        controller.createModel(
+            res,
+            model,
+            req.body.data,
+            processDataResponse
         );
-        if (
-            clientExported === nullDateTime ||
-            clientExported >= dbExported
-        ) {
-            controller.log('Client data is up-to-date.');
-            readFile(
+    },
+    updateDbModel: (controller, req, res, model) => {
+        let processDataResponse = (data) => {
+            renderModifyRecordResponse(
                 controller,
-                process.env.REACT_APP_DATA_LOCATION,
+                req,
                 res,
-                processJsonData,
-                req.body
+                data
             );
-        } else {
-            controller.log('Client data is outdated.');
-            controller.renderSuccess(res, {
-                reload: true,
-            });
-        }
+        };
+        controller.updateModelById(
+            res,
+            model,
+            req.params.id,
+            req.body.data,
+            processDataResponse
+        );
+    },
+    removeDbModel: (controller, req, res, model) => {
+        let processDataResponse = (data) => {
+            renderModifyRecordResponse(
+                controller,
+                req,
+                res,
+                data
+            );
+        };
+        model.removeById(
+            res,
+            req.params.id,
+            processDataResponse
+        );
+    },
+    processExistingRecords: (controller, req, res) => {
+        let getDates = (data) => {
+            manageDBClientDates(controller, req, res, data);
+        };
+        controller.models['Data'].findById(
+            res,
+            req.body.exported._id,
+            getDates
+        );
     },
     readJsonToDb: (controller, res) => {
         let renderResponse = (_) => {
@@ -71,14 +83,16 @@ module.exports = dataProc = {
                 reload: true,
             });
         };
-        let createData = (exported) => {
+        let createData = (data) => {
             controller.log(
                 'Finished inserting JSON data into DB.'
             );
-            controller.log('exported date', exported);
-            controller.Data.createOne(res, renderResponse, {
-                exported: exported,
-            });
+            controller.log('exported date', data.exported);
+            controller.models['Data'].createOne(
+                res,
+                data,
+                renderResponse
+            );
         };
         let updateDb = (data) => {
             controller.log(`Finished reading file.`);
@@ -98,6 +112,81 @@ module.exports = dataProc = {
     },
 };
 
+const selectOptions = {
+    __v: 0,
+    created: 0,
+    updated: 0,
+};
+
+const renderModifyRecordResponse = (
+    controller,
+    req,
+    res,
+    data
+) => {
+    let updateExportedInDb = (exportedData) => {
+        controller.log(
+            'New exported date',
+            exportedData.exported
+        );
+        controller.renderSuccess(res, {
+            data: data,
+            exported: exportedData,
+        });
+    };
+    if (req.body.exported) {
+        controller.models['Data'].updateById(
+            res,
+            req.body.exported._id,
+            {
+                exported: new Date(),
+            },
+            updateExportedInDb,
+            selectOptions
+        );
+    } else {
+        updateExportedInDb(null);
+    }
+};
+
+const manageDBClientDates = (controller, req, res, data) => {
+    let dbExported = data.exported.getTime();
+    let clientExported = new Date(
+        req.body.exported.exported
+    ).getTime();
+    let processJsonData = (json) => {
+        processDbData(
+            controller,
+            req,
+            res,
+            data,
+            dbExported,
+            json
+        );
+    };
+    controller.log(
+        'Client exported date',
+        clientExported,
+        'DB exported date',
+        dbExported
+    );
+    if (clientExported >= dbExported) {
+        controller.log('Client data is up-to-date.');
+        readFile(
+            controller,
+            process.env.REACT_APP_DATA_LOCATION,
+            res,
+            processJsonData,
+            req.body.data
+        );
+    } else {
+        controller.log('Client data is outdated.');
+        controller.renderSuccess(res, {
+            reload: true,
+        });
+    }
+};
+
 const processDbData = (
     controller,
     req,
@@ -106,12 +195,14 @@ const processDbData = (
     dbExported,
     json
 ) => {
-    let jsonExported = new Date(json.exported).getTime();
+    let jsonExported = new Date(
+        json.exported.exported
+    ).getTime();
     controller.log(
         'JSON exported',
-        jsonExported,
+        json.exported.exported,
         'DB exported',
-        dbExported
+        new Date(dbExported).toISOString()
     );
     if (jsonExported === dbExported) {
         controller.log(
@@ -143,14 +234,21 @@ const writeDbToJson = (controller, req, res, data) => {
         });
     };
     let updateExportedInDb = () => {
-        controller.log(`Finished writing to file.`);
-        controller.Data.update(res, next, data[0]._id, (res) => {
-            res.exported = newExported;
-            return res;
-        });
+        controller.log('Finished writing to file.');
+        controller.models['Data'].updateById(
+            res,
+            data._id,
+            {
+                exported: newExported,
+            },
+            next
+        );
     };
     let writeJsonData = (json) => {
-        req.body.exported = newExported.toISOString();
+        req.body.exported = {
+            _id: data.id,
+            exported: newExported.toISOString(),
+        };
         json = { ...json, ...req.body };
         writeToFile(
             controller,
@@ -182,7 +280,7 @@ const initJsonFile = (err, controller, file, res, dbData) => {
     };
     let processDataContent = (data) => {
         writeDataContent({
-            exported: data.exported.toISOString(),
+            exported: data,
         });
     };
     controller.error(err.message);
@@ -195,9 +293,14 @@ const initJsonFile = (err, controller, file, res, dbData) => {
         controller.log(
             'Create data exported date then use it in file.'
         );
-        controller.Data.createOne(res, processDataContent, {
-            exported: new Date(),
-        });
+        controller.models['Data'].createOne(
+            res,
+            {
+                exported: new Date(),
+            },
+            processDataContent,
+            selectOptions
+        );
     }
 };
 
@@ -221,6 +324,7 @@ const readFile = (
 ) => {
     fs.readFile(file, 'utf8', (err, data) => {
         if (err) {
+            controller.log(`Error reading from "${file}".`);
             initJsonFile(err, controller, file, res, dbData);
         } else {
             controller.log(`Read JSON from "${file}".`);
@@ -269,35 +373,32 @@ const formatDbData = (data) => {
     return result;
 };
 
-const insertData = (data) => [
-    {
-        model: 'Category',
-        data: data.categories,
-    },
-    {
-        model: 'Project',
-        data: data.projects,
-    },
-    {
-        model: 'Tag',
-        data: data.tags,
-    },
-    {
-        model: 'Technology',
-        data: data.technologies,
-    },
-];
-
+const insertData = (data) => {
+    let mapping = {
+        categories: 'Category',
+        projects: 'Project',
+        tags: 'Tag',
+        technologies: 'Technology',
+    };
+    let result = [];
+    Object.keys(mapping).forEach((key) => {
+        if (data[key]) {
+            result.push({
+                model: mapping[key],
+                data: data[key],
+            });
+        }
+    });
+    return result;
+};
 const chainInsert = (res, models, data, next) => {
     if (data.length > 0) {
         let model = models[data[0].model];
         let copy = [...data];
         copy.shift();
         if (data[0].data.length > 0) {
-            model.createMany(
-                res,
-                (_) => chainInsert(res, models, copy, next),
-                data[0].data
+            model.createMany(res, data[0].data, (_) =>
+                chainInsert(res, models, copy, next)
             );
         } else {
             chainInsert(res, models, copy, next);

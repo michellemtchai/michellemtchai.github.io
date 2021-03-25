@@ -4,8 +4,8 @@ const ObjectId = require('mongodb').ObjectID;
 module.exports = class Controller {
     constructor(app, name, logger) {
         this.db = app.db;
-        this.log = (i) => logger('Info', i);
-        this.error = (i) => logger('Error', i);
+        this.log = (...i) => logger('Info', ...i);
+        this.error = (...i) => logger('Error', ...i);
         this.models = app.shared.models;
         this.assets = app.shared.assets;
         this.createRequired = [];
@@ -35,44 +35,11 @@ module.exports = class Controller {
     };
 
     renderOneWithId = (model, res, id, select = null) => {
-        let handleData = (data) => {
-            if (data) {
-                this.renderSuccess(res, data);
-            } else {
-                invalidId(this, res, id);
-            }
-        };
-        model.findById(res, handleData, id, select);
-    };
-
-    createPermitted = (data, model) =>
-        this.permit(data, model.attributes);
-
-    createModel = (data, res, next, model) => {
-        checkModelData(
-            this,
-            data,
-            model,
-            this.createRequired,
-            this.createPermitted,
-            (permittedData) => {
-                model.createOne(res, next, permittedData);
-            },
-            (error) => this.renderError(res, error)
-        );
-    };
-
-    createManyModels = (data, res, next, model) => {
-        checkModelBatchData(
-            this,
-            data,
-            model,
-            this.createRequired,
-            this.createPermitted,
-            (permittedData) => {
-                model.createMany(res, next, permittedData);
-            },
-            (error) => this.renderError(res, error)
+        model.findById(
+            res,
+            (i) => this.renderSuccess(res, i),
+            id,
+            select
         );
     };
 
@@ -125,18 +92,73 @@ module.exports = class Controller {
         return [error, result];
     };
 
+    createPermitted = (data, model) =>
+        this.permit(data, model.attributes);
+
     updatePermitted = (data, model) => {
         let permissible = [...model.attributes];
-        this.updateForbidden.forEach((attr) => {
+        let forbiddenParams = ['_id', ...this.updateForbidden];
+        forbiddenParams.forEach((attr) => {
             let index = permissible.indexOf(attr);
             if (index !== -1) {
-                permissible.slice(index, 1);
+                permissible.splice(index, 1);
             }
         });
         return this.permit(data, permissible);
     };
 
-    updateModel = (id, data, res, next, model) => {
+    createModel = (res, model, data, next, select = null) => {
+        checkModelData(
+            this,
+            data,
+            model,
+            this.createRequired,
+            this.createPermitted,
+            (permittedData) => {
+                model.createOne(
+                    res,
+                    permittedData,
+                    next,
+                    select
+                );
+            },
+            (error) => this.renderError(res, error)
+        );
+    };
+
+    createManyModels = (
+        data,
+        res,
+        next,
+        model,
+        options = {}
+    ) => {
+        checkModelBatchData(
+            this,
+            data,
+            model,
+            this.createRequired,
+            this.createPermitted,
+            (permittedData) => {
+                model.createMany(
+                    res,
+                    permittedData,
+                    next,
+                    options
+                );
+            },
+            (error) => this.renderError(res, error)
+        );
+    };
+
+    updateModelById = (
+        res,
+        model,
+        id,
+        data,
+        next,
+        select = null
+    ) => {
         checkModelData(
             this,
             data,
@@ -144,8 +166,12 @@ module.exports = class Controller {
             this.updateRequired,
             this.updatePermitted,
             (permittedData) => {
-                model.update(res, next, id, (model) =>
-                    modifyModel(permittedData, model)
+                model.updateById(
+                    res,
+                    id,
+                    permittedData,
+                    next,
+                    select
                 );
             },
             (error) => this.renderError(res, error)
