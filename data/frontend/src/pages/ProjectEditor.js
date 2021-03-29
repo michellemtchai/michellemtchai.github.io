@@ -1,5 +1,6 @@
 import React from 'react';
 import { api } from '../config/api';
+import { clone } from '../shared/form';
 import { projectSchema } from '../config/forms';
 import {
     tagNameMapping,
@@ -48,13 +49,18 @@ const updateProject = (tags, props, id, data, next) => {
         props,
         data.tags
     );
-    let copy = Object.assign({}, data);
+    let copy = clone(data);
     if (newTags.length > 0) {
-        api.createTag(props, newTags, (res) => {
-            mapping = tagNameMapping(res.tags);
-            copy.tags = copy.tags.map((tag) => mapping[tag]);
-            api.updateProject(props, id, copy, next);
-        });
+        api.createTag(
+            props,
+            newTags,
+            (res) => {
+                mapping = tagNameMapping(res.tags);
+                copy.tags = copy.tags.map((tag) => mapping[tag]);
+                api.updateProject(props, id, copy, next);
+            },
+            false
+        );
     } else {
         copy.tags = projectTags;
         api.updateProject(props, id, copy, next);

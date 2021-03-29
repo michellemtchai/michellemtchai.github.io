@@ -1,19 +1,36 @@
 import { fetchAPIData } from '../shared/network';
 import { updateDataFile, db } from './data';
 
-export const getAllProjects = (props, next = null) => {
-    db.getAll(props, '/projects', 'projects', next);
+export const getAllProjects = (
+    props,
+    next = null,
+    updateData = true
+) => {
+    db.getAll(props, '/projects', 'projects', next, updateData);
 };
 
-export const createProject = (props, params, next = null) => {
-    db.create(props, params, '/projects', getAllProjects, next);
+export const createProject = (
+    props,
+    params,
+    next = null,
+    updateData = true
+) => {
+    db.create(
+        props,
+        params,
+        '/projects',
+        getAllProjects,
+        next,
+        updateData
+    );
 };
 
 export const updateProject = (
     props,
     id,
     params,
-    next = null
+    next = null,
+    updateData = true
 ) => {
     db.update(
         props,
@@ -21,10 +38,23 @@ export const updateProject = (
         params,
         '/projects',
         getAllProjects,
-        next
+        next,
+        updateData
     );
 };
 
-export const removeProjectById = (props, id, next = null) => {
-    db.remove(props, id, '/projects', getAllProjects, next);
+export const removeProjectById = (
+    props,
+    id,
+    next = null,
+    updateData = true
+) => {
+    db.remove(
+        props,
+        id,
+        '/projects',
+        getAllProjects,
+        next,
+        updateData
+    );
 };

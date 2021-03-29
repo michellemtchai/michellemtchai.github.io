@@ -57,8 +57,12 @@ export const fetchData = (url, config) => {
 			localStorage.removeItem(storageName);
 			fetchData(url, config);
 		} else {
-			config.setState(config.formatData(data.data));
-			config.next(data.data);
+			data = config.formatData(data.data);
+			twoStep(
+				() => config.next(data),
+				() => config.setState(data),
+				config.setError
+			);
 		}
 	} else {
 		config.fetching();
@@ -84,8 +88,11 @@ export const fetchData = (url, config) => {
 						})
 					);
 					data = config.formatData(data);
-					config.setState(data);
-					config.next(data);
+					twoStep(
+						() => config.next(data),
+						() => config.setState(data),
+						config.setError
+					);
 				} else {
 					config.setError(data.message);
 				}
@@ -94,6 +101,19 @@ export const fetchData = (url, config) => {
 				config.setError(error.message);
 			});
 	}
+};
+
+const twoStep = (action1, action2, setError) => {
+	new Promise((resolve, reject) => {
+		try {
+			action1();
+			resolve(null);
+		} catch (e) {
+			reject(e);
+		}
+	})
+		.then(() => action2())
+		.catch((error) => setError(error.message));
 };
 
 const setUpURL = (url, config) => {

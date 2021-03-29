@@ -1,3 +1,5 @@
+import * as cloneDeep from 'lodash.clonedeep';
+
 export const clone = (obj) => {
-    return Object.assign({}, obj);
+    return cloneDeep(obj);
 };

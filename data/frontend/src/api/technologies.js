@@ -1,17 +1,33 @@
 import { fetchAPIData } from '../shared/network';
 import { updateDataFile, db } from './data';
 
-export const getAllTechnologies = (props, next = null) => {
-    db.getAll(props, '/technologies', 'technologies', next);
+export const getAllTechnologies = (
+    props,
+    next = null,
+    updateData = true
+) => {
+    db.getAll(
+        props,
+        '/technologies',
+        'technologies',
+        next,
+        updateData
+    );
 };
 
-export const createTechnology = (props, params, next = null) => {
+export const createTechnology = (
+    props,
+    params,
+    next = null,
+    updateData = true
+) => {
     db.create(
         props,
         params,
         '/technologies',
         getAllTechnologies,
-        next
+        next,
+        updateData
     );
 };
 
@@ -19,7 +35,8 @@ export const updateTechnology = (
     props,
     id,
     params,
-    next = null
+    next = null,
+    updateData = true
 ) => {
     db.update(
         props,
@@ -27,16 +44,23 @@ export const updateTechnology = (
         params,
         '/technologies',
         getAllTechnologies,
-        next
+        next,
+        updateData
     );
 };
 
-export const removeTechnologyById = (props, id, next = null) => {
+export const removeTechnologyById = (
+    props,
+    id,
+    next = null,
+    updateData = true
+) => {
     db.remove(
         props,
         id,
         '/technologies',
         getAllTechnologies,
-        next
+        next,
+        updateData
     );
 };
