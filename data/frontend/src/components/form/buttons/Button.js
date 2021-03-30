@@ -13,6 +13,7 @@ class Button extends React.Component {
                 className={`btn btn-${
                     this.props.type ? this.props.type : 'primary'
                 }`}
+                style={this.props.style}
             >
                 {this.props.text}
             </button>
@@ -23,6 +24,7 @@ class Button extends React.Component {
                     this.props.type ? this.props.type : 'primary'
                 }`}
                 onClick={this.props.click}
+                style={this.props.style}
             >
                 {this.props.text}
             </button>

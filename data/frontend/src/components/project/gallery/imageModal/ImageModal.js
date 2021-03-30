@@ -15,6 +15,7 @@ class ImageModal extends React.Component {
         caption: 0,
         width: 0,
         height: window.innerHeight,
+        resized: 0,
     };
     changeImage = (increment) => {
         this.setState(
@@ -34,16 +35,20 @@ class ImageModal extends React.Component {
         let caption = this.caption.current;
         let image = this.props.imageRefs[this.state.index]
             .current;
-        this.setState({
-            ...this.state,
-            width: wrapper.scrollWidth,
-            height: window.innerHeight,
-            image: {
-                width: image.naturalWidth,
-                height: image.naturalHeight,
+        this.setState(
+            {
+                ...this.state,
+                width: wrapper.scrollWidth,
+                height: window.innerHeight,
+                image: {
+                    width: image.naturalWidth,
+                    height: image.naturalHeight,
+                },
+                caption: caption.scrollHeight + 20,
+                resized: this.state.resized + 1,
             },
-            caption: caption.scrollHeight,
-        });
+            () => console.log(this.state.resized)
+        );
     };
     componentWillUnmount() {
         window.removeEventListener(
@@ -57,30 +62,35 @@ class ImageModal extends React.Component {
     }
     render() {
         let image = this.props.gallery[this.state.index];
-        let [captionHeight] = getDimensions(this.state);
+        let [
+            captionHeight,
+            imageStyle,
+            buttonStyle,
+        ] = getDimensions(this.state);
         return (
-            <section className="image-modal">
+            <section className="image-modal" style={imageStyle}>
                 <Button
                     text="◀"
                     disabled={this.state.index === 0}
                     click={() => this.changeImage(-1)}
+                    style={buttonStyle}
                 />
-                <span className="image-holder">
+                <figure className="image-holder">
                     <Image
                         reference={this.image}
                         src={image ? image.url : ''}
                         width="100%"
                         height="100%"
                     />
-                    <caption
+                    <figcaption
                         ref={this.caption}
                         style={{
                             maxHeight: captionHeight + 'px',
                         }}
                     >
                         {image ? image.caption : ''}
-                    </caption>
-                </span>
+                    </figcaption>
+                </figure>
                 <Button
                     text="▶"
                     disabled={
@@ -88,6 +98,7 @@ class ImageModal extends React.Component {
                         this.props.gallery.length
                     }
                     click={() => this.changeImage(1)}
+                    style={buttonStyle}
                 />
             </section>
         );
@@ -103,13 +114,28 @@ const getDimensions = (state) => {
         width: state.width,
         height: aspectRatio * state.width,
     };
-    let captionHeight = bufferHeight - image.height;
-    if (captionHeight >= 40) {
-        console.log('fits', captionHeight);
+    let captionHeight,
+        imageStyle = {},
+        buttonStyle = {};
+    let maxHeight = bufferHeight - image.height;
+    let groupedHeight = image.height + state.caption;
+    if (groupedHeight <= bufferHeight || maxHeight > 40) {
+        captionHeight =
+            state.caption <= maxHeight
+                ? state.caption
+                : maxHeight;
+        groupedHeight = image.height + captionHeight;
+        imageStyle.marginTop = `${
+            (state.height - groupedHeight) / 2
+        }px`;
     } else {
-        console.log('too large', captionHeight);
+        let height = bufferHeight - 40;
+        imageStyle.height = `${height}px`;
+        imageStyle.width = `${height / aspectRatio}px`;
+        imageStyle.marginTop = '20px';
+        groupedHeight = bufferHeight;
         captionHeight = 40;
     }
-    console.log('caption height:', state.caption);
-    return [captionHeight];
+    buttonStyle.marginTop = `${groupedHeight / 2 - 50}px`;
+    return [captionHeight, imageStyle, buttonStyle];
 };
