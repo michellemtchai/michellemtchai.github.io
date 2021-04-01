@@ -10,6 +10,7 @@ class Button extends React.Component {
             <button
                 disabled
                 type="button"
+                className="custom-btn"
                 style={this.props.style}
             >
                 {this.props.text}
@@ -17,6 +18,7 @@ class Button extends React.Component {
         ) : (
             <button
                 type="button"
+                className="custom-btn"
                 onClick={this.props.click}
                 style={this.props.style}
             >
