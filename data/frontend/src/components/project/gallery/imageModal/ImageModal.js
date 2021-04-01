@@ -63,7 +63,7 @@ class ImageModal extends React.Component {
         return (
             <section className="image-modal" style={imageStyle}>
                 <Button
-                    text="◀"
+                    text="❮"
                     disabled={this.state.index === 0}
                     click={() => this.changeImage(-1)}
                     style={buttonStyle}
@@ -84,7 +84,7 @@ class ImageModal extends React.Component {
                     </figcaption>
                 </figure>
                 <Button
-                    text="▶"
+                    text="❯"
                     disabled={
                         this.state.index + 1 >=
                         this.props.gallery.length
