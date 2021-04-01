@@ -4,7 +4,6 @@ import Image from '../../../image/Image';
 import Button from '../../../form/buttons/Button';
 
 class ImageModal extends React.Component {
-    image = React.createRef();
     caption = React.createRef();
     state = {
         index: this.props.index,
@@ -15,7 +14,6 @@ class ImageModal extends React.Component {
         caption: 0,
         width: 0,
         height: window.innerHeight,
-        resized: 0,
     };
     changeImage = (increment) => {
         this.setState(
@@ -31,24 +29,19 @@ class ImageModal extends React.Component {
     };
 
     updateDimensions = () => {
-        let wrapper = this.image.current;
         let caption = this.caption.current;
         let image = this.props.imageRefs[this.state.index]
             .current;
-        this.setState(
-            {
-                ...this.state,
-                width: wrapper.scrollWidth,
-                height: window.innerHeight,
-                image: {
-                    width: image.naturalWidth,
-                    height: image.naturalHeight,
-                },
-                caption: caption.scrollHeight + 20,
-                resized: this.state.resized + 1,
+        this.setState({
+            ...this.state,
+            width: divWidth(window.innerWidth),
+            height: window.innerHeight,
+            image: {
+                width: image.naturalWidth,
+                height: image.naturalHeight,
             },
-            () => console.log(this.state.resized)
-        );
+            caption: caption.scrollHeight,
+        });
     };
     componentWillUnmount() {
         window.removeEventListener(
@@ -77,7 +70,6 @@ class ImageModal extends React.Component {
                 />
                 <figure className="image-holder">
                     <Image
-                        reference={this.image}
                         src={image ? image.url : ''}
                         width="100%"
                         height="100%"
@@ -122,20 +114,37 @@ const getDimensions = (state) => {
     if (groupedHeight <= bufferHeight || maxHeight > 40) {
         captionHeight =
             state.caption <= maxHeight
-                ? state.caption
+                ? state.caption + 10
                 : maxHeight;
         groupedHeight = image.height + captionHeight;
-        imageStyle.marginTop = `${
-            (state.height - groupedHeight) / 2
-        }px`;
     } else {
         let height = bufferHeight - 40;
         imageStyle.height = `${height}px`;
         imageStyle.width = `${height / aspectRatio}px`;
-        imageStyle.marginTop = '20px';
         groupedHeight = bufferHeight;
         captionHeight = 40;
     }
+    imageStyle.marginTop = `${
+        (state.height - groupedHeight) / 2
+    }px`;
     buttonStyle.marginTop = `${groupedHeight / 2 - 50}px`;
     return [captionHeight, imageStyle, buttonStyle];
+};
+
+const divWidth = (screenWidth) => {
+    if (screenWidth <= 800) {
+        return screenWidth * 0.95;
+    } else if (screenWidth <= 900) {
+        return screenWidth * 0.9;
+    } else if (screenWidth <= 1000) {
+        return screenWidth * 0.85;
+    } else if (screenWidth <= 1100) {
+        return screenWidth * 0.8;
+    } else if (screenWidth <= 1200) {
+        return screenWidth * 0.75;
+    } else if (screenWidth <= 1143) {
+        return screenWidth * 0.7;
+    } else {
+        return 800;
+    }
 };
