@@ -9,10 +9,14 @@ class Image extends React.Component {
         alt: this.props.alt,
     };
     onError = () => {
+        let alt = this.props.alt ? this.props.alt : '';
         this.setState({
             errored: true,
             style: style(this.props, true),
-            alt: 'Broken Image - ' + this.props.alt,
+            alt:
+                alt.length > 0
+                    ? 'Broken Image - ' + alt
+                    : 'Broken Image',
         });
     };
 
@@ -30,15 +34,18 @@ class Image extends React.Component {
             this.setState({
                 errored: false,
                 style: style(this.props, false),
+                alt: this.props.alt,
             });
         }
     }
     render() {
         return (
             <img
+                ref={this.props.reference}
                 className="image"
                 src={this.src()}
                 onError={this.onError}
+                onClick={this.props.onClick}
                 alt={this.state.alt}
                 title={this.state.alt}
                 style={this.state.style}

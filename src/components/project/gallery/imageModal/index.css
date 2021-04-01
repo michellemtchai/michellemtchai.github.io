@@ -1,0 +1,51 @@
+.image-modal {
+    width: 70%;
+    max-width: 800px;
+    max-height: calc(100vh - 40px);
+    margin: 0 auto;
+    padding: 0;
+    overflow: visible;
+}
+.image-modal .image {
+    display: block;
+    margin: 0;
+}
+.image-modal figcaption {
+    border-top: 1px solid #eee;
+    margin: 0;
+    padding: 5px 20px;
+    width: 100%;
+    overflow-y: auto;
+    display: block;
+    background: #fff;
+}
+.image-modal > .image-holder {
+    display: inline-block;
+    width: 100%;
+    vertical-align: top;
+}
+.image-modal button {
+    width: 50px;
+    height: 100px;
+    display: inline-block;
+    border-radius: 0;
+    font-size: 50px;
+    border: 0;
+    outline: 0;
+    color: #fff;
+    background-color: #337ab7;
+    cursor: pointer;
+}
+.image-model button:hover {
+    background-color: #286090;
+}
+.image-modal button:first-child {
+    margin-left: -50px;
+}
+.image-modal button:nth-child(3) {
+    margin-right: -50px;
+}
+.image-modal button[disabled] {
+    display: none;
+    cursor: not-allowed;
+}

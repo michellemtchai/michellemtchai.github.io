@@ -1,4 +1,19 @@
-.gallery p {
+.gallery > .no-pic {
     padding: 20px;
     text-align: center;
+}
+.gallery {
+    padding: 40px 20px;
+}
+.gallery > .thumbnails > .image {
+    margin: 5px;
+    border: 1px solid #eee;
+    cursor: pointer;
+}
+.gallery > .thumbnails > .image:hover {
+    opacity: 0.75;
+    background: #000;
+}
+.gallery > .thumbnails > .image:active {
+    opacity: 0.9;
 }
