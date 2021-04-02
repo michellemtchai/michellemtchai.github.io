@@ -32,22 +32,24 @@ class ImageModal extends React.Component {
         let caption = this.caption.current;
         let image = this.props.imageRefs[this.state.index]
             .current;
-        this.setState({
-            ...this.state,
-            width: divWidth(window.innerWidth),
-            height: window.innerHeight,
-            image: {
-                width:
-                    image.naturalWidth === 0
-                        ? 430
-                        : image.naturalWidth,
-                height:
-                    image.naturalHeight === 0
-                        ? 314
-                        : image.naturalHeight,
-            },
-            caption: caption.scrollHeight,
-        });
+        if (caption && image) {
+            this.setState({
+                ...this.state,
+                width: divWidth(window.innerWidth),
+                height: window.innerHeight,
+                image: {
+                    width:
+                        image.naturalWidth === 0
+                            ? 430
+                            : image.naturalWidth,
+                    height:
+                        image.naturalHeight === 0
+                            ? 314
+                            : image.naturalHeight,
+                },
+                caption: caption.scrollHeight,
+            });
+        }
     };
     keyControl = (event) => {
         switch (event.keyCode) {
