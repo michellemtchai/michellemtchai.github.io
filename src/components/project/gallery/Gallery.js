@@ -26,7 +26,6 @@ class Gallery extends React.Component {
         });
     };
     openModal = (index) => {
-        console.log('open', index);
         this.setState({
             index: index,
             open: true,

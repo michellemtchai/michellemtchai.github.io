@@ -37,8 +37,14 @@ class ImageModal extends React.Component {
             width: divWidth(window.innerWidth),
             height: window.innerHeight,
             image: {
-                width: image.naturalWidth,
-                height: image.naturalHeight,
+                width:
+                    image.naturalWidth === 0
+                        ? 430
+                        : image.naturalWidth,
+                height:
+                    image.naturalHeight === 0
+                        ? 314
+                        : image.naturalHeight,
             },
             caption: caption.scrollHeight,
         });
