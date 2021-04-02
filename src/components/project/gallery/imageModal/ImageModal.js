@@ -47,7 +47,7 @@ class ImageModal extends React.Component {
                             ? 314
                             : image.naturalHeight,
                 },
-                caption: caption.scrollHeight,
+                caption: caption.scrollHeight + 10,
             });
         }
     };
@@ -138,8 +138,8 @@ const getDimensions = (state) => {
     let bufferHeight = state.height - 40;
     let aspectRatio = state.image.height / state.image.width;
     let image = {
-        width: state.width,
-        height: aspectRatio * state.width,
+        width: state.width - 100,
+        height: aspectRatio * (state.width - 100),
     };
     let captionHeight,
         imageStyle = {},
@@ -148,10 +148,12 @@ const getDimensions = (state) => {
     let groupedHeight = image.height + state.caption;
     if (groupedHeight <= bufferHeight || maxHeight > 40) {
         captionHeight =
-            state.caption <= maxHeight
-                ? state.caption + 10
+            state.caption < maxHeight
+                ? state.caption
                 : maxHeight;
         groupedHeight = image.height + captionHeight;
+        imageStyle.width = image.width;
+        imageStyle.height = groupedHeight;
     } else {
         let height = bufferHeight - 40;
         imageStyle.height = `${height}px`;

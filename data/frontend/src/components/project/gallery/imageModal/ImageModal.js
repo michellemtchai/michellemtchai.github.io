@@ -32,26 +32,61 @@ class ImageModal extends React.Component {
         let caption = this.caption.current;
         let image = this.props.imageRefs[this.state.index]
             .current;
-        this.setState({
-            ...this.state,
-            width: divWidth(window.innerWidth),
-            height: window.innerHeight,
-            image: {
-                width: image.naturalWidth,
-                height: image.naturalHeight,
-            },
-            caption: caption.scrollHeight,
-        });
+        if (caption && image) {
+            this.setState({
+                ...this.state,
+                width: divWidth(window.innerWidth),
+                height: window.innerHeight,
+                image: {
+                    width:
+                        image.naturalWidth === 0
+                            ? 430
+                            : image.naturalWidth,
+                    height:
+                        image.naturalHeight === 0
+                            ? 314
+                            : image.naturalHeight,
+                },
+                caption: caption.scrollHeight + 10,
+            });
+        }
+    };
+    keyControl = (event) => {
+        switch (event.keyCode) {
+            case 37:
+                if (this.state.index > 0) {
+                    this.changeImage(-1);
+                }
+                break;
+            case 39:
+                if (
+                    this.state.index + 1 <
+                    this.props.gallery.length
+                ) {
+                    this.changeImage(1);
+                }
+                break;
+        }
     };
     componentWillUnmount() {
         window.removeEventListener(
             'resize',
             this.updateDimensions
         );
+        document.removeEventListener(
+            'keydown',
+            this.keyControl,
+            false
+        );
     }
     componentDidMount() {
         this.updateDimensions();
         window.addEventListener('resize', this.updateDimensions);
+        document.addEventListener(
+            'keydown',
+            this.keyControl,
+            false
+        );
     }
     render() {
         let image = this.props.gallery[this.state.index];
@@ -103,8 +138,8 @@ const getDimensions = (state) => {
     let bufferHeight = state.height - 40;
     let aspectRatio = state.image.height / state.image.width;
     let image = {
-        width: state.width,
-        height: aspectRatio * state.width,
+        width: state.width - 100,
+        height: aspectRatio * (state.width - 100),
     };
     let captionHeight,
         imageStyle = {},
@@ -113,10 +148,12 @@ const getDimensions = (state) => {
     let groupedHeight = image.height + state.caption;
     if (groupedHeight <= bufferHeight || maxHeight > 40) {
         captionHeight =
-            state.caption <= maxHeight
-                ? state.caption + 10
+            state.caption < maxHeight
+                ? state.caption
                 : maxHeight;
         groupedHeight = image.height + captionHeight;
+        imageStyle.width = image.width;
+        imageStyle.height = groupedHeight;
     } else {
         let height = bufferHeight - 40;
         imageStyle.height = `${height}px`;
