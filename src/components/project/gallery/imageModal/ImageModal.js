@@ -49,15 +49,42 @@ class ImageModal extends React.Component {
             caption: caption.scrollHeight,
         });
     };
+    keyControl = (event) => {
+        switch (event.keyCode) {
+            case 37:
+                if (this.state.index > 0) {
+                    this.changeImage(-1);
+                }
+                break;
+            case 39:
+                if (
+                    this.state.index + 1 <
+                    this.props.gallery.length
+                ) {
+                    this.changeImage(1);
+                }
+                break;
+        }
+    };
     componentWillUnmount() {
         window.removeEventListener(
             'resize',
             this.updateDimensions
         );
+        document.removeEventListener(
+            'keydown',
+            this.keyControl,
+            false
+        );
     }
     componentDidMount() {
         this.updateDimensions();
         window.addEventListener('resize', this.updateDimensions);
+        document.addEventListener(
+            'keydown',
+            this.keyControl,
+            false
+        );
     }
     render() {
         let image = this.props.gallery[this.state.index];
