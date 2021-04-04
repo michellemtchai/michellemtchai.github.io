@@ -13,8 +13,9 @@ import {
 
 class Template extends React.Component {
     state = {
-        navWidth: navWidth(this.props),
-        navExpanded: navWidth(this.props) === EXPANDED_NAV_WIDTH,
+        navWidth: navWidth(window.innerWidth),
+        navExpanded:
+            navWidth(window.innerWidth) === EXPANDED_NAV_WIDTH,
     };
     updateNav = () => {
         this.setState({
@@ -22,6 +23,24 @@ class Template extends React.Component {
             navExpanded: !this.state.navExpanded,
         });
     };
+    updateDimensions = () => {
+        this.setState({
+            navWidth: navWidth(window.innerWidth),
+            navExpanded:
+                navWidth(window.innerWidth) ===
+                EXPANDED_NAV_WIDTH,
+        });
+    };
+    componentDidMount() {
+        window.addEventListener('resize', this.updateDimensions);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener(
+            'resize',
+            this.updateDimensions
+        );
+    }
     render() {
         let location = routeKey(
             this.props,
@@ -49,8 +68,7 @@ class Template extends React.Component {
 
 export default withRouter(Template);
 
-const navWidth = (props) => {
-    let screenWidth = props.width;
+const navWidth = (screenWidth) => {
     if (screenWidth > 1320) {
         return EXPANDED_NAV_WIDTH;
     } else if (screenWidth > 800) {

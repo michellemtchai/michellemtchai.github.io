@@ -1,9 +1,7 @@
 import './index.css';
 import React from 'react';
-import Modal from '../../modal/Modal';
-import Header from '../header/Header';
 import Footer from '../footer/Footer';
-import NavBar from '../navbar/NavBar';
+import Sidebar from './sidebar/Sidebar';
 import {
     EXPANDED_NAV_WIDTH,
     MINIMIZED_NAV_WIDTH,
@@ -25,9 +23,11 @@ class NavContent extends React.Component {
     render() {
         return (
             <ul className="main">
-                <li style={this.state.width.nav}>
-                    {NavModal(this.props, this.state.expanded)}
-                </li>
+                <Sidebar
+                    {...this.props}
+                    width={this.state.width.nav}
+                    expanded={this.state.expanded}
+                />
                 <li style={this.state.width.content}>
                     <div className="content">
                         {this.props.children}
@@ -56,34 +56,4 @@ const widths = (props) => {
             width: `calc(100% - ${width}px)`,
         },
     };
-};
-
-const NavModal = (props, expanded) => {
-    switch (props.navWidth) {
-        case 0:
-            return (
-                <Modal
-                    show={expanded}
-                    updateShow={props.updateNav}
-                >
-                    <Header {...props} />
-                    <NavBar {...props} minimized={false} />
-                </Modal>
-            );
-        case MINIMIZED_NAV_WIDTH:
-            return (
-                <>
-                    <NavBar {...props} minimized={true} />
-                    <Modal
-                        show={expanded}
-                        updateShow={props.updateNav}
-                    >
-                        <Header {...props} />
-                        <NavBar {...props} minimized={false} />
-                    </Modal>
-                </>
-            );
-        default:
-            return <NavBar {...props} minimized={!expanded} />;
-    }
 };

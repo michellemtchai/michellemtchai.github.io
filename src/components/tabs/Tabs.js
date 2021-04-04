@@ -3,7 +3,7 @@ import React from 'react';
 
 class Tabs extends React.Component {
     state = {
-        index: 0,
+        index: this.props.index ? this.props.index : 0,
     };
     changeTab = (index) => {
         this.setState({

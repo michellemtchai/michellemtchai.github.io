@@ -6,11 +6,6 @@ import { Switch, Route } from 'react-router-dom';
 import { routes } from '../config/';
 
 class App extends React.Component {
-    state = {
-        width: window.innerWidth,
-        height: window.innerHeight,
-    };
-
     route = (key, i) => {
         let Component = withRouter(
             routes(this.props)[key].component
@@ -35,24 +30,6 @@ class App extends React.Component {
             />
         );
     };
-
-    updateDimensions = () => {
-        this.setState({
-            width: window.innerWidth,
-            height: window.innerHeight,
-        });
-    };
-
-    componentDidMount() {
-        window.addEventListener('resize', this.updateDimensions);
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener(
-            'resize',
-            this.updateDimensions
-        );
-    }
 
     render() {
         return (
