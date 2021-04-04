@@ -9,7 +9,10 @@ class NavContent extends React.Component {
         width: widths(this.props),
     };
     componentDidUpdate(prevProps) {
-        if (prevProps.navWidth !== this.props.navWidth) {
+        if (
+            prevProps.navWidth !== this.props.navWidth ||
+            prevProps.navExpanded !== this.props.navExpanded
+        ) {
             this.setState({
                 width: widths(this.props),
             });
