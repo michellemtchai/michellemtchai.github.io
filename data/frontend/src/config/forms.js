@@ -80,8 +80,8 @@ export const projectSchema = (props) => {
                 type: 'gallery',
                 label: 'Project Gallery',
                 scale: true,
-                mazSize: 300,
-                resolution: 0.75,
+                mazSize: 800,
+                resolution: 1,
             },
         },
     };
