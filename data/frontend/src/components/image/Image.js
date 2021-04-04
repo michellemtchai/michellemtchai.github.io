@@ -69,5 +69,6 @@ const style = (props, error) => {
         width: props.width ? props.width : '200px',
         height: props.height ? props.height : '150px',
         background: background(props, error),
+        cursor: props.onClick ? 'pointer' : 'default',
     };
 };

@@ -17,6 +17,7 @@
     background: #fff;
     overflow-y: auto;
     display: block;
+    cursor: default;
 }
 .image-modal > .image-holder {
     display: inline-block;

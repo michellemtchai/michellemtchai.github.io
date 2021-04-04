@@ -28,6 +28,14 @@ class ImageModal extends React.Component {
         );
     };
 
+    nextImage = () => {
+        if (this.state.index + 1 < this.props.gallery.length) {
+            this.changeImage(1);
+        } else {
+            this.changeImage(-(this.props.gallery.length - 1));
+        }
+    };
+
     updateDimensions = () => {
         let caption = this.caption.current;
         let image = this.props.imageRefs[this.state.index]
@@ -108,6 +116,7 @@ class ImageModal extends React.Component {
                         src={image ? image.url : ''}
                         width="100%"
                         height="100%"
+                        onClick={this.nextImage}
                     />
                     <figcaption
                         ref={this.caption}
