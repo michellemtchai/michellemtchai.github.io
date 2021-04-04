@@ -15,7 +15,6 @@ class NavModal extends React.Component {
         }
     }
     render() {
-        console.log('show', this.props);
         return (
             <Modal
                 show={this.state.show}
