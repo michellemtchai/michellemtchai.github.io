@@ -2,20 +2,15 @@ import './index.css';
 import React from 'react';
 import Footer from '../footer/Footer';
 import Sidebar from './sidebar/Sidebar';
-import {
-    EXPANDED_NAV_WIDTH,
-    MINIMIZED_NAV_WIDTH,
-} from '../navbar/constants';
+import { MINIMIZED_NAV_WIDTH } from '../navbar/constants';
 
 class NavContent extends React.Component {
     state = {
-        expanded: this.props.navExpanded,
         width: widths(this.props),
     };
     componentDidUpdate(prevProps) {
-        if (prevProps.navExpanded !== this.props.navExpanded) {
+        if (prevProps.navWidth !== this.props.navWidth) {
             this.setState({
-                expanded: this.props.navExpanded,
                 width: widths(this.props),
             });
         }
@@ -26,7 +21,6 @@ class NavContent extends React.Component {
                 <Sidebar
                     {...this.props}
                     width={this.state.width.nav}
-                    expanded={this.state.expanded}
                 />
                 <li style={this.state.width.content}>
                     <div className="content">
