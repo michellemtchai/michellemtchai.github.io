@@ -16,19 +16,28 @@ class Template extends React.Component {
         navWidth: navWidth(window.innerWidth),
         navExpanded:
             navWidth(window.innerWidth) === EXPANDED_NAV_WIDTH,
+        showNavModal: false,
     };
     updateNav = () => {
+        let width = this.state.navWidth;
         this.setState({
             ...this.state,
             navExpanded: !this.state.navExpanded,
+            showNavModal:
+                width <= MINIMIZED_NAV_WIDTH
+                    ? !this.state.showNavModal
+                    : false,
         });
     };
     updateDimensions = () => {
+        let width = navWidth(window.innerWidth);
         this.setState({
-            navWidth: navWidth(window.innerWidth),
-            navExpanded:
-                navWidth(window.innerWidth) ===
-                EXPANDED_NAV_WIDTH,
+            navWidth: width,
+            navExpanded: width === EXPANDED_NAV_WIDTH,
+            showNavModal:
+                width <= MINIMIZED_NAV_WIDTH
+                    ? this.state.showNavModal
+                    : false,
         });
     };
     componentDidMount() {
@@ -57,6 +66,7 @@ class Template extends React.Component {
                     route={location}
                     navWidth={this.state.navWidth}
                     navExpanded={this.state.navExpanded}
+                    showNavModal={this.state.showNavModal}
                     updateNav={this.updateNav}
                 />
             </>

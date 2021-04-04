@@ -21,13 +21,9 @@ class Sidebar extends React.Component {
     }
     render() {
         let width = this.props.navWidth;
-        let expanded =
-            width <= MINIMIZED_NAV_WIDTH
-                ? this.state.expanded
-                : false;
         return (
             <li style={this.state.width}>
-                <NavModal {...this.props} show={expanded} />
+                <NavModal {...this.props} />
                 {NavSidebar(
                     this.props,
                     width,

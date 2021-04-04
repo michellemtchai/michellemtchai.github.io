@@ -4,10 +4,21 @@ import Header from '../../header/Header';
 import NavBar from '../../navbar/NavBar';
 
 class NavModal extends React.Component {
+    state = {
+        show: this.props.showNavModal,
+    };
+    componentDidUpdate(prevProps) {
+        if (prevProps.showNavModal !== this.props.showNavModal) {
+            this.setState({
+                show: this.props.showNavModal,
+            });
+        }
+    }
     render() {
+        console.log('show', this.props);
         return (
             <Modal
-                show={this.props.show}
+                show={this.state.show}
                 updateShow={this.props.updateNav}
             >
                 <Header {...this.props} />
