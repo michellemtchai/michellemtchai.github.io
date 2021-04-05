@@ -19,14 +19,14 @@
     display: block;
 }
 .project-info > .demo-p {
-    min-height: 40px;
+    min-height: 45px;
 }
 .project-info > ul {
     list-style: none;
     padding: 0;
 }
 .project-info > ul > li {
-    margin-bottom: 10px;
+    margin: 10px 0;
 }
 .project-info .tech-list b {
     display: inline-block;
