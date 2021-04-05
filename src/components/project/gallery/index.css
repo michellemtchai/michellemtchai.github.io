@@ -3,16 +3,37 @@
     text-align: center;
 }
 .gallery {
-    padding: 40px 20px;
+    padding: 40px 20px 40px 15px;
 }
 .gallery > .thumbnails > .image {
-    margin: 5px;
+    width: calc(20% - 5px) !important;
     border: 1px solid #eee;
+    margin-left: 5px;
 }
 .gallery > .thumbnails > .image:hover {
     opacity: 0.75;
-    background: #000;
 }
 .gallery > .thumbnails > .image:active {
     opacity: 0.9;
+}
+@media only screen and (max-width: 1500px) {
+    .gallery > .thumbnails > .image {
+        width: calc(25% - 5px) !important;
+    }
+}
+@media only screen and (max-width: 1000px) {
+    .gallery > .thumbnails > .image {
+        width: calc(33% - 5px) !important;
+    }
+}
+@media only screen and (max-width: 750px) {
+    .gallery > .thumbnails > .image {
+        width: calc(50% - 5px) !important;
+    }
+}
+@media only screen and (max-width: 480px) {
+    .gallery > .thumbnails > .image {
+        width: 80% !important;
+        margin: 0 10%;
+    }
 }
