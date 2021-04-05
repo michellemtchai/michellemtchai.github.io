@@ -44,7 +44,7 @@
         display: inline;
     }
     .list-item article p {
-        min-height: 80px;
+        min-height: 100px;
     }
     .list-item * {
         text-decoration: none !important;
@@ -57,7 +57,6 @@
 }
 @media only screen and (max-width: 550px) {
     .list-item article p {
-        border: red 1px solid;
         padding-bottom: 0px;
         min-height: 40px;
     }

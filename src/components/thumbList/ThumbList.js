@@ -4,40 +4,49 @@ import Image from '../image/Image';
 import { goToPage } from '../../shared/router';
 
 class ThumbList extends React.Component {
-    seeProject = (projectId, event = null) => {
-        if (event) {
-            event.preventDefault();
-        }
-        goToPage(`/projects/${projectId}`);
+    openPage = (page, event) => {
+        event.preventDefault();
+        goToPage(page);
+    };
+    linkWrapper = (props) => {
+        return (
+            <a
+                href={props.link}
+                onClick={(event) =>
+                    this.openPage(props.link, event)
+                }
+            >
+                {props.children}
+            </a>
+        );
     };
     render() {
         let list = this.props.list;
         let demo = (i) => (i.demo_url ? <span>DEMO</span> : '');
         return (
             <section className="thumblist">
-                <h3>{truncateName(this.props.title)}</h3>
+                <h3>
+                    <this.linkWrapper link={this.props.page}>
+                        <i className={this.props.icon} />
+                        {truncateName(this.props.title)}
+                    </this.linkWrapper>
+                    <this.linkWrapper link={this.props.page}>
+                        <span>View More</span>
+                    </this.linkWrapper>
+                </h3>
                 <ul>
                     {this.props.list.map((item, i) => (
                         <li key={'thumbnail-' + i}>
-                            <a
-                                href={`/projects/${item._id}`}
-                                onClick={(event) =>
-                                    this.seeProject(
-                                        item._id,
-                                        event
-                                    )
-                                }
+                            <this.linkWrapper
+                                link={`/projects/${item._id}`}
                             >
                                 <Image
                                     src={item.image_url}
                                     alt={item.name}
-                                    onClick={() =>
-                                        this.seeProject(item._id)
-                                    }
                                 />
                                 {demo(item)}
                                 <p>{item.name}</p>
-                            </a>
+                            </this.linkWrapper>
                         </li>
                     ))}
                 </ul>

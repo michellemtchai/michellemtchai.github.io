@@ -22,8 +22,32 @@
 }
 .thumblist h3 {
     margin: 10px 0;
+    padding: 5px 0;
     border-bottom: 3px solid #eee;
     font-size: 22px;
+}
+.thumblist h3 i {
+    margin-right: 10px;
+}
+.thumblist h3 span {
+    font-size: 14px;
+    float: right;
+    cursor: pointer;
+    vertical-align: top;
+    margin-top: 10px;
+}
+.thumblist h3 span:hover {
+    text-decoration: underline;
+}
+.thumblist h3 a {
+    color: #333;
+    text-decoration: none;
+}
+.thumblist h3 a:hover {
+    color: royalblue;
+}
+.thumblist h3 a:active {
+    color: #000;
 }
 .thumblist ul li p {
     word-wrap: break-word;
@@ -47,6 +71,7 @@
 .thumblist ul li .image {
     vertical-align: top;
     width: 100% !important;
+    cursor: pointer !important;
     border: 2px solid #ccc;
 }
 .thumblist ul li a:hover .image {
