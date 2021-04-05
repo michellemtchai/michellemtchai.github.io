@@ -72,6 +72,9 @@
 .markdown ol > li > span {
     font-weight: normal;
 }
+.markdown ul {
+    padding-left: 50px;
+}
 .markdown ul > li {
     padding: 5px;
     font-size: 16px;
