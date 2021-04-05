@@ -14,6 +14,7 @@ class ProjectInfo extends React.Component {
                 <Image
                     src={project.image_url}
                     alt={project.name}
+                    width="250px"
                 />
                 <h2>
                     {project.name}{' '}

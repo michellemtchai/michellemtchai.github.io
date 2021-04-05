@@ -25,7 +25,11 @@ class ProjectListItem extends React.Component {
                     href={`/projects/${project._id}`}
                     onClick={this.project}
                 >
-                    <Image src={project.image_url} alt={alt} />
+                    <Image
+                        src={project.image_url}
+                        alt={alt}
+                        width="250px"
+                    />
                     <article>
                         <h2>
                             {project.name} {demo}
