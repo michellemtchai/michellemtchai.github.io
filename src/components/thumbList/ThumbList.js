@@ -27,7 +27,6 @@ class ThumbList extends React.Component {
             <section className="thumblist">
                 <h3>
                     <this.linkWrapper link={this.props.page}>
-                        <i className={this.props.icon} />
                         {truncateName(this.props.title)}
                     </this.linkWrapper>
                     <this.linkWrapper link={this.props.page}>

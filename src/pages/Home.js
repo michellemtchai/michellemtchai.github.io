@@ -13,7 +13,6 @@ class Home extends React.Component {
                         key={'thumblist-' + i}
                         {...this.props}
                         title={categories[key].name}
-                        icon={categories[key].icon_class}
                         page={categories[key].base_url}
                         list={truncateList(
                             categories[key].projects,
