@@ -20,7 +20,26 @@ let fetchList = [
 ];
 
 export const fetchAll = (props) => {
-    fetchList.forEach((getData) => getData(props));
+    let endPromise = (resolve, data) => {
+        resolve(data);
+    };
+    let actions = fetchList.map(
+        (action) =>
+            new Promise((resolve, reject) =>
+                action(
+                    props,
+                    (data) => endPromise(resolve, data),
+                    false
+                )
+            )
+    );
+    Promise.all(actions).then((values) => {
+        let data = {};
+        values.forEach(
+            (entry) => (data = { ...data, ...entry })
+        );
+        api.updateDataFile(props, data);
+    });
 };
 
 export const fetchComplete = (state) => {

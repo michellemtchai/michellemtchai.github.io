@@ -7,6 +7,7 @@ import {
     projectNewTags,
 } from './ProjectCreator';
 import Editor from '../components/Editor';
+import { updateDataFile } from '../api/data';
 
 class ProjectEditor extends React.Component {
     state = {
@@ -55,9 +56,23 @@ const updateProject = (tags, props, id, data, next) => {
             props,
             newTags,
             (res) => {
+                let nextAction = (projectData) => {
+                    let data = {
+                        projects: projectData.projects,
+                        tags: res.tags,
+                    };
+                    updateDataFile(props, data);
+                    next(projectData);
+                };
                 mapping = tagNameMapping(res.tags);
                 copy.tags = copy.tags.map((tag) => mapping[tag]);
-                api.updateProject(props, id, copy, next);
+                api.updateProject(
+                    props,
+                    id,
+                    copy,
+                    nextAction,
+                    false
+                );
             },
             false
         );
