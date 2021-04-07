@@ -33,14 +33,32 @@ class TagsField extends React.Component {
         if (event.key === 'Enter') {
             event.preventDefault();
             let tags = [...this.state.value];
-            tags.push(this.state.input);
-            this.setState(
-                {
-                    value: tags,
-                    input: '',
-                },
-                () => this.props.update(this.state.value)
-            );
+            let defaultAction = () => {
+                this.setState(
+                    {
+                        ...this.state,
+                        input: '',
+                    },
+                    () => this.props.update(this.state.value)
+                );
+            };
+            if (!tags.includes(this.state.input)) {
+                let value = this.state.input.trim();
+                if (value.length > 0) {
+                    tags.push(value);
+                    this.setState(
+                        {
+                            value: tags,
+                            input: '',
+                        },
+                        () => this.props.update(this.state.value)
+                    );
+                } else {
+                    defaultAction();
+                }
+            } else {
+                defaultAction();
+            }
         }
     };
     componentDidMount() {
