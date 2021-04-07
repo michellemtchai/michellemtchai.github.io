@@ -141,10 +141,6 @@ const renderModifyRecordResponse = (
     data
 ) => {
     let updateExportedInDb = (exportedData) => {
-        controller.log(
-            'New exported date',
-            exportedData.exported
-        );
         controller.renderSuccess(res, {
             data: data,
             exported: exportedData,
