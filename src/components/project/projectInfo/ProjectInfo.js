@@ -4,6 +4,7 @@ import Image from '../../image/Image';
 import TabLink from '../tabLink/TabLink';
 import TechList from '../../techList/TechList';
 import Demo from '../demo/Demo';
+import Tags from './tags/Tags';
 
 class ProjectInfo extends React.Component {
     render() {
@@ -45,6 +46,7 @@ class ProjectInfo extends React.Component {
                             clickable={true}
                         />
                     </li>
+                    <Tags {...this.props} tags={project.tags} />
                 </ul>
             </section>
         );

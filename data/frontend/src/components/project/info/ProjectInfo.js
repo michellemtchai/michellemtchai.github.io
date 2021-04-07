@@ -7,6 +7,7 @@ import Demo from '../demo/Demo';
 import TabLink from '../tablink/TabLink';
 import TechList from '../techList/TechList';
 import Button from '../../form/buttons/Button';
+import Tags from './tags/Tags';
 
 class ProjectInfo extends React.Component {
     editProject = () => {
@@ -66,6 +67,7 @@ class ProjectInfo extends React.Component {
                             clickable={true}
                         />
                     </li>
+                    <Tags {...this.props} tags={project.tags} />
                 </ul>
             </section>
         );
