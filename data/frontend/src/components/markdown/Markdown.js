@@ -41,7 +41,7 @@ const processHtml = (html) => {
 };
 
 const plainLinkToTabLink = (html) => {
-    let linkRegex = /(\<a)(\s+href=\"[-a-zA-Z0-9@:%._\+~#=\/]+\"\>)/g;
+    let linkRegex = /(\<a)(\s+href=\"[-a-zA-Z0-9@:%._\+~#=\/?]+\"\>)/g;
     let attributes =
         'class="tab-link" target="_blank" rel="noopener"';
     let newLink = `$1 ${attributes}$2`;
