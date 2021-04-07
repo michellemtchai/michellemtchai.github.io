@@ -4,8 +4,6 @@ import Project from '../pages/Project';
 import Projects from '../pages/Projects';
 import NotFound from '../pages/NotFound';
 
-export const title = "Michelle's Home Page";
-
 export const navlinks = (props) => {
     let labels = props.state.categories;
     let links = ['/'];

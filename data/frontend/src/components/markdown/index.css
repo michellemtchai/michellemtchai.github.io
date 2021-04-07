@@ -114,3 +114,18 @@
     padding: 10px 5px;
     border: 1px solid #ddd;
 }
+
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css');
+.markdown a.tab-link::after {
+    content: '\f35d';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    color: #777;
+    margin-left: 5px;
+}
+.markdown a.tab-link:hover::after {
+    color: inherit;
+}
+.markdown a.tab-link:focus::after {
+    color: inherit;
+}

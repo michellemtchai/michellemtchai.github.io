@@ -1,7 +1,7 @@
 import './index.css';
 import React from 'react';
 import IconLink from '../iconLink/IconLink';
-import { title, socialLinks } from '../../../config';
+import { socialLinks } from '../../../config';
 import { goToPage } from '../../../shared/router';
 
 class Header extends React.Component {
@@ -13,7 +13,7 @@ class Header extends React.Component {
                 </li>
                 <li>
                     <h1 onClick={() => goToPage('/')}>
-                        {title}
+                        {process.env.REACT_APP_TITLE}
                     </h1>
                 </li>
                 <li>

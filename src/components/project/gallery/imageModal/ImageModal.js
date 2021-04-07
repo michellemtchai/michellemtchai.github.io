@@ -55,7 +55,7 @@ class ImageModal extends React.Component {
                             ? 314
                             : image.naturalHeight,
                 },
-                caption: caption.scrollHeight + 10,
+                caption: caption.scrollHeight + 15,
             });
         }
     };
@@ -186,11 +186,11 @@ const divWidth = (screenWidth) => {
         return screenWidth * 0.85;
     } else if (screenWidth <= 1100) {
         return screenWidth * 0.8;
-    } else if (screenWidth <= 1200) {
-        return screenWidth * 0.75;
     } else if (screenWidth <= 1143) {
+        return screenWidth * 0.75;
+    } else if (screenWidth <= 1200) {
         return screenWidth * 0.7;
     } else {
-        return 800;
+        return 1200;
     }
 };

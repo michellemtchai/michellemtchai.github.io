@@ -80,7 +80,7 @@ export const projectSchema = (props) => {
                 type: 'gallery',
                 label: 'Project Gallery',
                 scale: true,
-                maxSize: 800,
+                maxSize: 1200,
                 resolution: 1,
             },
         },

@@ -10,7 +10,6 @@ export const fetchConfig = (
 		method = 'GET',
 		params = {},
 		formatData = (data) => data,
-		minStored = 0,
 		next = null,
 	} = {}
 ) => {
@@ -21,7 +20,6 @@ export const fetchConfig = (
 		formatData: formatData,
 		method: method,
 		params: params,
-		minStored: minStored,
 		next: next ? next : (err) => {},
 	};
 };
@@ -30,7 +28,7 @@ export const fetchAPIData = (
 	props,
 	url,
 	setStateFn,
-	{ method, params, formatData, minStored, next } = {}
+	{ method, params, formatData, next } = {}
 ) => {
 	fetchData(
 		baseUrl + url,
@@ -38,7 +36,6 @@ export const fetchAPIData = (
 			method: method,
 			params: params,
 			formatData: formatData,
-			minStored: minStored,
 			next: next,
 		})
 	);
@@ -46,61 +43,34 @@ export const fetchAPIData = (
 
 export const fetchData = (url, config) => {
 	url = setUpURL(url, config);
-	let storageName = `${config.method} ${url}`;
-	const cacheData = localStorage.getItem(storageName);
-	if (cacheData) {
-		let data = JSON.parse(cacheData);
-		if (
-			config.minStored == 0 ||
-			timeDiffMinutes(data.date) > config.minStored
-		) {
-			localStorage.removeItem(storageName);
-			fetchData(url, config);
-		} else {
-			data = config.formatData(data.data);
-			twoStep(
-				() => config.next(data),
-				() => config.setState(data),
-				config.setError
-			);
-		}
-	} else {
-		config.fetching();
-		let error = false;
-		fetch(url, fetchInterface(config))
-			.then((res) => {
-				if (res.status != 200) {
-					if (res.status == 404) {
-						error = true;
-						return res.json();
-					}
-					throw Error(res.statusText);
+	config.fetching();
+	let error = false;
+	fetch(url, fetchInterface(config))
+		.then((res) => {
+			if (res.status != 200) {
+				if (res.status == 404) {
+					error = true;
+					return res.json();
 				}
-				return res.json();
-			})
-			.then((data) => {
-				if (!error) {
-					localStorage.setItem(
-						storageName,
-						JSON.stringify({
-							date: Date.now(),
-							data: data,
-						})
-					);
-					data = config.formatData(data);
-					twoStep(
-						() => config.next(data),
-						() => config.setState(data),
-						config.setError
-					);
-				} else {
-					config.setError(data.message);
-				}
-			})
-			.catch((error) => {
-				config.setError(error.message);
-			});
-	}
+				throw Error(res.statusText);
+			}
+			return res.json();
+		})
+		.then((data) => {
+			if (!error) {
+				data = config.formatData(data);
+				twoStep(
+					() => config.next(data),
+					() => config.setState(data),
+					config.setError
+				);
+			} else {
+				config.setError(data.message);
+			}
+		})
+		.catch((error) => {
+			config.setError(error.message);
+		});
 };
 
 const twoStep = (action1, action2, setError) => {
