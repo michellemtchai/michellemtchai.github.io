@@ -115,7 +115,6 @@
     border: 1px solid #ddd;
 }
 
-@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css');
 .markdown a.tab-link::after {
     content: '\f35d';
     font-family: 'Font Awesome 5 Free';
