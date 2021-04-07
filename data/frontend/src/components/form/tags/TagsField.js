@@ -43,6 +43,15 @@ class TagsField extends React.Component {
             );
         }
     };
+    componentDidMount() {
+        this.setState(
+            {
+                value: tagValues(this.props),
+                input: '',
+            },
+            () => this.props.update(this.state.value)
+        );
+    }
     render() {
         return (
             <fieldset className="form-group">
