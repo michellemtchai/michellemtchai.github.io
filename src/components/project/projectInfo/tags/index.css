@@ -4,6 +4,7 @@
 .tags-list > section {
     border-bottom: 1px solid #ccc;
     cursor: pointer;
+    margin-top: -10px;
 }
 .tags-list > section span {
     margin-top: -5px;

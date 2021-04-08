@@ -3,13 +3,17 @@ import React from 'react';
 import Image from '../../image/Image';
 import TabLink from '../tabLink/TabLink';
 import TechList from '../../techList/TechList';
-import Demo from '../demo/Demo';
 import Tags from './tags/Tags';
 
 class ProjectInfo extends React.Component {
     render() {
         let project = this.props.project;
-        let className = project.demo_url ? 'demo-p' : '';
+        let className = project.demo_url ? 'demo' : '';
+        let demo = project.demo_url ? (
+            <span className="demo-tag">DEMO</span>
+        ) : (
+            ''
+        );
         return (
             <section className="project-info">
                 <Image
@@ -17,10 +21,8 @@ class ProjectInfo extends React.Component {
                     alt={project.name}
                     width="250px"
                 />
-                <h2>
-                    {project.name}{' '}
-                    <Demo url={project.demo_url} />
-                </h2>
+                {demo}
+                <h2 className={className}>{project.name}</h2>
                 <p className={className}>
                     <b>Summary: </b>
                     {project.summary}

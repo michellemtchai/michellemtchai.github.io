@@ -14,7 +14,11 @@ class ProjectListItem extends React.Component {
         let technologies = this.props.state.technologies;
         let alt = `Preview of ${project.name}`;
         let title = `See details about ${project.name}`;
-        let demo = project.demo_url ? <span>Demo</span> : '';
+        let demo = project.demo_url ? (
+            <span className="demo-tag">DEMO</span>
+        ) : (
+            ''
+        );
         return (
             <li
                 className="list-item"
@@ -30,10 +34,9 @@ class ProjectListItem extends React.Component {
                         alt={alt}
                         width="250px"
                     />
+                    {demo}
                     <section>
-                        <h2>
-                            {project.name} {demo}
-                        </h2>
+                        <h2>{project.name}</h2>
                         <p>{project.summary}</p>
                         <TechList
                             {...this.props}
