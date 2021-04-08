@@ -53,6 +53,3 @@
 .clickable > li > .image {
     cursor: pointer;
 }
-.clickable > li:hover .image {
-    border: 2px solid #999;
-}

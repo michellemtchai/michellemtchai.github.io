@@ -36,6 +36,12 @@
     background: #ddd;
     border: 2px solid #fff;
 }
+.clickable > li:hover .image {
+    border: 2px solid #999;
+}
+.clickable > li:hover section .image {
+    border: none;
+}
 @media only screen and (max-width: 700px) {
     .list-item {
         min-height: 180px;
