@@ -7,11 +7,26 @@
     line-height: 25px;
     margin: 10px 0;
 }
+.project-info h2.demo {
+    margin: -15px 0 10px 0;
+}
+.project-info > span.demo-tag {
+    background: green;
+    color: #fff;
+    font-weight: bold;
+    font-size: 12px;
+    padding: 5px 0;
+    width: 50px;
+    margin-left: -60px;
+    text-align: center;
+    vertical-align: top;
+    display: inline-block;
+}
 .project-info > .image {
     float: left;
     margin-right: 10px;
     margin-bottom: 10px;
-    border: 1px solid #ccc;
+    border: 2px solid #ccc;
 }
 .project-info > .btn {
     margin-right: 10px;

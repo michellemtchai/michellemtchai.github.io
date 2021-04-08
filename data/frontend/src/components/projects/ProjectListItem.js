@@ -14,18 +14,25 @@ class ProjectListItem extends React.Component {
         let technologies = this.props.state.data.technologies;
         let alt = `Preview of ${project.name}`;
         let title = `See details about ${project.name}`;
-        let demo = project.demo_url ? <span>Demo</span> : '';
+        let demo = project.demo_url ? (
+            <span className="demo-tag">DEMO</span>
+        ) : (
+            ''
+        );
         return (
             <li title={title} onClick={this.project}>
                 <a
                     href={`/projects/${project._id}`}
                     onClick={this.project}
                 >
-                    <Image src={project.image_url} alt={alt} />
+                    <Image
+                        src={project.image_url}
+                        alt={alt}
+                        width="250px"
+                    />
+                    {demo}
                     <article>
-                        <h2>
-                            {project.name} {demo}
-                        </h2>
+                        <h2>{project.name}</h2>
                         <p>{project.summary}</p>
                         <TechList
                             {...this.props}

@@ -3,7 +3,6 @@ import React from 'react';
 import { api } from '../../../config/api';
 import { editItem, deleteItem } from '../../../shared/pages';
 import Image from '../../image/Image';
-import Demo from '../demo/Demo';
 import TabLink from '../tablink/TabLink';
 import TechList from '../techList/TechList';
 import Button from '../../form/buttons/Button';
@@ -23,16 +22,21 @@ class ProjectInfo extends React.Component {
     };
     render() {
         let project = this.props.project;
+        let className = project.demo_url ? 'demo' : '';
+        let demo = project.demo_url ? (
+            <span className="demo-tag">DEMO</span>
+        ) : (
+            ''
+        );
         return (
             <section className="project-info">
                 <Image
                     src={project.image_url}
                     alt={project.name}
+                    width="250px"
                 />
-                <h2>
-                    {project.name}
-                    <Demo url={project.demo_url} />
-                </h2>
+                {demo}
+                <h2 className={className}>{project.name}</h2>
                 <Button
                     text="Edit Project"
                     click={this.editProject}
