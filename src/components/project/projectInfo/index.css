@@ -14,7 +14,7 @@
     float: left;
     margin-right: 10px;
     margin-bottom: 10px;
-    border: 1px solid #ccc;
+    border: 2px solid #aaa;
 }
 .project-info > span.demo-tag {
     background: green;
