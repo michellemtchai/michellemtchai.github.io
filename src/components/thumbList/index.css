@@ -7,6 +7,7 @@
     margin-right: 10px;
     width: calc(25% - 10px);
     vertical-align: top;
+    padding-left: 10px;
 }
 .thumblist ul li a {
     text-decoration: none;
@@ -22,12 +23,8 @@
 }
 .thumblist h3 {
     margin: 10px 0;
-    padding: 5px 0;
     border-bottom: 3px solid #eee;
     font-size: 22px;
-}
-.thumblist h3 i {
-    margin-right: 10px;
 }
 .thumblist h3 span {
     font-size: 14px;

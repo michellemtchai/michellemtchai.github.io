@@ -5,7 +5,7 @@
 .items > li {
     list-style: none;
     border-bottom: 1px solid #eee;
-    padding: 5px 10px;
+    padding: 5px 10px 5px 5px;
 }
 .items > li a {
     display: block;
@@ -13,17 +13,17 @@
     color: #333;
     outline: 0;
 }
-.items > li:first-child {
+.items > li:nth-child(2) {
     padding: 5px 0;
 }
-.items > li:first-child > p {
+.items > li:nth-child(2) > p {
     width: calc(100% - 240px);
     display: inline-block;
-    margin: 0;
-    padding: 0 10px;
+    margin-top: 20px;
+    padding-left: 5px;
     vertical-align: bottom;
 }
-.items > li:first-child > .pagination {
+.items > li:nth-child(2) > .pagination {
     width: 240px;
     display: inline-block;
     text-align: right;
@@ -42,7 +42,7 @@
 .clickable > li {
     cursor: pointer;
 }
-.clickable > li:first-child:hover,
+.clickable > li:nth-child(2):hover,
 .clickable > li:last-child:hover {
     background: #fff;
     cursor: default;
@@ -52,4 +52,7 @@
 }
 .clickable > li > .image {
     cursor: pointer;
+}
+.clickable > li:hover .image {
+    border: 2px solid #999;
 }

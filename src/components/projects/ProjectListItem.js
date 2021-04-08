@@ -30,7 +30,7 @@ class ProjectListItem extends React.Component {
                         alt={alt}
                         width="250px"
                     />
-                    <article>
+                    <section>
                         <h2>
                             {project.name} {demo}
                         </h2>
@@ -40,7 +40,7 @@ class ProjectListItem extends React.Component {
                             tech={project.technologies}
                             clickable={false}
                         />
-                    </article>
+                    </section>
                 </a>
             </li>
         );

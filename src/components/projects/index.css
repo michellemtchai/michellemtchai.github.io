@@ -1,18 +1,18 @@
-.list-item article {
+.list-item section {
     display: inline-block;
     width: calc(100% - 270px);
     padding: 0;
     margin: 10px;
     vertical-align: top;
 }
-.list-item article h2 {
+.list-item section h2 {
     padding: 0;
     margin: 0 0 5px 0;
     font-size: 22px;
     font-weight: bold;
     vertical-align: top;
 }
-.list-item article h2 > span {
+.list-item section h2 > span {
     font-size: 12px;
     background: #eee;
     border: 2px solid #ddd;
@@ -32,7 +32,7 @@
 .list-item p {
     margin: 10px 5px;
 }
-.clickable > li:hover article h2 > span {
+.clickable > li:hover section h2 > span {
     background: #ddd;
     border: 2px solid #fff;
 }
@@ -40,10 +40,10 @@
     .list-item {
         min-height: 180px;
     }
-    .list-item article {
+    .list-item section {
         display: inline;
     }
-    .list-item article p {
+    .list-item section p {
         min-height: 100px;
     }
     .list-item * {
@@ -56,7 +56,7 @@
     }
 }
 @media only screen and (max-width: 550px) {
-    .list-item article p {
+    .list-item section p {
         padding-bottom: 0px;
         min-height: 40px;
     }

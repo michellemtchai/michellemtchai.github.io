@@ -1,0 +1,56 @@
+.searchbar {
+    width: 100%;
+    border: 3px #ccc solid;
+    border-radius: 5px;
+    height: 40px;
+}
+.searchbar > input,
+.searchbar > button {
+    height: 100%;
+    border: 0;
+    outline: 0;
+    font-size: 18px;
+}
+.searchbar > input {
+    width: calc(100% - 80px);
+    color: #000;
+}
+.searchbar > button {
+    background: none;
+    padding: 0 10px;
+    width: 40px;
+    cursor: pointer;
+}
+.searchbar > button > i {
+    color: #777;
+}
+.searchbar > button:hover i {
+    color: royalblue;
+}
+.searchbar > button:active i {
+    color: #333;
+}
+.focused {
+    border: 3px solid #555;
+}
+.searchbar input::placeholder {
+    color: #ccc;
+    opacity: 1; /* Firefox */
+}
+.searchbar input:-ms-input-placeholder {
+    color: #ccc;
+}
+.searchbar input::-ms-input-placeholder {
+    color: #ccc;
+}
+.searchbar input::-webkit-input-placeholder {
+    color: #ccc;
+}
+.searchbar input:-moz-placeholder {
+    color: #ccc;
+    opacity: 1; /* Firefox */
+}
+.searchbar input::-moz-placeholder {
+    color: #ccc;
+    opacity: 1; /* Firefox */
+}

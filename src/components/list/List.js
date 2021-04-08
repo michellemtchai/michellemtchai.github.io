@@ -1,6 +1,7 @@
 import './index.css';
 import React from 'react';
 import PageButtons from './pageButton/PageButtons';
+import SearchBar from '../searchbar/SearchBar';
 
 class List extends React.Component {
     render() {
@@ -20,6 +21,7 @@ class List extends React.Component {
         );
         return (
             <ul className={className}>
+                <SearchBar {...this.props} />
                 <li>
                     <p>
                         Showing {items.length} of{' '}
