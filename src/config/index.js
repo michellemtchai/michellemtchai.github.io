@@ -22,6 +22,7 @@ export const routes = (props) => {
         let Component = (props) => (
             <Projects
                 baseUrl={pagesUrl}
+                range={label.base_url}
                 keyName={label._id}
                 {...props}
             />

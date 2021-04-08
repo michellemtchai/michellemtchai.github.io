@@ -22,7 +22,8 @@ class SearchBar extends React.Component {
         });
     };
     search = () => {
-        console.log('search', this.state.value);
+        let range = this.props.range ? this.props.range : '/all';
+        console.log('search', this.state.value, range);
     };
     openFilterModal = () => {
         console.log('open filter modal');
@@ -30,7 +31,9 @@ class SearchBar extends React.Component {
     handleKeyDown = (event) => {
         switch (event.keyCode) {
             case ENTER:
-                this.search();
+                if (document.activeElement === this.input) {
+                    this.search();
+                }
                 break;
             case ALT:
                 this.openFilterModal();
@@ -61,6 +64,7 @@ class SearchBar extends React.Component {
                     <i className="fas fa-sliders-h" />
                 </button>
                 <input
+                    ref={(i) => (this.input = i)}
                     type="text"
                     name="searchbar"
                     value={this.state.value}

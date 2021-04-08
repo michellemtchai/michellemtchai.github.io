@@ -5,7 +5,6 @@ import List from '../list/List';
 
 class ProjectList extends React.Component {
     render() {
-        let pages = this.props.state.projects;
         return (
             <List
                 {...this.props}
