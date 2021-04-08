@@ -7,14 +7,14 @@
 }
 .gallery > .thumbnails > .image {
     width: calc(20% - 5px) !important;
-    border: 1px solid #eee;
+    border: 2px solid #ccc;
     margin-left: 5px;
 }
 .gallery > .thumbnails > .image:hover {
-    opacity: 0.75;
+    border: 2px solid #777;
 }
 .gallery > .thumbnails > .image:active {
-    opacity: 0.9;
+    border: 2px solid #000;
 }
 @media only screen and (max-width: 1500px) {
     .gallery > .thumbnails > .image {
