@@ -1,6 +1,6 @@
 .searchbar {
     width: 100%;
-    border: 3px #ccc solid;
+    border: 3px #ddd solid;
     border-radius: 5px;
     height: 40px;
 }
@@ -22,7 +22,7 @@
     cursor: pointer;
 }
 .searchbar > button > i {
-    color: #777;
+    color: #aaa;
 }
 .searchbar > button:hover i {
     color: royalblue;
@@ -31,7 +31,7 @@
     color: #333;
 }
 .focused {
-    border: 3px solid #555;
+    border: 3px solid #999;
 }
 .searchbar input::placeholder {
     color: #ccc;

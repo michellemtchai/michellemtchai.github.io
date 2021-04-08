@@ -9,7 +9,7 @@ class Home extends React.Component {
         let projects = this.props.state.projects;
         return !this.props.error ? (
             <div className="page-body">
-                <SearchBar {...this.props} />
+                <SearchBar {...this.props} range="/all" />
                 {Object.keys(categories).map((key, i) => (
                     <ThumbList
                         key={'thumblist-' + i}
