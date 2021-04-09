@@ -1,5 +1,6 @@
 import './index.css';
 import React from 'react';
+import { goToPage } from '../../shared/router';
 
 const ENTER = 13;
 const ALT = 18;
@@ -22,8 +23,9 @@ class SearchBar extends React.Component {
         });
     };
     search = () => {
-        let range = this.props.range ? this.props.range : '/all';
-        console.log('search', this.state.value, range);
+        let term = encodeURIComponent(this.state.value);
+        this.props.setSearch({ term: this.state.value });
+        goToPage(`/search${this.props.range}/${term}`);
     };
     openFilterModal = () => {
         console.log('open filter modal');

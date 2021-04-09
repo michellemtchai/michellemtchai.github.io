@@ -2,6 +2,7 @@ import React from 'react';
 import Home from '../pages/Home';
 import Project from '../pages/Project';
 import Projects from '../pages/Projects';
+import Search from '../pages/Search';
 import NotFound from '../pages/NotFound';
 
 export const navlinks = (props) => {
@@ -16,9 +17,13 @@ export const navlinks = (props) => {
 export const routes = (props) => {
     let labels = props.state.categories;
     let categories = {};
+    let search = {};
+    search['/search/all/:term'] = searchRoute(props.search.term);
     Object.keys(labels).forEach((key) => {
         let label = labels[key];
         let pagesUrl = `${label.base_url}/page`;
+        let searchUrl = `/search${label.base_url}/:term`;
+        search[searchUrl] = searchRoute(props.search.term);
         let Component = (props) => (
             <Projects
                 baseUrl={pagesUrl}
@@ -33,6 +38,7 @@ export const routes = (props) => {
             icon: label.icon_class,
             exact: true,
             description: label.description,
+            children: [searchUrl],
         };
         categories[`${pagesUrl}/:page`] =
             categories[label.base_url];
@@ -43,7 +49,9 @@ export const routes = (props) => {
             title: 'Home',
             exact: true,
             icon: 'fas fa-home',
+            children: ['/search/all/:term'],
         },
+        ...search,
         ...categories,
         '/projects/:project': {
             component: Project,
@@ -71,6 +79,16 @@ export const routeKey = (props, location) => {
         }
         index += 1;
     }
+};
+
+const searchRoute = (searchTerm) => {
+    return {
+        title: `Search Results for "${searchTerm}"`,
+        component: Search,
+        icon: 'fas fa-search',
+        exact: true,
+        description: `Projects associated with the search term "${searchTerm}".`,
+    };
 };
 
 const matchingRoute = (path, location) => {

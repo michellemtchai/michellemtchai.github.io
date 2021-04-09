@@ -51,10 +51,7 @@ class Template extends React.Component {
         );
     }
     render() {
-        let location = routeKey(
-            this.props,
-            this.props.location.pathname
-        );
+        let location = this.props.match.path;
         let route = routes(this.props)[location];
         return route ? (
             <>
