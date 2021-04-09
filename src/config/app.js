@@ -4,6 +4,7 @@ import Template from '../components/template/Template';
 
 import { Switch, Route } from 'react-router-dom';
 import { routes } from '../config/';
+import { setupFormattedProjects } from '../shared/pages';
 
 class App extends React.Component {
     route = (key, i) => {
@@ -32,9 +33,8 @@ class App extends React.Component {
     };
 
     componentDidMount() {
-        this.props.setRoutes({
-            ...routes(this.props),
-        });
+        this.props.setRoutes(routes(this.props));
+        setupFormattedProjects(this.props);
     }
 
     render() {
