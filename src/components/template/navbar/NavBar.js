@@ -1,6 +1,6 @@
 import './index.css';
 import React from 'react';
-import { routes, navlinks, routeKey } from '../../../config';
+import { navlinks, routeKey } from '../../../config';
 import { goToPage } from '../../../shared/router';
 import {
     EXPANDED_NAV_WIDTH,
@@ -16,9 +16,9 @@ class NavBar extends React.Component {
     };
     currentPage = (link) => {
         let currentPath = this.props.location.pathname;
-        let route = this.props.route;
-        let children = routes(this.props)[link].children
-            ? routes(this.props)[link].children
+        let route = this.props.match.path;
+        let children = this.props.routes[link].children
+            ? this.props.routes[link].children
             : [];
         let current =
             link == route ||
@@ -79,7 +79,7 @@ class NavBar extends React.Component {
 export default NavBar;
 
 const title = (props, link) => {
-    let route = routes(props)[routeKey(props, link)];
+    let route = props.routes[routeKey(props, link)];
     return (
         <>
             <i className={'icon ' + route.icon}></i>

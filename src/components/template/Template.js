@@ -5,7 +5,7 @@ import Header from './header/Header';
 import NavContent from './navcontent/NavContent';
 
 import { withRouter } from 'react-router';
-import { routes, routeKey } from '../../config';
+import { routeKey } from '../../config';
 import {
     EXPANDED_NAV_WIDTH,
     MINIMIZED_NAV_WIDTH,
@@ -52,7 +52,7 @@ class Template extends React.Component {
     }
     render() {
         let location = this.props.match.path;
-        let route = routes(this.props)[location];
+        let route = this.props.routes[location];
         return route ? (
             <>
                 <Head {...route} />
@@ -60,7 +60,6 @@ class Template extends React.Component {
                 <NavContent
                     {...this.props}
                     title={route.title}
-                    route={location}
                     navWidth={this.state.navWidth}
                     navExpanded={this.state.navExpanded}
                     showNavModal={this.state.showNavModal}

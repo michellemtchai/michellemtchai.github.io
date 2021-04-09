@@ -68,7 +68,7 @@ export const routes = (props) => {
 
 export const routeKey = (props, location) => {
     let index = 0;
-    let paths = Object.keys(routes(props));
+    let paths = Object.keys(props.routes);
     while (index < paths.length) {
         let path = paths[index];
         if (path === '') {

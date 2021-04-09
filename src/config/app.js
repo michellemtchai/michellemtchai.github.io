@@ -8,7 +8,7 @@ import { routes } from '../config/';
 class App extends React.Component {
     route = (key, i) => {
         let Component = withRouter(
-            routes(this.props)[key].component
+            this.props.routes[key].component
         );
         let props = {
             ...this.props,
@@ -23,7 +23,7 @@ class App extends React.Component {
             <Route
                 key={'route-' + i}
                 exact={
-                    routes(this.props)[key].exact ? true : false
+                    this.props.routes[key].exact ? true : false
                 }
                 path={key}
                 component={pageTemplate}
@@ -31,14 +31,25 @@ class App extends React.Component {
         );
     };
 
+    componentDidMount() {
+        this.props.setRoutes({
+            ...routes(this.props),
+        });
+    }
+
     render() {
+        let routes = this.props.routes;
         return (
             <>
-                <Switch>
-                    {Object.keys(
-                        routes(this.props)
-                    ).map((key, i) => this.route(key, i))}
-                </Switch>
+                {Object.keys(routes).length > 0 ? (
+                    <Switch>
+                        {Object.keys(routes).map((key, i) =>
+                            this.route(key, i)
+                        )}
+                    </Switch>
+                ) : (
+                    ''
+                )}
             </>
         );
     }
