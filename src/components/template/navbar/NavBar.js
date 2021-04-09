@@ -15,11 +15,16 @@ class NavBar extends React.Component {
             : EXPANDED_NAV_WIDTH,
     };
     currentPage = (link) => {
+        let currentPath = this.props.location.pathname;
         let route = this.props.route;
         let children = routes(this.props)[link].children
             ? routes(this.props)[link].children
             : [];
-        let current = link == route || children.includes(route);
+        let current =
+            link == route ||
+            link == currentPath ||
+            children.includes(route) ||
+            children.includes(currentPath);
         return current ? 'curr-page' : '';
     };
     clickLink = (event, link) => {

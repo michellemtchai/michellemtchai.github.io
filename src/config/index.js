@@ -38,7 +38,7 @@ export const routes = (props) => {
             icon: label.icon_class,
             exact: true,
             description: label.description,
-            children: [searchUrl],
+            children: [...categoryProjects(label), searchUrl],
         };
         categories[`${pagesUrl}/:page`] =
             categories[label.base_url];
@@ -89,6 +89,14 @@ const searchRoute = (searchTerm) => {
         exact: true,
         description: `Projects associated with the search term "${searchTerm}".`,
     };
+};
+
+const categoryProjects = (label) => {
+    let projects = [];
+    if (label.base_url !== '/featured') {
+        projects = label.projects.map((i) => `/projects/${i}`);
+    }
+    return projects;
 };
 
 const matchingRoute = (path, location) => {
