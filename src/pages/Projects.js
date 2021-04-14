@@ -1,14 +1,21 @@
 import React from 'react';
 import Items from '../components/items/Items';
 import ProjectList from '../components/projects/ProjectList';
+import { getPages } from '../shared/pages';
 
 class Projects extends React.Component {
     render() {
+        let [total, pages] = getPages(
+            this.props,
+            this.props.keyName
+        );
         return (
             <Items
                 {...this.props}
                 name="Project"
                 list={ProjectList}
+                pages={pages}
+                total={total}
             />
         );
     }

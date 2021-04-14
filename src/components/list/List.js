@@ -4,6 +4,9 @@ import PageButtons from './pageButton/PageButtons';
 import SearchBar from '../searchbar/SearchBar';
 
 class List extends React.Component {
+    openFilterModal = () => {
+        console.log('open modal');
+    };
     render() {
         let page = this.props.page;
         let pages = this.props.pages;
@@ -23,6 +26,12 @@ class List extends React.Component {
             <ul className={className}>
                 <SearchBar {...this.props} />
                 <li>
+                    <button
+                        className="filter-btn"
+                        onClick={this.openFilterModal}
+                    >
+                        <i className="fas fa-sliders-h" /> Filter
+                    </button>
                     <p>
                         Showing {items.length} of{' '}
                         {this.props.total} items

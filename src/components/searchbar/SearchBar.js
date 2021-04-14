@@ -27,9 +27,6 @@ class SearchBar extends React.Component {
         this.props.setSearch({ term: this.state.value });
         goToPage(`/search${this.props.range}/${term}`);
     };
-    openFilterModal = () => {
-        console.log('open filter modal');
-    };
     handleKeyDown = (event) => {
         switch (event.keyCode) {
             case ENTER:
@@ -62,9 +59,6 @@ class SearchBar extends React.Component {
             : 'searchbar';
         return (
             <section className={className}>
-                <button onClick={this.openFilterModal}>
-                    <i className="fas fa-sliders-h" />
-                </button>
                 <input
                     ref={(i) => (this.input = i)}
                     type="text"
