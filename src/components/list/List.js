@@ -33,11 +33,11 @@ class List extends React.Component {
                         className="filter-btn"
                         onClick={this.openFilterModal}
                     >
-                        <i className="fas fa-sliders-h" /> Filter
+                        <i className="fas fa-sliders-h" />
                     </button>
                     <p>
                         Showing {items.length} of{' '}
-                        {this.props.total} items
+                        {this.props.total}{' '}
                     </p>
                     {pagination}
                 </li>
