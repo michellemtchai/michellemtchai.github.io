@@ -18,12 +18,18 @@ export const routes = (props) => {
     let labels = props.state.categories;
     let categories = {};
     let search = {};
-    search['/search/all/:term'] = searchRoute(props.search.term);
+    search['/all/search/:term'] = searchRoute('all', '/all');
+    search['/all/search/:term/page/:page'] =
+        search['/all/search/:term'];
     Object.keys(labels).forEach((key) => {
         let label = labels[key];
         let pagesUrl = `${label.base_url}/page`;
-        let searchUrl = `/search${label.base_url}/:term`;
-        search[searchUrl] = searchRoute(props.search.term);
+        let searchUrl = `${label.base_url}/search/:term`;
+        search[searchUrl] = searchRoute(
+            label._id,
+            label.base_url
+        );
+        search[`${searchUrl}/:page`] = search[searchUrl];
         let Component = (props) => (
             <Projects
                 baseUrl={pagesUrl}
@@ -81,13 +87,16 @@ export const routeKey = (props, location) => {
     }
 };
 
-const searchRoute = (searchTerm) => {
+const searchRoute = (keyName, range) => {
+    let Component = (props) => (
+        <Search {...props} keyName={keyName} range={range} />
+    );
     return {
-        title: `Search Results for "${searchTerm}"`,
-        component: Search,
+        title: 'Search Results',
+        component: Component,
         icon: 'fas fa-search',
         exact: true,
-        description: `Projects associated with the search term "${searchTerm}".`,
+        description: 'Projects associated with the search term.',
     };
 };
 

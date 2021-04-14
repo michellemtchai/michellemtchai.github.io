@@ -22,10 +22,10 @@ export const setupFormattedProjects = (props) => {
     });
     props.setProjects(formattedProjects);
 };
-const formatPages = (data) => {
+export const formatPages = (data) => {
     let pages = [],
         index = 0;
-    while (index < data.length - 1) {
+    while (index < data.length) {
         pages.push(data.slice(index, index + 10));
         index += 10;
     }

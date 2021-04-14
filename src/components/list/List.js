@@ -24,7 +24,10 @@ class List extends React.Component {
         );
         return (
             <ul className={className}>
-                <SearchBar {...this.props} />
+                <SearchBar
+                    {...this.props}
+                    value={this.props.search.term}
+                />
                 <li>
                     <button
                         className="filter-btn"

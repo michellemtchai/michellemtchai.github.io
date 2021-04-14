@@ -7,7 +7,7 @@ const ALT = 18;
 
 class SearchBar extends React.Component {
     state = {
-        value: '',
+        value: this.props.value ? this.props.value : '',
         focus: false,
     };
     handleChange = (event) => {
@@ -25,7 +25,7 @@ class SearchBar extends React.Component {
     search = () => {
         let term = encodeURIComponent(this.state.value);
         this.props.setSearch({ term: this.state.value });
-        goToPage(`/search${this.props.range}/${term}`);
+        goToPage(`${this.props.range}/search/${term}`);
     };
     handleKeyDown = (event) => {
         switch (event.keyCode) {

@@ -33,11 +33,10 @@
     padding: 5px 0;
 }
 .items > li:nth-child(2) > p {
-    width: calc(100% - 240px);
+    width: calc(100% - 303px);
     display: inline-block;
     margin-top: 20px;
     padding-left: 5px;
-    vertical-align: bottom;
 }
 .items > li:nth-child(2) > .pagination {
     width: 240px;

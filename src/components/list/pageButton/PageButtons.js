@@ -16,7 +16,7 @@ class PageButtons extends React.Component {
     render() {
         let page = this.props.index;
         let pages = this.props.pages;
-        return pages.length == 1 ? (
+        return pages > 1 ? (
             <div className="pagination">
                 {prev(page, this.prevPage)}
                 <span>
