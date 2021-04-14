@@ -8,6 +8,7 @@ export const setupFormattedProjects = (props) => {
         all: {
             data: projectsList,
             pages: formatPages(projectsList),
+            stacks: getStacks(projectsList),
         },
     };
     Object.keys(categories).forEach((key) => {
@@ -16,6 +17,7 @@ export const setupFormattedProjects = (props) => {
         formattedProjects[category._id] = {
             data: data,
             pages: formatPages(data),
+            stacks: getStacks(data),
         };
     });
     props.setProjects(formattedProjects);
@@ -31,6 +33,19 @@ const formatPages = (data) => {
         pages = [[]];
     }
     return pages;
+};
+const getStacks = (data) => {
+    let stacks = {};
+    data.forEach((entry) => {
+        entry.technologies.forEach((stack) => {
+            if (!stacks[stack]) {
+                stacks[stack] = 1;
+            } else {
+                stacks[stack] += 1;
+            }
+        });
+    });
+    return stacks;
 };
 export const getPages = (props, key) => {
     let projects = props.projects[key];
