@@ -44,7 +44,11 @@ export const routes = (props) => {
             icon: label.icon_class,
             exact: true,
             description: label.description,
-            children: [...categoryProjects(label), searchUrl],
+            children: [
+                ...categoryProjects(label),
+                searchUrl,
+                `${searchUrl}/:page`,
+            ],
         };
         categories[`${pagesUrl}/:page`] =
             categories[label.base_url];
@@ -55,7 +59,10 @@ export const routes = (props) => {
             title: 'Home',
             exact: true,
             icon: 'fas fa-home',
-            children: ['/search/all/:term'],
+            children: [
+                '/all/search/:term',
+                '/all/search/:term/page/:page',
+            ],
         },
         ...search,
         ...categories,
