@@ -9,13 +9,18 @@ class Search extends React.Component {
         let projects = this.props.projects[this.props.keyName]
             .data;
         let data = [];
-        projects.forEach((project) => {
-            let regex = new RegExp(term, 'gi');
-            let match = project.name.match(regex);
-            if (match) {
-                data.push(project);
-            }
-        });
+        if (term) {
+            let regex = new RegExp(
+                term.replace(/\s+/g, '|'),
+                'gi'
+            );
+            projects.forEach((project) => {
+                let match = project.name.match(regex);
+                if (match) {
+                    data.push(project);
+                }
+            });
+        }
         return [data.length, formatPages(data)];
     };
     componentDidMount() {
