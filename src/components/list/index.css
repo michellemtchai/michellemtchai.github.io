@@ -20,15 +20,13 @@
     font-size: 16px;
     color: #333;
     cursor: pointer;
-    border-right: 2px solid #000;
+    border-right: 2px solid #ddd;
     padding-right: 5px;
 }
 .items > li > .filter-btn:hover {
-    background: none;
     color: royalblue;
 }
 .items > li > .filter-btn:active {
-    background: none;
     color: #000;
 }
 .items > li:nth-child(2) {
