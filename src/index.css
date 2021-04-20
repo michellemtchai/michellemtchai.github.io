@@ -19,8 +19,10 @@ body > div {
     color: lightblue;
     text-align: center;
     font-size: 150px;
-    width: 100%;
-    margin: calc(50vh - 75px) 0 0 0;
+    width: 150px;
+    height: 150px;
+    margin-top: calc(50vh - 75px);
+    margin-left: calc(50vw - 75px);
     padding: 0;
     overflow: hidden;
 }
