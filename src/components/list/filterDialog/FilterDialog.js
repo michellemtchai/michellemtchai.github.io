@@ -37,7 +37,7 @@ class FilterDialog extends React.Component {
                     selected={this.state.sortBy}
                     update={this.updateSortBy}
                     options={sortByOptions(
-                        this.props.search.term
+                        this.props.searchterm
                     )}
                 />
                 <Select

@@ -1,21 +1,11 @@
 import * as actions from '../actions/search';
 
-export const initialState = {
-    term: null,
-    sortBy: null,
-    sortDir: null,
-    stacks: null,
-    results: null,
-    filtered: null,
-};
+export const initialState = null;
 
 export const search = (state = initialState, action) => {
     switch (action.type) {
         case actions.SET_SEARCH:
-            return {
-                ...state,
-                ...action.data,
-            };
+            return action.data;
         default:
             return state;
     }

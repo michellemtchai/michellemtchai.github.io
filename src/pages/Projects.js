@@ -29,14 +29,13 @@ export default Projects;
 const initialState = (props) => {
     let search = props.search;
     let data = props.projects[props.keyName].data;
-    return {
-        sortBy: search.sortBy ? search.sortBy : 'name',
-        sortDir: search.sortDir ? search.sortDir : 'ascending',
-        results: search.results ? search.results : data,
-        filtered: search.filtered
-            ? search.filtered
-            : {
-                  results: data,
-              },
+    let defaultState = {
+        sortBy: 'name',
+        sortDir: 'ascending',
+        results: data,
+        filtered: {
+            results: data,
+        },
     };
+    return search ? search : defaultState;
 };

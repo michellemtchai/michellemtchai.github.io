@@ -6,20 +6,6 @@ import { filterData, updateFilter } from '../shared/results';
 
 class Search extends React.Component {
     state = initialState(this.props);
-    componentDidMount() {
-        let results = searchResults(
-            this.props,
-            this.state,
-            this.state.term
-        );
-        this.setState({
-            ...this.state,
-            results: results,
-            filtered: {
-                results: results,
-            },
-        });
-    }
     render() {
         let pages = this.state.filtered
             ? formatPages(this.state.filtered.results)
@@ -31,7 +17,7 @@ class Search extends React.Component {
             <Items
                 {...this.props}
                 name="Project"
-                term={this.state.term}
+                searchterm={this.state.term}
                 list={ProjectList}
                 pages={pages}
                 total={total}
@@ -49,20 +35,24 @@ export default Search;
 
 const initialState = (props) => {
     let search = props.search;
-    return {
-        term: search.term
-            ? search.term
-            : decodeURIComponent(props.match.params.term),
-        sortBy: search.sortBy ? search.sortBy : 'relevance',
-        sortDir: search.sortDir ? search.sortDir : 'ascending',
-        results: [],
+    let term = decodeURIComponent(props.match.params.term);
+    let results = searchResults(props, term);
+    let defaultState = {
+        term: term,
+        sortBy: 'relevance',
+        sortDir: 'ascending',
+        results: results,
+        filtered: {
+            results: results,
+        },
     };
+    return search ? search : defaultState;
 };
 
 const baseUrl = (props, state) =>
     `${props.range}/search/${state.term}/page`;
 
-const searchResults = (props, state, term) => {
+const searchResults = (props, term) => {
     let projects = props.projects[props.keyName].data;
     let data = [];
     if (term) {
