@@ -3,8 +3,14 @@ import { formatPages } from './pages';
 
 export const filterData = (data, state) => {
     let sortKey = state.sortBy;
+    let modData = [];
+    data.forEach((entry) => {
+        if (containsStacks(entry, state)) {
+            modData.push(entry);
+        }
+    });
     if (state.sortDir === 'ascending') {
-        return data.sort((a, b) => {
+        return modData.sort((a, b) => {
             if (sortKey === 'name') {
                 return a[sortKey].localeCompare(b[sortKey]);
             } else {
@@ -12,7 +18,7 @@ export const filterData = (data, state) => {
             }
         });
     } else {
-        return data.sort((a, b) => {
+        return modData.sort((a, b) => {
             if (sortKey === 'name') {
                 return b[sortKey].localeCompare(a[sortKey]);
             } else {
@@ -20,6 +26,16 @@ export const filterData = (data, state) => {
             }
         });
     }
+};
+const containsStacks = (entry, state) => {
+    let required = state.filtered.stacks;
+    let stacks = entry.technologies;
+    for (let i = 0; i < required.length; i++) {
+        if (stacks.includes(required[i])) {
+            return true;
+        }
+    }
+    return false;
 };
 export const updateFilter = (component, value) => {
     component.setState(
