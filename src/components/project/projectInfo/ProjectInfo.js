@@ -14,6 +14,10 @@ class ProjectInfo extends React.Component {
         ) : (
             ''
         );
+        let technologies = this.props.state.technologies;
+        let tech = project.technologies.map(
+            (i) => technologies[i]
+        );
         return (
             <section className="project-info">
                 <Image
@@ -44,7 +48,7 @@ class ProjectInfo extends React.Component {
                         <b>Stacks:</b>
                         <TechList
                             {...this.props}
-                            tech={project.technologies}
+                            tech={tech}
                             clickable={true}
                         />
                     </li>
