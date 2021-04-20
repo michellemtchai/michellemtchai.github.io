@@ -9,7 +9,7 @@ class Search extends React.Component {
     state = initialState(this.props);
     render() {
         let pages = this.state.filtered.results;
-        let total = this.state.results.length;
+        let total = this.state.filtered.total;
         return (
             <Items
                 {...this.props}
@@ -42,6 +42,7 @@ const initialState = (props) => {
         results: results,
         stacks: stacks,
         filtered: {
+            total: results.length,
             results: formatPages(results),
             stacks: selectedStacks,
             defStacks: selectedStacks,

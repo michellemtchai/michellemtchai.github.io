@@ -8,13 +8,14 @@ class Projects extends React.Component {
     state = initialState(this.props);
     render() {
         let pages = this.state.filtered.results;
+        let total = this.state.filtered.total;
         return (
             <Items
                 {...this.props}
                 name="Project"
                 list={ProjectList}
                 pages={pages}
-                total={this.state.results.length}
+                total={total}
                 filter={this.state}
                 updateFilter={(value) =>
                     updateFilter(this, value)
@@ -36,6 +37,7 @@ const initialState = (props) => {
         results: data,
         stacks: projects.stacks,
         filtered: {
+            total: data.length,
             results: formatPages(data),
             stacks: projects.selectedStacks,
             defStacks: projects.selectedStacks,

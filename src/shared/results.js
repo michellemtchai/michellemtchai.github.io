@@ -43,16 +43,16 @@ export const updateFilter = (component, value) => {
             ...value,
         },
         () => {
+            let results = filterData(
+                component.state.results,
+                component.state
+            );
             component.setState({
                 ...component.state,
                 filtered: {
                     ...component.state.filtered,
-                    results: formatPages(
-                        filterData(
-                            component.state.results,
-                            component.state
-                        )
-                    ),
+                    total: results.length,
+                    results: formatPages(results),
                 },
             });
         }
