@@ -44,30 +44,32 @@ class FilterDialog extends React.Component {
                         onClick={this.props.closeModal}
                     />
                 </section>
-                <Select
-                    name="sort-by"
-                    label="Sort by:"
-                    selected={this.state.sortBy}
-                    update={this.updateSortBy}
-                    options={sortByOptions(
-                        this.props.searchterm
-                    )}
-                />
-                <Select
-                    name="sort-direction"
-                    label="Sort direction:"
-                    selected={this.state.sortDir}
-                    update={this.updateSortDir}
-                    options={sortDirOptions}
-                />
-                <CheckBox
-                    name="stacks"
-                    label="Stacks:"
-                    options={this.state.stacks}
-                    selected={this.state.filtered.stacks}
-                    defStacks={this.state.filtered.defStacks}
-                    update={this.updateSelectedStacks}
-                />
+                <section className="dialog-body">
+                    <Select
+                        name="sort-by"
+                        label="Sort by:"
+                        selected={this.state.sortBy}
+                        update={this.updateSortBy}
+                        options={sortByOptions(
+                            this.props.searchterm
+                        )}
+                    />
+                    <Select
+                        name="sort-direction"
+                        label="Sort direction:"
+                        selected={this.state.sortDir}
+                        update={this.updateSortDir}
+                        options={sortDirOptions}
+                    />
+                    <CheckBox
+                        name="stacks"
+                        label="Stacks:"
+                        options={this.state.stacks}
+                        selected={this.state.filtered.stacks}
+                        defStacks={this.state.filtered.defStacks}
+                        update={this.updateSelectedStacks}
+                    />
+                </section>
                 <section>
                     <Button
                         text="Cancel"

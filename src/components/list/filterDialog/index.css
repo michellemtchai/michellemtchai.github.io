@@ -3,21 +3,22 @@
     width: 60%;
     max-width: 800px;
     margin: 20px auto;
-    padding: 10px;
     border-radius: 5px;
 }
-.filter-dialog section:first-child {
+.filter-dialog > section:first-child {
     border-bottom: 1px solid #eee;
+    margin: 0 10px 0 10px;
+    padding-top: 10px;
 }
-.filter-dialog section:first-child h2 {
+.filter-dialog > section:first-child h2 {
     display: inline-block;
     font-size: 18px;
     margin: 5px 0 10px 0;
 }
-.filter-dialog section:first-child h2 i {
+.filter-dialog > section:first-child h2 i {
     margin-right: 10px;
 }
-.filter-dialog section:first-child button {
+.filter-dialog > section:first-child button {
     display: inline-block;
     background: none;
     float: right;
@@ -31,33 +32,40 @@
     color: #333;
     margin: 5px 0 10px 0;
 }
-.filter-dialog section:first-child button:hover {
+.filter-dialog > section:first-child button:hover {
     color: royalblue;
 }
-.filter-dialog section:first-child button:active {
+.filter-dialog > section:first-child button:active {
     color: #000;
 }
-.filter-dialog .dialog-entry {
-    margin: 15px 0;
+.filter-dialog section.dialog-body {
+    max-height: calc(100vh - 140px);
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
-.filter-dialog .dialog-entry label {
+.filter-dialog > .dialog-body > .dialog-entry {
+    margin: 15px 10px;
+}
+.filter-dialog > .dialog-body > .dialog-entry label {
     width: 150px;
     display: inline-block;
     font-size: 16px;
     font-weight: bold;
 }
-.filter-dialog .dialog-entry select {
-    width: calc(100% - 150px);
+.filter-dialog > .dialog-body > .dialog-entry select {
+    width: calc(100% - 160px);
     display: inline-block;
     font-size: 16px;
     padding: 5px;
 }
-.filter-dialog section:last-child {
+.filter-dialog > section:last-child {
     border-top: 1px solid #eee;
     text-align: right;
     padding-top: 10px;
+    margin: 0 10px 0 10px;
+    padding-bottom: 10px;
 }
-.filter-dialog section:last-child button {
+.filter-dialog > section:last-child button {
     padding: 8px 12px;
     cursor: pointer;
     font-size: 16px;
@@ -66,32 +74,35 @@
     outline: 0;
     border-radius: 5px;
 }
-.filter-dialog section:last-child button:first-child {
+.filter-dialog > section:last-child button:first-child {
     margin-right: 5px;
     background: #999;
 }
-.filter-dialog section:last-child button:first-child:hover {
+.filter-dialog > section:last-child button:first-child:hover {
     background: #555;
 }
-.filter-dialog section:last-child button:first-child:active {
+.filter-dialog > section:last-child button:first-child:active {
     background: #000;
 }
-.filter-dialog section:last-child button:last-child {
+.filter-dialog > section:last-child button:last-child {
     background: #337ab7;
 }
-.filter-dialog section:last-child button:last-child:hover {
+.filter-dialog > section:last-child button:last-child:hover {
     background: #286090;
 }
-.filter-dialog section:last-child button:last-child:active {
+.filter-dialog > section:last-child button:last-child:active {
     background: #000;
 }
-.filter-dialog > .checkbox > label:first-child {
+.filter-dialog > .dialog-body > .checkbox {
+    margin: 0 10px;
+}
+.filter-dialog > .dialog-body > .checkbox > label:first-child {
     width: calc(100% - 50px);
     display: inline-block;
     font-weight: bold;
     font-size: 16px;
 }
-.filter-dialog > .checkbox > label:nth-child(2) {
+.filter-dialog > .dialog-body > .checkbox > label:nth-child(2) {
     float: right;
     width: 50px;
     display: inline-block;
@@ -99,10 +110,13 @@
     text-align: right;
     font-size: 16px;
 }
-.filter-dialog > .checkbox input[type='checkbox'] {
+.filter-dialog
+    > .dialog-body
+    > .checkbox
+    input[type='checkbox'] {
     display: none;
 }
-.filter-dialog > .checkbox > section {
+.filter-dialog > .dialog-body > .checkbox > section {
     box-sizing: content-box;
     width: 100%;
     display: block;
@@ -113,7 +127,7 @@
     -webkit-column-count: 3; /* Chrome, Safari, Opera */
     -moz-column-count: 3; /* Firefox */
 }
-.filter-dialog > .checkbox > section > label {
+.filter-dialog > .dialog-body > .checkbox > section > label {
     box-sizing: content-box;
     display: block;
     font-size: 16px;
@@ -121,12 +135,15 @@
     break-inside: avoid;
     backface-visibility: hidden;
 }
-.filter-dialog > .checkbox label.checked,
-.filter-dialog > .checkbox label.unchecked {
+.filter-dialog > .dialog-body > .checkbox label.checked,
+.filter-dialog > .dialog-body > .checkbox label.unchecked {
     cursor: pointer;
 }
-.filter-dialog > .checkbox label.checked::before,
-.filter-dialog > .checkbox label.unchecked::before {
+.filter-dialog > .dialog-body > .checkbox label.checked::before,
+.filter-dialog
+    > .dialog-body
+    > .checkbox
+    label.unchecked::before {
     width: 18px;
     height: 18px;
     display: inline-block;
@@ -139,17 +156,20 @@
     font-size: 14px;
     padding-top: 2px;
 }
-.filter-dialog > .checkbox label.unchecked::before {
+.filter-dialog
+    > .dialog-body
+    > .checkbox
+    label.unchecked::before {
     content: '';
     background: #fff;
 }
-.filter-dialog > .checkbox label.checked::before {
+.filter-dialog > .dialog-body > .checkbox label.checked::before {
     color: #fff;
     font-family: Arial, Helvetica, sans-serif;
     content: '\2714';
     background: #0077ff;
 }
-.filter-dialog > .checkbox label.checked {
+.filter-dialog > .dialog-body > .checkbox label.checked {
     font-weight: bold;
 }
 @media only screen and (max-width: 1200px) {
@@ -167,7 +187,7 @@
         width: 85%;
     }
 }
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 800px) {
     .filter-dialog {
         width: 90%;
     }
