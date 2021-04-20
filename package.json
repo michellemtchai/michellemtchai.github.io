@@ -23,7 +23,7 @@
     "all": "./run.sh",
     "predeploy": "NODE_OPTIONS=\"--max-old-space-size=4096\" react-scripts build",
     "deploy": "gh-pages -d ./build",
-    "start": "PORT=\"$APP_PORT\" react-scripts start"
+    "start": "REACT_APP_PORT=\"$APP_PORT\" PORT=\"$APP_PORT\" react-scripts start"
   },
   "browserslist": {
     "production": [

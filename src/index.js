@@ -14,20 +14,6 @@ import { Container } from './shared/map';
 const store = configureStore(thunk);
 const helmetContext = {};
 
-let data;
-try {
-    data = {
-        state: require(process.env.REACT_APP_DATA_LOCATION),
-    };
-} catch (error) {
-    data = {
-        error: error.message,
-        state: {
-            categories: {},
-        },
-    };
-}
-
 ReactDOM.render(
     <React.StrictMode>
         <HelmetProvider context={helmetContext}>
@@ -36,7 +22,7 @@ ReactDOM.render(
                     <React.Suspense
                         fallback={<div>...loading</div>}
                     >
-                        <Container {...data} />
+                        <Container />
                     </React.Suspense>
                 </ConnectedRouter>
             </Provider>

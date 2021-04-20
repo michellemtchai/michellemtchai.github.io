@@ -4,6 +4,7 @@ import Template from '../components/template/Template';
 
 import { Switch, Route } from 'react-router-dom';
 import { routes } from '../config/';
+import { fetchAPIData } from '../shared/network';
 import { goToPage } from '../shared/router';
 import {
     redirectParam,
@@ -37,13 +38,19 @@ class App extends React.Component {
     };
 
     componentDidMount() {
-        this.props.setRoutes(routes(this.props));
-        setupFormattedProjects(this.props);
+        let next = () => {
+            this.props.setRoutes(routes(this.props));
+            setupFormattedProjects(this.props);
 
-        let redirect = redirectParam(this.props);
-        if (redirect) {
-            goToPage(decodeURIComponent(redirect));
-        }
+            let redirect = redirectParam(this.props);
+            if (redirect) {
+                goToPage(decodeURIComponent(redirect));
+            }
+        };
+        fetchAPIData(this.props, '/data.json', {
+            method: 'GET',
+            next: next,
+        });
     }
 
     render() {
