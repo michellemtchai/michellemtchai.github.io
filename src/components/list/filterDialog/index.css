@@ -187,11 +187,11 @@
         width: 85%;
     }
 }
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 700px) {
     .filter-dialog {
         width: 90%;
     }
-    .filter-dialog > .checkbox > section {
+    .filter-dialog > .dialog-body > .checkbox > section {
         column-count: 2;
         -webkit-column-count: 2; /* Chrome, Safari, Opera */
         -moz-column-count: 2; /* Firefox */
@@ -201,7 +201,7 @@
     .filter-dialog {
         width: 90%;
     }
-    .filter-dialog > .checkbox > section {
+    .filter-dialog > .dialog-body > .checkbox > section {
         column-count: 1;
         -webkit-column-count: 1; /* Chrome, Safari, Opera */
         -moz-column-count: 1; /* Firefox */

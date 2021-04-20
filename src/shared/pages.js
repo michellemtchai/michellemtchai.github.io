@@ -1,3 +1,10 @@
+import qs from 'qs';
+
+export const redirectParam = (props) => {
+    return qs.parse(props.location.search, {
+        ignoreQueryPrefix: true,
+    }).redirect;
+};
 export const setupFormattedProjects = (props) => {
     let categories = props.state.categories;
     let projects = props.state.projects;

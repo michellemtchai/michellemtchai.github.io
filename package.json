@@ -16,7 +16,8 @@
     "redux": "^4.0.5",
     "marked": "^2.0.1",
     "react-helmet-async": "^1.0.9",
-    "html-entities": "^2.3.2"
+    "html-entities": "^2.3.2",
+    "qs": "^6.10.1"
   },
   "scripts": {
     "all": "./run.sh",
