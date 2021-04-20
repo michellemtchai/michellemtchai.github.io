@@ -1,8 +1,8 @@
 export const setupFormattedProjects = (props) => {
     let categories = props.state.categories;
     let projects = props.state.projects;
-    let projectsList = Object.keys(projects).map(
-        (i) => projects[i]
+    let projectsList = Object.keys(projects).map((i) =>
+        formatProject(props, projects[i])
     );
     let [stacks, selectedStacks] = getStacks(
         props,
@@ -18,7 +18,9 @@ export const setupFormattedProjects = (props) => {
     };
     Object.keys(categories).forEach((key) => {
         let category = categories[key];
-        let data = category.projects.map((i) => projects[i]);
+        let data = category.projects.map((i) =>
+            formatProject(props, projects[i])
+        );
         [stacks, selectedStacks] = getStacks(props, data);
         formattedProjects[category._id] = {
             data: data,
@@ -28,6 +30,17 @@ export const setupFormattedProjects = (props) => {
         };
     });
     props.setProjects(formattedProjects);
+};
+const formatProject = (props, project) => {
+    let technologies = props.state.technologies;
+    let tags = props.state.tags;
+    return {
+        ...project,
+        technologies: project.technologies.map(
+            (i) => technologies[i]
+        ),
+        tags: project.tags.map((i) => tags[i]),
+    };
 };
 export const formatPages = (data) => {
     let pages = [],
@@ -48,10 +61,10 @@ export const getStacks = (props, data) => {
     let selectedStacks = [];
     data.forEach((entry) => {
         entry.technologies.forEach((stack) => {
-            if (!mapping[stack]) {
-                mapping[stack] = 1;
+            if (!mapping[stack._id]) {
+                mapping[stack._id] = 1;
             } else {
-                mapping[stack] += 1;
+                mapping[stack._id] += 1;
             }
         });
     });

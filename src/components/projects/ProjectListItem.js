@@ -36,8 +36,16 @@ class ProjectListItem extends React.Component {
                     />
                     {demo}
                     <section>
-                        <h2>{project.name}</h2>
-                        <p>{project.summary}</p>
+                        <h2
+                            dangerouslySetInnerHTML={{
+                                __html: project.name,
+                            }}
+                        ></h2>
+                        <p
+                            dangerouslySetInnerHTML={{
+                                __html: project.summary,
+                            }}
+                        ></p>
                         <TechList
                             {...this.props}
                             tech={project.technologies}

@@ -4,31 +4,24 @@ import TechListItem from './TechListItem';
 
 class TechList extends React.Component {
     render() {
-        let technologies = this.props.state.technologies;
-        let tech = this.props.tech;
+        let technologies = this.props.tech;
         let className = this.props.clickable
             ? 'tech tech-clickable'
             : 'tech';
         return (
             <ul className={className}>
-                {tech.map((key, i) => (
+                {technologies.map((tech, i) => (
                     <li key={'tech-' + i}>
                         {this.props.clickable ? (
                             <a
-                                href={
-                                    technologies[key].source_url
-                                }
+                                href={tech.source_url}
                                 target="_blank"
                                 rel="noopener"
                             >
-                                <TechListItem
-                                    {...technologies[key]}
-                                />
+                                <TechListItem {...tech} />
                             </a>
                         ) : (
-                            <TechListItem
-                                {...technologies[key]}
-                            />
+                            <TechListItem {...tech} />
                         )}
                     </li>
                 ))}

@@ -11,6 +11,11 @@
     font-size: 22px;
     font-weight: bold;
     vertical-align: top;
+    color: #333;
+}
+.list-item section h2 b {
+    font-weight: 800;
+    color: #000;
 }
 .list-item .image {
     vertical-align: top;
@@ -33,6 +38,11 @@
 }
 .list-item p {
     margin: 10px 5px;
+    color: #333;
+}
+.list-item p b {
+    font-weight: 800;
+    color: #000;
 }
 .clickable > li:hover section h2 > span {
     background: #ddd;

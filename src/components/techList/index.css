@@ -21,6 +21,11 @@
     height: 20px;
     display: inline-block;
     vertical-align: top;
+    color: #333;
+}
+.tech li span b {
+    color: #000;
+    font-weight: 800;
 }
 .tech-clickable {
     margin: 5px;
@@ -49,7 +54,7 @@
 }
 .tech li > .image,
 .tech li a > .image {
-    margin: 5px 0 0 10px;
+    margin: 5px 0 0 5px;
     border: none;
 }
 .items > li:hover .tech li {

@@ -29,7 +29,7 @@ export const filterData = (data, state) => {
 };
 const containsStacks = (entry, state) => {
     let required = state.filtered.stacks;
-    let stacks = entry.technologies;
+    let stacks = entry.technologies.map((i) => i._id);
     for (let i = 0; i < required.length; i++) {
         if (stacks.includes(required[i])) {
             return true;

@@ -11,7 +11,11 @@ class TechListItem extends React.Component {
                     width="20px"
                     height="20px"
                 />
-                <span>{this.props.name}</span>
+                <span
+                    dangerouslySetInnerHTML={{
+                        __html: this.props.name,
+                    }}
+                ></span>
             </>
         );
     }

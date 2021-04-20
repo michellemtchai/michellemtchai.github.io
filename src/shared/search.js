@@ -1,9 +1,13 @@
+import { encode } from 'html-entities';
+
 export const searchResults = (props, term) => {
     let projects = props.projects[props.keyName].data;
     let data = [];
     if (term) {
         let terms = term.split(/\s+/g);
-        let regex = new RegExp(terms.join('|'), 'gi');
+        let regex = new RegExp(`(${terms.join('|')})`, 'gi');
+        let boldText = (text) =>
+            encode(text).replace(regex, '<b>$1</b>');
         projects.forEach((project) => {
             let [match, relevance] = matchingTerm(
                 props,
@@ -14,6 +18,16 @@ export const searchResults = (props, term) => {
             if (match) {
                 data.push({
                     ...project,
+                    name: boldText(project.name),
+                    summary: boldText(project.summary),
+                    technologies: project.technologies.map(
+                        (tech) => {
+                            return {
+                                ...tech,
+                                name: boldText(tech.name),
+                            };
+                        }
+                    ),
                     relevance: -relevance,
                 });
             }
@@ -27,9 +41,8 @@ const matchingTerm = (props, project, terms, regex) => {
     let summaryMatch = matchRegex(project.summary, regex);
     let tags = props.state.tags;
     let technologies = props.state.technologies;
-    let tagMatch = searchListVal(props, project, 'tags', regex);
+    let tagMatch = searchListVal(project, 'tags', regex);
     let categoryMatch = searchListVal(
-        props,
         project,
         'technologies',
         regex
@@ -48,11 +61,10 @@ const matchRegex = (value, regex) => {
     return match ? match : [];
 };
 
-const searchListVal = (props, project, keyName, regex) => {
+const searchListVal = (project, keyName, regex) => {
     let matches = [];
-    let list = props.state[keyName];
-    project[keyName].forEach((key) => {
-        let match = matchRegex(list[key].name, regex);
+    project[keyName].forEach((entry) => {
+        let match = matchRegex(entry.name, regex);
         if (match.length > 0) {
             matches = [...matches, ...match];
         }
