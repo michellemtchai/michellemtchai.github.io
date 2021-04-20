@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.2" baseProfile="tiny" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+	 y="0px" width="430px" height="314px" viewBox="0 0 430 314" xml:space="preserve">
+<g id="Layer_1">
+	<polygon fill="#FFFFFF" points="219.375,55.125 215,65.875 166,65.875 166,126.875 195.25,126.875 190.75,138.5 154.875,138.5
+		154.875,55.125 	"/>
+	<path fill="#FFFFFF" d="M228.125,45.75l-33.375,97c0,0,9.625,3.25,9.25,3.25s33.625-96.5,33.625-96.5L228.125,45.75z"/>
+	<path fill="#FFFFFF" d="M241.5,55.125c0.5,0.375,30.25,0,30.25,0v82.75h-58.777l3.214-10.5h43.688c0,0,0.5-61.5,0-61
+		s-22.25,0-22.25,0L241.5,55.125z"/>
+	<polygon fill="#FFFFFF" points="189,83.875 173.125,110.375 173.125,119.875 197,119.875 204.75,99.125 	"/>
+	<polygon fill="#FFFFFF" points="226.125,99.875 219.375,119.875 249.75,119.875 	"/>
+	<path fill="#FFFFFF" d="M246.18,81.81c0,4.2-3.39,7.59-7.59,7.59c-3.494,0-6.439-2.358-7.32-5.577
+		c-0.176-0.641,2.751-8.072,2.751-8.072s2.854-1.53,4.569-1.53C242.79,74.22,246.18,77.62,246.18,81.81z"/>
+	<text transform="matrix(1 0 0 1 121.4365 193.9023)" fill="#FFFFFF" font-family="'Arial'" font-size="40">Image Link </text>
+	<text transform="matrix(1 0 0 1 161.4561 241.9023)" fill="#FFFFFF" font-family="'Arial'" font-size="40">Broken</text>
+</g>
+</svg>
