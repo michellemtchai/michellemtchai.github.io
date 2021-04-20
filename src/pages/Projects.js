@@ -7,7 +7,7 @@ import { filterData, updateFilter } from '../shared/results';
 class Projects extends React.Component {
     state = initialState(this.props);
     render() {
-        let pages = formatPages(this.state.filtered.results);
+        let pages = this.state.filtered.results;
         return (
             <Items
                 {...this.props}
@@ -34,7 +34,7 @@ const initialState = (props) => {
         sortDir: 'ascending',
         results: data,
         filtered: {
-            results: data,
+            results: formatPages(data),
         },
     };
     return search ? search : defaultState;

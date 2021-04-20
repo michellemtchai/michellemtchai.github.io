@@ -1,6 +1,7 @@
 import './index.css';
 import React from 'react';
 import { goToPage } from '../../shared/router';
+import { resetResults } from '../../shared/results';
 
 const ENTER = 13;
 
@@ -25,11 +26,7 @@ class SearchBar extends React.Component {
         let value = this.state.value.trim();
         if (value.length > 0) {
             let term = encodeURIComponent(value);
-            this.props.setSearch({
-                term: value,
-                sortBy: null,
-                sortDir: null,
-            });
+            resetResults(this.props);
             goToPage(`${this.props.range}/search/${term}`);
         }
     };

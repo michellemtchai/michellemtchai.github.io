@@ -19,7 +19,6 @@ class Project extends React.Component {
                     {...this.props}
                     keyName="all"
                     range="/all"
-                    value={this.props.search.term}
                 />
                 <ProjectInfo project={project} {...this.props} />
                 <Tabs tabs={tabData(project)} />

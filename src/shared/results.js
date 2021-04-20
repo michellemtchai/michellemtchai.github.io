@@ -1,4 +1,5 @@
 import { initialState } from '../reducers/search';
+import { formatPages } from './pages';
 
 export const filterData = (data, state) => {
     let sortKey = state.sortBy;
@@ -29,9 +30,11 @@ export const updateFilter = (component, value) => {
             component.setState({
                 ...component.state,
                 filtered: {
-                    results: filterData(
-                        component.state.results,
-                        component.state
+                    results: formatPages(
+                        filterData(
+                            component.state.results,
+                            component.state
+                        )
                     ),
                 },
             });
