@@ -1,0 +1,112 @@
+.filter-dialog {
+    background: #fff;
+    width: 60%;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 10px;
+    border-radius: 5px;
+}
+.filter-dialog section:first-child {
+    border-bottom: 1px solid #eee;
+}
+.filter-dialog section:first-child h2 {
+    display: inline-block;
+    font-size: 18px;
+    margin: 5px 0 10px 0;
+}
+.filter-dialog section:first-child h2 i {
+    margin-right: 10px;
+}
+.filter-dialog section:first-child button {
+    display: inline-block;
+    background: none;
+    float: right;
+    border: none;
+    outline: 0;
+    font-size: 30px;
+    line-height: 0.7;
+    vertical-align: top;
+    padding: 0;
+    cursor: pointer;
+    color: #333;
+    margin: 5px 0 10px 0;
+}
+.filter-dialog section:first-child button:hover {
+    color: royalblue;
+}
+.filter-dialog section:first-child button:active {
+    color: #000;
+}
+.filter-dialog .dialog-entry {
+    margin: 15px 0;
+}
+.filter-dialog .dialog-entry label {
+    width: 150px;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+}
+.filter-dialog .dialog-entry select {
+    width: calc(100% - 150px);
+    display: inline-block;
+    font-size: 16px;
+    padding: 5px;
+}
+.filter-dialog section:last-child {
+    border-top: 1px solid #eee;
+    text-align: right;
+    padding-top: 10px;
+}
+.filter-dialog section:last-child button {
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #fff;
+    border: none;
+    outline: 0;
+    border-radius: 5px;
+}
+.filter-dialog section:last-child button:first-child {
+    margin-right: 5px;
+    background: #999;
+}
+.filter-dialog section:last-child button:first-child:hover {
+    background: #555;
+}
+.filter-dialog section:last-child button:first-child:active {
+    background: #000;
+}
+.filter-dialog section:last-child button:last-child {
+    background: #337ab7;
+}
+.filter-dialog section:last-child button:last-child:hover {
+    background: #286090;
+}
+.filter-dialog section:last-child button:last-child:active {
+    background: #000;
+}
+@media only screen and (max-width: 1200px) {
+    .filter-dialog {
+        width: 70%;
+    }
+}
+@media only screen and (max-width: 1000px) {
+    .filter-dialog {
+        width: 75%;
+    }
+}
+@media only screen and (max-width: 800px) {
+    .filter-dialog {
+        width: 85%;
+    }
+}
+@media only screen and (max-width: 600px) {
+    .filter-dialog {
+        width: 90%;
+    }
+}
+@media only screen and (max-width: 400px) {
+    .filter-dialog {
+        width: 90%;
+    }
+}

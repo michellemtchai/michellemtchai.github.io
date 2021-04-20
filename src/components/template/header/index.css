@@ -12,6 +12,16 @@
     margin: 0;
     padding: 0;
 }
+.header h1 a {
+    color: #333;
+    text-decoration: none;
+}
+.header h1 a:hover {
+    color: royalblue;
+}
+.header h1 a:active {
+    color: #000;
+}
 .header li {
     display: inline-block;
     vertical-align: top;

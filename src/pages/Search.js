@@ -4,6 +4,17 @@ import ProjectList from '../components/projects/ProjectList';
 import { formatPages } from '../shared/pages';
 
 class Search extends React.Component {
+    state = {
+        sortBy: this.props.search.sortBy
+            ? this.props.search.sortBy
+            : 'relevance',
+        sortDir: this.props.search.sortDir
+            ? this.props.search.sortDir
+            : 'ascending',
+    };
+    updateFilter = (value) => {
+        this.setState(value);
+    };
     searchResults = () => {
         let term = this.props.search.term;
         let projects = this.props.projects[this.props.keyName]
@@ -43,6 +54,8 @@ class Search extends React.Component {
                 pages={pages}
                 total={total}
                 baseUrl={baseUrl}
+                filter={this.state}
+                updateFilter={this.updateFilter}
             />
         );
     }

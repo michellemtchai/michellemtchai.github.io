@@ -15,44 +15,7 @@ export const navlinks = (props) => {
 };
 
 export const routes = (props) => {
-    let labels = props.state.categories;
-    let categories = {};
-    let search = {};
-    search['/all/search/:term'] = searchRoute('all', '/all');
-    search['/all/search/:term/page/:page'] =
-        search['/all/search/:term'];
-    Object.keys(labels).forEach((key) => {
-        let label = labels[key];
-        let pagesUrl = `${label.base_url}/page`;
-        let searchUrl = `${label.base_url}/search/:term`;
-        search[searchUrl] = searchRoute(
-            label._id,
-            label.base_url
-        );
-        search[`${searchUrl}/:page`] = search[searchUrl];
-        let Component = (props) => (
-            <Projects
-                baseUrl={pagesUrl}
-                range={label.base_url}
-                keyName={label._id}
-                {...props}
-            />
-        );
-        categories[label.base_url] = {
-            title: label.name,
-            component: Component,
-            icon: label.icon_class,
-            exact: true,
-            description: label.description,
-            children: [
-                ...categoryProjects(label),
-                searchUrl,
-                `${searchUrl}/:page`,
-            ],
-        };
-        categories[`${pagesUrl}/:page`] =
-            categories[label.base_url];
-    });
+    let [categories, search] = setupCategoriesSearch(props);
     return {
         '/': {
             component: Home,
@@ -92,6 +55,48 @@ export const routeKey = (props, location) => {
         }
         index += 1;
     }
+};
+
+const setupCategoriesSearch = (props) => {
+    let labels = props.state.categories;
+    let categories = {};
+    let search = {};
+    search['/all/search/:term'] = searchRoute('all', '/all');
+    search['/all/search/:term/page/:page'] =
+        search['/all/search/:term'];
+    Object.keys(labels).forEach((key) => {
+        let label = labels[key];
+        let pagesUrl = `${label.base_url}/page`;
+        let searchUrl = `${label.base_url}/search/:term`;
+        search[searchUrl] = searchRoute(
+            label._id,
+            label.base_url
+        );
+        search[`${searchUrl}/page/:page`] = search[searchUrl];
+        let Component = (props) => (
+            <Projects
+                baseUrl={pagesUrl}
+                range={label.base_url}
+                keyName={label._id}
+                {...props}
+            />
+        );
+        categories[label.base_url] = {
+            title: label.name,
+            component: Component,
+            icon: label.icon_class,
+            exact: true,
+            description: label.description,
+            children: [
+                ...categoryProjects(label),
+                searchUrl,
+                `${searchUrl}/page/:page`,
+            ],
+        };
+        categories[`${pagesUrl}/:page`] =
+            categories[label.base_url];
+    });
+    return [categories, search];
 };
 
 const searchRoute = (keyName, range) => {

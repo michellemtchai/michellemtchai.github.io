@@ -2,8 +2,8 @@ import * as actions from '../actions/search';
 
 export const initialState = {
     term: null,
-    sort: 0,
-    sortAscending: true,
+    sortBy: null,
+    sortDir: null,
     stacks: [],
 };
 

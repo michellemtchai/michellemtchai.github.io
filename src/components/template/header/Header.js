@@ -5,6 +5,15 @@ import { socialLinks } from '../../../config';
 import { goToPage } from '../../../shared/router';
 
 class Header extends React.Component {
+    goToHome = (event) => {
+        event.preventDefault();
+        this.props.setSearch({
+            sortBy: null,
+            sortDir: null,
+            stacks: [],
+        });
+        goToPage('/');
+    };
     render() {
         return (
             <ul className="header">
@@ -12,8 +21,10 @@ class Header extends React.Component {
                     <i className="fas fa-bars"></i>
                 </li>
                 <li>
-                    <h1 onClick={() => goToPage('/')}>
-                        {process.env.REACT_APP_TITLE}
+                    <h1 onClick={this.goToHome}>
+                        <a href="/">
+                            {process.env.REACT_APP_TITLE}
+                        </a>
                     </h1>
                 </li>
                 <li>

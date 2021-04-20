@@ -56,7 +56,10 @@ class Template extends React.Component {
         return route ? (
             <>
                 <Head {...route} />
-                <Header updateNav={this.updateNav} />
+                <Header
+                    {...this.props}
+                    updateNav={this.updateNav}
+                />
                 <NavContent
                     {...this.props}
                     title={route.title}

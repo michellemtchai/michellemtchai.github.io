@@ -2,6 +2,7 @@ import React from 'react';
 import { goToPage } from '../shared/router';
 import Image from '../components/image/Image';
 import Tabs from '../components/tabs/Tabs';
+import SearchBar from '../components/searchbar/SearchBar';
 import ProjectInfo from '../components/project/projectInfo/ProjectInfo';
 import Gallery from '../components/project/gallery/Gallery';
 import Markdown from '../components/project/markdown/Markdown';
@@ -14,6 +15,12 @@ class Project extends React.Component {
         ];
         return project ? (
             <article className="page-body">
+                <SearchBar
+                    {...this.props}
+                    keyName="all"
+                    range="/all"
+                    value={this.props.search.term}
+                />
                 <ProjectInfo project={project} {...this.props} />
                 <Tabs tabs={tabData(project)} />
             </article>

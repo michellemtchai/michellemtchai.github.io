@@ -29,6 +29,11 @@ class NavBar extends React.Component {
     };
     clickLink = (event, link) => {
         event.preventDefault();
+        this.props.setSearch({
+            sortBy: null,
+            sortDir: null,
+            stacks: [],
+        });
         goToPage(link);
     };
     componentDidUpdate(prevProps) {

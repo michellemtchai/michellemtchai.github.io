@@ -2,10 +2,17 @@ import './index.css';
 import React from 'react';
 import PageButtons from './pageButton/PageButtons';
 import SearchBar from '../searchbar/SearchBar';
+import Modal from '../modal/Modal';
+import FilterDialog from './filterDialog/FilterDialog';
 
 class List extends React.Component {
-    openFilterModal = () => {
-        console.log('open modal');
+    state = {
+        show: false,
+    };
+    updateShow = (value) => {
+        this.setState({
+            show: value,
+        });
     };
     render() {
         let page = this.props.page;
@@ -29,9 +36,20 @@ class List extends React.Component {
                     value={this.props.search.term}
                 />
                 <li>
+                    <Modal
+                        show={this.state.show}
+                        updateShow={this.updateShow}
+                    >
+                        <FilterDialog
+                            {...this.props}
+                            closeModal={() =>
+                                this.updateShow(false)
+                            }
+                        />
+                    </Modal>
                     <button
                         className="filter-btn"
-                        onClick={this.openFilterModal}
+                        onClick={() => this.updateShow(true)}
                     >
                         <i className="fas fa-sliders-h" />
                     </button>

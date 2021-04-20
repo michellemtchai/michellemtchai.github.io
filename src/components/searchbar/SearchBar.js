@@ -3,7 +3,6 @@ import React from 'react';
 import { goToPage } from '../../shared/router';
 
 const ENTER = 13;
-const ALT = 18;
 
 class SearchBar extends React.Component {
     state = {
@@ -26,7 +25,11 @@ class SearchBar extends React.Component {
         let value = this.state.value.trim();
         if (value.length > 0) {
             let term = encodeURIComponent(value);
-            this.props.setSearch({ term: value });
+            this.props.setSearch({
+                term: value,
+                sortBy: null,
+                sortDir: null,
+            });
             goToPage(`${this.props.range}/search/${term}`);
         }
     };
@@ -36,9 +39,6 @@ class SearchBar extends React.Component {
                 if (document.activeElement === this.input) {
                     this.search();
                 }
-                break;
-            case ALT:
-                this.openFilterModal();
                 break;
         }
     };
