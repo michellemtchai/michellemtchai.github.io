@@ -1,5 +1,6 @@
 import { initialState } from '../reducers/search';
 import { formatPages } from './pages';
+import { goToPage } from './router';
 
 export const filterData = (data, state) => {
     let sortKey = state.sortBy;
@@ -38,25 +39,21 @@ const containsStacks = (entry, state) => {
     return false;
 };
 export const updateFilter = (component, value) => {
-    component.setState(
-        {
-            ...value,
+    let results = filterData(value.results, value);
+    let state = {
+        ...value,
+        filtered: {
+            ...value.filtered,
+            total: results.length,
+            results: formatPages(results),
         },
-        () => {
-            let results = filterData(
-                component.state.results,
-                component.state
-            );
-            component.setState({
-                ...component.state,
-                filtered: {
-                    ...component.state.filtered,
-                    total: results.length,
-                    results: formatPages(results),
-                },
-            });
-        }
-    );
+    };
+    let range = component.props.range;
+    let term = state.term;
+    let url =
+        term === undefined ? range : `${range}/search/${term}`;
+    component.props.setSearch(state);
+    goToPage(url);
 };
 export const resetResults = (props) => {
     props.setSearch(initialState);

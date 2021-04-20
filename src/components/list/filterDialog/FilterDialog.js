@@ -30,7 +30,6 @@ class FilterDialog extends React.Component {
     };
     useFilter = () => {
         this.props.updateFilter(this.state);
-        this.props.closeModal();
     };
     render() {
         return (
