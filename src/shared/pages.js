@@ -47,10 +47,6 @@ const getStacks = (data) => {
     });
     return stacks;
 };
-export const getPages = (props, key) => {
-    let projects = props.projects[key];
-    return [projects.data.length, projects.pages];
-};
 export const validPage = (pages, page) => {
     return (
         Number.isInteger(page) &&

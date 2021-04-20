@@ -4,7 +4,9 @@ export const initialState = {
     term: null,
     sortBy: null,
     sortDir: null,
-    stacks: [],
+    stacks: null,
+    results: null,
+    filtered: null,
 };
 
 export const search = (state = initialState, action) => {

@@ -1,44 +1,42 @@
 import React from 'react';
 import Items from '../components/items/Items';
 import ProjectList from '../components/projects/ProjectList';
-import { getPages } from '../shared/pages';
+import { formatPages } from '../shared/pages';
+import { filterData, updateFilter } from '../shared/results';
 
 class Projects extends React.Component {
-    state = {
-        sortBy: this.props.search.sortBy
-            ? this.props.search.sortBy
-            : 'name',
-        sortDir: this.props.search.sortDir
-            ? this.props.search.sortDir
-            : 'ascending',
-    };
-    updateFilter = (value) => {
-        this.setState(value);
-    };
-    componentDidMount() {
-        if (this.props.search.term) {
-            this.props.setSearch({
-                term: '',
-            });
-        }
-    }
+    state = initialState(this.props);
     render() {
-        let [total, pages] = getPages(
-            this.props,
-            this.props.keyName
-        );
+        let pages = formatPages(this.state.filtered.results);
         return (
             <Items
                 {...this.props}
                 name="Project"
                 list={ProjectList}
                 pages={pages}
-                total={total}
+                total={this.state.results.length}
                 filter={this.state}
-                updateFilter={this.updateFilter}
+                updateFilter={(value) =>
+                    updateFilter(this, value)
+                }
             />
         );
     }
 }
 
 export default Projects;
+
+const initialState = (props) => {
+    let search = props.search;
+    let data = props.projects[props.keyName].data;
+    return {
+        sortBy: search.sortBy ? search.sortBy : 'name',
+        sortDir: search.sortDir ? search.sortDir : 'ascending',
+        results: search.results ? search.results : data,
+        filtered: search.filtered
+            ? search.filtered
+            : {
+                  results: data,
+              },
+    };
+};

@@ -33,7 +33,7 @@ class List extends React.Component {
             <ul className={className}>
                 <SearchBar
                     {...this.props}
-                    value={this.props.search.term}
+                    value={this.props.term}
                 />
                 <li>
                     <Modal

@@ -16,7 +16,6 @@ class FilterDialog extends React.Component {
         });
     };
     useFilter = () => {
-        console.log('this.state', this.state);
         this.props.updateFilter(this.state);
         this.props.closeModal();
     };

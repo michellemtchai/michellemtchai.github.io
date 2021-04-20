@@ -3,15 +3,12 @@ import React from 'react';
 import IconLink from '../iconLink/IconLink';
 import { socialLinks } from '../../../config';
 import { goToPage } from '../../../shared/router';
+import { resetResults } from '../../../shared/results';
 
 class Header extends React.Component {
     goToHome = (event) => {
         event.preventDefault();
-        this.props.setSearch({
-            sortBy: null,
-            sortDir: null,
-            stacks: [],
-        });
+        resetResults(this.props);
         goToPage('/');
     };
     render() {

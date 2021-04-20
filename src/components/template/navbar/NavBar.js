@@ -2,6 +2,7 @@ import './index.css';
 import React from 'react';
 import { navlinks, routeKey } from '../../../config';
 import { goToPage } from '../../../shared/router';
+import { resetResults } from '../../../shared/results';
 import {
     EXPANDED_NAV_WIDTH,
     MINIMIZED_NAV_WIDTH,
@@ -29,11 +30,7 @@ class NavBar extends React.Component {
     };
     clickLink = (event, link) => {
         event.preventDefault();
-        this.props.setSearch({
-            sortBy: null,
-            sortDir: null,
-            stacks: [],
-        });
+        resetResults(this.props);
         goToPage(link);
     };
     componentDidUpdate(prevProps) {
