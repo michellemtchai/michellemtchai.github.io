@@ -34,16 +34,16 @@
     font-family: Arial, Helvetica, sans-serif;
     font-weight: normal;
 }
-.items > li:nth-child(2) {
+.items > li:first-child {
     padding: 5px 0;
 }
-.items > li:nth-child(2) > p {
+.items > li:first-child > p {
     width: calc(100% - 270px);
     display: inline-block;
     margin-top: 20px;
     padding-left: 5px;
 }
-.items > li:nth-child(2) > .pagination {
+.items > li:first-child > .pagination {
     width: 200px;
     display: inline-block;
     text-align: right;
@@ -61,7 +61,7 @@
 .clickable > li {
     cursor: pointer;
 }
-.clickable > li:nth-child(2):hover,
+.clickable > li:first-child:hover,
 .clickable > li:last-child:hover {
     background: #fff;
     cursor: default;
@@ -76,21 +76,21 @@
     .items > li > .filter-btn > i::after {
         content: '';
     }
-    .items > li:nth-child(2) p {
+    .items > li:first-child p {
         width: calc(100% - 230px);
     }
 }
 @media only screen and (max-width: 550px) {
-    .items > li:nth-child(2) p {
+    .items > li:first-child p {
         width: calc(100% - 230px);
     }
 }
 @media only screen and (max-width: 480px) {
-    .items > li:nth-child(2) p {
+    .items > li:first-child p {
         width: calc(100% - 30px);
         margin-bottom: 30px;
     }
-    .items > li:nth-child(2) > .pagination {
+    .items > li:first-child > .pagination {
         float: right;
         margin-top: -30px;
     }

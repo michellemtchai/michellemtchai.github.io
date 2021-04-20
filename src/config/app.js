@@ -55,7 +55,10 @@ class App extends React.Component {
 
     render() {
         let routes = this.props.routes;
-        return (
+        let setupDone =
+            this.props.state.fetching === 0 &&
+            this.props.projects != null;
+        return setupDone ? (
             <>
                 {Object.keys(routes).length > 0 ? (
                     <Switch>
@@ -67,6 +70,11 @@ class App extends React.Component {
                     ''
                 )}
             </>
+        ) : (
+            <img
+                id="spinner"
+                src={process.env.PUBLIC_URL + '/spinner.gif'}
+            />
         );
     }
 }

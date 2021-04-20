@@ -69,7 +69,10 @@ class SearchBar extends React.Component {
                     onFocus={() => this.handleFocus(true)}
                     onBlur={() => this.handleFocus(false)}
                 />
-                <button onClick={this.search}>
+                <button
+                    onClick={this.search}
+                    aria-label="search-button"
+                >
                     <i className="fas fa-search" />
                 </button>
             </section>

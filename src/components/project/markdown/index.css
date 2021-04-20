@@ -1,3 +1,6 @@
+.markdown {
+    word-wrap: break-word;
+}
 .markdown h3,
 .markdown h4,
 .markdown h5,
@@ -27,8 +30,8 @@
         monospace;
     font-size: 90%;
     font-weight: bold;
-    color: #f04b00;
-    background-color: #eee;
+    color: #9e0000;
+    background-color: #f2f2f2;
     padding: 2px 4px;
     border-radius: 4px;
     vertical-align: top;

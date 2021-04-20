@@ -2,12 +2,17 @@ import React from 'react';
 import { goToPage } from '../../shared/router';
 import { validPage, getPage } from '../../shared/pages';
 import NotFound from '../../pages/NotFound';
+import SearchBar from '../searchbar/SearchBar';
 
 class Items extends React.Component {
     render() {
         let page = getPage(this.props);
         return validPage(this.props.pages, page) ? (
             <div className="page-body">
+                <SearchBar
+                    {...this.props}
+                    value={this.props.searchterm}
+                />
                 <this.props.list {...this.props} page={page} />
             </div>
         ) : (

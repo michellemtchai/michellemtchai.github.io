@@ -11,6 +11,7 @@ export const state = (state = initialState, action) => {
             let newState = {
                 ...state,
                 ...action.data,
+                fetching: state.fetching - 1,
                 error: '',
             };
             action.resolve(newState);
@@ -19,6 +20,7 @@ export const state = (state = initialState, action) => {
             return {
                 ...state,
                 error: action.data,
+                fetching: state.fetching - 1,
             };
         case actions.START_FETCHING:
             return { ...state, fetching: state.fetching + 1 };

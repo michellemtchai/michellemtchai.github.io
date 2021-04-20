@@ -1,6 +1,6 @@
 export const SET_PROJECTS = 'SET_PROJECTS';
 
-const setProjects = (data) => {
+const setProjects = (data, next) => {
     return {
         type: SET_PROJECTS,
         data: data,

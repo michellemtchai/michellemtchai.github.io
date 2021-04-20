@@ -31,10 +31,6 @@ class List extends React.Component {
         );
         return (
             <ul className={className}>
-                <SearchBar
-                    {...this.props}
-                    value={this.props.searchterm}
-                />
                 <li>
                     <Modal
                         show={this.state.show}
@@ -50,6 +46,7 @@ class List extends React.Component {
                     <button
                         className="filter-btn"
                         onClick={() => this.updateShow(true)}
+                        aria-label="filter-data-button"
                     >
                         <i className="fas fa-sliders-h" />
                     </button>

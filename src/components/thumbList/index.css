@@ -21,29 +21,29 @@
 .thumblist ul li a:active {
     color: #000;
 }
-.thumblist h3 {
+.thumblist h2 {
     margin: 10px 0;
     border-bottom: 3px solid #eee;
     font-size: 22px;
 }
-.thumblist h3 span {
+.thumblist h2 span {
     font-size: 14px;
     float: right;
     cursor: pointer;
     vertical-align: top;
     margin-top: 10px;
 }
-.thumblist h3 span:hover {
+.thumblist h2 span:hover {
     text-decoration: underline;
 }
-.thumblist h3 a {
+.thumblist h2 a {
     color: #333;
     text-decoration: none;
 }
-.thumblist h3 a:hover {
+.thumblist h2 a:hover {
     color: royalblue;
 }
-.thumblist h3 a:active {
+.thumblist h2 a:active {
     color: #000;
 }
 .thumblist ul li p {

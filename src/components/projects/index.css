@@ -70,7 +70,7 @@
         display: inline;
     }
     .list-item section p {
-        min-height: 100px;
+        min-height: 110px;
     }
     .list-item * {
         text-decoration: none !important;

@@ -25,14 +25,14 @@ class ThumbList extends React.Component {
         let demo = (i) => (i.demo_url ? <span>DEMO</span> : '');
         return (
             <section className="thumblist">
-                <h3>
+                <h2>
                     <this.linkWrapper link={this.props.page}>
                         {truncateName(this.props.title)}
                     </this.linkWrapper>
                     <this.linkWrapper link={this.props.page}>
                         <span>View More</span>
                     </this.linkWrapper>
-                </h3>
+                </h2>
                 <ul>
                     {this.props.list.map((item, i) => (
                         <li key={'thumbnail-' + i}>
