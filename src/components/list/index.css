@@ -38,16 +38,15 @@
     padding: 5px 0;
 }
 .items > li:nth-child(2) > p {
-    width: calc(100% - 303px);
+    width: calc(100% - 270px);
     display: inline-block;
     margin-top: 20px;
     padding-left: 5px;
 }
 .items > li:nth-child(2) > .pagination {
-    width: 240px;
+    width: 200px;
     display: inline-block;
     text-align: right;
-    margin: 0;
 }
 .items > li:last-child {
     border: none;
@@ -73,11 +72,26 @@
 .clickable > li > .image {
     cursor: pointer;
 }
-@media only screen and (max-width: 550px) {
+@media only screen and (max-width: 600px) {
     .items > li > .filter-btn > i::after {
         content: '';
     }
-    .items > li:nth-child(2) > p {
-        width: calc(100% - 265px);
+    .items > li:nth-child(2) p {
+        width: calc(100% - 230px);
+    }
+}
+@media only screen and (max-width: 550px) {
+    .items > li:nth-child(2) p {
+        width: calc(100% - 230px);
+    }
+}
+@media only screen and (max-width: 480px) {
+    .items > li:nth-child(2) p {
+        width: calc(100% - 30px);
+        margin-bottom: 30px;
+    }
+    .items > li:nth-child(2) > .pagination {
+        float: right;
+        margin-top: -30px;
     }
 }

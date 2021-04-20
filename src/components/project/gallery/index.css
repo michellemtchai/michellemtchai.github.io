@@ -31,9 +31,14 @@
         width: calc(50% - 5px) !important;
     }
 }
+@media only screen and (max-width: 550px) {
+    .gallery > .thumbnails > .image {
+        width: 100% !important;
+        height: 220px !important;
+    }
+}
 @media only screen and (max-width: 480px) {
     .gallery > .thumbnails > .image {
-        width: 80% !important;
-        margin: 0 10%;
+        height: 180px !important;
     }
 }

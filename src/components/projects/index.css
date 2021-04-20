@@ -23,6 +23,7 @@
 }
 .list-item > a > .image {
     cursor: pointer !important;
+    margin: 10px;
 }
 .list-item span.demo-tag {
     background: green;
@@ -81,8 +82,21 @@
     }
 }
 @media only screen and (max-width: 550px) {
+    .list-item a {
+        padding-bottom: 15px;
+    }
     .list-item section p {
         padding-bottom: 0px;
         min-height: 40px;
+    }
+    .list-item a > .image {
+        margin: 5px 0;
+        width: 100% !important;
+        height: 220px !important;
+    }
+}
+@media only screen and (max-width: 480px) {
+    .list-item a > .image {
+        height: 180px !important;
     }
 }
