@@ -40,7 +40,7 @@
 }
 .filter-dialog section.dialog-body {
     max-height: calc(100vh - 140px);
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
 }
 .filter-dialog > .dialog-body > .dialog-entry {
