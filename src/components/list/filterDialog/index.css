@@ -85,6 +85,73 @@
 .filter-dialog section:last-child button:last-child:active {
     background: #000;
 }
+.filter-dialog > .checkbox > label:first-child {
+    width: calc(100% - 50px);
+    display: inline-block;
+    font-weight: bold;
+    font-size: 16px;
+}
+.filter-dialog > .checkbox > label:nth-child(2) {
+    float: right;
+    width: 50px;
+    display: inline-block;
+    margin: 0;
+    text-align: right;
+    font-size: 16px;
+}
+.filter-dialog > .checkbox input[type='checkbox'] {
+    display: none;
+}
+.filter-dialog > .checkbox > section {
+    box-sizing: content-box;
+    width: 100%;
+    display: block;
+    border: none;
+    padding: 10px;
+    text-align: left;
+    column-count: 3;
+    -webkit-column-count: 3; /* Chrome, Safari, Opera */
+    -moz-column-count: 3; /* Firefox */
+}
+.filter-dialog > .checkbox > section > label {
+    box-sizing: content-box;
+    display: block;
+    font-size: 16px;
+    padding: 5px 0;
+    break-inside: avoid;
+    backface-visibility: hidden;
+}
+.filter-dialog > .checkbox label.checked,
+.filter-dialog > .checkbox label.unchecked {
+    cursor: pointer;
+}
+.filter-dialog > .checkbox label.checked::before,
+.filter-dialog > .checkbox label.unchecked::before {
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 5px;
+    border: 2px solid #333;
+    border-radius: 4px;
+    line-height: 12px;
+    text-align: center;
+    font-size: 14px;
+    padding-top: 2px;
+}
+.filter-dialog > .checkbox label.unchecked::before {
+    content: '';
+    background: #fff;
+}
+.filter-dialog > .checkbox label.checked::before {
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+    content: '\2714';
+    background: #0077ff;
+}
+.filter-dialog > .checkbox label.checked {
+    font-weight: bold;
+}
 @media only screen and (max-width: 1200px) {
     .filter-dialog {
         width: 70%;
@@ -104,9 +171,19 @@
     .filter-dialog {
         width: 90%;
     }
+    .filter-dialog > .checkbox > section {
+        column-count: 2;
+        -webkit-column-count: 2; /* Chrome, Safari, Opera */
+        -moz-column-count: 2; /* Firefox */
+    }
 }
 @media only screen and (max-width: 400px) {
     .filter-dialog {
         width: 90%;
+    }
+    .filter-dialog > .checkbox > section {
+        column-count: 1;
+        -webkit-column-count: 1; /* Chrome, Safari, Opera */
+        -moz-column-count: 1; /* Firefox */
     }
 }

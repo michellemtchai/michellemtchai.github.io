@@ -30,6 +30,7 @@ export const updateFilter = (component, value) => {
             component.setState({
                 ...component.state,
                 filtered: {
+                    ...component.state.filtered,
                     results: formatPages(
                         filterData(
                             component.state.results,

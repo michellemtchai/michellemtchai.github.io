@@ -1,5 +1,8 @@
 import './index.css';
 import React from 'react';
+import Select from './Select';
+import CheckBox from './CheckBox';
+import { sortByOptions, sortDirOptions } from './constants';
 
 class FilterDialog extends React.Component {
     state = this.props.filter;
@@ -13,6 +16,16 @@ class FilterDialog extends React.Component {
         this.setState({
             ...this.state,
             sortDir: event.target.value,
+        });
+    };
+    updateSelectedStacks = (state) => {
+        this.setState({
+            ...this.state,
+            filtered: {
+                ...this.state.filtered,
+                stacks: state.selected,
+                defStacks: state.defStacks,
+            },
         });
     };
     useFilter = () => {
@@ -33,7 +46,8 @@ class FilterDialog extends React.Component {
                     />
                 </section>
                 <Select
-                    name="Sort by:"
+                    name="sort-by"
+                    label="Sort by:"
                     selected={this.state.sortBy}
                     update={this.updateSortBy}
                     options={sortByOptions(
@@ -41,10 +55,19 @@ class FilterDialog extends React.Component {
                     )}
                 />
                 <Select
-                    name="Sort direction:"
+                    name="sort-direction"
+                    label="Sort direction:"
                     selected={this.state.sortDir}
                     update={this.updateSortDir}
                     options={sortDirOptions}
+                />
+                <CheckBox
+                    name="stacks"
+                    label="Stacks:"
+                    options={this.state.stacks}
+                    selected={this.state.filtered.stacks}
+                    defStacks={this.state.filtered.defStacks}
+                    update={this.updateSelectedStacks}
                 />
                 <section>
                     <Button
@@ -63,57 +86,6 @@ class FilterDialog extends React.Component {
 
 export default FilterDialog;
 
-const sortByOptions = (search) => {
-    let options = [
-        {
-            value: 'name',
-            label: 'Project Name',
-        },
-    ];
-    if (search) {
-        options = [
-            {
-                value: 'relevance',
-                label: 'Relevance',
-            },
-            ...options,
-        ];
-    }
-    return options;
-};
-
-const sortDirOptions = [
-    {
-        value: 'ascending',
-        label: 'Ascending',
-    },
-    {
-        value: 'descending',
-        label: 'Descending',
-    },
-];
-
 const Button = (props) => {
     return <button onClick={props.onClick}>{props.text}</button>;
-};
-
-const Select = (props) => {
-    return (
-        <section className="dialog-entry">
-            <label>{props.name}</label>
-            <select onChange={props.update}>
-                {props.options.map((option, i) => (
-                    <option
-                        key={'select-option-' + i}
-                        selected={
-                            props.selected === option.value
-                        }
-                        value={option.value}
-                    >
-                        {option.label}
-                    </option>
-                ))}
-            </select>
-        </section>
-    );
 };

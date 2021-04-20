@@ -1,7 +1,7 @@
 import React from 'react';
 import Items from '../components/items/Items';
 import ProjectList from '../components/projects/ProjectList';
-import { formatPages } from '../shared/pages';
+import { formatPages, getStacks } from '../shared/pages';
 import { filterData, updateFilter } from '../shared/results';
 import { searchResults } from '../shared/search';
 
@@ -34,13 +34,17 @@ const initialState = (props) => {
     let search = props.search;
     let term = decodeURIComponent(props.match.params.term);
     let results = searchResults(props, term);
+    let [stacks, selectedStacks] = getStacks(props, results);
     let defaultState = {
         term: term,
         sortBy: 'relevance',
         sortDir: 'ascending',
         results: results,
+        stacks: stacks,
         filtered: {
             results: formatPages(results),
+            stacks: selectedStacks,
+            defStacks: selectedStacks,
         },
     };
     return search ? search : defaultState;

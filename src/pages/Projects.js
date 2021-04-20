@@ -28,13 +28,17 @@ export default Projects;
 
 const initialState = (props) => {
     let search = props.search;
-    let data = props.projects[props.keyName].data;
+    let projects = props.projects[props.keyName];
+    let data = projects.data;
     let defaultState = {
         sortBy: 'name',
         sortDir: 'ascending',
         results: data,
+        stacks: projects.stacks,
         filtered: {
             results: formatPages(data),
+            stacks: projects.selectedStacks,
+            defStacks: projects.selectedStacks,
         },
     };
     return search ? search : defaultState;
