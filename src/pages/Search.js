@@ -3,6 +3,7 @@ import Items from '../components/items/Items';
 import ProjectList from '../components/projects/ProjectList';
 import { formatPages } from '../shared/pages';
 import { filterData, updateFilter } from '../shared/results';
+import { searchResults } from '../shared/search';
 
 class Search extends React.Component {
     state = initialState(this.props);
@@ -47,34 +48,3 @@ const initialState = (props) => {
 
 const baseUrl = (props, state) =>
     `${props.range}/search/${state.term}/page`;
-
-const searchResults = (props, term) => {
-    let projects = props.projects[props.keyName].data;
-    let data = [];
-    if (term) {
-        let terms = term.split(/\s+/g);
-        let regex = new RegExp(term.replace(/\s+/g, '|'), 'gi');
-        projects.forEach((project) => {
-            let match = project.name.match(regex);
-            if (containAllTerms(match, terms)) {
-                data.push(project);
-            }
-        });
-    }
-    return data;
-};
-
-const containAllTerms = (match, terms) => {
-    let mapping = {};
-    if (match) {
-        match.forEach((entry) => {
-            if (!mapping[entry]) {
-                mapping[entry] = 1;
-            } else {
-                mapping[entry]++;
-            }
-        });
-        return Object.keys(mapping).length === terms.length;
-    }
-    return false;
-};
