@@ -1,9 +1,11 @@
-import React from 'react';
-import Items from '../components/items/Items';
-import ProjectList from '../components/projects/ProjectList';
+import React, { lazy } from 'react';
 import { formatPages, getStacks } from '../shared/pages';
 import { filterData, updateFilter } from '../shared/results';
 import { searchResults } from '../shared/search';
+const Items = lazy(() => import('../components/items/Items'));
+const ProjectList = lazy(() =>
+    import('../components/projects/ProjectList')
+);
 
 class Search extends React.Component {
     state = initialState(this.props);

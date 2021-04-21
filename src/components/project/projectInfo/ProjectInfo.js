@@ -1,9 +1,9 @@
 import './index.css';
-import React from 'react';
-import Image from '../../image/Image';
-import TabLink from '../tabLink/TabLink';
-import TechList from '../../techList/TechList';
-import Tags from './tags/Tags';
+import React, { lazy } from 'react';
+const Image = lazy(() => import('../../image/Image'));
+const TabLink = lazy(() => import('../tabLink/TabLink'));
+const TechList = lazy(() => import('../../techList/TechList'));
+const Tags = lazy(() => import('./tags/Tags'));
 
 class ProjectInfo extends React.Component {
     render() {

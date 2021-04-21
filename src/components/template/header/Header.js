@@ -1,6 +1,6 @@
 import './index.css';
-import React from 'react';
-import IconLink from '../iconLink/IconLink';
+import React, { lazy } from 'react';
+const IconLink = lazy(() => import('../iconLink/IconLink'));
 import { socialLinks } from '../../../config';
 import { goToPage } from '../../../shared/router';
 import { resetResults } from '../../../shared/results';

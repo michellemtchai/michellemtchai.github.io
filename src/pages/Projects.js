@@ -1,8 +1,10 @@
-import React from 'react';
-import Items from '../components/items/Items';
-import ProjectList from '../components/projects/ProjectList';
+import React, { lazy } from 'react';
 import { formatPages } from '../shared/pages';
 import { filterData, updateFilter } from '../shared/results';
+const Items = lazy(() => import('../components/items/Items'));
+const ProjectList = lazy(() =>
+    import('../components/projects/ProjectList')
+);
 
 class Projects extends React.Component {
     state = initialState(this.props);

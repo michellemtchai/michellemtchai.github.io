@@ -1,7 +1,7 @@
-import React from 'react';
-import Modal from '../../../modal/Modal';
-import Header from '../../header/Header';
-import NavBar from '../../navbar/NavBar';
+import React, { lazy } from 'react';
+const Modal = lazy(() => import('../../../modal/Modal'));
+const Header = lazy(() => import('../../header/Header'));
+const NavBar = lazy(() => import('../../navbar/NavBar'));
 
 class NavModal extends React.Component {
     state = {

@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { lazy } from 'react';
+const NotFound = lazy(() => import('../../pages/NotFound'));
+const SearchBar = lazy(() => import('../searchbar/SearchBar'));
 import { goToPage } from '../../shared/router';
 import { validPage, getPage } from '../../shared/pages';
-import NotFound from '../../pages/NotFound';
-import SearchBar from '../searchbar/SearchBar';
 
 class Items extends React.Component {
     render() {

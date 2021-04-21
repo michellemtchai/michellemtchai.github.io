@@ -1,7 +1,13 @@
-import React from 'react';
-import Error from '../components/template/error/Error';
-import ThumbList from '../components/thumbList/ThumbList';
-import SearchBar from '../components/searchbar/SearchBar';
+import React, { lazy } from 'react';
+const Error = lazy(() =>
+    import('../components/template/error/Error')
+);
+const ThumbList = lazy(() =>
+    import('../components/thumbList/ThumbList')
+);
+const SearchBar = lazy(() =>
+    import('../components/searchbar/SearchBar')
+);
 
 class Home extends React.Component {
     render() {

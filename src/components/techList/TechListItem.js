@@ -1,5 +1,5 @@
-import React from 'react';
-import Image from '../image/Image';
+import React, { lazy } from 'react';
+const Image = lazy(() => import('../image/Image'));
 
 class TechListItem extends React.Component {
     render() {

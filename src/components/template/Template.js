@@ -1,8 +1,8 @@
 import './index.css';
-import React from 'react';
-import Head from './helmet/Head';
-import Header from './header/Header';
-import NavContent from './navcontent/NavContent';
+import React, { lazy } from 'react';
+const Head = lazy(() => import('./helmet/Head'));
+const Header = lazy(() => import('./header/Header'));
+const NavContent = lazy(() => import('./navcontent/NavContent'));
 
 import { withRouter } from 'react-router';
 import { routeKey } from '../../config';

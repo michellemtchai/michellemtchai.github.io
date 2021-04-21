@@ -1,6 +1,6 @@
 import './index.css';
-import React from 'react';
-import TechListItem from './TechListItem';
+import React, { lazy } from 'react';
+const TechListItem = lazy(() => import('./TechListItem'));
 
 class TechList extends React.Component {
     render() {

@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { lazy } from 'react';
 import { goToPage } from '../shared/router';
-import Image from '../components/image/Image';
-import Tabs from '../components/tabs/Tabs';
-import SearchBar from '../components/searchbar/SearchBar';
-import ProjectInfo from '../components/project/projectInfo/ProjectInfo';
-import Gallery from '../components/project/gallery/Gallery';
-import Markdown from '../components/project/markdown/Markdown';
-import NotFound from './NotFound';
+const Image = lazy(() => import('../components/image/Image'));
+const Tabs = lazy(() => import('../components/tabs/Tabs'));
+const SearchBar = lazy(() =>
+    import('../components/searchbar/SearchBar')
+);
+const ProjectInfo = lazy(() =>
+    import('../components/project/projectInfo/ProjectInfo')
+);
+const Gallery = lazy(() =>
+    import('../components/project/gallery/Gallery')
+);
+const Markdown = lazy(() =>
+    import('../components/project/markdown/Markdown')
+);
+const NotFound = lazy(() => import('./NotFound'));
 
 class Project extends React.Component {
     render() {

@@ -1,7 +1,7 @@
 import './index.css';
-import React from 'react';
-import ProjectListItem from './ProjectListItem';
-import List from '../list/List';
+import React, { lazy } from 'react';
+const ProjectListItem = lazy(() => import('./ProjectListItem'));
+const List = lazy(() => import('../list/List'));
 
 class ProjectList extends React.Component {
     render() {

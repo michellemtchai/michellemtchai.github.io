@@ -1,8 +1,8 @@
 import './index.css';
-import React from 'react';
-import Image from '../../image/Image';
-import Modal from '../../modal/Modal';
-import ImageModal from './imageModal/ImageModal';
+import React, { lazy } from 'react';
+const Image = lazy(() => import('../../image/Image'));
+const Modal = lazy(() => import('../../modal/Modal'));
+const ImageModal = lazy(() => import('./imageModal/ImageModal'));
 
 const noPic = "There's no picture in this gallery.";
 const openPic = 'Click to see image.';

@@ -1,7 +1,7 @@
 import './index.css';
-import React from 'react';
-import Image from '../../../image/Image';
-import Button from './Button';
+import React, { lazy } from 'react';
+const Image = lazy(() => import('../../../image/Image'));
+const Button = lazy(() => import('./Button'));
 
 class ImageModal extends React.Component {
     caption = React.createRef();
@@ -108,7 +108,7 @@ class ImageModal extends React.Component {
                 <Button
                     text="❮"
                     disabled={this.state.index === 0}
-                    click={() => this.changeImage(-1)}
+                    onClick={() => this.changeImage(-1)}
                     style={buttonStyle}
                 />
                 <figure className="image-holder">
@@ -134,7 +134,7 @@ class ImageModal extends React.Component {
                         this.state.index + 1 >=
                         this.props.gallery.length
                     }
-                    click={() => this.changeImage(1)}
+                    onClick={() => this.changeImage(1)}
                     style={buttonStyle}
                 />
             </section>

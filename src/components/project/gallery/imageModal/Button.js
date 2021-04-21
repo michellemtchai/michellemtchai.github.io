@@ -19,7 +19,7 @@ class Button extends React.Component {
             <button
                 type="button"
                 className="custom-btn"
-                onClick={this.props.click}
+                onClick={this.props.onClick}
                 style={this.props.style}
             >
                 {this.props.text}

@@ -1,7 +1,10 @@
 import './index.css';
-import React from 'react';
-import Select from './Select';
-import CheckBox from './CheckBox';
+import React, { lazy } from 'react';
+const Select = lazy(() => import('./Select'));
+const CheckBox = lazy(() => import('./CheckBox'));
+const Button = lazy(() =>
+    import('../../project/gallery/imageModal/Button')
+);
 import { sortByOptions, sortDirOptions } from './constants';
 
 class FilterDialog extends React.Component {
@@ -86,7 +89,3 @@ class FilterDialog extends React.Component {
 }
 
 export default FilterDialog;
-
-const Button = (props) => {
-    return <button onClick={props.onClick}>{props.text}</button>;
-};

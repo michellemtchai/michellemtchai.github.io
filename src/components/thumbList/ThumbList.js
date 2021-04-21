@@ -1,6 +1,6 @@
 import './index.css';
-import React from 'react';
-import Image from '../image/Image';
+import React, { lazy } from 'react';
+const Image = lazy(() => import('../image/Image'));
 import { goToPage } from '../../shared/router';
 
 class ThumbList extends React.Component {

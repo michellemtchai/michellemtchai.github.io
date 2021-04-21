@@ -13,15 +13,19 @@ import { Container } from './shared/map';
 
 const store = configureStore(thunk);
 const helmetContext = {};
+const loader = (
+    <img
+        id="spinner"
+        src={process.env.PUBLIC_URL + '/spinner.gif'}
+    />
+);
 
 ReactDOM.render(
     <React.StrictMode>
         <HelmetProvider context={helmetContext}>
             <Provider store={store}>
                 <ConnectedRouter history={history}>
-                    <React.Suspense
-                        fallback={<div>...loading</div>}
-                    >
+                    <React.Suspense fallback={loader}>
                         <Container />
                     </React.Suspense>
                 </ConnectedRouter>

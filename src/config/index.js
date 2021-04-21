@@ -1,9 +1,9 @@
-import React from 'react';
-import Home from '../pages/Home';
-import Project from '../pages/Project';
-import Projects from '../pages/Projects';
-import Search from '../pages/Search';
-import NotFound from '../pages/NotFound';
+import React, { lazy } from 'react';
+const Home = lazy(() => import('../pages/Home'));
+const Project = lazy(() => import('../pages/Project'));
+const Projects = lazy(() => import('../pages/Projects'));
+const Search = lazy(() => import('../pages/Search'));
+const NotFound = lazy(() => import('../pages/NotFound'));
 
 export const navlinks = (props) => {
     let labels = props.state.categories;

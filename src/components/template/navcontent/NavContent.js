@@ -1,7 +1,7 @@
 import './index.css';
-import React from 'react';
-import Footer from '../footer/Footer';
-import Sidebar from './sidebar/Sidebar';
+import React, { lazy } from 'react';
+const Footer = lazy(() => import('../footer/Footer'));
+const Sidebar = lazy(() => import('./sidebar/Sidebar'));
 import { MINIMIZED_NAV_WIDTH } from '../navbar/constants';
 
 class NavContent extends React.Component {

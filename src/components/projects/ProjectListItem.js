@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { lazy } from 'react';
+const TechList = lazy(() => import('../techList/TechList'));
 import Image from '../image/Image';
 import { goToPage } from '../../shared/router';
-import TechList from '../techList/TechList';
 
 class ProjectListItem extends React.Component {
     project = (event) => {
