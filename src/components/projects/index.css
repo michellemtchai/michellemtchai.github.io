@@ -5,7 +5,6 @@ li.demo > a {
     width: 100%;
     vertical-align: top;
     min-height: 160px;
-    margin-top: 10px;
 }
 .list-item section.demo {
     margin-top: -25px;
@@ -76,7 +75,7 @@ li.demo > a {
 }
 @media only screen and (max-width: 700px) {
     .list-item .tech {
-        margin: 0 10px;
+        margin-top: -10px;
         display: inline-block;
     }
     .list-item > a > section {
@@ -91,10 +90,7 @@ li.demo > a {
     }
     .list-item section.project-summary {
         display: inline-block;
-        min-height: 165px;
-    }
-    .list-item {
-        min-height: 180px;
+        min-height: 170px;
     }
     .list-item * {
         text-decoration: none !important;
