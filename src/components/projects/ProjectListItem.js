@@ -14,6 +14,7 @@ class ProjectListItem extends React.Component {
         let technologies = this.props.state.technologies;
         let alt = `Preview of ${project.name}`;
         let title = `See details about ${project.name}`;
+        let className = project.demo_url ? 'demo' : '';
         let demo = project.demo_url ? (
             <span className="demo-tag">DEMO</span>
         ) : (
@@ -21,7 +22,7 @@ class ProjectListItem extends React.Component {
         );
         return (
             <li
-                className="list-item"
+                className={'list-item ' + className}
                 title={title}
                 onClick={this.project}
             >
@@ -35,17 +36,19 @@ class ProjectListItem extends React.Component {
                         width="250px"
                     />
                     {demo}
-                    <section>
-                        <h2
-                            dangerouslySetInnerHTML={{
-                                __html: project.name,
-                            }}
-                        ></h2>
-                        <p
-                            dangerouslySetInnerHTML={{
-                                __html: project.summary,
-                            }}
-                        ></p>
+                    <section className={className}>
+                        <section className="project-summary">
+                            <h2
+                                dangerouslySetInnerHTML={{
+                                    __html: project.name,
+                                }}
+                            ></h2>
+                            <p
+                                dangerouslySetInnerHTML={{
+                                    __html: project.summary,
+                                }}
+                            ></p>
+                        </section>
                         <TechList
                             {...this.props}
                             tech={project.technologies}
