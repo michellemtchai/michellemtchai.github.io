@@ -1,0 +1,2 @@
+(this["webpackJsonpmy-app"]=this["webpackJsonpmy-app"]||[]).push([[21],{268:function(e,t,n){},302:function(e,t,n){"use strict";n.r(t);var a=n(14),r=n(15),c=n(17),p=n(16),s=(n(268),n(0)),u=n.n(s),i=function(e){Object(c.a)(n,e);var t=Object(p.a)(n);function n(){return Object(a.a)(this,n),t.apply(this,arguments)}return Object(r.a)(n,[{key:"render",value:function(){return u.a.createElement("ul",{className:"error"},u.a.createElement("li",null,this.props.state.error))}}]),n}(u.a.Component);t.default=i}}]);
+//# sourceMappingURL=21.09c84be0.chunk.js.map
