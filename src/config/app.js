@@ -1,5 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router';
+import Spinner from '../pages/Spinner';
 import Template from '../components/template/Template';
 
 import { Switch, Route } from 'react-router-dom';
@@ -40,24 +41,28 @@ class App extends React.Component {
     componentDidMount() {
         let next = () => {
             this.props.setRoutes(routes(this.props));
-            setupFormattedProjects(this.props);
+            // setupFormattedProjects(this.props);
 
             let redirect = redirectParam(this.props);
             if (redirect) {
                 goToPage(decodeURIComponent(redirect));
             }
         };
-        fetchAPIData(this.props, '/data.json', {
+        fetchAPIData(this.props, '/categories', {
             method: 'GET',
+            setState: this.props.setData,
             next: next,
+            formatData: (data) => {
+                return {
+                    categories: data,
+                };
+            },
         });
     }
 
     render() {
         let routes = this.props.routes;
-        let setupDone =
-            this.props.state.fetching === 0 &&
-            this.props.projects != null;
+        let setupDone = this.props.state.categories;
         return setupDone ? (
             <>
                 {Object.keys(routes).length > 0 ? (
@@ -71,10 +76,7 @@ class App extends React.Component {
                 )}
             </>
         ) : (
-            <img
-                id="spinner"
-                src={process.env.PUBLIC_URL + '/spinner.gif'}
-            />
+            <Spinner />
         );
     }
 }

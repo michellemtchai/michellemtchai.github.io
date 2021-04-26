@@ -36,7 +36,6 @@ module.exports = class ApplicationController extends Controller {
             select: {
                 _id: 0,
                 __v: 0,
-                base_url: 0,
                 icon_class: 0,
                 description: 0,
                 created: 0,

@@ -1,13 +1,14 @@
 export const fetchAPIData = (
     props,
     url,
-    { method, params, formatData, next } = {}
+    { method, params, setState, formatData, next } = {}
 ) => {
     fetchData(
         baseUrl + url,
         fetchConfig(props, {
             method: method,
             params: params,
+            setState: setState,
             formatData: formatData,
             next: next,
         })
@@ -24,12 +25,13 @@ const fetchConfig = (
     {
         method = 'GET',
         params = {},
+        setState: setState,
         formatData = (data) => data,
         next = null,
     } = {}
 ) => {
     return {
-        setState: props.setData,
+        setState: setState,
         setError: props.setError,
         fetching: props.startFetching,
         formatData: formatData,
@@ -41,7 +43,7 @@ const fetchConfig = (
 
 export const fetchData = (url, config) => {
     url = setUpURL(url, config);
-    config.fetching();
+    // config.fetching();
     let error = false;
     fetch(url, fetchInterface(config))
         .then((res) => {

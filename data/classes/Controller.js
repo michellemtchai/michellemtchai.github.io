@@ -37,8 +37,8 @@ module.exports = class Controller {
     renderOneWithId = (model, res, id, select = null) => {
         model.findById(
             res,
-            (i) => this.renderSuccess(res, i),
             id,
+            (i) => this.renderSuccess(res, i),
             select
         );
     };

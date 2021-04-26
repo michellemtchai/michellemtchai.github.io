@@ -13,7 +13,15 @@ module.exports = class CategoriesController extends Controller {
     containsObjectId = ['projects'];
 
     index = (req, res) => {
-        dataProc.renderDbModel(this, res, this.Category);
+        let next = (i) => res.json(i);
+        this.Category.find(res, next, {
+            select: {
+                projects: 0,
+                created: 0,
+                updated: 0,
+                __v: 0,
+            },
+        });
     };
 
     show = (req, res) => {
