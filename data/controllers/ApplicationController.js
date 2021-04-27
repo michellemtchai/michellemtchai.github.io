@@ -1,4 +1,5 @@
 const Controller = require('../classes/Controller');
+const cache = require('../helpers/cache');
 
 module.exports = class ApplicationController extends Controller {
     Category = this.models['Category'];
@@ -6,42 +7,47 @@ module.exports = class ApplicationController extends Controller {
 
     index = (req, res) => {
         let step1 = (categories) => {
-            this.Project.find(res, (i) => step2(categories, i), {
-                select: {
-                    __v: 0,
+            cache.mapAction(
+                this.models,
+                'Project',
+                res,
+                (data) => step2(categories, data),
+                {
                     summary: 0,
                     description: 0,
                     source_url: 0,
                     technologies: 0,
                     tags: 0,
                     gallery: 0,
-                    created: 0,
-                    updated: 0,
-                },
-            });
+                }
+            );
         };
         let step2 = (categories, projects) => {
-            let mapping = {};
-            projects.forEach((i) => (mapping[i._id] = i));
             categories = categories.map((entry) => {
                 entry.projects = entry.projects
-                    .map((i) => mapping[i])
+                    .map((i) => projects[i])
                     .sort((a, b) => a.name - b.name)
                     .slice(0, 4);
                 return entry;
             });
+            cache.setCache('home', categories);
             res.json(categories);
         };
-        this.Category.find(res, step1, {
-            select: {
-                _id: 0,
-                __v: 0,
-                icon_class: 0,
-                description: 0,
-                created: 0,
-                updated: 0,
-            },
-        });
+        let categories = cache.getCache('home');
+        if (categories) {
+            res.json(categories);
+        } else {
+            this.Category.find(res, step1, {
+                select: {
+                    _id: 0,
+                    __v: 0,
+                    icon_class: 0,
+                    description: 0,
+                    created: 0,
+                    updated: 0,
+                },
+            });
+        }
     };
 
     notFound = (req, res) => {

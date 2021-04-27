@@ -36,6 +36,7 @@ module.exports = class Model {
         {
             query = [],
             sort = null,
+            skip = null,
             limit = null,
             select = null,
         } = {}
@@ -43,6 +44,9 @@ module.exports = class Model {
         let model = this.model.find(...query);
         if (sort) {
             model = model.sort(sort);
+        }
+        if (skip) {
+            model = model.skip(skip);
         }
         if (limit) {
             model = model.limit(limit);
