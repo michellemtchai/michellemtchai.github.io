@@ -5,7 +5,7 @@ class Error extends React.Component {
     render() {
         return (
             <ul className="error">
-                <li>{this.props.state.error}</li>
+                <li>{this.props.text}</li>
             </ul>
         );
     }

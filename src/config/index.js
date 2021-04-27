@@ -89,7 +89,7 @@ const setupCategoriesSearch = (props) => {
             exact: true,
             description: label.description,
             children: [
-                // ...categoryProjects(label),
+                ...categoryProjects(label),
                 searchUrl,
                 `${searchUrl}/page/:page`,
             ],

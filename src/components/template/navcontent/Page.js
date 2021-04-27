@@ -1,6 +1,7 @@
 import React, { lazy } from 'react';
 import { fetchAPIData } from '../../../shared/network';
 import Spinner from '../../../pages/Spinner';
+import Error from '../error/Error';
 
 class Page extends React.Component {
     state = {
@@ -16,7 +17,10 @@ class Page extends React.Component {
     };
     componentDidMount() {
         this._isMounted = true;
-        if (this.props.route.apiRoute !== undefined) {
+        if (
+            this.props.route.apiRoute !== undefined &&
+            this.props.state.error === ''
+        ) {
             fetchAPIData(
                 this.props,
                 this.props.route.apiRoute(this.props),
@@ -35,21 +39,24 @@ class Page extends React.Component {
     }
     render() {
         let data = this.state.data;
-        if (
+        let error = this.props.state.error;
+        let fetchDone =
             this.props.route.apiRoute === undefined ||
-            data !== null
-        ) {
-            return !this.props.error ? (
+            data !== null;
+        return error === '' ? (
+            fetchDone ? (
                 <this.props.component
                     {...this.props}
                     data={data}
                 />
             ) : (
-                <Error {...this.props} />
-            );
-        } else {
-            return <Spinner />;
-        }
+                <div className="page-body">
+                    <Spinner />
+                </div>
+            )
+        ) : (
+            <Error text={error} />
+        );
     }
 }
 

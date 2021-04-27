@@ -72,5 +72,5 @@ module.exports = (app) => {
     }
 
     //The 404 Route (ALWAYS Keep this as the last route)
-    app.router.get('*', ApplicationController.index);
+    app.router.get('*', ApplicationController.notFound);
 };

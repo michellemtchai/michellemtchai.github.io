@@ -17,8 +17,14 @@
     margin: 0 auto;
     min-height: calc(100% - 50px);
 }
+.page-body > #spinner {
+    margin-top: calc(50vh - 85px);
+}
 @media only screen and (max-width: 530px) {
     .main > li {
         height: calc(100vh - 80px);
+    }
+    .page-body > #spinner {
+        margin-top: calc(50vh - 105px);
     }
 }

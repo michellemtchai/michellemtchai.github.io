@@ -43,7 +43,6 @@ const fetchConfig = (
 
 export const fetchData = (url, config) => {
     url = setUpURL(url, config);
-    // config.fetching();
     let error = false;
     fetch(url, fetchInterface(config))
         .then((res) => {
@@ -65,6 +64,7 @@ export const fetchData = (url, config) => {
                     config.setError
                 );
             } else {
+                console.log('data', data);
                 config.setError(data.message);
             }
         })

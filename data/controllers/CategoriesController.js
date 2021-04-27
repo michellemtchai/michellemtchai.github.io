@@ -16,7 +16,6 @@ module.exports = class CategoriesController extends Controller {
         let next = (i) => res.json(i);
         this.Category.find(res, next, {
             select: {
-                projects: 0,
                 created: 0,
                 updated: 0,
                 __v: 0,

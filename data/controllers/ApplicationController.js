@@ -43,4 +43,10 @@ module.exports = class ApplicationController extends Controller {
             },
         });
     };
+
+    notFound = (req, res) => {
+        this.renderError(res, {
+            message: `No such route: ${req.path}`,
+        });
+    };
 };
