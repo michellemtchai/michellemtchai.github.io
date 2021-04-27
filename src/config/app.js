@@ -22,9 +22,7 @@ class App extends React.Component {
             ...this.state,
         };
         let pageTemplate = () => (
-            <Template {...props}>
-                <Component {...props} />
-            </Template>
+            <Template {...props} component={Component} />
         );
         return (
             <Route

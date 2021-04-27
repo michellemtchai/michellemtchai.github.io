@@ -67,6 +67,7 @@ class Template extends React.Component {
                     navExpanded={this.state.navExpanded}
                     showNavModal={this.state.showNavModal}
                     updateNav={this.updateNav}
+                    route={route}
                 />
             </>
         ) : (

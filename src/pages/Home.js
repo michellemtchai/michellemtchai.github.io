@@ -12,54 +12,22 @@ const SearchBar = lazy(() =>
 );
 
 class Home extends React.Component {
-    state = {
-        categories: [],
-    };
-    _isMounted = false;
-    updateState = (data, resolve) => {
-        if (this._isMounted) {
-            this.setState(data, () => {
-                resolve(data);
-            });
-        }
-    };
-    componentDidMount() {
-        this._isMounted = true;
-        fetchAPIData(this.props, '/', {
-            method: 'GET',
-            setState: this.updateState,
-            formatData: (data) => {
-                return {
-                    categories: data,
-                };
-            },
-        });
-    }
-    componentWillUnmount() {
-        this._isMounted = false;
-    }
     render() {
-        let categories = this.state.categories;
-        if (categories) {
-            return !this.props.error ? (
-                <div className="page-body">
-                    <SearchBar {...this.props} range="/all" />
-                    {categories.map((category, i) => (
-                        <ThumbList
-                            key={'thumblist-' + i}
-                            {...this.props}
-                            title={category.name}
-                            page={category.base_url}
-                            list={category.projects}
-                        />
-                    ))}
-                </div>
-            ) : (
-                <Error {...this.props} />
-            );
-        } else {
-            return <Spinner />;
-        }
+        let categories = this.props.data;
+        return (
+            <div className="page-body">
+                <SearchBar {...this.props} range="/all" />
+                {categories.map((category, i) => (
+                    <ThumbList
+                        key={'thumblist-' + i}
+                        {...this.props}
+                        title={category.name}
+                        page={category.base_url}
+                        list={category.projects}
+                    />
+                ))}
+            </div>
+        );
     }
 }
 

@@ -1,5 +1,6 @@
 import './index.css';
 import React, { lazy } from 'react';
+const Page = lazy(() => import('./Page'));
 const Footer = lazy(() => import('../footer/Footer'));
 const Sidebar = lazy(() => import('./sidebar/Sidebar'));
 import { MINIMIZED_NAV_WIDTH } from '../navbar/constants';
@@ -27,7 +28,7 @@ class NavContent extends React.Component {
                 />
                 <li style={this.state.width.content}>
                     <div className="content">
-                        {this.props.children}
+                        <Page {...this.props} />
                     </div>
                     <Footer />
                 </li>
