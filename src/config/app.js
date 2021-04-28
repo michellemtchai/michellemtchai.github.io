@@ -7,10 +7,7 @@ import { Switch, Route } from 'react-router-dom';
 import { routes } from '../config/';
 import { fetchAPIData } from '../shared/network';
 import { goToPage } from '../shared/router';
-import {
-    redirectParam,
-    setupFormattedProjects,
-} from '../shared/pages';
+import { redirectParam } from '../shared/pages';
 
 class App extends React.Component {
     route = (key, i) => {

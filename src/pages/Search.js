@@ -1,5 +1,4 @@
 import React, { lazy } from 'react';
-import { formatPages, getStacks } from '../shared/pages';
 import { filterData, updateFilter } from '../shared/results';
 import { searchResults } from '../shared/search';
 const Items = lazy(() => import('../components/items/Items'));
@@ -45,7 +44,7 @@ const initialState = (props) => {
         stacks: stacks,
         filtered: {
             total: results.length,
-            results: formatPages(results),
+            results: results,
             stacks: selectedStacks,
             defStacks: selectedStacks,
         },

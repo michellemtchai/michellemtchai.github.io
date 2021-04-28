@@ -1,5 +1,4 @@
 import { initialState } from '../reducers/search';
-import { formatPages } from './pages';
 import { goToPage } from './router';
 
 export const filterData = (data, state) => {
@@ -45,7 +44,7 @@ export const updateFilter = (component, value) => {
         filtered: {
             ...value.filtered,
             total: results.length,
-            results: formatPages(results),
+            results: results,
         },
     };
     let range = component.props.range;
