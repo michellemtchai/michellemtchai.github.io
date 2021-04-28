@@ -37,8 +37,13 @@ class App extends React.Component {
     };
 
     componentDidMount() {
-        let next = () => {
+        let next = (data) => {
             this.props.setRoutes(routes(this.props));
+            let mapping = {};
+            data.categories.forEach(
+                (i) => (mapping[i._id] = i.projects)
+            );
+            this.props.setProjects(mapping);
             // setupFormattedProjects(this.props);
 
             let redirect = redirectParam(this.props);

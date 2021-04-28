@@ -43,6 +43,7 @@ class Page extends React.Component {
         let fetchDone =
             this.props.route.apiRoute === undefined ||
             data !== null;
+        console.log(this.props.route.apiRoute, data);
         return error === '' ? (
             fetchDone ? (
                 <this.props.component

@@ -8,15 +8,21 @@ const ProjectList = lazy(() =>
 
 class Projects extends React.Component {
     state = initialState(this.props);
+    componentDidUpdate(prevProps) {
+        if (prevProps.data != this.props.data) {
+            this.setState(initialState(this.props));
+        }
+    }
     render() {
-        let pages = this.state.filtered.results;
+        let results = this.state.filtered.results;
         let total = this.state.filtered.total;
         return (
             <Items
                 {...this.props}
                 name="Project"
                 list={ProjectList}
-                pages={pages}
+                pages={this.state.pages}
+                results={results}
                 total={total}
                 filter={this.state}
                 updateFilter={(value) =>
@@ -32,17 +38,20 @@ export default Projects;
 const initialState = (props) => {
     let search = props.search;
     let projects = props.projects[props.keyName];
-    let data = projects.data;
+    let data = props.data;
+    let pages = Math.ceil(props.data.length / 10);
+    let stacks = [];
     let defaultState = {
         sortBy: 'name',
         sortDir: 'ascending',
         results: data,
-        stacks: projects.stacks,
+        pages: pages,
+        stacks: stacks,
         filtered: {
-            total: data.length,
-            results: formatPages(data),
-            stacks: projects.selectedStacks,
-            defStacks: projects.selectedStacks,
+            total: projects.length,
+            results: data,
+            stacks: stacks,
+            defStacks: stacks,
         },
     };
     return search ? search : defaultState;

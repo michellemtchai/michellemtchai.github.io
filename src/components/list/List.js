@@ -20,8 +20,7 @@ class List extends React.Component {
     };
     render() {
         let page = this.props.page;
-        let pages = this.props.pages;
-        let items = pages[page];
+        let items = this.props.results;
         let className = this.props.clickable
             ? 'items clickable'
             : 'items';
@@ -29,7 +28,7 @@ class List extends React.Component {
             <PageButtons
                 {...this.props}
                 index={page + 1}
-                pages={pages.length}
+                pages={this.props.pages}
                 baseUrl={this.props.baseUrl + '/'}
             />
         );

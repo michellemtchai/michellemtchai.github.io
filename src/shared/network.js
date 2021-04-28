@@ -64,7 +64,6 @@ export const fetchData = (url, config) => {
                     config.setError
                 );
             } else {
-                console.log('data', data);
                 config.setError(data.message);
             }
         })

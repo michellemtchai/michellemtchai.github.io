@@ -86,6 +86,13 @@ const setupCategoriesSearch = (props) => {
             title: label.name,
             component: Component,
             icon: label.icon_class,
+            apiRoute: (props) => {
+                let page = props.match.params.page
+                    ? encodeURIComponent(props.match.params.page)
+                    : 1;
+                let category = encodeURIComponent(label._id);
+                return `/projects?page=${page}&category=${category}`;
+            },
             exact: true,
             description: label.description,
             children: [
@@ -108,6 +115,13 @@ const searchRoute = (keyName, range) => {
         title: 'Search Results',
         component: Component,
         icon: 'fas fa-search',
+        apiRoute: (props) => {
+            let page = props.match.params.page
+                ? encodeURIComponent(props.match.params.page)
+                : 1;
+            let category = encodeURIComponent(props.keyName);
+            return `/projects?page=${page}&category=${category}`;
+        },
         exact: true,
         description: 'Projects associated with the search term.',
     };
