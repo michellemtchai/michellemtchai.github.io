@@ -1,6 +1,7 @@
 const Controller = require('../classes/Controller');
 const dataProc = require('../helpers/data');
 const projects = require('../helpers/projects');
+const cache = require('../helpers/cache');
 
 module.exports = class ProjectsController extends Controller {
     Project = this.models['Project'];
@@ -15,6 +16,36 @@ module.exports = class ProjectsController extends Controller {
 
     index = (req, res) => {
         projects.page(res, this.models, req.query);
+    };
+
+    show = (req, res) => {
+        let step1 = (project) => {
+            cache.mapAction(
+                this.models,
+                'Technology',
+                res,
+                (data) => step2(data, project)
+            );
+        };
+        let step2 = (technologies, project) => {
+            cache.mapAction(this.models, 'Tag', res, (data) =>
+                step3(data, technologies, project)
+            );
+        };
+        let step3 = (tags, technologies, project) => {
+            res.json({
+                ...project._doc,
+                tags: project.tags.map((i) => tags[i]),
+                technologies: project.technologies.map(
+                    (i) => technologies[i]
+                ),
+            });
+        };
+        this.Project.findById(res, req.params.id, step1, {
+            __v: 0,
+            created: 0,
+            updated: 0,
+        });
     };
 
     create = (req, res) => {

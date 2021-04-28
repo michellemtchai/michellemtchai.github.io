@@ -44,23 +44,23 @@ class App extends React.Component {
                 (i) => (mapping[i._id] = i.projects)
             );
             this.props.setProjects(mapping);
-            // setupFormattedProjects(this.props);
-
             let redirect = redirectParam(this.props);
             if (redirect) {
                 goToPage(decodeURIComponent(redirect));
             }
         };
-        fetchAPIData(this.props, '/categories', {
-            method: 'GET',
-            setState: this.props.setData,
-            next: next,
-            formatData: (data) => {
-                return {
-                    categories: data,
-                };
-            },
-        });
+        if (!this.props.state.categories) {
+            fetchAPIData(this.props, '/categories', {
+                method: 'GET',
+                setState: this.props.setData,
+                next: next,
+                formatData: (data) => {
+                    return {
+                        categories: data,
+                    };
+                },
+            });
+        }
     }
 
     render() {

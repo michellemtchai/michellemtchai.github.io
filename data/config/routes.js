@@ -17,6 +17,7 @@ module.exports = (app) => {
     app.router.get('/', ApplicationController.index);
 
     app.router.get('/projects', ProjectsController.index);
+    app.router.get('/projects/:id', ProjectsController.show);
     if (process.env.APP_ENV === 'development') {
         app.router.post('/projects', ProjectsController.create);
         app.router.put(
