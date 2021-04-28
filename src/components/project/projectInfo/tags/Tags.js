@@ -11,16 +11,13 @@ class Tags extends React.Component {
         });
     };
     tagslist = () => {
-        let tags = this.props.state.tags;
-        let tagIds = this.props.tags;
+        let tags = this.props.tags;
         if (this.state.show) {
-            if (tagIds.length > 0) {
+            if (tags.length > 0) {
                 return (
                     <ul>
-                        {this.props.tags.map((key, i) => (
-                            <li key={'tag-' + i}>
-                                {tags[key].name}
-                            </li>
+                        {tags.map((tag, i) => (
+                            <li key={'tag-' + i}>{tag.name}</li>
                         ))}
                     </ul>
                 );
