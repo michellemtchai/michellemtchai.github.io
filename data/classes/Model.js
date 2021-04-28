@@ -34,14 +34,14 @@ module.exports = class Model {
         res,
         next,
         {
-            query = [],
+            query = {},
             sort = null,
             skip = null,
             limit = null,
             select = null,
         } = {}
     ) => {
-        let model = this.model.find(...query);
+        let model = this.model.find(query);
         if (sort) {
             model = model.sort(sort);
         }

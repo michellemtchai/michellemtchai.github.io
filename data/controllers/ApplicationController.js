@@ -3,7 +3,6 @@ const cache = require('../helpers/cache');
 
 module.exports = class ApplicationController extends Controller {
     Category = this.models['Category'];
-    Project = this.models['Project'];
 
     index = (req, res) => {
         let step1 = (categories) => {
