@@ -34,6 +34,10 @@ export const routes = (props) => {
             component: Project,
             title: 'Project',
             icon: 'fas fa-tasks',
+            apiRoute: (props) => {
+                let project = props.match.params.project;
+                return `/projects/${project}`;
+            },
         },
         '': {
             component: NotFound,

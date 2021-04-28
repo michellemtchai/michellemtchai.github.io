@@ -14,10 +14,7 @@ class ProjectInfo extends React.Component {
         ) : (
             ''
         );
-        let technologies = this.props.state.technologies;
-        let tech = project.technologies.map(
-            (i) => technologies[i]
-        );
+        let tech = project.technologies;
         return (
             <section className="project-info">
                 <Image

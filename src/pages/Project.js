@@ -18,9 +18,7 @@ const NotFound = lazy(() => import('./NotFound'));
 
 class Project extends React.Component {
     render() {
-        let project = this.props.state.projects[
-            this.props.match.params.project
-        ];
+        let project = this.props.data;
         return project ? (
             <article className="page-body">
                 <SearchBar
