@@ -10,7 +10,6 @@ class Search extends React.Component {
     state = initialState(this.props);
     render() {
         let results = this.state.filtered.results;
-        console.log('results', this.props.data);
         let total = this.state.filtered.total;
         return (
             <Items

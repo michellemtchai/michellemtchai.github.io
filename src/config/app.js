@@ -67,7 +67,6 @@ class App extends React.Component {
 
     render() {
         let routes = this.props.routes;
-        console.log('routes', routes);
         return (
             <>
                 {Object.keys(routes).length > 0 ? (
