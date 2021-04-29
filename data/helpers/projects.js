@@ -32,7 +32,7 @@ module.exports = projects = {
         let step3 = (technologies, tags, categories) => {
             let query = searchQuery(
                 regex,
-                categories[category],
+                category,
                 stacks,
                 technologies.selected,
                 tags.selected
@@ -75,10 +75,7 @@ module.exports = projects = {
         } = {}
     ) => {
         let step1 = (categories) => {
-            let query = queryStacks(
-                categories[category],
-                stacks
-            );
+            let query = queryStacks(category, stacks);
             models.Project.find(
                 res,
                 step2,
