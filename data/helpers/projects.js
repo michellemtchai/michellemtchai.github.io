@@ -32,7 +32,7 @@ module.exports = projects = {
         let step3 = (technologies, tags, categories) => {
             let query = searchQuery(
                 regex,
-                category,
+                categories[category],
                 stacks,
                 technologies.selected,
                 tags.selected
@@ -75,7 +75,10 @@ module.exports = projects = {
         } = {}
     ) => {
         let step1 = (categories) => {
-            let query = queryStacks(category, stacks);
+            let query = queryStacks(
+                categories[category],
+                stacks
+            );
             models.Project.find(
                 res,
                 step2,
@@ -105,7 +108,7 @@ module.exports = projects = {
 
 const queryStacks = (category, stacks) => {
     let query = {};
-    if (category !== 'all') {
+    if (category) {
         query = {
             ...query,
             ...db.isIn('_id', category),
@@ -128,7 +131,7 @@ const searchQuery = (term, category, stacks, tech, tags) => {
         db.isIn('technologies', tech),
         db.isIn('tags', tags),
     ]);
-    if (category !== 'all') {
+    if (category) {
         query = {
             ...query,
             ...db.isIn('_id', category),
