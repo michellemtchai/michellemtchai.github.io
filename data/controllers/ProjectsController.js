@@ -18,6 +18,15 @@ module.exports = class ProjectsController extends Controller {
         projects.page(res, this.models, req.query);
     };
 
+    search = (req, res) => {
+        projects.search(
+            res,
+            this.models,
+            req.params.search,
+            req.query
+        );
+    };
+
     show = (req, res) => {
         let step1 = (project) => {
             cache.mapAction(

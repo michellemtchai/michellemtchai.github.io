@@ -1,5 +1,6 @@
 const NodeCache = require('node-cache');
 const cacheData = new NodeCache();
+const htmlEntities = require('html-entities');
 
 module.exports = cache = {
     getCache: (key) => {
@@ -45,4 +46,51 @@ module.exports = cache = {
             });
         }
     },
+    searchAction: (
+        models,
+        keyName,
+        res,
+        regex,
+        action,
+        select = {}
+    ) => {
+        let regExp = new RegExp(regex, 'gi');
+        let next = (data) => {
+            let mapping = {};
+            data.forEach(
+                (i) =>
+                    (mapping[i._id] = {
+                        ...i._doc,
+                        name: cache.boldText(i.name, regExp),
+                    })
+            );
+            cache.mapAction(
+                models,
+                keyName,
+                res,
+                (i) => step2(i, mapping),
+                select
+            );
+        };
+        let step2 = (data, selected) => {
+            action({
+                mapping: {
+                    ...data,
+                    ...selected,
+                },
+                selected: Object.keys(selected),
+            });
+        };
+        models[keyName].find(res, next, {
+            query: db.regex('name', regex, 'ig'),
+            select: {
+                ...select,
+                updated: 0,
+                created: 0,
+                __v: 0,
+            },
+        });
+    },
+    boldText: (text, regex) =>
+        htmlEntities.encode(text).replace(regex, '<b>$1</b>'),
 };

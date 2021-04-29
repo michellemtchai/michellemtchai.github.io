@@ -29,4 +29,7 @@ module.exports = db = {
     not: (arrayConditions) => {
         return { $not: arrayConditions };
     },
+    regex: (key, regex, options) => {
+        return { [key]: { $regex: regex, $options: options } };
+    },
 };

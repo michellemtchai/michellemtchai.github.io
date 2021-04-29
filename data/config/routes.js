@@ -18,6 +18,12 @@ module.exports = (app) => {
 
     app.router.get('/projects', ProjectsController.index);
     app.router.get('/projects/:id', ProjectsController.show);
+    app.router.get(
+        '/projects/search/:search',
+        ProjectsController.search
+    );
+    app.router.get('/categories', CategoriesController.index);
+
     if (process.env.APP_ENV === 'development') {
         app.router.post('/projects', ProjectsController.create);
         app.router.put(
@@ -28,17 +34,15 @@ module.exports = (app) => {
             '/projects/:id',
             ProjectsController.destroy
         );
-    }
 
-    app.router.get('/tags', TagsController.index);
-    if (process.env.APP_ENV === 'development') {
+        app.router.get('/tags', TagsController.index);
         app.router.post('/tags', TagsController.create);
         app.router.delete('/tags/:id', TagsController.destroy);
-    }
 
-    app.router.get('/categories', CategoriesController.index);
-    app.router.get('/categories/:id', CategoriesController.show);
-    if (process.env.APP_ENV === 'development') {
+        app.router.get(
+            '/categories/:id',
+            CategoriesController.show
+        );
         app.router.post(
             '/categories',
             CategoriesController.create
@@ -51,13 +55,11 @@ module.exports = (app) => {
             '/categories/:id',
             CategoriesController.destroy
         );
-    }
 
-    app.router.get(
-        '/technologies',
-        TechnologiesController.index
-    );
-    if (process.env.APP_ENV === 'development') {
+        app.router.get(
+            '/technologies',
+            TechnologiesController.index
+        );
         app.router.post(
             '/technologies',
             TechnologiesController.create

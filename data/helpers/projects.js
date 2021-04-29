@@ -2,10 +2,66 @@ const db = require('./db');
 const cache = require('./cache');
 
 module.exports = projects = {
-    query: (stacks) => {
-        return stacks === null
-            ? {}
-            : db.isIn('technologies', stacks);
+    search: (
+        res,
+        models,
+        search,
+        {
+            category = 'all',
+            page = 1,
+            sortDir = 'ascending',
+            stacks = null,
+        } = {}
+    ) => {
+        let terms = search.toLowerCase().split(/\s+/g);
+        let regex = `(${terms.join('|')})`;
+        let step1 = (categories) => {
+            cache.searchAction(models, 'Tag', res, regex, (i) =>
+                step2(i, categories)
+            );
+        };
+        let step2 = (tags, categories) => {
+            cache.searchAction(
+                models,
+                'Technology',
+                res,
+                regex,
+                (i) => step3(i, tags, categories)
+            );
+        };
+        let step3 = (technologies, tags, categories) => {
+            let query = searchQuery(
+                regex,
+                stacks,
+                technologies.selected,
+                tags.selected
+            );
+            models.Project.find(
+                res,
+                (i) => step4(i, technologies, tags),
+                findParams(query, sortDir, page, true)
+            );
+        };
+        let step4 = (projects, technologies, tags) => {
+            let regExp = new RegExp(regex, 'gi');
+            res.json(
+                projects.map((project) => ({
+                    ...project._doc,
+                    name: cache.boldText(project.name, regExp),
+                    summary: cache.boldText(
+                        project.summary,
+                        regExp
+                    ),
+                    technologies: project.technologies.map(
+                        (i) => technologies.mapping[i]
+                    ),
+                    tags: project.tags.map(
+                        (i) => tags.mapping[i]
+                    ),
+                }))
+            );
+        };
+        categorize(models, res, step1);
     },
     page: (
         res,
@@ -18,29 +74,18 @@ module.exports = projects = {
         } = {}
     ) => {
         let step1 = (categories) => {
-            let query = projects.query(stacks);
+            let query = query(stacks);
             if (category !== 'all') {
                 query = {
                     ...query,
                     ...db.isIn('_id', categories[category]),
                 };
             }
-            models.Project.find(res, step2, {
-                query: query,
-                sort: {
-                    name: sortDir === 'ascending' ? 1 : -1,
-                },
-                skip: (page - 1) * 10,
-                limit: 10,
-                select: {
-                    gallery: 0,
-                    tags: 0,
-                    description: 0,
-                    updated: 0,
-                    created: 0,
-                    __v: 0,
-                },
-            });
+            models.Project.find(
+                res,
+                step2,
+                findParams(query, sortDir, page)
+            );
         };
         let step2 = (projects) => {
             cache.mapAction(models, 'Technology', res, (data) =>
@@ -59,24 +104,68 @@ module.exports = projects = {
             });
             res.json(result);
         };
-        projects.categorize(models, res, step1);
+        categorize(models, res, step1);
     },
-    categorize: (models, res, action) => {
-        let next = (data) => {
-            action(data);
+};
+
+const query = (stacks) => {
+    return stacks === null
+        ? {}
+        : db.isIn('technologies', stacks);
+};
+const searchQuery = (term, stacks, tech, tags) => {
+    let terms = term.split(/\s+/g);
+    let regex = `(${terms.join('|')})`;
+    let query = db.or([
+        db.regex('name', regex, 'ig'),
+        db.regex('summary', regex, 'ig'),
+        db.isIn('technologies', tech),
+        db.isIn('tags', tags),
+    ]);
+    if (stacks !== null) {
+        query = {
+            ...query,
+            ...db.isIn('technologies', stacks),
         };
-        cache.mapAction(
-            models,
-            'Category',
-            res,
-            next,
-            {
-                name: 0,
-                description: 0,
-                base_url: 0,
-                icon_class: 0,
-            },
-            (entry) => entry.projects
-        );
-    },
+    }
+    return query;
+};
+const categorize = (models, res, action) => {
+    let next = (data) => {
+        action(data);
+    };
+    cache.mapAction(
+        models,
+        'Category',
+        res,
+        next,
+        {
+            name: 0,
+            description: 0,
+            base_url: 0,
+            icon_class: 0,
+        },
+        (entry) => entry.projects
+    );
+};
+const findParams = (query, sortDir, page, isSearch = false) => {
+    let params = {
+        query: query,
+        sort: {
+            name: sortDir === 'ascending' ? 1 : -1,
+        },
+        skip: (page - 1) * 10,
+        limit: 10,
+        select: {
+            gallery: 0,
+            description: 0,
+            updated: 0,
+            created: 0,
+            __v: 0,
+        },
+    };
+    if (!isSearch) {
+        params.select.tags = 0;
+    }
+    return params;
 };
