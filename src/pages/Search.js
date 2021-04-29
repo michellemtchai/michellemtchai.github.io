@@ -9,7 +9,8 @@ const ProjectList = lazy(() =>
 class Search extends React.Component {
     state = initialState(this.props);
     render() {
-        let pages = this.state.filtered.results;
+        let results = this.state.filtered.results;
+        console.log('results', this.props.data);
         let total = this.state.filtered.total;
         return (
             <Items
@@ -17,7 +18,8 @@ class Search extends React.Component {
                 name="Project"
                 searchterm={this.state.term}
                 list={ProjectList}
-                pages={pages}
+                pages={this.state.pages}
+                results={results}
                 total={total}
                 baseUrl={baseUrl(this.props, this.state)}
                 filter={this.state}
@@ -34,8 +36,9 @@ export default Search;
 const initialState = (props) => {
     let search = props.search;
     let term = decodeURIComponent(props.match.params.term);
-    let results = searchResults(props, term);
-    let [stacks, selectedStacks] = getStacks(props, results);
+    let results = props.data;
+    let stacks = [];
+    // let [stacks, selectedStacks] = getStacks(props, results);
     let defaultState = {
         term: term,
         sortBy: 'relevance',
@@ -45,8 +48,8 @@ const initialState = (props) => {
         filtered: {
             total: results.length,
             results: results,
-            stacks: selectedStacks,
-            defStacks: selectedStacks,
+            stacks: stacks,
+            defStacks: stacks,
         },
     };
     return search ? search : defaultState;

@@ -120,11 +120,14 @@ const searchRoute = (keyName, range) => {
         component: Component,
         icon: 'fas fa-search',
         apiRoute: (props) => {
+            let term = encodeURIComponent(
+                props.match.params.term
+            );
             let page = props.match.params.page
                 ? encodeURIComponent(props.match.params.page)
                 : 1;
-            let category = encodeURIComponent(props.keyName);
-            return `/projects?page=${page}&category=${category}`;
+            let category = encodeURIComponent(keyName);
+            return `/projects/search/${term}?page=${page}&category=${category}`;
         },
         exact: true,
         description: 'Projects associated with the search term.',

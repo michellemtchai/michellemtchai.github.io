@@ -32,6 +32,7 @@ module.exports = projects = {
         let step3 = (technologies, tags, categories) => {
             let query = searchQuery(
                 regex,
+                categories[category],
                 stacks,
                 technologies.selected,
                 tags.selected
@@ -74,13 +75,10 @@ module.exports = projects = {
         } = {}
     ) => {
         let step1 = (categories) => {
-            let query = query(stacks);
-            if (category !== 'all') {
-                query = {
-                    ...query,
-                    ...db.isIn('_id', categories[category]),
-                };
-            }
+            let query = queryStacks(
+                categories[category],
+                stacks
+            );
             models.Project.find(
                 res,
                 step2,
@@ -108,12 +106,23 @@ module.exports = projects = {
     },
 };
 
-const query = (stacks) => {
-    return stacks === null
-        ? {}
-        : db.isIn('technologies', stacks);
+const queryStacks = (category, stacks) => {
+    let query = {};
+    if (category !== 'all') {
+        query = {
+            ...query,
+            ...db.isIn('_id', category),
+        };
+    }
+    if (stacks !== null) {
+        query = {
+            ...query,
+            ...db.isIn('technologies', stacks),
+        };
+    }
+    return query;
 };
-const searchQuery = (term, stacks, tech, tags) => {
+const searchQuery = (term, category, stacks, tech, tags) => {
     let terms = term.split(/\s+/g);
     let regex = `(${terms.join('|')})`;
     let query = db.or([
@@ -122,6 +131,12 @@ const searchQuery = (term, stacks, tech, tags) => {
         db.isIn('technologies', tech),
         db.isIn('tags', tags),
     ]);
+    if (category !== 'all') {
+        query = {
+            ...query,
+            ...db.isIn('_id', category),
+        };
+    }
     if (stacks !== null) {
         query = {
             ...query,
