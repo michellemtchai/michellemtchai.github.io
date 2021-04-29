@@ -35,9 +35,8 @@ export default Search;
 const initialState = (props) => {
     let search = props.search;
     let term = decodeURIComponent(props.match.params.term);
-    let results = props.data;
+    let results = props.data.projects;
     let stacks = [];
-    // let [stacks, selectedStacks] = getStacks(props, results);
     let defaultState = {
         term: term,
         sortBy: 'relevance',

@@ -45,22 +45,16 @@ module.exports = projects = {
         };
         let step4 = (projects, technologies, tags) => {
             let regExp = new RegExp(regex, 'gi');
-            res.json(
-                projects.map((project) => ({
-                    ...project._doc,
-                    name: cache.boldText(project.name, regExp),
-                    summary: cache.boldText(
-                        project.summary,
-                        regExp
-                    ),
-                    technologies: project.technologies.map(
-                        (i) => technologies.mapping[i]
-                    ),
-                    tags: project.tags.map(
-                        (i) => tags.mapping[i]
-                    ),
-                }))
-            );
+            let result = projects.map((project) => ({
+                ...project._doc,
+                name: cache.boldText(project.name, regExp),
+                summary: cache.boldText(project.summary, regExp),
+            }));
+            res.json({
+                projects: result,
+                technologies: technologies.mapping,
+                tags: tags.mapping,
+            });
         };
         categorize(models, res, step1);
     },
@@ -91,16 +85,10 @@ module.exports = projects = {
             );
         };
         let step3 = (technologies, projects) => {
-            let result = [];
-            projects.forEach((project) => {
-                result.push({
-                    ...project._doc,
-                    technologies: project.technologies.map(
-                        (i) => technologies[i]
-                    ),
-                });
+            res.json({
+                projects: projects,
+                technologies: technologies,
             });
-            res.json(result);
         };
         categorize(models, res, step1);
     },

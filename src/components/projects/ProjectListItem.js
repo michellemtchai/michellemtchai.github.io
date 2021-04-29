@@ -11,7 +11,10 @@ class ProjectListItem extends React.Component {
     };
     render() {
         let project = this.props.project;
-        let technologies = this.props.state.technologies;
+        let technologies = this.props.data.technologies;
+        let tech = project.technologies.map(
+            (j) => technologies[j]
+        );
         let alt = `Preview of ${project.name}`;
         let title = `See details about ${project.name}`;
         let className = project.demo_url ? 'demo' : '';
@@ -51,7 +54,7 @@ class ProjectListItem extends React.Component {
                         </section>
                         <TechList
                             {...this.props}
-                            tech={project.technologies}
+                            tech={tech}
                             clickable={false}
                         />
                     </section>

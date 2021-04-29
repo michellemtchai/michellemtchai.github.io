@@ -38,7 +38,7 @@ export default Projects;
 const initialState = (props) => {
     let search = props.search;
     let projects = props.projects[props.keyName];
-    let data = props.data;
+    let data = props.data.projects;
     let pages = Math.ceil(props.data.length / 10);
     let stacks = [];
     let defaultState = {
