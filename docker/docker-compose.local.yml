@@ -37,3 +37,16 @@ services:
             GITHUB_EMAIL: ${GITHUB_EMAIL}
             GITHUB_USERNAME: ${GITHUB_USERNAME}
             GITHUB_TOKEN: ${GITHUB_TOKEN}
+        depends_on:
+            - mongodb
+    mongodb:
+        image: mongo
+        ports:
+            - ${DB_PORT}:${DB_PORT}
+        volumes:
+            - db_data:/data/db
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: ${DB_USERNAME}
+            MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
+volumes:
+    db_data:

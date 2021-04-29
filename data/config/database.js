@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 module.exports = (app, actions) => {
     let {
+        DB_TYPE,
         DB_USERNAME,
         DB_PASSWORD,
         DB_HOST,
@@ -9,7 +10,11 @@ module.exports = (app, actions) => {
         DB_DATA,
     } = process.env;
 
-    let mongoUri = `mongodb://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_DATA}?authSource=admin`;
+    let mainUri =
+        DB_PORT !== ''
+            ? `${DB_HOST}:${DB_PORT}/${DB_DATA}`
+            : `${DB_HOST}/${DB_DATA}`;
+    let mongoUri = `${DB_TYPE}://${DB_USERNAME}:${DB_PASSWORD}@${mainUri}?authSource=admin&retryWrites=true&w=majority`;
     mongoose
         .connect(mongoUri, {
             useNewUrlParser: true,
