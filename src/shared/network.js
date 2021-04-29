@@ -1,7 +1,7 @@
 export const fetchAPIData = (
     props,
     url,
-    { method, params, setState, formatData, next } = {}
+    { method, params, setState, setError, formatData, next } = {}
 ) => {
     fetchData(
         baseUrl + url,
@@ -9,6 +9,7 @@ export const fetchAPIData = (
             method: method,
             params: params,
             setState: setState,
+            setError: setError,
             formatData: formatData,
             next: next,
         })
@@ -25,14 +26,15 @@ const fetchConfig = (
     {
         method = 'GET',
         params = {},
-        setState: setState,
+        setState = setState,
+        setError,
         formatData = (data) => data,
         next = null,
     } = {}
 ) => {
     return {
         setState: setState,
-        setError: props.setError,
+        setError: setError ? setError : props.setError,
         fetching: props.startFetching,
         formatData: formatData,
         method: method,

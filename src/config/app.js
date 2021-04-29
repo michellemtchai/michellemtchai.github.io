@@ -46,10 +46,15 @@ class App extends React.Component {
                 goToPage(decodeURIComponent(redirect));
             }
         };
+        let setError = (data) => {
+            this.props.setRoutes(routes(this.props));
+            this.props.setError(data);
+        };
         if (!this.props.state.categories) {
             fetchAPIData(this.props, '/categories', {
                 method: 'GET',
                 setState: this.props.setData,
+                setError: setError,
                 next: next,
                 formatData: (data) => {
                     return {
@@ -62,8 +67,8 @@ class App extends React.Component {
 
     render() {
         let routes = this.props.routes;
-        let setupDone = this.props.state.categories;
-        return setupDone ? (
+        console.log('routes', routes);
+        return (
             <>
                 {Object.keys(routes).length > 0 ? (
                     <Switch>
@@ -75,8 +80,6 @@ class App extends React.Component {
                     ''
                 )}
             </>
-        ) : (
-            <Spinner />
         );
     }
 }

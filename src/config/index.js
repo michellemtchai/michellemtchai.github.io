@@ -8,9 +8,11 @@ const NotFound = lazy(() => import('../pages/NotFound'));
 export const navlinks = (props) => {
     let labels = props.state.categories;
     let links = ['/'];
-    Object.keys(labels).forEach((key) => {
-        links.push(labels[key].base_url);
-    });
+    if (labels) {
+        Object.keys(labels).forEach((key) => {
+            links.push(labels[key].base_url);
+        });
+    }
     return links;
 };
 
@@ -64,51 +66,58 @@ export const routeKey = (props, location) => {
 
 const setupCategoriesSearch = (props) => {
     let labels = props.state.categories;
-    let categories = {};
-    let search = {};
-    search['/all/search/:term'] = searchRoute('all', '/all');
-    search['/all/search/:term/page/:page'] =
-        search['/all/search/:term'];
-    Object.keys(labels).forEach((key) => {
-        let label = labels[key];
-        let pagesUrl = `${label.base_url}/page`;
-        let searchUrl = `${label.base_url}/search/:term`;
-        search[searchUrl] = searchRoute(
-            label._id,
-            label.base_url
-        );
-        search[`${searchUrl}/page/:page`] = search[searchUrl];
-        let Component = (props) => (
-            <Projects
-                baseUrl={pagesUrl}
-                range={label.base_url}
-                keyName={label._id}
-                {...props}
-            />
-        );
-        categories[label.base_url] = {
-            title: label.name,
-            component: Component,
-            icon: label.icon_class,
-            apiRoute: (props) => {
-                let page = props.match.params.page
-                    ? encodeURIComponent(props.match.params.page)
-                    : 1;
-                let category = encodeURIComponent(label._id);
-                return `/projects?page=${page}&category=${category}`;
-            },
-            exact: true,
-            description: label.description,
-            children: [
-                ...categoryProjects(label),
-                searchUrl,
-                `${searchUrl}/page/:page`,
-            ],
-        };
-        categories[`${pagesUrl}/:page`] =
-            categories[label.base_url];
-    });
-    return [categories, search];
+    if (!labels) {
+        return [{}, {}];
+    } else {
+        let categories = {};
+        let search = {};
+        search['/all/search/:term'] = searchRoute('all', '/all');
+        search['/all/search/:term/page/:page'] =
+            search['/all/search/:term'];
+        Object.keys(labels).forEach((key) => {
+            let label = labels[key];
+            let pagesUrl = `${label.base_url}/page`;
+            let searchUrl = `${label.base_url}/search/:term`;
+            search[searchUrl] = searchRoute(
+                label._id,
+                label.base_url
+            );
+            search[`${searchUrl}/page/:page`] =
+                search[searchUrl];
+            let Component = (props) => (
+                <Projects
+                    baseUrl={pagesUrl}
+                    range={label.base_url}
+                    keyName={label._id}
+                    {...props}
+                />
+            );
+            categories[label.base_url] = {
+                title: label.name,
+                component: Component,
+                icon: label.icon_class,
+                apiRoute: (props) => {
+                    let page = props.match.params.page
+                        ? encodeURIComponent(
+                              props.match.params.page
+                          )
+                        : 1;
+                    let category = encodeURIComponent(label._id);
+                    return `/projects?page=${page}&category=${category}`;
+                },
+                exact: true,
+                description: label.description,
+                children: [
+                    ...categoryProjects(label),
+                    searchUrl,
+                    `${searchUrl}/page/:page`,
+                ],
+            };
+            categories[`${pagesUrl}/:page`] =
+                categories[label.base_url];
+        });
+        return [categories, search];
+    }
 };
 
 const searchRoute = (keyName, range) => {
