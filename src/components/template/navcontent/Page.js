@@ -1,5 +1,6 @@
 import React, { lazy } from 'react';
 import { fetchAPIData } from '../../../shared/network';
+import NotFound from '../../../pages/NotFound';
 import Spinner from '../../../pages/Spinner';
 import Error from '../error/Error';
 
@@ -55,7 +56,9 @@ class Page extends React.Component {
                 </div>
             )
         ) : (
-            <Error text={error} />
+            <Error text={error}>
+                <NotFound {...this.props} />
+            </Error>
         );
     }
 }

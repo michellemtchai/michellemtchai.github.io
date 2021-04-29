@@ -4,9 +4,12 @@ import React from 'react';
 class Error extends React.Component {
     render() {
         return (
-            <ul className="error">
-                <li>{this.props.text}</li>
-            </ul>
+            <div className="error-body">
+                <ul className="error">
+                    <li>{this.props.text}</li>
+                </ul>
+                {this.props.children}
+            </div>
         );
     }
 }

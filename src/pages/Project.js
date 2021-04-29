@@ -14,12 +14,11 @@ const Gallery = lazy(() =>
 const Markdown = lazy(() =>
     import('../components/project/markdown/Markdown')
 );
-const NotFound = lazy(() => import('./NotFound'));
 
 class Project extends React.Component {
     render() {
         let project = this.props.data;
-        return project ? (
+        return (
             <article className="page-body">
                 <SearchBar
                     {...this.props}
@@ -29,8 +28,6 @@ class Project extends React.Component {
                 <ProjectInfo project={project} {...this.props} />
                 <Tabs tabs={tabData(project)} />
             </article>
-        ) : (
-            <NotFound {...this.props} />
         );
     }
 }
