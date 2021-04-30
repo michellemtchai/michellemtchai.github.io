@@ -1,7 +1,6 @@
 const Controller = require('../classes/Controller');
 const dataProc = require('../helpers/data');
 const projects = require('../helpers/projects');
-const cache = require('../helpers/cache');
 const db = require('../helpers/db');
 
 module.exports = class ProjectsController extends Controller {
@@ -44,12 +43,12 @@ module.exports = class ProjectsController extends Controller {
             this.renderError(res, err);
         } else {
             this.Project.aggregate(res, next, [
-                lookupId('technologies'),
-                lookupId('tags'),
+                db.lookupModelById('technologies'),
+                db.lookupModelById('tags'),
                 db.match({
                     _id: id,
                 }),
-                db.project(db.defSelect),
+                db.project(),
             ]);
         }
     };
@@ -64,23 +63,5 @@ module.exports = class ProjectsController extends Controller {
 
     destroy = (req, res) => {
         dataProc.removeDbModel(this, req, res, this.Project);
-    };
-};
-
-const lookupId = (modelName, select = db.defSelect) => {
-    return {
-        $lookup: {
-            from: modelName,
-            let: {
-                attr: `$${modelName}`,
-            },
-            pipeline: [
-                db.matchExpr({
-                    $in: ['$_id', '$$attr'],
-                }),
-                db.project(select),
-            ],
-            as: modelName,
-        },
     };
 };

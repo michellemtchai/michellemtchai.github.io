@@ -6,6 +6,13 @@ module.exports = db = {
         created: 0,
         updated: 0,
     },
+    hideAttr: (hideList, useDefSelect = true) => {
+        let select = useDefSelect ? { ...db.defSelect } : {};
+        hideList.forEach((entry) => {
+            select[entry] = 0;
+        });
+        return select;
+    },
     invalidObjectId: (id) => {
         return {
             message: `Invalid ObjectId: ${id}`,
@@ -66,9 +73,42 @@ module.exports = db = {
             },
         };
     },
-    project: (select) => {
+    project: (hideList = [], useDefSelect = true) => {
         return {
-            $project: select,
+            $project: db.hideAttr(hideList, useDefSelect),
         };
+    },
+    lookupModelById: (
+        modelName,
+        select = [],
+        sort = null,
+        limit = null
+    ) => {
+        let result = {
+            $lookup: {
+                from: modelName,
+                let: {
+                    attr: `$${modelName}`,
+                },
+                pipeline: [
+                    db.matchExpr({
+                        $in: ['$_id', '$$attr'],
+                    }),
+                    db.project(select),
+                ],
+                as: modelName,
+            },
+        };
+        if (sort) {
+            result.$lookup.pipeline.push({
+                $sort: sort,
+            });
+        }
+        if (limit) {
+            result.$lookup.pipeline.push({
+                $limit: limit,
+            });
+        }
+        return result;
     },
 };
