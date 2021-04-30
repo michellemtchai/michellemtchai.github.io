@@ -31,6 +31,9 @@ module.exports = class ApplicationController extends Controller {
                     4
                 ),
                 db.project(categorySelect),
+                db.sort({
+                    _id: 1,
+                }),
             ]);
         }
     };

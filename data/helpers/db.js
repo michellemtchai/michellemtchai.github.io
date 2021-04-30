@@ -100,15 +100,21 @@ module.exports = db = {
             },
         };
         if (sort) {
-            result.$lookup.pipeline.push({
-                $sort: sort,
-            });
+            result.$lookup.pipeline.push(db.sort(sort));
         }
         if (limit) {
-            result.$lookup.pipeline.push({
-                $limit: limit,
-            });
+            result.$lookup.pipeline.push(db.limit(limit));
         }
         return result;
+    },
+    sort: (expression) => {
+        return {
+            $sort: expression,
+        };
+    },
+    limit: (expression) => {
+        return {
+            $limit: expression,
+        };
     },
 };
