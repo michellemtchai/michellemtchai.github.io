@@ -1,6 +1,7 @@
 const Controller = require('../classes/Controller');
 const dataProc = require('../helpers/data');
 const projects = require('../helpers/projects');
+const cache = require('../helpers/cache');
 const db = require('../helpers/db');
 
 module.exports = class ProjectsController extends Controller {
@@ -28,28 +29,45 @@ module.exports = class ProjectsController extends Controller {
     };
 
     show = (req, res) => {
-        let [err, id] = db.toObjectId(req.params.id);
-        let next = (data) => {
-            if (data.length > 0) {
-                res.json(data[0]);
+        let reqId = req.params.id;
+        let cacheData = cache.getCache(reqId);
+        if (cacheData) {
+            if (cacheData.error) {
+                this.renderError(res, cacheData.error);
             } else {
-                this.renderError(
-                    res,
-                    db.invalidObjectId(req.params.id)
-                );
+                res.json(cacheData.data);
             }
-        };
-        if (err) {
-            this.renderError(res, err);
         } else {
-            this.Project.aggregate(res, next, [
-                db.lookupModelById('technologies'),
-                db.lookupModelById('tags'),
-                db.match({
-                    _id: id,
-                }),
-                db.project(),
-            ]);
+            let [err, id] = db.toObjectId(reqId);
+            let next = (data) => {
+                if (data.length > 0) {
+                    cache.setCache(reqId, {
+                        data: data[0],
+                    });
+                    res.json(data[0]);
+                } else {
+                    err = db.invalidObjectId(reqId);
+                    cache.setCache(reqId, {
+                        error: err,
+                    });
+                    this.renderError(res, err);
+                }
+            };
+            if (err) {
+                cache.setCache(reqId, {
+                    error: err,
+                });
+                this.renderError(res, err);
+            } else {
+                this.Project.aggregate(res, next, [
+                    db.lookupModelById('technologies'),
+                    db.lookupModelById('tags'),
+                    db.match({
+                        _id: id,
+                    }),
+                    db.project(),
+                ]);
+            }
         }
     };
 
