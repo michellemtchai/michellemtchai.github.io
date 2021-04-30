@@ -1,7 +1,15 @@
 export const fetchAPIData = (
     props,
     url,
-    { method, params, setState, setError, formatData, next } = {}
+    {
+        method,
+        params,
+        setState,
+        setError,
+        minStored,
+        formatData,
+        next,
+    } = {}
 ) => {
     fetchData(
         baseUrl + url,
@@ -10,6 +18,7 @@ export const fetchAPIData = (
             params: params,
             setState: setState,
             setError: setError,
+            minStored: minStored,
             formatData: formatData,
             next: next,
         })
@@ -28,6 +37,7 @@ const fetchConfig = (
         params = {},
         setState = setState,
         setError,
+        minStored = 0,
         formatData = (data) => data,
         next = null,
     } = {}
@@ -37,6 +47,7 @@ const fetchConfig = (
         setError: setError ? setError : props.setError,
         fetching: props.startFetching,
         formatData: formatData,
+        minStored: minStored,
         method: method,
         params: params,
         next: next ? next : (data) => {},
@@ -45,33 +56,67 @@ const fetchConfig = (
 
 export const fetchData = (url, config) => {
     url = setUpURL(url, config);
-    let error = false;
-    fetch(url, fetchInterface(config))
-        .then((res) => {
-            if (res.status != 200) {
-                if (res.status == 404) {
-                    error = true;
-                    return res.json();
+    let cacheData = localStorage.getItem(url);
+    if (
+        cacheData &&
+        config.method === 'GET' &&
+        config.minStored > 0
+    ) {
+        let data = JSON.parse(cacheData);
+        if (timeDiffMinutes(data.date) > config.minStored) {
+            localStorage.removeItem(url);
+            fetchData(url, config);
+        } else {
+            let formattedData = data.data;
+            twoStep(
+                (resolve) =>
+                    config.setState(formattedData, resolve),
+                () => config.next(formattedData),
+                config.setError
+            );
+        }
+    } else {
+        let error = false;
+        fetch(url, fetchInterface(config))
+            .then((res) => {
+                if (res.status != 200) {
+                    if (res.status == 404) {
+                        error = true;
+                        return res.json();
+                    }
+                    throw Error(res.statusText);
                 }
-                throw Error(res.statusText);
-            }
-            return res.json();
-        })
-        .then((data) => {
-            if (!error) {
-                data = config.formatData(data);
-                twoStep(
-                    (resolve) => config.setState(data, resolve),
-                    () => config.next(data),
-                    config.setError
-                );
-            } else {
-                config.setError(data.message);
-            }
-        })
-        .catch((error) => {
-            config.setError(error.message);
-        });
+                return res.json();
+            })
+            .then((data) => {
+                if (!error) {
+                    data = config.formatData(data);
+                    if (
+                        config.method === 'GET' &&
+                        config.minStored > 0
+                    ) {
+                        localStorage.setItem(
+                            url,
+                            JSON.stringify({
+                                date: Date.now(),
+                                data: data,
+                            })
+                        );
+                    }
+                    twoStep(
+                        (resolve) =>
+                            config.setState(data, resolve),
+                        () => config.next(data),
+                        config.setError
+                    );
+                } else {
+                    config.setError(data.message);
+                }
+            })
+            .catch((error) => {
+                config.setError(error.message);
+            });
+    }
 };
 
 const twoStep = (action1, action2, setError) => {
@@ -122,4 +167,13 @@ export const paramsToQueryString = (params) => {
                 )}`
         )
         .join('&');
+};
+
+const oneSecond = 1000;
+const oneMinute = 60 * oneSecond;
+const oneHour = 60 * oneMinute;
+const oneDay = 24 * oneHour;
+export const timeDiffMinutes = (date) => {
+    let diffMs = new Date() - date;
+    return Math.round(((diffMs % oneDay) % oneHour) / oneMinute);
 };
