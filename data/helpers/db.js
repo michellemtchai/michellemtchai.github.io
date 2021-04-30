@@ -1,4 +1,23 @@
+const ObjectId = require('mongodb').ObjectID;
+
 module.exports = db = {
+    defSelect: {
+        __v: 0,
+        created: 0,
+        updated: 0,
+    },
+    invalidObjectId: (id) => {
+        return {
+            message: `Invalid ObjectId: ${id}`,
+        };
+    },
+    toObjectId: (id) => {
+        try {
+            return [null, ObjectId(id)];
+        } catch (err) {
+            return [db.invalidObjectId(id), null];
+        }
+    },
     equals: (key, value) => {
         return { [key]: value };
     },
@@ -26,10 +45,30 @@ module.exports = db = {
     or: (arrayConditions) => {
         return { $or: arrayConditions };
     },
+    and: (arrayConditions) => {
+        return { $and: arrayConditions };
+    },
     not: (arrayConditions) => {
         return { $not: arrayConditions };
     },
     regex: (key, regex, options) => {
         return { [key]: { $regex: regex, $options: options } };
+    },
+    match: (expression) => {
+        return {
+            $match: expression,
+        };
+    },
+    matchExpr: (expression) => {
+        return {
+            $match: {
+                $expr: expression,
+            },
+        };
+    },
+    project: (select) => {
+        return {
+            $project: select,
+        };
     },
 };

@@ -80,18 +80,48 @@ module.exports = projects = {
             );
         };
         let step2 = (projects) => {
-            cache.mapAction(models, 'Technology', res, (data) =>
-                step3(data, projects)
+            getTechStacks(
+                res,
+                models.Technology,
+                projects,
+                (tech, stacks) => step3(tech, stacks, projects)
             );
         };
-        let step3 = (technologies, projects) => {
+        let step3 = (tech, stacks, projects) => {
             res.json({
                 projects: projects,
-                technologies: technologies,
+                technologies: tech,
+                stacks: stacks,
             });
         };
         categorize(models, res, step1);
     },
+};
+
+const getTechStacks = (res, model, projects, action) => {
+    let stacks = {};
+    projects.forEach((i) => {
+        i.technologies.forEach((key) => {
+            if (!stacks[key]) {
+                stacks[key] = 1;
+            } else {
+                stacks[key]++;
+            }
+        });
+    });
+    let next = (data) => {
+        let mapping = {};
+        data.forEach((i) => (mapping[i._id] = i));
+        action(mapping, stacks);
+    };
+    model.find(res, next, {
+        query: db.isIn('_id', Object.keys(stacks)),
+        select: {
+            __v: 0,
+            created: 0,
+            updated: 0,
+        },
+    });
 };
 
 const queryStacks = (category, stacks) => {

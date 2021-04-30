@@ -2,6 +2,7 @@ const Controller = require('../classes/Controller');
 const dataProc = require('../helpers/data');
 const projects = require('../helpers/projects');
 const cache = require('../helpers/cache');
+const db = require('../helpers/db');
 
 module.exports = class ProjectsController extends Controller {
     Project = this.models['Project'];
@@ -28,33 +29,29 @@ module.exports = class ProjectsController extends Controller {
     };
 
     show = (req, res) => {
-        let step1 = (project) => {
-            cache.mapAction(
-                this.models,
-                'Technology',
-                res,
-                (data) => step2(data, project)
-            );
+        let [err, id] = db.toObjectId(req.params.id);
+        let next = (data) => {
+            if (data.length > 0) {
+                res.json(data[0]);
+            } else {
+                this.renderError(
+                    res,
+                    db.invalidObjectId(req.params.id)
+                );
+            }
         };
-        let step2 = (technologies, project) => {
-            cache.mapAction(this.models, 'Tag', res, (data) =>
-                step3(data, technologies, project)
-            );
-        };
-        let step3 = (tags, technologies, project) => {
-            res.json({
-                ...project._doc,
-                tags: project.tags.map((i) => tags[i]),
-                technologies: project.technologies.map(
-                    (i) => technologies[i]
-                ),
-            });
-        };
-        this.Project.findById(res, req.params.id, step1, {
-            __v: 0,
-            created: 0,
-            updated: 0,
-        });
+        if (err) {
+            this.renderError(res, err);
+        } else {
+            this.Project.aggregate(res, next, [
+                lookupId('technologies'),
+                lookupId('tags'),
+                db.match({
+                    _id: id,
+                }),
+                db.project(db.defSelect),
+            ]);
+        }
     };
 
     create = (req, res) => {
@@ -67,5 +64,23 @@ module.exports = class ProjectsController extends Controller {
 
     destroy = (req, res) => {
         dataProc.removeDbModel(this, req, res, this.Project);
+    };
+};
+
+const lookupId = (modelName, select = db.defSelect) => {
+    return {
+        $lookup: {
+            from: modelName,
+            let: {
+                attr: `$${modelName}`,
+            },
+            pipeline: [
+                db.matchExpr({
+                    $in: ['$_id', '$$attr'],
+                }),
+                db.project(select),
+            ],
+            as: modelName,
+        },
     };
 };

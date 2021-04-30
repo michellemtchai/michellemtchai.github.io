@@ -30,6 +30,17 @@ module.exports = class Model {
         });
     };
 
+    aggregate = (res, next, query) => {
+        handleDbAction(
+            this,
+            res,
+            next,
+            this.model,
+            'aggregate',
+            [query]
+        );
+    };
+
     find = (
         res,
         next,
