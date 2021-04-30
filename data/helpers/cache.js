@@ -1,13 +1,14 @@
 const NodeCache = require('node-cache');
 const cacheData = new NodeCache();
 const htmlEntities = require('html-entities');
+const oneHour = 3600;
 
 module.exports = cache = {
     getCache: (key) => {
         return cacheData.get(key);
     },
     setCache: (keyName, data) => {
-        cacheData.set(keyName, data);
+        cacheData.set(keyName, data, oneHour);
     },
     mapEntries: (data, formatEntry = null) => {
         let mapping = {};
