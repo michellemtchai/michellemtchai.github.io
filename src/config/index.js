@@ -24,7 +24,7 @@ export const routes = (props) => {
             title: 'Home',
             exact: true,
             icon: 'fas fa-home',
-            apiRoute: (props) => '/',
+            apiRoute: (props) => ['/', {}],
             children: [
                 '/all/search/:term',
                 '/all/search/:term/page/:page',
@@ -38,7 +38,7 @@ export const routes = (props) => {
             icon: 'fas fa-tasks',
             apiRoute: (props) => {
                 let project = props.match.params.project;
-                return `/projects/${project}`;
+                return [`/projects/${project}`, {}];
             },
         },
         '': {
@@ -97,13 +97,13 @@ const setupCategoriesSearch = (props) => {
                 component: Component,
                 icon: label.icon_class,
                 apiRoute: (props) => {
-                    let page = props.match.params.page
-                        ? encodeURIComponent(
-                              props.match.params.page
-                          )
-                        : 1;
-                    let category = encodeURIComponent(label._id);
-                    return `/projects?page=${page}&category=${category}`;
+                    let params = {
+                        page: props.match.params.page
+                            ? props.match.params.page
+                            : 1,
+                        category: label._id,
+                    };
+                    return [`/projects`, params];
                 },
                 exact: true,
                 description: label.description,
@@ -132,11 +132,13 @@ const searchRoute = (keyName, range) => {
             let term = encodeURIComponent(
                 props.match.params.term
             );
-            let page = props.match.params.page
-                ? encodeURIComponent(props.match.params.page)
-                : 1;
-            let category = encodeURIComponent(keyName);
-            return `/projects/search/${term}?page=${page}&category=${category}`;
+            let params = {
+                page: props.match.params.page
+                    ? props.match.params.page
+                    : 1,
+                category: keyName,
+            };
+            return [`/projects/search/${term}`, params];
         },
         exact: true,
         description: 'Projects associated with the search term.',

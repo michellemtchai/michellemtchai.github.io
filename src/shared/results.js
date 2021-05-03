@@ -1,4 +1,3 @@
-import { initialState } from '../reducers/search';
 import { goToPage } from './router';
 
 export const filterData = (data, state) => {
@@ -38,22 +37,16 @@ const containsStacks = (entry, state) => {
     return false;
 };
 export const updateFilter = (component, value) => {
-    let results = filterData(value.results, value);
-    let state = {
-        ...value,
-        filtered: {
-            ...value.filtered,
-            total: results.length,
-            results: results,
-        },
-    };
+    // let results = filterData(value.results, value);
+    let state = value;
     let range = component.props.range;
     let term = state.term;
     let url =
         term === undefined ? range : `${range}/search/${term}`;
-    component.props.setSearch(state);
+    component.props.setResults(state);
     goToPage(url);
 };
+
 export const resetResults = (props) => {
-    props.setSearch(initialState);
+    props.setResults(null);
 };

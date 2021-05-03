@@ -33,7 +33,7 @@ class Search extends React.Component {
 export default Search;
 
 const initialState = (props) => {
-    let search = props.search;
+    let search = props.results;
     let term = decodeURIComponent(props.match.params.term);
     let results = props.data.projects;
     let stacks = [];
@@ -43,6 +43,7 @@ const initialState = (props) => {
         sortDir: 'ascending',
         results: results,
         stacks: stacks,
+        total: results.length,
         filtered: {
             total: results.length,
             results: results,

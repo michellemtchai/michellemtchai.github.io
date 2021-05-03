@@ -22,18 +22,18 @@ class Page extends React.Component {
             this.props.route.apiRoute !== undefined &&
             this.props.state.error === ''
         ) {
-            fetchAPIData(
-                this.props,
-                this.props.route.apiRoute(this.props),
-                {
-                    method: 'GET',
-                    setState: this.updateState,
-                    formatData: (data) => ({
-                        data: data,
-                    }),
-                    minStored: 10,
-                }
+            let [route, params] = this.props.route.apiRoute(
+                this.props
             );
+            fetchAPIData(this.props, route, {
+                method: 'GET',
+                params: params,
+                setState: this.updateState,
+                formatData: (data) => ({
+                    data: data,
+                }),
+                minStored: 10,
+            });
         }
     }
     componentWillUnmount() {
