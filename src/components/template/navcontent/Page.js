@@ -32,7 +32,7 @@ class Page extends React.Component {
                 formatData: (data) => ({
                     data: data,
                 }),
-                minStored: 10,
+                // minStored: 10,
             });
         }
     }

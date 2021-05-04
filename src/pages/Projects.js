@@ -1,4 +1,5 @@
 import React, { lazy } from 'react';
+import Spinner from '../pages/Spinner';
 import { formatPages } from '../shared/pages';
 import { filterData, updateFilter } from '../shared/results';
 const Items = lazy(() => import('../components/items/Items'));
@@ -7,28 +8,23 @@ const ProjectList = lazy(() =>
 );
 
 class Projects extends React.Component {
-    state = initialState(this.props);
-    componentDidUpdate(prevProps) {
-        if (prevProps.data != this.props.data) {
-            this.setState(initialState(this.props));
+    componentDidMount() {
+        if (!this.props.results) {
+            this.props.setResults(initialState(this.props));
         }
     }
     render() {
-        let results = this.state.filtered.results;
-        let total = this.state.filtered.total;
-        return (
+        return this.props.results ? (
             <Items
                 {...this.props}
                 name="Project"
                 list={ProjectList}
-                pages={this.state.pages}
-                results={results}
-                total={total}
-                filter={this.state}
                 updateFilter={(value) =>
                     updateFilter(this, value)
                 }
             />
+        ) : (
+            <Spinner />
         );
     }
 }
@@ -44,12 +40,10 @@ const initialState = (props) => {
     let defaultState = {
         sortBy: 'name',
         sortDir: 'ascending',
-        results: data,
+        data: data,
         pages: pages,
         stacks: stacks,
         filtered: {
-            total: projects.length,
-            results: data,
             stacks: stacks,
             defStacks: stacks,
         },

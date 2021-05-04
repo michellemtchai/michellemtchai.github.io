@@ -56,7 +56,7 @@ class App extends React.Component {
                 setState: this.props.setData,
                 setError: setError,
                 next: next,
-                minStored: 10,
+                // minStored: 10,
                 formatData: (data) => {
                     return {
                         categories: data,

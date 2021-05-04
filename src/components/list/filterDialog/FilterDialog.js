@@ -8,7 +8,7 @@ const Button = lazy(() =>
 import { sortByOptions, sortDirOptions } from './constants';
 
 class FilterDialog extends React.Component {
-    state = this.props.filter;
+    state = this.props.results;
     updateSortBy = (event) => {
         this.setState({
             ...this.state,
