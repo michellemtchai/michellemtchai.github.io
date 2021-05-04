@@ -17,6 +17,9 @@ module.exports = class CategoriesController extends Controller {
         let next = (i) => res.json(i);
         this.Category.find(res, next, {
             select: db.defSelect,
+            sort: {
+                _id: 1,
+            },
         });
     };
 
