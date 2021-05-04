@@ -11,17 +11,6 @@ class Projects extends React.Component {
     componentDidMount() {
         if (!this.props.results) {
             this.props.setResults(initialState(this.props));
-        } else {
-            // let data = this.props.results.data;
-            // let projects = this.props.data.projects;
-            // if (
-            //     JSON.stringify(data) !== JSON.stringify(projects)
-            // ) {
-            //     this.props.setResults({
-            //         ...this.props.results,
-            //         data: data,
-            //     });
-            // }
         }
     }
     render() {
