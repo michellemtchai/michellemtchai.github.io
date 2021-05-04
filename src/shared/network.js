@@ -26,9 +26,9 @@ export const fetchAPIData = (
 };
 
 const baseUrl =
-    process.env.NODE_ENV == 'development'
+    process.env.NODE_ENV === 'development'
         ? `http://localhost:${process.env.REACT_APP_PORT}`
-        : '';
+        : process.env.REACT_APP_DATA_LOCATION;
 
 const fetchConfig = (
     props,
