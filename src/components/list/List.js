@@ -20,7 +20,7 @@ class List extends React.Component {
     };
     render() {
         let page = this.props.page;
-        let items = this.props.results.data;
+        let items = this.props.data[this.props.type];
         let className = this.props.clickable
             ? 'items clickable'
             : 'items';

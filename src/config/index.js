@@ -103,6 +103,14 @@ const setupCategoriesSearch = (props) => {
                             : 1,
                         category: label._id,
                     };
+                    let results = props.results;
+                    if (results) {
+                        params = {
+                            ...params,
+                            sortBy: results.sortBy,
+                            sortDir: results.sortDir,
+                        };
+                    }
                     return [`/projects`, params];
                 },
                 exact: true,
@@ -138,6 +146,14 @@ const searchRoute = (keyName, range) => {
                     : 1,
                 category: keyName,
             };
+            let results = props.results;
+            if (results) {
+                params = {
+                    ...params,
+                    sortBy: results.sortBy,
+                    sortDir: results.sortDir,
+                };
+            }
             return [`/projects/search/${term}`, params];
         },
         exact: true,

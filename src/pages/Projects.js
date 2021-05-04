@@ -11,6 +11,17 @@ class Projects extends React.Component {
     componentDidMount() {
         if (!this.props.results) {
             this.props.setResults(initialState(this.props));
+        } else {
+            // let data = this.props.results.data;
+            // let projects = this.props.data.projects;
+            // if (
+            //     JSON.stringify(data) !== JSON.stringify(projects)
+            // ) {
+            //     this.props.setResults({
+            //         ...this.props.results,
+            //         data: data,
+            //     });
+            // }
         }
     }
     render() {
@@ -18,6 +29,7 @@ class Projects extends React.Component {
             <Items
                 {...this.props}
                 name="Project"
+                type="projects"
                 list={ProjectList}
                 updateFilter={(value) =>
                     updateFilter(this, value)
@@ -32,21 +44,23 @@ class Projects extends React.Component {
 export default Projects;
 
 const initialState = (props) => {
-    let search = props.results;
-    let projects = props.projects[props.keyName];
-    let data = props.data.projects;
-    let pages = Math.ceil(props.data.length / 10);
-    let stacks = [];
-    let defaultState = {
-        sortBy: 'name',
-        sortDir: 'ascending',
-        data: data,
-        pages: pages,
-        stacks: stacks,
-        filtered: {
+    let results = props.results;
+    if (results) {
+        return results;
+    } else {
+        let projects = props.projects[props.keyName];
+        let pages = Math.ceil(projects.length / 10);
+        let stacks = [];
+        return {
+            sortBy: 'name',
+            sortDir: 'ascending',
+            pages: pages,
+            total: projects.length,
             stacks: stacks,
-            defStacks: stacks,
-        },
-    };
-    return search ? search : defaultState;
+            filtered: {
+                stacks: stacks,
+                defStacks: stacks,
+            },
+        };
+    }
 };

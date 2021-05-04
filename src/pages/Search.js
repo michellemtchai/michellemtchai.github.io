@@ -19,6 +19,7 @@ class Search extends React.Component {
             <Items
                 {...this.props}
                 name="Project"
+                type="projects"
                 searchterm={results.term}
                 list={ProjectList}
                 baseUrl={baseUrl(this.props, results)}
@@ -35,23 +36,26 @@ class Search extends React.Component {
 export default Search;
 
 const initialState = (props) => {
-    let search = props.results;
-    let term = decodeURIComponent(props.match.params.term);
-    let results = props.data.projects;
-    let stacks = [];
-    let defaultState = {
-        term: term,
-        sortBy: 'relevance',
-        sortDir: 'ascending',
-        data: results,
-        stacks: stacks,
-        pages: 1,
-        filtered: {
+    let results = props.results;
+    if (results) {
+        return results;
+    } else {
+        let term = decodeURIComponent(props.match.params.term);
+        let data = props.data.projects;
+        let stacks = [];
+        return {
+            term: term,
+            sortBy: 'relevance',
+            sortDir: 'ascending',
             stacks: stacks,
-            defStacks: stacks,
-        },
-    };
-    return search ? search : defaultState;
+            total: data.length,
+            pages: 1,
+            filtered: {
+                stacks: stacks,
+                defStacks: stacks,
+            },
+        };
+    }
 };
 
 const baseUrl = (props, state) =>
