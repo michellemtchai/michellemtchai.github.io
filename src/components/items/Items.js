@@ -8,7 +8,7 @@ class Items extends React.Component {
     render() {
         let data = this.props.state[this.props.state.data];
         let page = getPage(this.props);
-        return validPage(data[this.props.type], page) ? (
+        return validPage(this.props.results.pages, page) ? (
             <div className="page-body">
                 <SearchBar
                     {...this.props}

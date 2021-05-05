@@ -6,11 +6,7 @@ export const redirectParam = (props) => {
     }).redirect;
 };
 export const validPage = (pages, page) => {
-    return (
-        Number.isInteger(page) &&
-        page >= 0 &&
-        page < pages.length
-    );
+    return Number.isInteger(page) && page >= 0 && page <= pages;
 };
 export const getPage = (props) => {
     return props.match.params.page
