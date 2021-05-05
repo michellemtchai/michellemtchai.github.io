@@ -116,6 +116,7 @@ const setupCategoriesSearch = (props) => {
                 exact: true,
                 description: label.description,
                 children: [
+                    `${pagesUrl}/:page`,
                     ...categoryProjects(label),
                     searchUrl,
                     `${searchUrl}/page/:page`,
