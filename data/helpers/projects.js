@@ -1,5 +1,6 @@
 const db = require('./db');
 const cache = require('./cache');
+const PAGE_LIMIT = 10;
 
 module.exports = projects = {
     search: (
@@ -92,6 +93,7 @@ module.exports = projects = {
                 projects: projects,
                 technologies: tech,
                 stacks: stacks,
+                limit: PAGE_LIMIT,
             });
         };
         categorize(models, res, step1);
@@ -187,8 +189,8 @@ const findParams = (query, sortDir, page, isSearch = false) => {
         sort: {
             name: sortDir === 'ascending' ? 1 : -1,
         },
-        skip: (page - 1) * 10,
-        limit: 10,
+        skip: (page - 1) * PAGE_LIMIT,
+        limit: PAGE_LIMIT,
         select: {
             gallery: 0,
             description: 0,

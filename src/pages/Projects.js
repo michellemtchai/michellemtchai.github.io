@@ -38,7 +38,9 @@ const initialState = (props) => {
         return results;
     } else {
         let projects = props.projects[props.keyName];
-        let pages = Math.ceil(projects.length / 10);
+        let pages = Math.ceil(
+            projects.length / props.data.limit
+        );
         let stacks = [];
         return {
             sortBy: 'name',
