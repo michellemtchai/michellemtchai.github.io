@@ -1,50 +1,58 @@
 import React, { lazy } from 'react';
-import { fetchAPIData } from '../../../shared/network';
+import {
+    fetchAPIData,
+    paramsToQueryString,
+} from '../../../shared/network';
 import NotFound from '../../../pages/NotFound';
 import Spinner from '../../../pages/Spinner';
 import Error from '../error/Error';
 
 class Page extends React.Component {
-    state = {
-        data: null,
-    };
-    _isMounted = false;
-    updateState = (data, resolve) => {
-        if (this._isMounted) {
-            this.setState(data, () => {
-                resolve(data);
-            });
+    constructRoute = (route, params) => {
+        if (Object.keys(params).length > 0) {
+            route += `?${paramsToQueryString(params)}`;
         }
+        return route;
+    };
+    fetchData = () => {
+        let dataKey = this.props.state.data;
+        let data = this.props.state[dataKey];
+        let fetchDone =
+            dataKey !== null &&
+            (this.props.route.apiRoute === undefined ||
+                data !== null);
+        return [fetchDone, data];
     };
     componentDidMount() {
-        this._isMounted = true;
         if (
             this.props.route.apiRoute !== undefined &&
-            this.props.state.error === ''
+            this.props.state.error === '' &&
+            !this.props.state.data
         ) {
             let [route, params] = this.props.route.apiRoute(
                 this.props
             );
-            fetchAPIData(this.props, route, {
-                method: 'GET',
-                params: params,
-                setState: this.updateState,
-                formatData: (data) => ({
-                    data: data,
-                }),
-                // minStored: 10,
-            });
+            let apiRoute = this.constructRoute(route, params);
+            if (this.props.state[apiRoute]) {
+                this.props.setData({
+                    data: apiRoute,
+                });
+            } else {
+                fetchAPIData(this.props, route, {
+                    method: 'GET',
+                    params: params,
+                    setState: this.props.setData,
+                    formatData: (data) => ({
+                        data: apiRoute,
+                        [apiRoute]: data,
+                    }),
+                });
+            }
         }
     }
-    componentWillUnmount() {
-        this._isMounted = false;
-    }
     render() {
-        let data = this.state.data;
+        let [fetchDone, data] = this.fetchData();
         let error = this.props.state.error;
-        let fetchDone =
-            this.props.route.apiRoute === undefined ||
-            data !== null;
         return error === '' ? (
             fetchDone ? (
                 <this.props.component

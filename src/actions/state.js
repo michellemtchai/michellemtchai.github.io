@@ -1,7 +1,7 @@
 export const SET_DATA = 'SET_DATA';
 export const SET_ERROR = 'SET_ERROR';
 
-const setData = (data, resolve) => {
+const setData = (data, resolve = () => {}) => {
     return {
         type: SET_DATA,
         data: data,

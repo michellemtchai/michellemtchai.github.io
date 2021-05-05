@@ -6,9 +6,15 @@ export const updateFilter = (component, value) => {
     let url = !value.term
         ? range
         : `${range}/search/${value.term}`;
+    component.props.setData({
+        data: null,
+    });
     goToPage(url);
 };
 
 export const resetResults = (props) => {
     props.setResults(null);
+    props.setData({
+        data: null,
+    });
 };

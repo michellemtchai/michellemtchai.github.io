@@ -1,6 +1,7 @@
 import * as actions from '../actions/state';
 
 export const initialState = {
+    data: null,
     error: '',
 };
 

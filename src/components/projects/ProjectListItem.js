@@ -2,11 +2,13 @@ import React, { lazy } from 'react';
 const TechList = lazy(() => import('../techList/TechList'));
 import Image from '../image/Image';
 import { goToPage } from '../../shared/router';
+import { resetResults } from '../../shared/results';
 
 class ProjectListItem extends React.Component {
     project = (event) => {
         event.preventDefault();
         let project = this.props.project;
+        resetResults(this.props);
         goToPage(`/projects/${project._id}`);
     };
     render() {

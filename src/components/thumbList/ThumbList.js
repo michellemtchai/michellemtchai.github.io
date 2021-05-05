@@ -2,10 +2,12 @@ import './index.css';
 import React, { lazy } from 'react';
 const Image = lazy(() => import('../image/Image'));
 import { goToPage } from '../../shared/router';
+import { resetResults } from '../../shared/results';
 
 class ThumbList extends React.Component {
     openPage = (page, event) => {
         event.preventDefault();
+        resetResults(this.props);
         goToPage(page);
     };
     linkWrapper = (props) => {
