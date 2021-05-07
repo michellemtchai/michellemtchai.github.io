@@ -76,19 +76,26 @@ module.exports = projects = {
             );
             models.Project.find(
                 res,
-                step2,
+                (projects) => step2(categories, projects),
                 findParams(query, sortDir, page)
             );
         };
-        let step2 = (projects) => {
-            getTechStacks(
+        let step2 = (categories, projects) => {
+            let cacheKey = `stack:${category}`;
+            getStacks(
                 res,
-                models.Technology,
-                projects,
-                (tech, stacks) => step3(tech, stacks, projects)
+                models.Project,
+                categories[category],
+                cacheKey,
+                (stacks) => step3(stacks, projects)
             );
         };
-        let step3 = (tech, stacks, projects) => {
+        let step3 = (stacks, projects) => {
+            getTechs(res, models.Technology, projects, (tech) =>
+                step4(tech, stacks, projects)
+            );
+        };
+        let step4 = (tech, stacks, projects) => {
             res.json({
                 projects: projects,
                 technologies: tech,
@@ -100,32 +107,54 @@ module.exports = projects = {
     },
 };
 
-const getTechStacks = (res, model, projects, action) => {
-    let stacks = {};
-    projects.forEach((i) => {
-        i.technologies.forEach((key) => {
-            if (!stacks[key]) {
-                stacks[key] = 1;
-            } else {
-                stacks[key]++;
-            }
-        });
-    });
-    let next = (data) => {
-        let mapping = {};
-        data.forEach((i) => (mapping[i._id] = i));
-        action(mapping, stacks);
-    };
-    model.find(res, next, {
-        query: db.isIn('_id', Object.keys(stacks)),
-        select: {
-            __v: 0,
-            created: 0,
-            updated: 0,
-        },
-    });
+const getStacks = (res, model, projects, cacheKey, action) => {
+    let cacheData = cache.getCache(cacheKey);
+    if (cacheData) {
+        action(cacheData);
+    } else {
+        let next = (data) => {
+            cache.setCache(cacheKey, data);
+            action(data);
+        };
+        let query = [
+            db.unwind('$technologies'),
+            db.group('$technologies', db.sum('count')),
+            db.lookupId('technologies', 'temp'),
+            db.unwind('$temp'),
+            {
+                $project: {
+                    _id: 0,
+                    value: '$_id',
+                    label: db.concat([
+                        '$temp.name',
+                        ' (',
+                        db.toString('$count'),
+                        ')',
+                    ]),
+                },
+            },
+        ];
+        if (projects) {
+            query = [
+                db.match(db.isIn('_id', projects)),
+                ...query,
+            ];
+        }
+        model.aggregate(res, next, query);
+    }
 };
 
+const getTechs = (res, model, projects, action) => {
+    let projectIds = [];
+    projects.forEach(
+        (i) => (projectIds = [...projectIds, ...i.technologies])
+    );
+    let query = db.isIn('_id', projectIds);
+    model.find(res, action, {
+        query: query,
+        select: db.defSelect,
+    });
+};
 const queryStacks = (category, stacks) => {
     let query = {};
     if (category) {

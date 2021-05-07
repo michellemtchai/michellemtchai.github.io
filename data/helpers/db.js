@@ -107,6 +107,16 @@ module.exports = db = {
         }
         return result;
     },
+    lookupId: (modelName, attrName) => {
+        return {
+            $lookup: {
+                from: modelName,
+                localField: '_id',
+                foreignField: '_id',
+                as: attrName,
+            },
+        };
+    },
     sort: (expression) => {
         return {
             $sort: expression,
@@ -115,6 +125,36 @@ module.exports = db = {
     limit: (expression) => {
         return {
             $limit: expression,
+        };
+    },
+    unwind: (key) => {
+        return {
+            $unwind: key,
+        };
+    },
+    group: (key, expression) => {
+        return {
+            $group: {
+                _id: key,
+                ...expression,
+            },
+        };
+    },
+    sum: (key) => {
+        return {
+            [key]: {
+                $sum: 1,
+            },
+        };
+    },
+    toString: (key) => {
+        return {
+            $toString: key,
+        };
+    },
+    concat: (parts) => {
+        return {
+            $concat: parts,
         };
     },
 };

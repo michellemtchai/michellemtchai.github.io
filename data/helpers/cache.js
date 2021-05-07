@@ -34,7 +34,7 @@ module.exports = cache = {
                     data,
                     formatEntry
                 );
-                cacheData.set(keyName, mapping);
+                cacheData.set(keyName, mapping, oneHour);
                 action(mapping);
             };
             models[keyName].find(res, next, {
