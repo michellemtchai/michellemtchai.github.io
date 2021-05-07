@@ -133,6 +133,7 @@ const getStacks = (res, model, projects, cacheKey, action) => {
                     ]),
                 },
             },
+            db.sort({ label: 1 }),
         ];
         if (projects) {
             query = [
