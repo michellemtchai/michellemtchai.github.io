@@ -149,9 +149,11 @@ const getTechs = (res, model, projects, action) => {
     projects.forEach(
         (i) => (projectIds = [...projectIds, ...i.technologies])
     );
-    let query = db.isIn('_id', projectIds);
-    model.find(res, action, {
-        query: query,
+    let next = (data) => {
+        action(cache.mapEntries(data));
+    };
+    model.find(res, next, {
+        query: db.isIn('_id', projectIds),
         select: db.defSelect,
     });
 };
