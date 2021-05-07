@@ -109,6 +109,7 @@ const setupCategoriesSearch = (props) => {
                             ...params,
                             sortBy: results.sortBy,
                             sortDir: results.sortDir,
+                            stacks: results.filtered.stacks,
                         };
                     }
                     return [`/projects`, params];

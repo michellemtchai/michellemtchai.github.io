@@ -166,6 +166,7 @@ const queryStacks = (category, stacks) => {
         };
     }
     if (stacks !== null) {
+        stacks = stacks.split(',');
         query = {
             ...query,
             ...db.isIn('technologies', stacks),

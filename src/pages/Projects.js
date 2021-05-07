@@ -41,7 +41,8 @@ const initialState = (props) => {
         let pages = Math.ceil(
             projects.length / props.data.limit
         );
-        let stacks = [];
+        let stacks = props.data.stacks;
+        let selected = stacks.map((i) => i.value);
         return {
             sortBy: 'name',
             sortDir: 'ascending',
@@ -49,8 +50,8 @@ const initialState = (props) => {
             total: projects.length,
             stacks: stacks,
             filtered: {
-                stacks: stacks,
-                defStacks: stacks,
+                stacks: selected,
+                defStacks: selected,
             },
         };
     }
