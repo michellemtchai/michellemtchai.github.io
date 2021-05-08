@@ -1,10 +1,16 @@
 const ObjectId = require('mongodb').ObjectID;
+const common = require('./common');
 
 module.exports = db = {
     defSelect: {
         __v: 0,
         created: 0,
         updated: 0,
+    },
+    showAttr: (showList) => {
+        let select = {};
+        showList.forEach((i) => (select[i] = 1));
+        return select;
     },
     hideAttr: (hideList, useDefSelect = true) => {
         let select = useDefSelect ? { ...db.defSelect } : {};
@@ -14,22 +20,59 @@ module.exports = db = {
         return select;
     },
     invalidObjectId: (id) => {
+        id = typeof value === 'string' ? id : id.join(', ');
         return {
             message: `Invalid ObjectId: ${id}`,
         };
     },
-    toObjectId: (id) => {
-        try {
-            return [null, ObjectId(id)];
-        } catch (err) {
+    toObjectId: (id, keyName = null) => {
+        if (typeof id === 'string') {
+            try {
+                return [null, ObjectId(id)];
+            } catch (err) {
+                return [db.invalidObjectId(id), null];
+            }
+        } else if (common.isArray(id)) {
+            let converted = [],
+                errIds = [];
+            id.forEach((entry) => {
+                let value = keyName ? entry[keyName] : entry;
+                try {
+                    converted.push(ObjectId(value));
+                } catch (err) {
+                    errIds.push(value);
+                }
+            });
+            if (errIds.length > 0) {
+                return [db.invalidObjectId(id), null];
+            } else {
+                return [null, converted];
+            }
+        } else {
             return [db.invalidObjectId(id), null];
         }
     },
-    equals: (key, value) => {
-        return { [key]: value };
+    equals: (key, value, isArrayFormat = true) => {
+        if (isArrayFormat) {
+            return { $eq: [key, value] };
+        } else {
+            return {
+                [key]: {
+                    $eq: value,
+                },
+            };
+        }
     },
-    notEquals: (key, value) => {
-        return { [key]: { $ne: value } };
+    notEquals: (key, value, isArrayFormat = true) => {
+        if (isArrayFormat) {
+            return { $ne: [key, value] };
+        } else {
+            return {
+                [key]: {
+                    $ne: value,
+                },
+            };
+        }
     },
     lessThan: (key, value) => {
         return { [key]: { $lt: value } };
@@ -43,11 +86,27 @@ module.exports = db = {
     greaterThanEquals: (key, value) => {
         return { [key]: { $gte: value } };
     },
-    isIn: (key, arrayValue) => {
-        return { [key]: { $in: arrayValue } };
+    isIn: (key, arrayValue, isArrayFormat = true) => {
+        if (isArrayFormat) {
+            return { $in: [key, arrayValue] };
+        } else {
+            return {
+                [key]: {
+                    $in: arrayValue,
+                },
+            };
+        }
     },
-    isNotIn: (key, arrayValue) => {
-        return { [key]: { $nin: arrayValue } };
+    isNotIn: (key, arrayValue, isArrayFormat = true) => {
+        if (isArrayFormat) {
+            return { $nin: [key, arrayValue] };
+        } else {
+            return {
+                [key]: {
+                    $nin: arrayValue,
+                },
+            };
+        }
     },
     or: (arrayConditions) => {
         return { $or: arrayConditions };
@@ -73,39 +132,44 @@ module.exports = db = {
             },
         };
     },
-    project: (hideList = [], useDefSelect = true) => {
+    project: (expression) => {
         return {
-            $project: db.hideAttr(hideList, useDefSelect),
+            $project: expression,
         };
     },
     lookupModelById: (
         modelName,
-        select = [],
-        sort = null,
-        limit = null
+        {
+            keyName = null,
+            attrName = null,
+            isIn = ['$_id', '$$attr'],
+            select = null,
+            sort = null,
+            limit = null,
+        } = {}
     ) => {
-        let result = {
+        keyName = keyName || modelName;
+        attrName = attrName || modelName;
+        let pipeline = [db.matchExpr(db.isIn(...isIn))];
+        if (select) {
+            pipeline.push(db.project(db.hideAttr(select)));
+        }
+        if (sort) {
+            pipeline.push(db.sort(sort));
+        }
+        if (limit) {
+            pipeline.push(db.limit(limit));
+        }
+        return {
             $lookup: {
                 from: modelName,
                 let: {
-                    attr: `$${modelName}`,
+                    attr: `$${keyName}`,
                 },
-                pipeline: [
-                    db.matchExpr({
-                        $in: ['$_id', '$$attr'],
-                    }),
-                    db.project(select),
-                ],
-                as: modelName,
+                pipeline: pipeline,
+                as: attrName,
             },
         };
-        if (sort) {
-            result.$lookup.pipeline.push(db.sort(sort));
-        }
-        if (limit) {
-            result.$lookup.pipeline.push(db.limit(limit));
-        }
-        return result;
     },
     lookupId: (modelName, attrName) => {
         return {

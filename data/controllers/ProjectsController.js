@@ -16,7 +16,12 @@ module.exports = class ProjectsController extends Controller {
     containsObjectId = ['technologies', 'tags'];
 
     index = (req, res) => {
-        projects.page(res, this.models, req.query);
+        projects.page(
+            res,
+            this.models,
+            this.renderError,
+            req.query
+        );
     };
 
     search = (req, res) => {
@@ -65,7 +70,7 @@ module.exports = class ProjectsController extends Controller {
                     db.match({
                         _id: id,
                     }),
-                    db.project(),
+                    db.project(db.hideAttr([])),
                 ]);
             }
         }

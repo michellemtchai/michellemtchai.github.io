@@ -1,6 +1,14 @@
 const db = require('./db');
 const cache = require('./cache');
 const PAGE_LIMIT = 10;
+const projectShowList = [
+    'name',
+    'summary',
+    'source_url',
+    'demo_url',
+    'image_url',
+    'technologies',
+];
 
 module.exports = projects = {
     search: (
@@ -62,6 +70,7 @@ module.exports = projects = {
     page: (
         res,
         models,
+        renderError,
         {
             category = 'all',
             page = 1,
@@ -69,49 +78,110 @@ module.exports = projects = {
             stacks = null,
         } = {}
     ) => {
-        let step1 = (categories) => {
-            let query = queryStacks(
-                categories[category],
-                stacks
-            );
-            models.Project.find(
-                res,
-                (projects) => step2(categories, projects),
-                findParams(query, sortDir, page)
-            );
-        };
-        let step2 = (categories, projects) => {
-            let cacheKey = `stack:${category}`;
-            let total = projects.length;
-            let start = (page - 1) * PAGE_LIMIT;
-            projects = projects.slice(start, start + PAGE_LIMIT);
-            getStacks(
+        let [err1, categoryId] =
+            category === 'all' ? [] : db.toObjectId(category);
+        let [err2, stackIds] = stacks
+            ? db.toObjectId(stacks.split(','))
+            : [];
+        if (err1) {
+            renderError(res, err1);
+        } else if (err2) {
+            renderError(res, err1);
+        } else {
+            let step1 = (projects) => {
+                let cacheKey = `stack:${category}`;
+                let total = projects.length;
+                let startIdx = (page - 1) * PAGE_LIMIT;
+                let endIdx = startIdx + PAGE_LIMIT;
+                let [_, projectIds] = db.toObjectId(
+                    projects,
+                    '_id'
+                );
+                projects = projects.slice(startIdx, endIdx);
+                getStacks(
+                    res,
+                    models.Project,
+                    projectIds,
+                    cacheKey,
+                    (stacks) => step2(stacks, projects, total)
+                );
+            };
+            let step2 = (stacks, projects, total) => {
+                getTechs(
+                    res,
+                    models.Technology,
+                    projects,
+                    (tech) =>
+                        step3(tech, stacks, projects, total)
+                );
+            };
+            let step3 = (tech, stacks, projects, total) => {
+                res.json({
+                    projects: projects,
+                    technologies: tech,
+                    stacks: stacks,
+                    limit: PAGE_LIMIT,
+                    total: total,
+                });
+            };
+            getCategorizedProjects(
                 res,
                 models.Project,
-                categories[category],
-                cacheKey,
-                (stacks) => step3(stacks, projects, total)
+                (projects) => step1(projects),
+                {
+                    category: categoryId,
+                    stacks: stackIds,
+                    sortDir: sortDir === 'ascending' ? 1 : -1,
+                    sortBy: 'name',
+                }
             );
-        };
-        let step3 = (stacks, projects, total) => {
-            getTechs(res, models.Technology, projects, (tech) =>
-                step4(tech, stacks, projects, total)
-            );
-        };
-        let step4 = (tech, stacks, projects, total) => {
-            res.json({
-                projects: projects,
-                technologies: tech,
-                stacks: stacks,
-                limit: PAGE_LIMIT,
-                total: total,
-            });
-        };
-        categorize(models, res, step1);
+        }
     },
 };
 
-const getStacks = (res, model, projects, cacheKey, action) => {
+const getCategorizedProjects = (
+    res,
+    model,
+    action,
+    { category, stacks, sortDir, sortBy } = {}
+) => {
+    let cacheKey = `projects:${category},sortBy:${sortBy},sortDir:${sortDir},stacks:${stacks}`;
+    let cacheData = cache.getCache(cacheKey);
+    if (cacheData) {
+        action(cacheData);
+    } else {
+        let next = (data) => {
+            cache.setCache(cacheKey, data);
+            action(data);
+        };
+        let query = [
+            db.lookupModelById('categories', {
+                keyName: '_id',
+                attrName: 'category',
+                isIn: ['$$attr', '$projects'],
+            }),
+        ];
+        if (category) {
+            query.push(
+                db.matchExpr(db.isIn(category, '$category._id'))
+            );
+        }
+        query.push(db.project(db.showAttr(projectShowList)));
+        if (stacks) {
+            query.push(
+                db.match(db.isIn('technologies', stacks, false))
+            );
+        }
+        query.push(
+            db.sort({
+                [sortBy]: sortDir,
+            })
+        );
+        model.aggregate(res, next, query);
+    }
+};
+
+const getStacks = (res, model, projectIds, cacheKey, action) => {
     let cacheData = cache.getCache(cacheKey);
     if (cacheData) {
         action(cacheData);
@@ -125,25 +195,22 @@ const getStacks = (res, model, projects, cacheKey, action) => {
             db.group('$technologies', db.sum('count')),
             db.lookupId('technologies', 'temp'),
             db.unwind('$temp'),
-            {
-                $project: {
-                    _id: 0,
-                    value: '$_id',
-                    label: db.concat([
-                        '$temp.name',
-                        ' (',
-                        db.toString('$count'),
-                        ')',
-                    ]),
-                },
-            },
+            db.project({
+                _id: 0,
+                value: '$_id',
+                label: db.concat([
+                    '$temp.name',
+                    ' (',
+                    db.toString('$count'),
+                    ')',
+                ]),
+            }),
             db.sort({ label: 1 }),
         ];
-        if (projects) {
-            query = [
-                db.match(db.isIn('_id', projects)),
-                ...query,
-            ];
+        if (projectIds) {
+            query.unshift(
+                db.matchExpr(db.isIn('$_id', projectIds))
+            );
         }
         model.aggregate(res, next, query);
     }
@@ -158,26 +225,9 @@ const getTechs = (res, model, projects, action) => {
         action(cache.mapEntries(data));
     };
     model.find(res, next, {
-        query: db.isIn('_id', projectIds),
+        query: db.isIn('_id', projectIds, false),
         select: db.defSelect,
     });
-};
-const queryStacks = (category, stacks) => {
-    let query = {};
-    if (category) {
-        query = {
-            ...query,
-            ...db.isIn('_id', category),
-        };
-    }
-    if (stacks !== null) {
-        stacks = stacks.split(',');
-        query = {
-            ...query,
-            ...db.isIn('technologies', stacks),
-        };
-    }
-    return query;
 };
 const searchQuery = (term, category, stacks, tech, tags) => {
     let terms = term.split(/\s+/g);

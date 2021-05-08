@@ -14,7 +14,6 @@ class Projects extends React.Component {
         }
     }
     render() {
-        console.log(this.props.data);
         return this.props.results ? (
             <Items
                 {...this.props}

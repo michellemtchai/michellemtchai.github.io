@@ -24,13 +24,12 @@ module.exports = class ApplicationController extends Controller {
                 'gallery',
             ];
             this.Category.aggregate(res, next, [
-                db.lookupModelById(
-                    'projects',
-                    projectSelect,
-                    { name: 1 },
-                    4
-                ),
-                db.project(categorySelect),
+                db.lookupModelById('projects', {
+                    select: projectSelect,
+                    sort: { name: 1 },
+                    limit: 4,
+                }),
+                db.project(db.hideAttr(categorySelect)),
                 db.sort({
                     _id: 1,
                 }),
