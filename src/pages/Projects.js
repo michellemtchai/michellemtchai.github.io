@@ -14,6 +14,7 @@ class Projects extends React.Component {
         }
     }
     render() {
+        console.log(this.props.data);
         return this.props.results ? (
             <Items
                 {...this.props}
@@ -37,9 +38,8 @@ const initialState = (props) => {
     if (results) {
         return results;
     } else {
-        let projects = props.projects[props.keyName];
         let pages = Math.ceil(
-            projects.length / props.data.limit
+            props.data.total / props.data.limit
         );
         let stacks = props.data.stacks;
         let selected = stacks.map((i) => i.value);
@@ -47,7 +47,7 @@ const initialState = (props) => {
             sortBy: 'name',
             sortDir: 'ascending',
             pages: pages,
-            total: projects.length,
+            total: props.data.total,
             stacks: stacks,
             filtered: {
                 stacks: selected,
