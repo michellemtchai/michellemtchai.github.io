@@ -82,25 +82,29 @@ module.exports = projects = {
         };
         let step2 = (categories, projects) => {
             let cacheKey = `stack:${category}`;
+            let total = projects.length;
+            let start = (page - 1) * PAGE_LIMIT;
+            projects = projects.slice(start, start + PAGE_LIMIT);
             getStacks(
                 res,
                 models.Project,
                 categories[category],
                 cacheKey,
-                (stacks) => step3(stacks, projects)
+                (stacks) => step3(stacks, projects, total)
             );
         };
-        let step3 = (stacks, projects) => {
+        let step3 = (stacks, projects, total) => {
             getTechs(res, models.Technology, projects, (tech) =>
-                step4(tech, stacks, projects)
+                step4(tech, stacks, projects, total)
             );
         };
-        let step4 = (tech, stacks, projects) => {
+        let step4 = (tech, stacks, projects, total) => {
             res.json({
                 projects: projects,
                 technologies: tech,
                 stacks: stacks,
                 limit: PAGE_LIMIT,
+                total: total,
             });
         };
         categorize(models, res, step1);
@@ -222,8 +226,6 @@ const findParams = (query, sortDir, page, isSearch = false) => {
         sort: {
             name: sortDir === 'ascending' ? 1 : -1,
         },
-        skip: (page - 1) * PAGE_LIMIT,
-        limit: PAGE_LIMIT,
         select: {
             gallery: 0,
             description: 0,
