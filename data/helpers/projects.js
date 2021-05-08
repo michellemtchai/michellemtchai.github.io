@@ -131,7 +131,7 @@ module.exports = projects = {
                 {
                     category: categoryId,
                     stacks: stackIds,
-                    sortDir: sortDir === 'ascending' ? 1 : -1,
+                    sortDir: sortDir,
                     sortBy: 'name',
                 }
             );
@@ -174,7 +174,7 @@ const getCategorizedProjects = (
         }
         query.push(
             db.sort({
-                [sortBy]: sortDir,
+                [sortBy]: sortDir === 'ascending' ? 1 : -1,
             })
         );
         model.aggregate(res, next, query);
