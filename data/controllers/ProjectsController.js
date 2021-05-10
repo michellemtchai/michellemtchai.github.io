@@ -35,29 +35,11 @@ module.exports = class ProjectsController extends Controller {
 
     show = (req, res) => {
         let reqId = req.params.id;
-        let cacheData = cache.getCache(reqId);
-        if (cacheData) {
-            if (cacheData.error) {
-                this.renderError(res, cacheData.error);
-            } else {
-                res.json(cacheData.data);
-            }
-        } else {
+        let successAction = (data) =>
+            this.renderSuccess(res, data);
+        let errorAction = (data) => this.renderError(res, data);
+        let queryProject = (next) => {
             let [err, id] = db.toObjectId(reqId);
-            let next = (data) => {
-                if (data.length > 0) {
-                    cache.setCache(reqId, {
-                        data: data[0],
-                    });
-                    res.json(data[0]);
-                } else {
-                    err = db.invalidObjectId(reqId);
-                    cache.setCache(reqId, {
-                        error: err,
-                    });
-                    this.renderError(res, err);
-                }
-            };
             if (err) {
                 cache.setCache(reqId, {
                     error: err,
@@ -73,7 +55,20 @@ module.exports = class ProjectsController extends Controller {
                     db.project(db.hideAttr([])),
                 ]);
             }
-        }
+        };
+        let cacheActionConfig = {
+            checkError: true,
+            isError: (data) => data.length < 1,
+            formatError: (data) => db.invalidObjectId(reqId),
+            formatData: (data) => data[0],
+        };
+        cache.cacheAction(
+            reqId,
+            queryProject,
+            successAction,
+            errorAction,
+            cacheActionConfig
+        );
     };
 
     create = (req, res) => {

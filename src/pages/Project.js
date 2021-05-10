@@ -1,4 +1,5 @@
 import React, { lazy } from 'react';
+import Gallery from '../components/project/gallery/Gallery';
 import { goToPage } from '../shared/router';
 const Image = lazy(() => import('../components/image/Image'));
 const Tabs = lazy(() => import('../components/tabs/Tabs'));
@@ -7,9 +8,6 @@ const SearchBar = lazy(() =>
 );
 const ProjectInfo = lazy(() =>
     import('../components/project/projectInfo/ProjectInfo')
-);
-const Gallery = lazy(() =>
-    import('../components/project/gallery/Gallery')
 );
 const Markdown = lazy(() =>
     import('../components/project/markdown/Markdown')

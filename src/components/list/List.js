@@ -1,13 +1,11 @@
 import './index.css';
 import React, { lazy } from 'react';
+import FilterDialog from './filterDialog/FilterDialog';
 const PageButtons = lazy(() =>
     import('./pageButton/PageButtons')
 );
 const SearchBar = lazy(() => import('../searchbar/SearchBar'));
 const Modal = lazy(() => import('../modal/Modal'));
-const FilterDialog = lazy(() =>
-    import('./filterDialog/FilterDialog')
-);
 
 class List extends React.Component {
     state = {

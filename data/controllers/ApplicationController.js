@@ -2,28 +2,22 @@ const Controller = require('../classes/Controller');
 const cache = require('../helpers/cache');
 const db = require('../helpers/db');
 
-module.exports = class ApplicationController extends Controller {
-    Category = this.models['Category'];
+const categorySelect = ['icon_class', 'description'];
+const projectSelect = [
+    'summary',
+    'description',
+    'source_url',
+    'technologies',
+    'tags',
+    'gallery',
+];
 
+module.exports = class ApplicationController extends Controller {
     index = (req, res) => {
-        let cacheData = cache.getCache('home');
-        if (cacheData) {
-            res.json(cacheData);
-        } else {
-            let next = (data) => {
-                cache.setCache('home', data);
-                res.json(data);
-            };
-            let categorySelect = ['icon_class', 'description'];
-            let projectSelect = [
-                'summary',
-                'description',
-                'source_url',
-                'technologies',
-                'tags',
-                'gallery',
-            ];
-            this.Category.aggregate(res, next, [
+        let cacheKey = 'home';
+        let action = (data) => this.renderSuccess(res, data);
+        let queryCategory = (next) => {
+            this.models.Category.aggregate(res, next, [
                 db.lookupModelById('projects', {
                     select: projectSelect,
                     sort: { name: 1 },
@@ -34,7 +28,8 @@ module.exports = class ApplicationController extends Controller {
                     _id: 1,
                 }),
             ]);
-        }
+        };
+        cache.cacheAction(cacheKey, queryCategory, action);
     };
 
     notFound = (req, res) => {

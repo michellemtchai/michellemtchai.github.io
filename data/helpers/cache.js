@@ -17,80 +17,52 @@ module.exports = cache = {
         });
         return mapping;
     },
-    mapAction: (
-        models,
-        keyName,
-        res,
+    cacheAction: (
+        cacheKey,
         action,
-        select = {},
-        formatEntry
+        nextStep,
+        errorAction = (i) => i,
+        {
+            checkError = false,
+            isError = false,
+            formatData = (i) => i,
+            formatError = (i) => i,
+        } = {}
     ) => {
-        let mapData = cacheData.get(keyName);
-        if (mapData) {
-            action(mapData);
+        let cacheData = cache.getCache(cacheKey);
+        if (cacheData) {
+            if (checkError) {
+                if (cacheData.error) {
+                    errorAction(cacheData.error);
+                } else {
+                    nextStep(cacheData.data);
+                }
+            } else {
+                nextStep(cacheData);
+            }
         } else {
             let next = (data) => {
-                let mapping = cache.mapEntries(
-                    data,
-                    formatEntry
-                );
-                cacheData.set(keyName, mapping, oneHour);
-                action(mapping);
+                if (checkError) {
+                    if (isError(data)) {
+                        data = {
+                            error: formatError(data),
+                        };
+                        cache.setCache(cacheKey, data);
+                        errorAction(data.error);
+                    } else {
+                        data = {
+                            data: formatData(data),
+                        };
+                        cache.setCache(cacheKey, data);
+                        nextStep(data.data);
+                    }
+                } else {
+                    cache.setCache(cacheKey, data);
+                    nextStep(data);
+                }
             };
-            models[keyName].find(res, next, {
-                select: {
-                    ...select,
-                    updated: 0,
-                    created: 0,
-                    __v: 0,
-                },
-            });
+            action(next);
         }
-    },
-    searchAction: (
-        models,
-        keyName,
-        res,
-        regex,
-        action,
-        select = {}
-    ) => {
-        let regExp = new RegExp(regex, 'gi');
-        let next = (data) => {
-            let mapping = {};
-            data.forEach(
-                (i) =>
-                    (mapping[i._id] = {
-                        ...i._doc,
-                        name: cache.boldText(i.name, regExp),
-                    })
-            );
-            cache.mapAction(
-                models,
-                keyName,
-                res,
-                (i) => step2(i, mapping),
-                select
-            );
-        };
-        let step2 = (data, selected) => {
-            action({
-                mapping: {
-                    ...data,
-                    ...selected,
-                },
-                selected: Object.keys(selected),
-            });
-        };
-        models[keyName].find(res, next, {
-            query: db.regex('name', regex, 'ig'),
-            select: {
-                ...select,
-                updated: 0,
-                created: 0,
-                __v: 0,
-            },
-        });
     },
     boldText: (text, regex) =>
         htmlEntities.encode(text).replace(regex, '<b>$1</b>'),

@@ -42,17 +42,21 @@ const initialState = (props) => {
     } else {
         let term = decodeURIComponent(props.match.params.term);
         let data = props.data.projects;
-        let stacks = [];
+        let pages = Math.ceil(
+            props.data.total / props.data.limit
+        );
+        let stacks = props.data.stacks;
+        let selected = stacks.map((i) => i.value);
         return {
             term: term,
             sortBy: 'relevance',
             sortDir: 'ascending',
             stacks: stacks,
-            total: data.length,
-            pages: 1,
+            total: props.data.total,
+            pages: pages,
             filtered: {
-                stacks: stacks,
-                defStacks: stacks,
+                stacks: selected,
+                defStacks: selected,
             },
         };
     }
