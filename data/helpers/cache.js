@@ -1,6 +1,5 @@
 const NodeCache = require('node-cache');
 const cacheData = new NodeCache();
-const htmlEntities = require('html-entities');
 const oneDay = 86400;
 
 module.exports = cache = {
@@ -23,7 +22,7 @@ module.exports = cache = {
     cacheAction: (
         cacheKey,
         action,
-        nextStep,
+        nextStep = (i) => i,
         errorAction = (i) => i,
         {
             checkError = false,
@@ -67,6 +66,4 @@ module.exports = cache = {
             action(next);
         }
     },
-    boldText: (text, regex) =>
-        htmlEntities.encode(text).replace(regex, '<b>$1</b>'),
 };

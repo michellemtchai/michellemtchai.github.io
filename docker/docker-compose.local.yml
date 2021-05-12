@@ -16,6 +16,7 @@ services:
             APP_PORT: ${APP_PORT}
             APP_ACCEPTED_ORIGINS: ${APP_ACCEPTED_ORIGINS}
             APP_DATA_LOCATION: ${APP_DATA_LOCATION}
+            APP_SESSION_KEY: ${APP_SESSION_KEY}
             REACT_APP_TITLE: ${APP_TITLE}
             REACT_APP_DESC: ${APP_DESC}
             REACT_APP_ENV: ${DATA_BACKEND_ENV}
@@ -39,6 +40,7 @@ services:
             GITHUB_EMAIL: ${GITHUB_EMAIL}
             GITHUB_USERNAME: ${GITHUB_USERNAME}
             GITHUB_TOKEN: ${GITHUB_TOKEN}
+            JWT_KEY: ${JWT_KEY}
         depends_on:
             - mongodb
     mongodb:

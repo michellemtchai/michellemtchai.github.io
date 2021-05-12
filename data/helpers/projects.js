@@ -1,3 +1,4 @@
+const htmlEntities = require('html-entities');
 const db = require('./db');
 const cache = require('./cache');
 const PAGE_LIMIT = 10;
@@ -12,32 +13,46 @@ const projectShowList = [
 
 module.exports = projects = {
     search: (
+        controller,
         res,
-        models,
         search,
         {
             category = 'all',
             page = 1,
             sortDir = 'ascending',
+            sortBy = 'relevance',
             stacks = null,
         } = {}
     ) => {
         let terms = search.toLowerCase().split(/\s+/g).sort();
         let regex = `(${terms.join('|')})`;
-        res.json({
-            projects: [],
-            technologies: {},
-            tags: {},
-            stacks: [],
-            limit: PAGE_LIMIT,
-            total: 0,
-            terms: terms,
-        });
+        let step1 = (categoryId, stackIds) => {
+            processResults(controller, res, {
+                projects: projects,
+                page: page,
+                category: category,
+                options: {
+                    category: categoryId,
+                    stacks: stackIds,
+                    sortDir: sortDir,
+                    sortBy: 'name',
+                    sortBy:
+                        sortBy === 'name' ? 'name' : 'relevance',
+                    search: regex,
+                },
+            });
+        };
+        paramsCheckAction(
+            controller,
+            res,
+            step1,
+            category,
+            stacks
+        );
     },
     page: (
+        controller,
         res,
-        models,
-        renderError,
         {
             category = 'all',
             page = 1,
@@ -45,71 +60,116 @@ module.exports = projects = {
             stacks = null,
         } = {}
     ) => {
-        let [err1, categoryId] =
-            category === 'all' ? [] : db.toObjectId(category);
-        let [err2, stackIds] = stacks
-            ? db.toObjectId(stacks.split(','))
-            : [];
-        if (err1) {
-            renderError(res, err1);
-        } else if (err2) {
-            renderError(res, err2);
-        } else {
-            let step1 = (projects) => {
-                let total = projects.length;
-                let startIdx = (page - 1) * PAGE_LIMIT;
-                let endIdx = startIdx + PAGE_LIMIT;
-                let [_, projectIds] = db.toObjectId(
-                    projects,
-                    '_id'
-                );
-                projects = projects.slice(startIdx, endIdx);
-                getStacks(
-                    res,
-                    models.Project,
-                    projectIds,
-                    category,
-                    (stacks) => step2(stacks, projects, total)
-                );
-            };
-            let step2 = (stacks, projects, total) => {
-                getTechs(
-                    res,
-                    models.Technology,
-                    projects,
-                    (tech) =>
-                        step3(tech, stacks, projects, total)
-                );
-            };
-            let step3 = (tech, stacks, projects, total) => {
-                res.json({
-                    projects: projects,
-                    technologies: tech,
-                    stacks: stacks,
-                    limit: PAGE_LIMIT,
-                    total: total,
-                });
-            };
-            getCategorizedProjects(
-                res,
-                models.Project,
-                (projects) => step1(projects),
-                {
+        let step1 = (categoryId, stackIds) => {
+            processResults(controller, res, {
+                projects: projects,
+                page: page,
+                category: category,
+                options: {
                     category: categoryId,
                     stacks: stackIds,
                     sortDir: sortDir,
                     sortBy: 'name',
-                }
-            );
-        }
+                },
+            });
+        };
+        paramsCheckAction(
+            controller,
+            res,
+            step1,
+            category,
+            stacks
+        );
     },
+};
+const boldText = (text, regex) =>
+    htmlEntities.encode(text).replace(regex, '<b>$1</b>');
+
+const processResults = (
+    controller,
+    res,
+    { page, category, options } = {}
+) => {
+    let step1 = (projects) => {
+        let total = projects.length;
+        let [_, projectIds] = db.toObjectId(projects, '_id');
+        projects = projects.slice(...getPageIdx(page));
+        getStacks(
+            res,
+            controller.models.Project,
+            projectIds,
+            category,
+            (stacks) => step2(stacks, projects, total)
+        );
+    };
+    let step2 = (stacks, projects, total) => {
+        getTechs(
+            res,
+            controller.models.Technology,
+            projects,
+            (tech) =>
+                renderResult(controller, res, {
+                    tech: tech,
+                    stacks: stacks,
+                    projects: projects,
+                    total: total,
+                })
+        );
+    };
+    getCategorizedProjects(
+        res,
+        controller.models.Project,
+        (projects) => step1(projects),
+        options
+    );
+};
+
+const renderResult = (
+    controller,
+    res,
+    { tech = {}, stacks = {}, projects = [], total = 0 } = {}
+) => {
+    controller.renderSuccess(res, {
+        projects: projects,
+        technologies: tech,
+        stacks: stacks,
+        limit: PAGE_LIMIT,
+        total: total,
+    });
+};
+
+const getPageIdx = (page) => {
+    let startIdx = (page - 1) * PAGE_LIMIT;
+    let endIdx = startIdx + PAGE_LIMIT;
+    return [startIdx, endIdx];
+};
+
+const paramsCheckAction = (
+    controller,
+    res,
+    action,
+    category = 'all',
+    stacks = null
+) => {
+    let [err1, categoryId] =
+        category === 'all' ? [] : db.toObjectId(category);
+    let [err2, stackIds] = stacks
+        ? db.toObjectId(stacks.split(','))
+        : [];
+    if (err1) {
+        controller.renderError(res, err1);
+    } else if (err2) {
+        controller.renderError(res, err2);
+    } else {
+        action(categoryId, stackIds);
+    }
 };
 
 const getCategorizedProjects = (
     res,
     model,
     action,
-    { category, stacks, sortDir, sortBy } = {}
+    { category, stacks, sortDir, sortBy, search } = {}
 ) => {
     let cacheKey = `projects:${category},sortBy:${sortBy},sortDir:${sortDir},stacks:${stacks}`;
     let queryProject = (next) => {
@@ -125,10 +185,14 @@ const getCategorizedProjects = (
                 db.matchExpr(db.isIn(category, '$category._id'))
             );
         }
-        query.push(db.project(db.showAttr(projectShowList)));
+        if (search) {
+            query = [...query, ...getSearchQuery(search)];
+        } else {
+            query.push(db.project(db.showAttr(projectShowList)));
+        }
         if (stacks) {
             query.push(
-                db.match(db.isIn('technologies', stacks, false))
+                db.matchExpr(db.isIn('$technologies', stacks))
             );
         }
         query.push(
@@ -146,7 +210,7 @@ const getStacks = (res, model, projectIds, category, action) => {
     let queryStacks = (next) => {
         let query = [
             db.unwind('$technologies'),
-            db.group('$technologies', db.sum('count')),
+            db.group('$technologies', db.count('count')),
             db.lookupId('technologies', 'temp'),
             db.unwind('$temp'),
             db.project({
@@ -184,22 +248,48 @@ const getTechs = (res, model, projects, action) => {
         select: db.defSelect,
     });
 };
-const getQuery = (stacks, term) => {
-    let query = [];
-    if (term) {
-        let terms = term.split(/\s+/g);
-        let regex = `(${terms.join('|')})`;
-        query.push(
-            db.or([
-                db.regex('$name', regex, 'ig'),
-                db.regex('$summary', regex, 'ig'),
-                db.regex('$technologies.name', regex, 'ig'),
-                db.regex('$tags.name', regex, 'ig'),
-            ])
-        );
-    }
-    if (stacks) {
-        query.push(db.isIn('technologies', stacks, false));
-    }
-    return db.and(query);
+const getSearchQuery = (regex) => {
+    let showList = db.showAttr([...projectShowList, 'tags']);
+    let query = [
+        db.project(showList),
+        db.lookupModelById('tags'),
+        db.lookupModelById('technologies'),
+        db.addFields({
+            nameCount: db.regexFindAll('$name', regex, 'i'),
+            summaryCount: db.regexFindAll(
+                '$summary',
+                regex,
+                'i'
+            ),
+            techCount: regexArray('technologies', 'name', regex),
+            tagCount: regexArray('tags', 'name', regex),
+        }),
+        db.project({
+            ...showList,
+            technologies: '$technologies._id',
+            tags: '$tags._id',
+            relevance: db.multiply([
+                db.sum([
+                    db.size('$nameCount'),
+                    db.size('$summaryCount'),
+                    db.size('$techCount'),
+                    db.size('$tagCount'),
+                ]),
+                -1,
+            ]),
+        }),
+        db.matchExpr(db.lessThan('$relevance', 0)),
+    ];
+    return query;
+};
+
+const regexArray = (keyName, key, regex) => {
+    return db.reduce(
+        `$${keyName}`,
+        [],
+        db.concatArrays(
+            '$$value',
+            db.regexFindAll(`$$this.${key}`, regex, 'i')
+        )
+    );
 };

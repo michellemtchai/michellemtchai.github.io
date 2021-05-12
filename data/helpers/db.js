@@ -12,11 +12,9 @@ module.exports = db = {
         showList.forEach((i) => (select[i] = 1));
         return select;
     },
-    hideAttr: (hideList, useDefSelect = true) => {
+    hideAttr: (hideList = [], useDefSelect = true) => {
         let select = useDefSelect ? { ...db.defSelect } : {};
-        hideList.forEach((entry) => {
-            select[entry] = 0;
-        });
+        hideList.forEach((entry) => (select[entry] = 0));
         return select;
     },
     invalidObjectId: (id) => {
@@ -52,61 +50,85 @@ module.exports = db = {
             return [db.invalidObjectId(id), null];
         }
     },
-    equals: (key, value, isArrayFormat = true) => {
+    arrayFormatQuery: (
+        action,
+        key,
+        value,
+        isArrayFormat = true
+    ) => {
         if (isArrayFormat) {
-            return { $eq: [key, value] };
+            return { [`$${action}`]: [key, value] };
         } else {
             return {
                 [key]: {
-                    $eq: value,
+                    [`$${action}`]: value,
                 },
             };
         }
     },
-    notEquals: (key, value, isArrayFormat = true) => {
-        if (isArrayFormat) {
-            return { $ne: [key, value] };
-        } else {
-            return {
-                [key]: {
-                    $ne: value,
-                },
-            };
-        }
+    equals: (key, value, isArrayFormat) => {
+        return db.arrayFormatQuery(
+            'eq',
+            key,
+            value,
+            isArrayFormat
+        );
     },
-    lessThan: (key, value) => {
-        return { [key]: { $lt: value } };
+    notEquals: (key, value, isArrayFormat) => {
+        return db.arrayFormatQuery(
+            'ne',
+            key,
+            value,
+            isArrayFormat
+        );
     },
-    lessThanEquals: (key, value) => {
-        return { [key]: { $lte: value } };
+    lessThan: (key, value, isArrayFormat) => {
+        return db.arrayFormatQuery(
+            'lt',
+            key,
+            value,
+            isArrayFormat
+        );
     },
-    greaterThan: (key, value) => {
-        return { [key]: { $gt: value } };
+    lessThanEquals: (key, value, isArrayFormat) => {
+        return db.arrayFormatQuery(
+            'lte',
+            key,
+            value,
+            isArrayFormat
+        );
     },
-    greaterThanEquals: (key, value) => {
-        return { [key]: { $gte: value } };
+    greaterThan: (key, value, isArrayFormat) => {
+        return db.arrayFormatQuery(
+            'gt',
+            key,
+            value,
+            isArrayFormat
+        );
     },
-    isIn: (key, arrayValue, isArrayFormat = true) => {
-        if (isArrayFormat) {
-            return { $in: [key, arrayValue] };
-        } else {
-            return {
-                [key]: {
-                    $in: arrayValue,
-                },
-            };
-        }
+    greaterThanEquals: (key, value, isArrayFormat) => {
+        return db.arrayFormatQuery(
+            'gte',
+            key,
+            value,
+            isArrayFormat
+        );
     },
-    isNotIn: (key, arrayValue, isArrayFormat = true) => {
-        if (isArrayFormat) {
-            return { $nin: [key, arrayValue] };
-        } else {
-            return {
-                [key]: {
-                    $nin: arrayValue,
-                },
-            };
-        }
+    isIn: (key, arrayValue, isArrayFormat) => {
+        return db.arrayFormatQuery(
+            'in',
+            key,
+            arrayValue,
+            isArrayFormat
+        );
+    },
+    isNotIn: (key, arrayValue, isArrayFormat) => {
+        return db.arrayFormatQuery(
+            'nin',
+            key,
+            arrayValue,
+            isArrayFormat
+        );
     },
     or: (arrayConditions) => {
         return { $or: arrayConditions };
@@ -118,7 +140,31 @@ module.exports = db = {
         return { $not: arrayConditions };
     },
     regex: (key, regex, options) => {
-        return { [key]: { $regex: regex, $options: options } };
+        if (options) {
+            return {
+                [key]: { $regex: regex, $options: options },
+            };
+        } else {
+            return { [key]: { $regex: regex } };
+        }
+    },
+    regexFindAll: (key, regex, options) => {
+        if (options) {
+            return {
+                $regexFindAll: {
+                    input: key,
+                    regex: regex,
+                    options: options,
+                },
+            };
+        } else {
+            return {
+                $regexFindAll: {
+                    input: key,
+                    regex: regex,
+                },
+            };
+        }
     },
     match: (expression) => {
         return {
@@ -204,11 +250,16 @@ module.exports = db = {
             },
         };
     },
-    sum: (key) => {
+    count: (key) => {
         return {
             [key]: {
                 $sum: 1,
             },
+        };
+    },
+    sum: (value) => {
+        return {
+            $sum: value,
         };
     },
     toString: (key) => {
@@ -219,6 +270,31 @@ module.exports = db = {
     concat: (parts) => {
         return {
             $concat: parts,
+        };
+    },
+    addFields: (fields) => {
+        return {
+            $addFields: fields,
+        };
+    },
+    reduce: (input, initialValue, inExpr) => {
+        return {
+            $reduce: {
+                input: input,
+                initialValue: initialValue,
+                in: inExpr,
+            },
+        };
+    },
+    concatArrays: (array, value) => {
+        return { $concatArrays: [array, value] };
+    },
+    size: (key) => {
+        return { $size: key };
+    },
+    multiply: (values) => {
+        return {
+            $multiply: values,
         };
     },
 };

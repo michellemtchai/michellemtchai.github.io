@@ -16,21 +16,11 @@ module.exports = class ProjectsController extends Controller {
     containsObjectId = ['technologies', 'tags'];
 
     index = (req, res) => {
-        projects.page(
-            res,
-            this.models,
-            this.renderError,
-            req.query
-        );
+        projects.page(this, res, req.query);
     };
 
     search = (req, res) => {
-        projects.search(
-            res,
-            this.models,
-            req.params.search,
-            req.query
-        );
+        projects.search(this, res, req.params.search, req.query);
     };
 
     show = (req, res) => {
@@ -47,12 +37,12 @@ module.exports = class ProjectsController extends Controller {
                 this.renderError(res, err);
             } else {
                 this.Project.aggregate(res, next, [
-                    db.lookupModelById('technologies'),
-                    db.lookupModelById('tags'),
                     db.match({
                         _id: id,
                     }),
-                    db.project(db.hideAttr([])),
+                    db.lookupModelById('technologies'),
+                    db.lookupModelById('tags'),
+                    db.project(db.hideAttr()),
                 ]);
             }
         };
