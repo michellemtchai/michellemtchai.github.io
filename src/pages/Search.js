@@ -20,7 +20,6 @@ class Search extends React.Component {
                 {...this.props}
                 name="Project"
                 type="projects"
-                searchterm={results.term}
                 list={ProjectList}
                 baseUrl={baseUrl(this.props, results)}
                 updateFilter={(value) =>
@@ -40,15 +39,12 @@ const initialState = (props) => {
     if (results) {
         return results;
     } else {
-        let term = decodeURIComponent(props.match.params.term);
-        let data = props.data.projects;
         let pages = Math.ceil(
             props.data.total / props.data.limit
         );
-        let stacks = props.data.stacks;
+        let stacks = props.data.stacks || [];
         let selected = stacks.map((i) => i.value);
         return {
-            term: term,
             sortBy: 'relevance',
             sortDir: 'ascending',
             stacks: stacks,

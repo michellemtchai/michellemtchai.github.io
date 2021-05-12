@@ -40,7 +40,7 @@ const initialState = (props) => {
         let pages = Math.ceil(
             props.data.total / props.data.limit
         );
-        let stacks = props.data.stacks;
+        let stacks = props.data.stacks || [];
         let selected = stacks.map((i) => i.value);
         return {
             sortBy: 'name',

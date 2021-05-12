@@ -31,6 +31,7 @@ module.exports = projects = {
                 projects: projects,
                 page: page,
                 category: category,
+                search: regex,
                 options: {
                     category: categoryId,
                     stacks: stackIds,
@@ -88,7 +89,7 @@ const boldText = (text, regex) =>
 const processResults = (
     controller,
     res,
-    { page, category, options } = {}
+    { page, category, options, search } = {}
 ) => {
     let step1 = (projects) => {
         let total = projects.length;
@@ -99,7 +100,8 @@ const processResults = (
             controller.models.Project,
             projectIds,
             category,
-            (stacks) => step2(stacks, projects, total)
+            (stacks) => step2(stacks, projects, total),
+            search
         );
     };
     let step2 = (stacks, projects, total) => {
@@ -172,6 +174,7 @@ const getCategorizedProjects = (
     { category, stacks, sortDir, sortBy, search } = {}
 ) => {
     let cacheKey = `projects:${category},sortBy:${sortBy},sortDir:${sortDir},stacks:${stacks}`;
+    cacheKey += search ? `,search:${search}` : '';
     let queryProject = (next) => {
         let query = [
             db.lookupModelById('categories', {
@@ -205,8 +208,16 @@ const getCategorizedProjects = (
     cache.cacheAction(cacheKey, queryProject, action);
 };
 
-const getStacks = (res, model, projectIds, category, action) => {
+const getStacks = (
+    res,
+    model,
+    projectIds,
+    category,
+    action,
+    search
+) => {
     let cacheKey = `stack:${category}`;
+    cacheKey += search ? `,search${search}` : '';
     let queryStacks = (next) => {
         let query = [
             db.unwind('$technologies'),

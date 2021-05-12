@@ -54,7 +54,7 @@ class List extends React.Component {
                     </button>
                     <p>
                         Showing {items.length} of{' '}
-                        {this.props.results.total}
+                        {this.props.data.total}
                     </p>
                     {pagination}
                 </li>
