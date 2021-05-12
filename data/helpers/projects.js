@@ -192,7 +192,7 @@ const getCategorizedProjects = (
         }
         if (stacks) {
             query.push(
-                db.matchExpr(db.isIn('$technologies', stacks))
+                db.match(db.isIn('technologies', stacks, false))
             );
         }
         query.push(

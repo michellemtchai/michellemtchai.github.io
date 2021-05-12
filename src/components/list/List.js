@@ -18,7 +18,7 @@ class List extends React.Component {
     };
     render() {
         let page = this.props.page;
-        let pages = this.props.data.pages;
+        let pages = this.props.results.pages;
         let items = this.props.data[this.props.type];
         let className = this.props.clickable
             ? 'items clickable'
@@ -54,7 +54,7 @@ class List extends React.Component {
                     </button>
                     <p>
                         Showing {items.length} of{' '}
-                        {this.props.data.total}
+                        {this.props.results.total}
                     </p>
                     {pagination}
                 </li>

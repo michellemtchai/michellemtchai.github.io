@@ -154,6 +154,7 @@ const searchRoute = (keyName, range) => {
                     ...params,
                     sortBy: results.sortBy,
                     sortDir: results.sortDir,
+                    stacks: results.filtered.stacks,
                 };
             }
             return [`/projects/search/${term}`, params];
