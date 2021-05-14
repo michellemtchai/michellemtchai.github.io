@@ -19,7 +19,8 @@ class List extends React.Component {
     render() {
         let page = this.props.page;
         let pages = this.props.results.pages;
-        let items = this.props.data[this.props.type];
+        let data = this.props.state[this.props.state.data];
+        let items = data[this.props.type];
         let className = this.props.clickable
             ? 'items clickable'
             : 'items';
@@ -53,8 +54,7 @@ class List extends React.Component {
                         <i className="fas fa-sliders-h" />
                     </button>
                     <p>
-                        Showing {items.length} of{' '}
-                        {this.props.data.total}
+                        Showing {items.length} of {data.total}
                     </p>
                     {pagination}
                 </li>

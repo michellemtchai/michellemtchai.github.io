@@ -12,8 +12,9 @@ class ProjectListItem extends React.Component {
         goToPage(`/projects/${project._id}`);
     };
     render() {
+        let data = this.props.state[this.props.state.data];
         let project = this.props.project;
-        let technologies = this.props.data.technologies;
+        let technologies = data.technologies;
         let tech = project.technologies.map(
             (j) => technologies[j]
         );

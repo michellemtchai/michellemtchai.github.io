@@ -13,7 +13,7 @@ const SearchBar = lazy(() =>
 
 class Home extends React.Component {
     render() {
-        let categories = this.props.data;
+        let categories = this.props.state[this.props.state.data];
         return (
             <div className="page-body">
                 <SearchBar {...this.props} range="/all" />

@@ -15,7 +15,7 @@ const Markdown = lazy(() =>
 
 class Project extends React.Component {
     render() {
-        let project = this.props.data;
+        let project = this.props.state[this.props.state.data];
         return (
             <article className="page-body">
                 <SearchBar

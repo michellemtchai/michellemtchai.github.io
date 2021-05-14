@@ -36,16 +36,15 @@ const initialState = (props) => {
     if (results) {
         return results;
     } else {
-        let pages = Math.ceil(
-            props.data.total / props.data.limit
-        );
-        let stacks = props.data.stacks || [];
+        let data = props.state[props.state.data];
+        let pages = Math.ceil(data.total / data.limit);
+        let stacks = data.stacks || [];
         let selected = stacks.map((i) => i.value);
         return {
             sortBy: 'relevance',
             sortDir: 'ascending',
             stacks: stacks,
-            total: props.data.total,
+            total: data.total,
             pages: pages,
             filtered: {
                 stacks: selected,

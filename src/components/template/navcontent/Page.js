@@ -14,14 +14,14 @@ class Page extends React.Component {
         }
         return route;
     };
-    fetchData = () => {
+    fetchDone = () => {
         let dataKey = this.props.state.data;
         let data = this.props.state[dataKey];
         let fetchDone =
             dataKey !== null &&
             (this.props.route.apiRoute === undefined ||
                 data !== null);
-        return [fetchDone, data];
+        return fetchDone;
     };
     componentDidMount() {
         if (
@@ -51,14 +51,10 @@ class Page extends React.Component {
         }
     }
     render() {
-        let [fetchDone, data] = this.fetchData();
         let error = this.props.state.error;
         return error === '' ? (
-            fetchDone ? (
-                <this.props.component
-                    {...this.props}
-                    data={data}
-                />
+            this.fetchDone() ? (
+                <this.props.component {...this.props} />
             ) : (
                 <div className="page-body">
                     <Spinner />
