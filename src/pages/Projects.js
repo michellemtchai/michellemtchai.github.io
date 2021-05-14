@@ -1,7 +1,7 @@
 import React, { lazy } from 'react';
 import Spinner from '../pages/Spinner';
 import { formatPages } from '../shared/pages';
-import { filterData, updateFilter } from '../shared/results';
+import { filterData } from '../shared/results';
 const Items = lazy(() => import('../components/items/Items'));
 const ProjectList = lazy(() =>
     import('../components/projects/ProjectList')
@@ -20,9 +20,6 @@ class Projects extends React.Component {
                 name="Project"
                 type="projects"
                 list={ProjectList}
-                updateFilter={(value) =>
-                    updateFilter(this, value)
-                }
             />
         ) : (
             <Spinner />
