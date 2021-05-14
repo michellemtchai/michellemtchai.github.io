@@ -32,11 +32,14 @@ class FilterDialog extends React.Component {
             },
         });
     };
-    useFilter = () => {
-        let range = this.props.range;
-        let term = this.props.match.params.term
+    searchTerm = () => {
+        return this.props.match.params.term
             ? encodeURIComponent(this.props.match.params.term)
             : null;
+    };
+    useFilter = () => {
+        let range = this.props.range;
+        let term = this.searchTerm();
         let url = !term ? range : `${range}/search/${term}`;
         this.props.setResults(this.state);
         this.props.setData({
@@ -63,7 +66,9 @@ class FilterDialog extends React.Component {
                         label="Sort by:"
                         selected={this.state.sortBy}
                         update={this.updateSortBy}
-                        options={sortByOptions(this.state.term)}
+                        options={sortByOptions(
+                            this.searchTerm()
+                        )}
                     />
                     <Select
                         name="sort-direction"
