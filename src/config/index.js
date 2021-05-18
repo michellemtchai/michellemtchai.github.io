@@ -97,21 +97,11 @@ const setupCategoriesSearch = (props) => {
                 component: Component,
                 icon: label.icon_class,
                 apiRoute: (props) => {
-                    let params = {
-                        page: props.match.params.page
-                            ? props.match.params.page
-                            : 1,
-                        category: label._id,
-                    };
-                    let results = props.results;
-                    if (results) {
-                        params = {
-                            ...params,
-                            sortBy: results.sortBy,
-                            sortDir: results.sortDir,
-                            stacks: results.filtered.stacks,
-                        };
-                    }
+                    let params = getProjectsParams(
+                        props,
+                        label._id,
+                        'name'
+                    );
                     return [`/projects`, params];
                 },
                 exact: true,
@@ -142,26 +132,39 @@ const searchRoute = (keyName, range) => {
             let term = encodeURIComponent(
                 props.match.params.term
             );
-            let params = {
-                page: props.match.params.page
-                    ? props.match.params.page
-                    : 1,
-                category: keyName,
-            };
-            let results = props.results;
-            if (results) {
-                params = {
-                    ...params,
-                    sortBy: results.sortBy,
-                    sortDir: results.sortDir,
-                    stacks: results.filtered.stacks,
-                };
-            }
+            let params = getProjectsParams(
+                props,
+                keyName,
+                'relevance'
+            );
             return [`/projects/search/${term}`, params];
         },
         exact: true,
         description: 'Projects associated with the search term.',
     };
+};
+
+const getProjectsParams = (props, category, defSortBy) => {
+    let params = {
+        page: props.match.params.page
+            ? props.match.params.page
+            : 1,
+        category: category,
+    };
+    let results = props.results;
+    params = {
+        ...params,
+        sortBy: results ? results.sortBy : defSortBy,
+        sortDir: results ? results.sortDir : 'ascending',
+    };
+    if (
+        results &&
+        results.filtered.stacks.length !==
+            results.filtered.defStacks.length
+    ) {
+        params.stacks = results.filtered.stacks;
+    }
+    return params;
 };
 
 const categoryProjects = (label) => {

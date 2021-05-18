@@ -17,11 +17,18 @@ class Page extends React.Component {
     fetchDone = () => {
         let dataKey = this.props.state.data;
         let data = this.props.state[dataKey];
-        let fetchDone =
-            dataKey !== null &&
-            (this.props.route.apiRoute === undefined ||
-                data !== null);
-        return fetchDone;
+        let fetchDone = dataKey !== null;
+        if (this.props.route.apiRoute === undefined) {
+            return fetchDone;
+        } else {
+            let apiRoute = this.constructRoute(
+                ...this.props.route.apiRoute(this.props)
+            );
+            return (
+                fetchDone &&
+                apiRoute.localeCompare(dataKey) === 0
+            );
+        }
     };
     componentDidMount() {
         if (

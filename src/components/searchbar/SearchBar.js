@@ -26,8 +26,8 @@ class SearchBar extends React.Component {
         let value = this.state.value.trim();
         if (value.length > 0) {
             let term = encodeURIComponent(value);
-            resetResults(this.props);
             goToPage(`${this.props.range}/search/${term}`);
+            resetResults(this.props);
         }
     };
     handleKeyDown = (event) => {

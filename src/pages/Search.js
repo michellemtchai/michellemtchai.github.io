@@ -37,14 +37,16 @@ const initialState = (props) => {
         return results;
     } else {
         let data = props.state[props.state.data];
-        let pages = Math.ceil(data.total / data.limit);
+        let limit = data.limit || 1;
+        let total = data.total || 0;
+        let pages = Math.ceil(total / limit);
         let stacks = data.stacks || [];
         let selected = stacks.map((i) => i.value);
         return {
             sortBy: 'relevance',
             sortDir: 'ascending',
             stacks: stacks,
-            total: data.total,
+            total: total,
             pages: pages,
             filtered: {
                 stacks: selected,
