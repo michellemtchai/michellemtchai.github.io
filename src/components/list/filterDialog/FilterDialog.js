@@ -6,9 +6,10 @@ const Button = lazy(() =>
     import('../../project/gallery/imageModal/Button')
 );
 import { sortByOptions, sortDirOptions } from './constants';
+import { goToPage } from '../../../shared/router';
 
 class FilterDialog extends React.Component {
-    state = this.props.filter;
+    state = this.props.results;
     updateSortBy = (event) => {
         this.setState({
             ...this.state,
@@ -31,8 +32,20 @@ class FilterDialog extends React.Component {
             },
         });
     };
+    searchTerm = () => {
+        return this.props.match.params.term
+            ? encodeURIComponent(this.props.match.params.term)
+            : null;
+    };
     useFilter = () => {
-        this.props.updateFilter(this.state);
+        let range = this.props.range;
+        let term = this.searchTerm();
+        let url = !term ? range : `${range}/search/${term}`;
+        this.props.setResults(this.state);
+        this.props.setData({
+            data: null,
+        });
+        goToPage(url);
     };
     render() {
         return (
@@ -54,7 +67,7 @@ class FilterDialog extends React.Component {
                         selected={this.state.sortBy}
                         update={this.updateSortBy}
                         options={sortByOptions(
-                            this.props.searchterm
+                            this.searchTerm()
                         )}
                     />
                     <Select

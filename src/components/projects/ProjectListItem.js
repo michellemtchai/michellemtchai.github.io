@@ -2,16 +2,22 @@ import React, { lazy } from 'react';
 const TechList = lazy(() => import('../techList/TechList'));
 import Image from '../image/Image';
 import { goToPage } from '../../shared/router';
+import { resetResults } from '../../shared/results';
 
 class ProjectListItem extends React.Component {
     project = (event) => {
         event.preventDefault();
         let project = this.props.project;
+        resetResults(this.props);
         goToPage(`/projects/${project._id}`);
     };
     render() {
+        let data = this.props.state[this.props.state.data];
         let project = this.props.project;
-        let technologies = this.props.state.technologies;
+        let technologies = data.technologies;
+        let tech = project.technologies.map(
+            (j) => technologies[j]
+        );
         let alt = `Preview of ${project.name}`;
         let title = `See details about ${project.name}`;
         let className = project.demo_url ? 'demo' : '';
@@ -51,7 +57,7 @@ class ProjectListItem extends React.Component {
                         </section>
                         <TechList
                             {...this.props}
-                            tech={project.technologies}
+                            tech={tech}
                             clickable={false}
                         />
                     </section>

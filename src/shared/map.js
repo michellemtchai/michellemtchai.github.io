@@ -1,6 +1,6 @@
 import App from '../config/app';
 import { connect } from 'react-redux';
-import * as search from '../actions/search';
+import * as results from '../actions/results';
 import * as routes from '../actions/routes';
 import * as projects from '../actions/projects';
 import * as state from '../actions/state';
@@ -10,7 +10,7 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
     return {
-        ...search.map(dispatch),
+        ...results.map(dispatch),
         ...routes.map(dispatch),
         ...projects.map(dispatch),
         ...state.map(dispatch),

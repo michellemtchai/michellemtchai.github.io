@@ -1,5 +1,5 @@
-module.exports = (app) =>{
-    return app.shared.createModel('Technology', {
+module.exports = (app) => {
+    return app.shared.createModel('technologies', {
         name: {
             type: String,
             required: true,
@@ -7,11 +7,11 @@ module.exports = (app) =>{
         },
         source_url: {
             type: String,
-            required: true
+            required: true,
         },
         icon_url: {
             type: String,
-            required: true
+            required: true,
         },
-    })
+    });
 };

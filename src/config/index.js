@@ -8,9 +8,11 @@ const NotFound = lazy(() => import('../pages/NotFound'));
 export const navlinks = (props) => {
     let labels = props.state.categories;
     let links = ['/'];
-    Object.keys(labels).forEach((key) => {
-        links.push(labels[key].base_url);
-    });
+    if (labels) {
+        Object.keys(labels).forEach((key) => {
+            links.push(labels[key].base_url);
+        });
+    }
     return links;
 };
 
@@ -22,6 +24,7 @@ export const routes = (props) => {
             title: 'Home',
             exact: true,
             icon: 'fas fa-home',
+            apiRoute: (props) => ['/', {}],
             children: [
                 '/all/search/:term',
                 '/all/search/:term/page/:page',
@@ -33,6 +36,10 @@ export const routes = (props) => {
             component: Project,
             title: 'Project',
             icon: 'fas fa-tasks',
+            apiRoute: (props) => {
+                let project = props.match.params.project;
+                return [`/projects/${project}`, {}];
+            },
         },
         '': {
             component: NotFound,
@@ -59,44 +66,58 @@ export const routeKey = (props, location) => {
 
 const setupCategoriesSearch = (props) => {
     let labels = props.state.categories;
-    let categories = {};
-    let search = {};
-    search['/all/search/:term'] = searchRoute('all', '/all');
-    search['/all/search/:term/page/:page'] =
-        search['/all/search/:term'];
-    Object.keys(labels).forEach((key) => {
-        let label = labels[key];
-        let pagesUrl = `${label.base_url}/page`;
-        let searchUrl = `${label.base_url}/search/:term`;
-        search[searchUrl] = searchRoute(
-            label._id,
-            label.base_url
-        );
-        search[`${searchUrl}/page/:page`] = search[searchUrl];
-        let Component = (props) => (
-            <Projects
-                baseUrl={pagesUrl}
-                range={label.base_url}
-                keyName={label._id}
-                {...props}
-            />
-        );
-        categories[label.base_url] = {
-            title: label.name,
-            component: Component,
-            icon: label.icon_class,
-            exact: true,
-            description: label.description,
-            children: [
-                ...categoryProjects(label),
-                searchUrl,
-                `${searchUrl}/page/:page`,
-            ],
-        };
-        categories[`${pagesUrl}/:page`] =
-            categories[label.base_url];
-    });
-    return [categories, search];
+    if (!labels) {
+        return [{}, {}];
+    } else {
+        let categories = {};
+        let search = {};
+        search['/all/search/:term'] = searchRoute('all', '/all');
+        search['/all/search/:term/page/:page'] =
+            search['/all/search/:term'];
+        Object.keys(labels).forEach((key) => {
+            let label = labels[key];
+            let pagesUrl = `${label.base_url}/page`;
+            let searchUrl = `${label.base_url}/search/:term`;
+            search[searchUrl] = searchRoute(
+                label._id,
+                label.base_url
+            );
+            search[`${searchUrl}/page/:page`] =
+                search[searchUrl];
+            let Component = (props) => (
+                <Projects
+                    baseUrl={pagesUrl}
+                    range={label.base_url}
+                    keyName={label._id}
+                    {...props}
+                />
+            );
+            categories[label.base_url] = {
+                title: label.name,
+                component: Component,
+                icon: label.icon_class,
+                apiRoute: (props) => {
+                    let params = getProjectsParams(
+                        props,
+                        label._id,
+                        'name'
+                    );
+                    return [`/projects`, params];
+                },
+                exact: true,
+                description: label.description,
+                children: [
+                    `${pagesUrl}/:page`,
+                    ...categoryProjects(label),
+                    searchUrl,
+                    `${searchUrl}/page/:page`,
+                ],
+            };
+            categories[`${pagesUrl}/:page`] =
+                categories[label.base_url];
+        });
+        return [categories, search];
+    }
 };
 
 const searchRoute = (keyName, range) => {
@@ -107,9 +128,43 @@ const searchRoute = (keyName, range) => {
         title: 'Search Results',
         component: Component,
         icon: 'fas fa-search',
+        apiRoute: (props) => {
+            let term = encodeURIComponent(
+                props.match.params.term
+            );
+            let params = getProjectsParams(
+                props,
+                keyName,
+                'relevance'
+            );
+            return [`/projects/search/${term}`, params];
+        },
         exact: true,
         description: 'Projects associated with the search term.',
     };
+};
+
+const getProjectsParams = (props, category, defSortBy) => {
+    let params = {
+        page: props.match.params.page
+            ? props.match.params.page
+            : 1,
+        category: category,
+    };
+    let results = props.results;
+    params = {
+        ...params,
+        sortBy: results ? results.sortBy : defSortBy,
+        sortDir: results ? results.sortDir : 'ascending',
+    };
+    if (
+        results &&
+        results.filtered.stacks.length !==
+            results.filtered.defStacks.length
+    ) {
+        params.stacks = results.filtered.stacks;
+    }
+    return params;
 };
 
 const categoryProjects = (label) => {

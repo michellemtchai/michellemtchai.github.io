@@ -1,5 +1,6 @@
 const Controller = require('../classes/Controller');
 const dataProc = require('../helpers/data');
+const db = require('../helpers/db');
 
 module.exports = class CategoriesController extends Controller {
     Category = this.models['Category'];
@@ -13,15 +14,22 @@ module.exports = class CategoriesController extends Controller {
     containsObjectId = ['projects'];
 
     index = (req, res) => {
-        dataProc.renderDbModel(this, res, this.Category);
+        let next = (i) => res.json(i);
+        this.Category.find(res, next, {
+            select: db.defSelect,
+            sort: {
+                _id: 1,
+            },
+        });
     };
 
     show = (req, res) => {
-        this.renderOneWithId(this.Category, res, req.params.id, {
-            __v: 0,
-            created: 0,
-            updated: 0,
-        });
+        this.renderOneWithId(
+            this.Category,
+            res,
+            req.params.id,
+            db.defSelect
+        );
     };
 
     create = (req, res) => {

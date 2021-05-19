@@ -40,7 +40,7 @@
     word-wrap: break-word;
 }
 .project-info > p.demo {
-    min-height: 50px;
+    min-height: 60px;
 }
 .project-info > ul {
     list-style: none;

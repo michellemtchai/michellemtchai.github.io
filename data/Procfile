@@ -1,0 +1,1 @@
+web: export DATA_BACKEND_PORT=$PORT && yarn prod

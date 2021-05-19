@@ -30,19 +30,34 @@ module.exports = class Model {
         });
     };
 
+    aggregate = (res, next, query) => {
+        handleDbAction(
+            this,
+            res,
+            next,
+            this.model,
+            'aggregate',
+            [query]
+        );
+    };
+
     find = (
         res,
         next,
         {
-            query = [],
+            query = {},
             sort = null,
+            skip = null,
             limit = null,
             select = null,
         } = {}
     ) => {
-        let model = this.model.find(...query);
+        let model = this.model.find(query);
         if (sort) {
             model = model.sort(sort);
+        }
+        if (skip) {
+            model = model.skip(skip);
         }
         if (limit) {
             model = model.limit(limit);

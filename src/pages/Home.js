@@ -1,4 +1,6 @@
 import React, { lazy } from 'react';
+import { fetchAPIData } from '../shared/network';
+import Spinner from './Spinner';
 const Error = lazy(() =>
     import('../components/template/error/Error')
 );
@@ -11,33 +13,22 @@ const SearchBar = lazy(() =>
 
 class Home extends React.Component {
     render() {
-        let categories = this.props.state.categories;
-        let projects = this.props.state.projects;
-        return !this.props.error ? (
+        let categories = this.props.state[this.props.state.data];
+        return (
             <div className="page-body">
                 <SearchBar {...this.props} range="/all" />
-                {Object.keys(categories).map((key, i) => (
+                {categories.map((category, i) => (
                     <ThumbList
                         key={'thumblist-' + i}
                         {...this.props}
-                        title={categories[key].name}
-                        page={categories[key].base_url}
-                        list={truncateList(
-                            categories[key].projects,
-                            projects
-                        )}
+                        title={category.name}
+                        page={category.base_url}
+                        list={category.projects}
                     />
                 ))}
             </div>
-        ) : (
-            <Error {...this.props} />
         );
     }
 }
 
 export default Home;
-
-const truncateList = (list, projects) => {
-    let dataList = list.map((key) => projects[key]);
-    return dataList.slice(0, 4);
-};

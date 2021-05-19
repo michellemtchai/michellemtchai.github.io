@@ -1,5 +1,8 @@
 const Controller = require('../classes/Controller');
 const dataProc = require('../helpers/data');
+const projects = require('../helpers/projects');
+const cache = require('../helpers/cache');
+const db = require('../helpers/db');
 
 module.exports = class ProjectsController extends Controller {
     Project = this.models['Project'];
@@ -13,7 +16,49 @@ module.exports = class ProjectsController extends Controller {
     containsObjectId = ['technologies', 'tags'];
 
     index = (req, res) => {
-        dataProc.renderDbModel(this, res, this.Project);
+        projects.page(this, res, req.query);
+    };
+
+    search = (req, res) => {
+        projects.search(this, res, req.params.search, req.query);
+    };
+
+    show = (req, res) => {
+        let reqId = req.params.id;
+        let successAction = (data) =>
+            this.renderSuccess(res, data);
+        let errorAction = (data) => this.renderError(res, data);
+        let queryProject = (next) => {
+            let [err, id] = db.toObjectId(reqId);
+            if (err) {
+                cache.setCache(reqId, {
+                    error: err,
+                });
+                this.renderError(res, err);
+            } else {
+                this.Project.aggregate(res, next, [
+                    db.match({
+                        _id: id,
+                    }),
+                    db.lookupModelById('technologies'),
+                    db.lookupModelById('tags'),
+                    db.project(db.hideAttr()),
+                ]);
+            }
+        };
+        let cacheActionConfig = {
+            checkError: true,
+            isError: (data) => data.length < 1,
+            formatError: (data) => db.invalidObjectId(reqId),
+            formatData: (data) => data[0],
+        };
+        cache.cacheAction(
+            reqId,
+            queryProject,
+            successAction,
+            errorAction,
+            cacheActionConfig
+        );
     };
 
     create = (req, res) => {

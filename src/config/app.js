@@ -1,15 +1,13 @@
 import React from 'react';
 import { withRouter } from 'react-router';
+import Spinner from '../pages/Spinner';
 import Template from '../components/template/Template';
 
 import { Switch, Route } from 'react-router-dom';
 import { routes } from '../config/';
 import { fetchAPIData } from '../shared/network';
 import { goToPage } from '../shared/router';
-import {
-    redirectParam,
-    setupFormattedProjects,
-} from '../shared/pages';
+import { redirectParam } from '../shared/pages';
 
 class App extends React.Component {
     route = (key, i) => {
@@ -21,9 +19,7 @@ class App extends React.Component {
             ...this.state,
         };
         let pageTemplate = () => (
-            <Template {...props}>
-                <Component {...props} />
-            </Template>
+            <Template {...props} component={Component} />
         );
         return (
             <Route
@@ -38,27 +34,40 @@ class App extends React.Component {
     };
 
     componentDidMount() {
-        let next = () => {
+        let next = (data) => {
             this.props.setRoutes(routes(this.props));
-            setupFormattedProjects(this.props);
-
+            let mapping = {};
+            data.categories.forEach(
+                (i) => (mapping[i._id] = i.projects)
+            );
+            this.props.setProjects(mapping);
             let redirect = redirectParam(this.props);
             if (redirect) {
                 goToPage(decodeURIComponent(redirect));
             }
         };
-        fetchAPIData(this.props, '/data.json', {
-            method: 'GET',
-            next: next,
-        });
+        let setError = (data) => {
+            this.props.setRoutes(routes(this.props));
+            this.props.setError(data);
+        };
+        if (!this.props.state.categories) {
+            fetchAPIData(this.props, '/categories', {
+                method: 'GET',
+                setState: this.props.setData,
+                setError: setError,
+                next: next,
+                formatData: (data) => {
+                    return {
+                        categories: data,
+                    };
+                },
+            });
+        }
     }
 
     render() {
         let routes = this.props.routes;
-        let setupDone =
-            this.props.state.fetching === 0 &&
-            this.props.projects != null;
-        return setupDone ? (
+        return (
             <>
                 {Object.keys(routes).length > 0 ? (
                     <Switch>
@@ -70,11 +79,6 @@ class App extends React.Component {
                     ''
                 )}
             </>
-        ) : (
-            <img
-                id="spinner"
-                src={process.env.PUBLIC_URL + '/spinner.gif'}
-            />
         );
     }
 }

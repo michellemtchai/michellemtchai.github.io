@@ -3,16 +3,12 @@ import React from 'react';
 import { goToPage } from '../../../shared/router';
 
 class PageButtons extends React.Component {
-    prevPage = () => {
-        let page = this.props.index - 1;
-        this.props.setSearch(this.props.filter);
+    changePage = (increment) => {
+        let page = this.props.index + increment;
         goToPage(this.props.baseUrl + page);
-        window.scrollTo(0, 0);
-    };
-    nextPage = () => {
-        let page = this.props.index + 1;
-        this.props.setSearch(this.props.filter);
-        goToPage(this.props.baseUrl + page);
+        this.props.setData({
+            data: null,
+        });
         window.scrollTo(0, 0);
     };
     render() {
@@ -20,11 +16,11 @@ class PageButtons extends React.Component {
         let pages = this.props.pages;
         return pages > 1 ? (
             <div className="pagination">
-                {prev(page, this.prevPage)}
+                {prev(page, () => this.changePage(-1))}
                 <span>
                     {page} of {pages}
                 </span>
-                {next(page, pages, this.nextPage)}
+                {next(page, pages, () => this.changePage(1))}
             </div>
         ) : (
             ''

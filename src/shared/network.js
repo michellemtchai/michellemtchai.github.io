@@ -1,13 +1,15 @@
 export const fetchAPIData = (
     props,
     url,
-    { method, params, formatData, next } = {}
+    { method, params, setState, setError, formatData, next } = {}
 ) => {
     fetchData(
         baseUrl + url,
         fetchConfig(props, {
             method: method,
             params: params,
+            setState: setState,
+            setError: setError,
             formatData: formatData,
             next: next,
         })
@@ -15,22 +17,24 @@ export const fetchAPIData = (
 };
 
 const baseUrl =
-    process.env.NODE_ENV == 'development'
+    process.env.NODE_ENV === 'development'
         ? `http://localhost:${process.env.REACT_APP_PORT}`
-        : '';
+        : process.env.REACT_APP_DATA_LOCATION;
 
 const fetchConfig = (
     props,
     {
         method = 'GET',
         params = {},
+        setState = setState,
+        setError,
         formatData = (data) => data,
         next = null,
     } = {}
 ) => {
     return {
-        setState: props.setData,
-        setError: props.setError,
+        setState: setState,
+        setError: setError ? setError : props.setError,
         fetching: props.startFetching,
         formatData: formatData,
         method: method,
@@ -41,7 +45,6 @@ const fetchConfig = (
 
 export const fetchData = (url, config) => {
     url = setUpURL(url, config);
-    config.fetching();
     let error = false;
     fetch(url, fetchInterface(config))
         .then((res) => {

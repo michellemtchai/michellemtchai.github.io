@@ -1,13 +1,11 @@
 import './index.css';
 import React, { lazy } from 'react';
+import FilterDialog from './filterDialog/FilterDialog';
 const PageButtons = lazy(() =>
     import('./pageButton/PageButtons')
 );
 const SearchBar = lazy(() => import('../searchbar/SearchBar'));
 const Modal = lazy(() => import('../modal/Modal'));
-const FilterDialog = lazy(() =>
-    import('./filterDialog/FilterDialog')
-);
 
 class List extends React.Component {
     state = {
@@ -20,8 +18,9 @@ class List extends React.Component {
     };
     render() {
         let page = this.props.page;
-        let pages = this.props.pages;
-        let items = pages[page];
+        let pages = this.props.results.pages;
+        let data = this.props.state[this.props.state.data];
+        let items = data[this.props.type];
         let className = this.props.clickable
             ? 'items clickable'
             : 'items';
@@ -29,7 +28,7 @@ class List extends React.Component {
             <PageButtons
                 {...this.props}
                 index={page + 1}
-                pages={pages.length}
+                pages={pages}
                 baseUrl={this.props.baseUrl + '/'}
             />
         );
@@ -55,8 +54,7 @@ class List extends React.Component {
                         <i className="fas fa-sliders-h" />
                     </button>
                     <p>
-                        Showing {items.length} of{' '}
-                        {this.props.total}{' '}
+                        Showing {items.length} of {data.total}
                     </p>
                     {pagination}
                 </li>

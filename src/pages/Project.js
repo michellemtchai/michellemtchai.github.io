@@ -1,4 +1,5 @@
 import React, { lazy } from 'react';
+import Gallery from '../components/project/gallery/Gallery';
 import { goToPage } from '../shared/router';
 const Image = lazy(() => import('../components/image/Image'));
 const Tabs = lazy(() => import('../components/tabs/Tabs'));
@@ -8,20 +9,14 @@ const SearchBar = lazy(() =>
 const ProjectInfo = lazy(() =>
     import('../components/project/projectInfo/ProjectInfo')
 );
-const Gallery = lazy(() =>
-    import('../components/project/gallery/Gallery')
-);
 const Markdown = lazy(() =>
     import('../components/project/markdown/Markdown')
 );
-const NotFound = lazy(() => import('./NotFound'));
 
 class Project extends React.Component {
     render() {
-        let project = this.props.state.projects[
-            this.props.match.params.project
-        ];
-        return project ? (
+        let project = this.props.state[this.props.state.data];
+        return (
             <article className="page-body">
                 <SearchBar
                     {...this.props}
@@ -31,8 +26,6 @@ class Project extends React.Component {
                 <ProjectInfo project={project} {...this.props} />
                 <Tabs tabs={tabData(project)} />
             </article>
-        ) : (
-            <NotFound {...this.props} />
         );
     }
 }

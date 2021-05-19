@@ -1,28 +1,28 @@
 import React, { lazy } from 'react';
+import Spinner from '../pages/Spinner';
 import { formatPages } from '../shared/pages';
-import { filterData, updateFilter } from '../shared/results';
+import { filterData } from '../shared/results';
 const Items = lazy(() => import('../components/items/Items'));
 const ProjectList = lazy(() =>
     import('../components/projects/ProjectList')
 );
 
 class Projects extends React.Component {
-    state = initialState(this.props);
+    componentDidMount() {
+        if (!this.props.results) {
+            this.props.setResults(initialState(this.props));
+        }
+    }
     render() {
-        let pages = this.state.filtered.results;
-        let total = this.state.filtered.total;
-        return (
+        return this.props.results ? (
             <Items
                 {...this.props}
                 name="Project"
+                type="projects"
                 list={ProjectList}
-                pages={pages}
-                total={total}
-                filter={this.state}
-                updateFilter={(value) =>
-                    updateFilter(this, value)
-                }
             />
+        ) : (
+            <Spinner />
         );
     }
 }
@@ -30,20 +30,24 @@ class Projects extends React.Component {
 export default Projects;
 
 const initialState = (props) => {
-    let search = props.search;
-    let projects = props.projects[props.keyName];
-    let data = projects.data;
-    let defaultState = {
-        sortBy: 'name',
-        sortDir: 'ascending',
-        results: data,
-        stacks: projects.stacks,
-        filtered: {
-            total: data.length,
-            results: formatPages(data),
-            stacks: projects.selectedStacks,
-            defStacks: projects.selectedStacks,
-        },
-    };
-    return search ? search : defaultState;
+    let results = props.results;
+    if (results) {
+        return results;
+    } else {
+        let data = props.state[props.state.data];
+        let pages = Math.ceil(data.total / data.limit);
+        let stacks = data.stacks || [];
+        let selected = stacks.map((i) => i.value);
+        return {
+            sortBy: 'name',
+            sortDir: 'ascending',
+            pages: pages,
+            total: data.total,
+            stacks: stacks,
+            filtered: {
+                stacks: selected,
+                defStacks: selected,
+            },
+        };
+    }
 };

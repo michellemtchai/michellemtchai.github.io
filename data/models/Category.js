@@ -1,7 +1,7 @@
 const ObjectId = require('mongodb').ObjectID;
 
 module.exports = (app) => {
-    return app.shared.createModel('Category', {
+    return app.shared.createModel('categories', {
         name: {
             type: String,
             required: true,

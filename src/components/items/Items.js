@@ -6,13 +6,14 @@ import { validPage, getPage } from '../../shared/pages';
 
 class Items extends React.Component {
     render() {
+        let data = this.props.state[this.props.state.data];
         let page = getPage(this.props);
-        return validPage(this.props.pages, page) ? (
+        let searchTerm = this.props.match.params.term
+            ? decodeURIComponent(this.props.match.params.term)
+            : '';
+        return validPage(this.props.results.pages, page) ? (
             <div className="page-body">
-                <SearchBar
-                    {...this.props}
-                    value={this.props.searchterm}
-                />
+                <SearchBar {...this.props} value={searchTerm} />
                 <this.props.list {...this.props} page={page} />
             </div>
         ) : (

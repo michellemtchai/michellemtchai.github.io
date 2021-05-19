@@ -17,48 +17,63 @@ module.exports = (app) => {
     app.router.get('/', ApplicationController.index);
 
     app.router.get('/projects', ProjectsController.index);
-    app.router.post('/projects', ProjectsController.create);
-    app.router.put('/projects/:id', ProjectsController.update);
-    app.router.delete(
-        '/projects/:id',
-        ProjectsController.destroy
-    );
-
-    app.router.get('/tags', TagsController.index);
-    app.router.post('/tags', TagsController.create);
-    app.router.delete('/tags/:id', TagsController.destroy);
-
-    app.router.get('/categories', CategoriesController.index);
-    app.router.get('/categories/:id', CategoriesController.show);
-    app.router.post('/categories', CategoriesController.create);
-    app.router.put(
-        '/categories/:id',
-        CategoriesController.update
-    );
-    app.router.delete(
-        '/categories/:id',
-        CategoriesController.destroy
-    );
-
+    app.router.get('/projects/:id', ProjectsController.show);
     app.router.get(
-        '/technologies',
-        TechnologiesController.index
+        '/projects/search/:search',
+        ProjectsController.search
     );
-    app.router.post(
-        '/technologies',
-        TechnologiesController.create
-    );
-    app.router.put(
-        '/technologies/:id',
-        TechnologiesController.update
-    );
-    app.router.delete(
-        '/technologies/:id',
-        TechnologiesController.destroy
-    );
+    app.router.get('/categories', CategoriesController.index);
 
-    app.router.put('/update-data', DataController.update);
+    if (process.env.APP_ENV === 'development') {
+        app.router.post('/projects', ProjectsController.create);
+        app.router.put(
+            '/projects/:id',
+            ProjectsController.update
+        );
+        app.router.delete(
+            '/projects/:id',
+            ProjectsController.destroy
+        );
+
+        app.router.get('/tags', TagsController.index);
+        app.router.post('/tags', TagsController.create);
+        app.router.delete('/tags/:id', TagsController.destroy);
+
+        app.router.get(
+            '/categories/:id',
+            CategoriesController.show
+        );
+        app.router.post(
+            '/categories',
+            CategoriesController.create
+        );
+        app.router.put(
+            '/categories/:id',
+            CategoriesController.update
+        );
+        app.router.delete(
+            '/categories/:id',
+            CategoriesController.destroy
+        );
+
+        app.router.get(
+            '/technologies',
+            TechnologiesController.index
+        );
+        app.router.post(
+            '/technologies',
+            TechnologiesController.create
+        );
+        app.router.put(
+            '/technologies/:id',
+            TechnologiesController.update
+        );
+        app.router.delete(
+            '/technologies/:id',
+            TechnologiesController.destroy
+        );
+    }
 
     //The 404 Route (ALWAYS Keep this as the last route)
-    app.router.get('*', ApplicationController.index);
+    app.router.get('*', ApplicationController.notFound);
 };

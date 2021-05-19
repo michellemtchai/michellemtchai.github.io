@@ -25,7 +25,7 @@ class App extends React.Component {
     };
 
     componentDidMount() {
-        fetchAll(this.props);
+        // fetchAll(this.props);
     }
 
     render() {
