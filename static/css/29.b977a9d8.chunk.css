@@ -1,0 +1,2 @@
+.main{margin:0;padding:0}.main>li{list-style:none;display:inline-block;vertical-align:top;height:calc(100vh - 60px)}.main>li:nth-child(2){overflow-y:auto;background:#eee}.content{width:100%;margin:0 auto;min-height:calc(100% - 50px)}.page-body>#spinner{margin-top:calc(50vh - 85px)}@media only screen and (max-width:530px){.main>li{height:calc(100vh - 80px)}.page-body>#spinner{margin-top:calc(50vh - 105px)}}
+/*# sourceMappingURL=29.b977a9d8.chunk.css.map */
