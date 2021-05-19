@@ -267,7 +267,6 @@ const getTechs = (res, model, projects, action, search) => {
         (i) => (projectIds = [...projectIds, ...i.technologies])
     );
     let cacheKey = `tech:${projectIds.join(',')}`;
-    cacheKey += search ? `:search${search}` : '';
     let queryTechs = (next) => {
         let processData = (data) => {
             let regex = search ? new RegExp(search, 'ig') : null;
