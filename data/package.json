@@ -6,7 +6,7 @@
     "license": "MIT",
     "main": "server.js",
     "scripts": {
-        "build": "node server.js",
+        "prod": "node server.js",
         "start": "nodemon server.js "
     },
     "dependencies": {
