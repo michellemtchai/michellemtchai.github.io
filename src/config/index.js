@@ -24,7 +24,7 @@ export const routes = (props) => {
             title: 'Home',
             exact: true,
             icon: 'fas fa-home',
-            apiRoute: (props) => ['/', {}],
+            apiRoute: (props) => ['/home', {}],
             children: [
                 '/all/search/:term',
                 '/all/search/:term/page/:page',
