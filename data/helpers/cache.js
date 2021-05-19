@@ -12,13 +12,6 @@ module.exports = cache = {
     clearAll: () => {
         cacheData.flushAll();
     },
-    mapEntries: (data, formatEntry = null) => {
-        let mapping = {};
-        data.forEach((i) => {
-            mapping[i._id] = formatEntry ? formatEntry(i) : i;
-        });
-        return mapping;
-    },
     cacheAction: (
         cacheKey,
         action,

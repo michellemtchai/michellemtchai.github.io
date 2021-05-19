@@ -21,7 +21,7 @@ class Search extends React.Component {
                 name="Project"
                 type="projects"
                 list={ProjectList}
-                baseUrl={baseUrl(this.props, results)}
+                baseUrl={baseUrl(this.props)}
             />
         ) : (
             <Spinner />
@@ -56,5 +56,9 @@ const initialState = (props) => {
     }
 };
 
-const baseUrl = (props, state) =>
-    `${props.range}/search/${state.term}/page`;
+const baseUrl = (props) => {
+    let searchTerm = props.match.params.term
+        ? decodeURIComponent(props.match.params.term)
+        : '';
+    return `${props.range}/search/${searchTerm}/page`;
+};

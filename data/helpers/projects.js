@@ -83,8 +83,13 @@ module.exports = projects = {
         );
     },
 };
-const boldText = (text, regex) =>
-    htmlEntities.encode(text).replace(regex, '<b>$1</b>');
+const boldText = (text, regex) => {
+    let modifiedText = htmlEntities.encode(text);
+    if (regex) {
+        modifiedText = modifiedText.replace(regex, '<b>$1</b>');
+    }
+    return modifiedText;
+};
 
 const processResults = (
     controller,
@@ -115,7 +120,8 @@ const processResults = (
                     stacks: stacks,
                     projects: projects,
                     total: total,
-                })
+                }),
+            search
         );
     };
     getCategorizedProjects(
@@ -175,6 +181,15 @@ const getCategorizedProjects = (
 ) => {
     let cacheKey = `projects:${category},sortBy:${sortBy},sortDir:${sortDir},stacks:${stacks}`;
     cacheKey += search ? `,search:${search}` : '';
+    let next = (data) => {
+        let regex = search ? new RegExp(search, 'ig') : null;
+        data = data.map((entry) => ({
+            ...entry,
+            name: boldText(entry.name, regex),
+            summary: boldText(entry.summary, regex),
+        }));
+        action(data);
+    };
     let queryProject = (next) => {
         let query = [
             db.lookupModelById('categories', {
@@ -205,7 +220,7 @@ const getCategorizedProjects = (
         );
         model.aggregate(res, next, query);
     };
-    cache.cacheAction(cacheKey, queryProject, action);
+    cache.cacheAction(cacheKey, queryProject, next);
 };
 
 const getStacks = (
@@ -246,18 +261,29 @@ const getStacks = (
     cache.cacheAction(cacheKey, queryStacks, action);
 };
 
-const getTechs = (res, model, projects, action) => {
+const getTechs = (res, model, projects, action, search) => {
     let projectIds = [];
     projects.forEach(
         (i) => (projectIds = [...projectIds, ...i.technologies])
     );
     let next = (data) => {
-        action(cache.mapEntries(data));
+        let regex = search ? new RegExp(search, 'ig') : null;
+        action(mapEntries(data, regex));
     };
     model.find(res, next, {
         query: db.isIn('_id', projectIds, false),
         select: db.defSelect,
     });
+};
+const mapEntries = (data, search) => {
+    let mapping = {};
+    data.forEach((entry) => {
+        mapping[entry._id] = {
+            ...entry._doc,
+            name: boldText(entry.name, search),
+        };
+    });
+    return mapping;
 };
 const getSearchQuery = (regex) => {
     let showList = db.showAttr([...projectShowList, 'tags']);
