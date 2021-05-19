@@ -266,14 +266,19 @@ const getTechs = (res, model, projects, action, search) => {
     projects.forEach(
         (i) => (projectIds = [...projectIds, ...i.technologies])
     );
-    let next = (data) => {
-        let regex = search ? new RegExp(search, 'ig') : null;
-        action(mapEntries(data, regex));
+    let cacheKey = `tech:${projectIds.join(',')}`;
+    cacheKey += search ? `:search${search}` : '';
+    let queryTechs = (next) => {
+        let processData = (data) => {
+            let regex = search ? new RegExp(search, 'ig') : null;
+            next(mapEntries(data, regex));
+        };
+        model.find(res, processData, {
+            query: db.isIn('_id', projectIds, false),
+            select: db.defSelect,
+        });
     };
-    model.find(res, next, {
-        query: db.isIn('_id', projectIds, false),
-        select: db.defSelect,
-    });
+    cache.cacheAction(cacheKey, queryTechs, action);
 };
 const mapEntries = (data, search) => {
     let mapping = {};
