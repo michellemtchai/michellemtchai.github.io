@@ -157,10 +157,9 @@ const searchRoute = (keyName, range, rangeName) => {
             let term = encodeURIComponent(
                 props.match.params.term
             );
-            let page = props.match.params.page || 1;
             return {
                 title: `"${term}" in ${rangeName} | Search Results`,
-                description: `Page ${page} of projects associated with the search term "${term}" in the category "${rangeName}".`,
+                description: `Projects associated with the search term "${term}" in the category "${rangeName}".`,
             };
         },
         apiRoute: (props) => {
@@ -180,9 +179,7 @@ const searchRoute = (keyName, range, rangeName) => {
 
 const getProjectsParams = (props, category, defSortBy) => {
     let params = {
-        page: props.match.params.page
-            ? props.match.params.page
-            : 1,
+        page: props.match.params.page || 1,
         category: category,
     };
     let results = props.results;
