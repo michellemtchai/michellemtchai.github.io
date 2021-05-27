@@ -6,6 +6,7 @@ import {
 import NotFound from '../../../pages/NotFound';
 import Spinner from '../../../pages/Spinner';
 import Error from '../error/Error';
+import Head from '../helmet/Head';
 
 class Page extends React.Component {
     constructRoute = (route, params) => {
@@ -61,14 +62,19 @@ class Page extends React.Component {
         let error = this.props.state.error;
         return error === '' ? (
             this.fetchDone() ? (
-                <this.props.component {...this.props} />
+                <>
+                    <Head {...pageData(this.props)} />
+                    <this.props.component {...this.props} />
+                </>
             ) : (
                 <div className="page-body">
+                    <Head {...loadingPage} />
                     <Spinner />
                 </div>
             )
         ) : (
             <Error text={error}>
+                <Head {...errorPage} />
                 <NotFound {...this.props} />
             </Error>
         );
@@ -76,3 +82,18 @@ class Page extends React.Component {
 }
 
 export default Page;
+
+const pageData = (props) => {
+    let route = props.routes[props.match.path];
+    return route.pageData(props);
+};
+
+const loadingPage = {
+    title: 'Loading...',
+    description: 'This page is loading.',
+};
+
+const errorPage = {
+    title: 'Error',
+    description: 'This page has an error.',
+};

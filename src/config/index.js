@@ -21,9 +21,14 @@ export const routes = (props) => {
     return {
         '/': {
             component: Home,
-            title: 'Home',
             exact: true,
             icon: 'fas fa-home',
+            pageData: (props) => {
+                return {
+                    title: 'Home',
+                    description: process.env.REACT_APP_DESC,
+                };
+            },
             apiRoute: (props) => ['/home', {}],
             children: [
                 '/all/search/:term',
@@ -34,8 +39,14 @@ export const routes = (props) => {
         ...categories,
         '/projects/:project': {
             component: Project,
-            title: 'Project',
             icon: 'fas fa-tasks',
+            pageData: (props) => {
+                let project = props.state[props.state.data];
+                return {
+                    title: `${project.name} | Project`,
+                    description: project.summary,
+                };
+            },
             apiRoute: (props) => {
                 let project = props.match.params.project;
                 return [`/projects/${project}`, {}];
@@ -43,8 +54,14 @@ export const routes = (props) => {
         },
         '': {
             component: NotFound,
-            title: 'Not Found',
             icon: 'fas fa-dizzy',
+            pageData: (props) => {
+                return {
+                    title: 'Not Found',
+                    description:
+                        'You requested page is not found.',
+                };
+            },
         },
     };
 };
@@ -71,7 +88,11 @@ const setupCategoriesSearch = (props) => {
     } else {
         let categories = {};
         let search = {};
-        search['/all/search/:term'] = searchRoute('all', '/all');
+        search['/all/search/:term'] = searchRoute(
+            'all',
+            '/all',
+            'All'
+        );
         search['/all/search/:term/page/:page'] =
             search['/all/search/:term'];
         Object.keys(labels).forEach((key) => {
@@ -80,7 +101,8 @@ const setupCategoriesSearch = (props) => {
             let searchUrl = `${label.base_url}/search/:term`;
             search[searchUrl] = searchRoute(
                 label._id,
-                label.base_url
+                label.base_url,
+                label.name
             );
             search[`${searchUrl}/page/:page`] =
                 search[searchUrl];
@@ -93,9 +115,14 @@ const setupCategoriesSearch = (props) => {
                 />
             );
             categories[label.base_url] = {
-                title: label.name,
                 component: Component,
                 icon: label.icon_class,
+                pageData: (props) => {
+                    return {
+                        title: label.name,
+                        description: label.description,
+                    };
+                },
                 apiRoute: (props) => {
                     let params = getProjectsParams(
                         props,
@@ -105,7 +132,6 @@ const setupCategoriesSearch = (props) => {
                     return [`/projects`, params];
                 },
                 exact: true,
-                description: label.description,
                 children: [
                     `${pagesUrl}/:page`,
                     ...categoryProjects(label),
@@ -120,14 +146,23 @@ const setupCategoriesSearch = (props) => {
     }
 };
 
-const searchRoute = (keyName, range) => {
+const searchRoute = (keyName, range, rangeName) => {
     let Component = (props) => (
         <Search {...props} keyName={keyName} range={range} />
     );
     return {
-        title: 'Search Results',
         component: Component,
         icon: 'fas fa-search',
+        pageData: (props) => {
+            let term = encodeURIComponent(
+                props.match.params.term
+            );
+            let page = props.match.params.page || 1;
+            return {
+                title: `"${term}" in ${rangeName} | Search Results`,
+                description: `Page ${page} of projects associated with the search term "${term}" in the category "${rangeName}".`,
+            };
+        },
         apiRoute: (props) => {
             let term = encodeURIComponent(
                 props.match.params.term
@@ -140,7 +175,6 @@ const searchRoute = (keyName, range) => {
             return [`/projects/search/${term}`, params];
         },
         exact: true,
-        description: 'Projects associated with the search term.',
     };
 };
 

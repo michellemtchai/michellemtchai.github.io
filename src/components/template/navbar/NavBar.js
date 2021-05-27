@@ -85,7 +85,7 @@ const title = (props, link) => {
     return (
         <>
             <i className={'icon ' + route.icon}></i>
-            <small>{route.title}</small>
+            <small>{route.pageData(props).title}</small>
         </>
     );
 };
