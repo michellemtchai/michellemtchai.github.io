@@ -11,22 +11,24 @@ const stringCompare = (key) => {
 };
 
 export const projectSchema = (props) => {
-    let technologies = props.state.data.technologies;
-    let keys = Object.keys(technologies);
-    let options = keys
-        .map((key) => {
-            let technology = technologies[key];
-            return {
-                label: technology.name,
-                value: technology._id,
-            };
-        })
-        .sort(stringCompare('label'));
-    let tags = props.state.data.tags;
+    // let data = props.state[props.state.data];
+    // let technologies = data.technologies;
+    // let keys = Object.keys(technologies);
+    // let options = keys
+    //     .map((key) => {
+    //         let technology = technologies[key];
+    //         return {
+    //             label: technology.name,
+    //             value: technology._id,
+    //         };
+    //     })
+    //     .sort(stringCompare('label'));
+    // let tags = data.tags;
+    let options = [];
     let mapping = {};
-    Object.keys(tags).forEach((tag) => {
-        mapping[tag] = tags[tag].name;
-    });
+    // Object.keys(tags).forEach((tag) => {
+    //     mapping[tag] = tags[tag].name;
+    // });
     return {
         name: 'project',
         properties: {

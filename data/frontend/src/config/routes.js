@@ -18,10 +18,15 @@ export const navlinks = [
     '/tags',
 ];
 
-export const routes = {
+export const routes = (props) => ({
     '/': {
         component: Projects,
-        title: 'Projects',
+        pageData: (props) => {
+            return {
+                title: 'Projects',
+            };
+        },
+        apiRoute: (props) => ['/projects', {}],
         exact: true,
         children: [
             '/projects/new',
@@ -32,24 +37,45 @@ export const routes = {
     },
     '/projects/page/:page': {
         component: Projects,
-        title: 'Projects',
+        pageData: (props) => {
+            return {
+                title: 'Projects',
+            };
+        },
     },
     '/projects/new': {
         component: ProjectCreator,
-        title: 'New Project',
+        pageData: (props) => {
+            return {
+                title: 'New Projects',
+            };
+        },
     },
     '/projects/:project': {
         component: Project,
-        title: 'Project',
+        pageData: (props) => {
+            let project = props.state[props.state.data];
+            return {
+                title: `${project.name} | Project`,
+            };
+        },
         exact: true,
     },
     '/projects/:project/edit': {
         component: ProjectEditor,
-        title: 'Edit Project',
+        pageData: (props) => {
+            return {
+                title: 'Edit Project',
+            };
+        },
     },
     '/technologies': {
         component: Technologies,
-        title: 'Technologies',
+        pageData: (props) => {
+            return {
+                title: 'Technologies',
+            };
+        },
         exact: true,
         children: [
             '/technologies/page/:page',
@@ -59,19 +85,35 @@ export const routes = {
     },
     '/technologies/page/:page': {
         component: Technologies,
-        title: 'Technologies',
+        pageData: (props) => {
+            return {
+                title: 'Technologies',
+            };
+        },
     },
     '/technologies/new': {
         component: TechnologyCreator,
-        title: 'New Technology',
+        pageData: (props) => {
+            return {
+                title: 'New Technology',
+            };
+        },
     },
     '/technologies/:technology/edit': {
         component: TechnologyEditor,
-        title: 'Edit Technology',
+        pageData: (props) => {
+            return {
+                title: 'Edit Technology',
+            };
+        },
     },
     '/categories': {
         component: Categories,
-        title: 'Categories',
+        pageData: (props) => {
+            return {
+                title: 'Categories',
+            };
+        },
         exact: true,
         children: [
             '/categories/page/:page',
@@ -81,28 +123,52 @@ export const routes = {
     },
     '/categories/page/:page': {
         component: Categories,
-        title: 'Categories',
+        pageData: (props) => {
+            return {
+                title: 'Categories',
+            };
+        },
     },
     '/categories/new': {
         component: CategoryCreator,
-        title: 'New Category',
+        pageData: (props) => {
+            return {
+                title: 'New Category',
+            };
+        },
     },
     '/categories/:category/edit': {
         component: CategoryEditor,
-        title: 'Edit Category',
+        pageData: (props) => {
+            return {
+                title: 'Edit Category',
+            };
+        },
     },
     '/tags': {
         component: Tags,
-        title: 'Tags',
+        pageData: (props) => {
+            return {
+                title: 'Tags',
+            };
+        },
         exact: true,
         children: ['/tags/page/:page'],
     },
     '/tags/page/:page': {
         component: Tags,
-        title: 'Tags',
+        pageData: (props) => {
+            return {
+                title: 'Tags',
+            };
+        },
     },
     '': {
         component: NotFound,
-        title: 'Page Not Found',
+        pageData: (props) => {
+            return {
+                title: 'Not Found',
+            };
+        },
     },
-};
+});

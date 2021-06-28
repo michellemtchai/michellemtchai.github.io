@@ -6,7 +6,7 @@ import Creator from '../components/Creator';
 
 class ProjectCreator extends React.Component {
     state = {
-        tags: this.props.state.data.tags,
+        tags: {},
     };
     componentDidUpdate(prevProps) {
         if (

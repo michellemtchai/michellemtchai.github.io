@@ -23,12 +23,7 @@ class Creator extends React.Component {
         });
     };
     render() {
-        let schema = this.props.state.data.form
-            ? {
-                  ...this.props.schema,
-                  data: this.props.state.data.form,
-              }
-            : this.props.schema;
+        let schema = this.props.schema;
         return (
             <div>
                 <Form {...schema} update={this.updateForm} />

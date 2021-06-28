@@ -6,7 +6,7 @@ class List extends React.Component {
     render() {
         let page = this.props.page;
         let pages = this.props.pages;
-        let items = pages[page];
+        let items = pages[page] || [];
         let className = this.props.clickable
             ? 'items clickable'
             : 'items';

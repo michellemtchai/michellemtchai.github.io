@@ -21,7 +21,7 @@ export const validPage = (pages, page) => {
     return (
         Number.isInteger(page) &&
         page >= 0 &&
-        page < pages.length
+        page <= pages.length
     );
 };
 export const getPage = (props) => {

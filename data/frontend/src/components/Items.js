@@ -7,10 +7,9 @@ import NotFound from '../pages/NotFound';
 class Items extends React.Component {
     render() {
         let page = getPage(this.props);
-        let [total, pages] = getPages(
-            this.props,
-            this.props.keyName
-        );
+        let data = this.props.state[this.props.state.data];
+        let pages = data[this.props.keyName];
+        let total = data.total;
         return validPage(pages, page) ? (
             <div>
                 {this.props.name ? (

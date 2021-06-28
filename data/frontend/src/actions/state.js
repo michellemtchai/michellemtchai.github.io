@@ -3,44 +3,27 @@ export const SET_ERROR = 'SET_ERROR';
 export const START_FETCHING = 'START_FETCHING';
 export const END_FETCHING = 'END_FETCHING';
 
-const setData = (data, fetching = false) => {
+const setData = (data, resolve = () => {}) => {
     return {
         type: SET_DATA,
         data: data,
-        fetching: fetching,
+        resolve: resolve,
     };
 };
-const setError = (data, fetching = false) => {
+const setError = (data) => {
     return {
         type: SET_ERROR,
         data: data,
-        fetching: fetching,
-    };
-};
-const startFetching = () => {
-    return {
-        type: START_FETCHING,
-    };
-};
-const endFetching = () => {
-    return {
-        type: END_FETCHING,
     };
 };
 
 export const map = (dispatch) => {
     return {
-        setData: (data, fetching = false) => {
-            dispatch(setData(data, fetching));
+        setData: (data, resolve) => {
+            dispatch(setData(data, resolve));
         },
-        setError: (data, fetching = false) => {
-            dispatch(setError(data, fetching));
-        },
-        startFetching: () => {
-            dispatch(startFetching());
-        },
-        endFetching: () => {
-            dispatch(endFetching());
+        setError: (data) => {
+            dispatch(setError(data));
         },
     };
 };
