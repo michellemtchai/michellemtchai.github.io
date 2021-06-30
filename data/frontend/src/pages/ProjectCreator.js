@@ -1,5 +1,4 @@
 import React from 'react';
-import { api } from '../config/api';
 import { clone } from '../shared/form';
 import { projectSchema } from '../config/forms';
 import Creator from '../components/Creator';
@@ -37,27 +36,27 @@ class ProjectCreator extends React.Component {
 export default ProjectCreator;
 
 const createProject = (tags, props, data, next, schema) => {
-    let mapping = tagNameMapping(tags);
-    let [projectTags, newTags] = projectNewTags(
-        props,
-        data.tags
-    );
-    let copy = clone(data);
-    if (newTags.length > 0) {
-        api.createTag(
-            props,
-            newTags,
-            (res) => {
-                mapping = tagNameMapping(res.tags);
-                copy.tags = copy.tags.map((tag) => mapping[tag]);
-                api.createProject(props, copy, next);
-            },
-            false
-        );
-    } else {
-        copy.tags = projectTags;
-        api.createProject(props, copy, next);
-    }
+    // let mapping = tagNameMapping(tags);
+    // let [projectTags, newTags] = projectNewTags(
+    //     props,
+    //     data.tags
+    // );
+    // let copy = clone(data);
+    // if (newTags.length > 0) {
+    //     api.createTag(
+    //         props,
+    //         newTags,
+    //         (res) => {
+    //             mapping = tagNameMapping(res.tags);
+    //             copy.tags = copy.tags.map((tag) => mapping[tag]);
+    //             api.createProject(props, copy, next);
+    //         },
+    //         false
+    //     );
+    // } else {
+    //     copy.tags = projectTags;
+    //     api.createProject(props, copy, next);
+    // }
 };
 
 export const projectNewTags = (props, tags) => {

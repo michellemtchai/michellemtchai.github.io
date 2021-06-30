@@ -1,5 +1,4 @@
 import React from 'react';
-import { api } from '../config/api';
 import { technologySchema } from '../config/forms';
 import Editor from '../components/Editor';
 
@@ -14,7 +13,7 @@ class TechnologyEditor extends React.Component {
                 item={this.props.state.data.technologies}
                 readonly={readonly}
                 schema={technologySchema}
-                update={api.updateTechnology}
+                update={() => {}}
                 page={'/technologies'}
             />
         );

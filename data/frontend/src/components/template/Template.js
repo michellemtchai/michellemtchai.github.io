@@ -6,7 +6,6 @@ import Error from './error/Error';
 import FetchIndicator from './fetch/FetchIndicator';
 
 import { withRouter } from 'react-router';
-import { fetchComplete } from '../../config/api';
 
 class Template extends React.Component {
     render() {

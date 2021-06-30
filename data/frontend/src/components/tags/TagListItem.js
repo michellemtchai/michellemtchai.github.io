@@ -2,7 +2,6 @@ import React from 'react';
 import Button from '../form/buttons/Button';
 import { goToPage } from '../../shared/router';
 import { deleteItem } from '../../shared/pages';
-import { api } from '../../config/api';
 
 class TagListItem extends React.Component {
     deleteTag = () => {

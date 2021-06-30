@@ -42,6 +42,10 @@ export const routes = (props) => ({
                 title: 'Projects',
             };
         },
+        apiRoute: (props) => {
+            let page = props.match.params.page;
+            return [`/projects/page/${page}`, {}];
+        },
     },
     '/projects/new': {
         component: ProjectCreator,
@@ -59,6 +63,10 @@ export const routes = (props) => ({
                 title: `${project.name} | Project`,
             };
         },
+        apiRoute: (props) => {
+            let project = props.match.params.project;
+            return [`/projects/${project}`, {}];
+        },
         exact: true,
     },
     '/projects/:project/edit': {
@@ -67,6 +75,10 @@ export const routes = (props) => ({
             return {
                 title: 'Edit Project',
             };
+        },
+        apiRoute: (props) => {
+            let project = props.match.params.project;
+            return [`/projects/${project}`, {}];
         },
     },
     '/technologies': {
@@ -82,6 +94,7 @@ export const routes = (props) => ({
             '/technologies/new',
             '/technologies/:technology/edit',
         ],
+        apiRoute: (props) => [`/technologies`, {}],
     },
     '/technologies/page/:page': {
         component: Technologies,
@@ -89,6 +102,10 @@ export const routes = (props) => ({
             return {
                 title: 'Technologies',
             };
+        },
+        apiRoute: (props) => {
+            let page = props.match.params.page;
+            return [`/technologies/page/${page}`, {}];
         },
     },
     '/technologies/new': {
@@ -106,6 +123,10 @@ export const routes = (props) => ({
                 title: 'Edit Technology',
             };
         },
+        apiRoute: (props) => {
+            let technology = props.match.params.technology;
+            return [`/technologies/${technology}`, {}];
+        },
     },
     '/categories': {
         component: Categories,
@@ -120,6 +141,7 @@ export const routes = (props) => ({
             '/categories/new',
             '/categories/:category/edit',
         ],
+        apiRoute: (props) => [`/categories`, {}],
     },
     '/categories/page/:page': {
         component: Categories,
@@ -152,6 +174,7 @@ export const routes = (props) => ({
                 title: 'Tags',
             };
         },
+        apiRoute: (props) => [`/tags`, {}],
         exact: true,
         children: ['/tags/page/:page'],
     },
@@ -161,6 +184,10 @@ export const routes = (props) => ({
             return {
                 title: 'Tags',
             };
+        },
+        apiRoute: (props) => {
+            let page = props.match.params.page;
+            return [`/tags/page/${page}`, {}];
         },
     },
     '': {

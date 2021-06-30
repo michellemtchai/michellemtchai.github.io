@@ -1,6 +1,5 @@
 import './index.css';
 import React from 'react';
-import { api } from '../../../config/api';
 
 class TagsField extends React.Component {
     state = {

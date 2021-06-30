@@ -23,7 +23,7 @@ module.exports = (app) => {
     );
     app.router.get('/categories', CategoriesController.index);
 
-    if (process.env.APP_ENV === 'development') {
+    if (process.env.DATA_BACKEND_ENV === 'development') {
         app.router.post('/projects', ProjectsController.create);
         app.router.put(
             '/projects/:id',
