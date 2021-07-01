@@ -43,8 +43,10 @@ export const routes = (props) => ({
             };
         },
         apiRoute: (props) => {
-            let page = props.match.params.page;
-            return [`/projects/page/${page}`, {}];
+            let params = {
+                page: props.match.params.page,
+            };
+            return [`/projects`, params];
         },
     },
     '/projects/new': {
@@ -104,8 +106,10 @@ export const routes = (props) => ({
             };
         },
         apiRoute: (props) => {
-            let page = props.match.params.page;
-            return [`/technologies/page/${page}`, {}];
+            let params = {
+                page: props.match.params.page,
+            };
+            return [`/technologies/page/${page}`, params];
         },
     },
     '/technologies/new': {
@@ -150,6 +154,12 @@ export const routes = (props) => ({
                 title: 'Categories',
             };
         },
+        apiRoute: (props) => {
+            let params = {
+                page: props.match.params.page,
+            };
+            return [`/categories`, params];
+        },
     },
     '/categories/new': {
         component: CategoryCreator,
@@ -165,6 +175,10 @@ export const routes = (props) => ({
             return {
                 title: 'Edit Category',
             };
+        },
+        apiRoute: (props) => {
+            let category = props.match.params.category;
+            return [`/categories/${category}`, {}];
         },
     },
     '/tags': {
@@ -186,8 +200,10 @@ export const routes = (props) => ({
             };
         },
         apiRoute: (props) => {
-            let page = props.match.params.page;
-            return [`/tags/page/${page}`, {}];
+            let params = {
+                page: props.match.params.page,
+            };
+            return [`/tags`, params];
         },
     },
     '': {
