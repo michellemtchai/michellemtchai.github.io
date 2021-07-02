@@ -18,10 +18,15 @@ export const navlinks = [
     '/tags',
 ];
 
-export const routes = {
+export const routes = (props) => ({
     '/': {
         component: Projects,
-        title: 'Projects',
+        pageData: (props) => {
+            return {
+                title: 'Projects',
+            };
+        },
+        apiRoute: (props) => ['/projects', {}],
         exact: true,
         children: [
             '/projects/new',
@@ -32,77 +37,181 @@ export const routes = {
     },
     '/projects/page/:page': {
         component: Projects,
-        title: 'Projects',
+        pageData: (props) => {
+            return {
+                title: 'Projects',
+            };
+        },
+        apiRoute: (props) => {
+            let params = {
+                page: props.match.params.page,
+            };
+            return [`/projects`, params];
+        },
     },
     '/projects/new': {
         component: ProjectCreator,
-        title: 'New Project',
+        pageData: (props) => {
+            return {
+                title: 'New Projects',
+            };
+        },
     },
     '/projects/:project': {
         component: Project,
-        title: 'Project',
+        pageData: (props) => {
+            let project = props.state[props.state.data];
+            return {
+                title: `${project.name} | Project`,
+            };
+        },
+        apiRoute: (props) => {
+            let project = props.match.params.project;
+            return [`/projects/${project}`, {}];
+        },
         exact: true,
     },
     '/projects/:project/edit': {
         component: ProjectEditor,
-        title: 'Edit Project',
+        pageData: (props) => {
+            return {
+                title: 'Edit Project',
+            };
+        },
+        apiRoute: (props) => {
+            let project = props.match.params.project;
+            return [`/projects/${project}`, {}];
+        },
     },
     '/technologies': {
         component: Technologies,
-        title: 'Technologies',
+        pageData: (props) => {
+            return {
+                title: 'Technologies',
+            };
+        },
         exact: true,
         children: [
             '/technologies/page/:page',
             '/technologies/new',
             '/technologies/:technology/edit',
         ],
+        apiRoute: (props) => [`/technologies`, {}],
     },
     '/technologies/page/:page': {
         component: Technologies,
-        title: 'Technologies',
+        pageData: (props) => {
+            return {
+                title: 'Technologies',
+            };
+        },
+        apiRoute: (props) => {
+            let params = {
+                page: props.match.params.page,
+            };
+            return [`/technologies/page/${page}`, params];
+        },
     },
     '/technologies/new': {
         component: TechnologyCreator,
-        title: 'New Technology',
+        pageData: (props) => {
+            return {
+                title: 'New Technology',
+            };
+        },
     },
     '/technologies/:technology/edit': {
         component: TechnologyEditor,
-        title: 'Edit Technology',
+        pageData: (props) => {
+            return {
+                title: 'Edit Technology',
+            };
+        },
+        apiRoute: (props) => {
+            let technology = props.match.params.technology;
+            return [`/technologies/${technology}`, {}];
+        },
     },
     '/categories': {
         component: Categories,
-        title: 'Categories',
+        pageData: (props) => {
+            return {
+                title: 'Categories',
+            };
+        },
         exact: true,
         children: [
             '/categories/page/:page',
             '/categories/new',
             '/categories/:category/edit',
         ],
+        apiRoute: (props) => [`/categories`, {}],
     },
     '/categories/page/:page': {
         component: Categories,
-        title: 'Categories',
+        pageData: (props) => {
+            return {
+                title: 'Categories',
+            };
+        },
+        apiRoute: (props) => {
+            let params = {
+                page: props.match.params.page,
+            };
+            return [`/categories`, params];
+        },
     },
     '/categories/new': {
         component: CategoryCreator,
-        title: 'New Category',
+        pageData: (props) => {
+            return {
+                title: 'New Category',
+            };
+        },
     },
     '/categories/:category/edit': {
         component: CategoryEditor,
-        title: 'Edit Category',
+        pageData: (props) => {
+            return {
+                title: 'Edit Category',
+            };
+        },
+        apiRoute: (props) => {
+            let category = props.match.params.category;
+            return [`/categories/${category}`, {}];
+        },
     },
     '/tags': {
         component: Tags,
-        title: 'Tags',
+        pageData: (props) => {
+            return {
+                title: 'Tags',
+            };
+        },
+        apiRoute: (props) => [`/tags`, {}],
         exact: true,
         children: ['/tags/page/:page'],
     },
     '/tags/page/:page': {
         component: Tags,
-        title: 'Tags',
+        pageData: (props) => {
+            return {
+                title: 'Tags',
+            };
+        },
+        apiRoute: (props) => {
+            let params = {
+                page: props.match.params.page,
+            };
+            return [`/tags`, params];
+        },
     },
     '': {
         component: NotFound,
-        title: 'Page Not Found',
+        pageData: (props) => {
+            return {
+                title: 'Not Found',
+            };
+        },
     },
-};
+});

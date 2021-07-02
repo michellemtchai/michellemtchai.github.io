@@ -1,5 +1,4 @@
 import React from 'react';
-import { api } from '../config/api';
 import { clone } from '../shared/form';
 import { projectSchema } from '../config/forms';
 import {
@@ -7,7 +6,6 @@ import {
     projectNewTags,
 } from './ProjectCreator';
 import Editor from '../components/Editor';
-import { updateDataFile } from '../api/data';
 
 class ProjectEditor extends React.Component {
     state = {
@@ -45,39 +43,39 @@ class ProjectEditor extends React.Component {
 export default ProjectEditor;
 
 const updateProject = (tags, props, id, data, next) => {
-    let mapping = tagNameMapping(tags);
-    let [projectTags, newTags] = projectNewTags(
-        props,
-        data.tags
-    );
-    let copy = clone(data);
-    if (newTags.length > 0) {
-        api.createTag(
-            props,
-            newTags,
-            (res) => {
-                let nextAction = (projectData) => {
-                    let data = {
-                        projects: projectData.projects,
-                        tags: res.tags,
-                    };
-                    updateDataFile(props, data);
-                    next(projectData);
-                };
-                mapping = tagNameMapping(res.tags);
-                copy.tags = copy.tags.map((tag) => mapping[tag]);
-                api.updateProject(
-                    props,
-                    id,
-                    copy,
-                    nextAction,
-                    false
-                );
-            },
-            false
-        );
-    } else {
-        copy.tags = projectTags;
-        api.updateProject(props, id, copy, next);
-    }
+    // let mapping = tagNameMapping(tags);
+    // let [projectTags, newTags] = projectNewTags(
+    //     props,
+    //     data.tags
+    // );
+    // let copy = clone(data);
+    // if (newTags.length > 0) {
+    //     api.createTag(
+    //         props,
+    //         newTags,
+    //         (res) => {
+    //             let nextAction = (projectData) => {
+    //                 let data = {
+    //                     projects: projectData.projects,
+    //                     tags: res.tags,
+    //                 };
+    //                 updateDataFile(props, data);
+    //                 next(projectData);
+    //             };
+    //             mapping = tagNameMapping(res.tags);
+    //             copy.tags = copy.tags.map((tag) => mapping[tag]);
+    //             api.updateProject(
+    //                 props,
+    //                 id,
+    //                 copy,
+    //                 nextAction,
+    //                 false
+    //             );
+    //         },
+    //         false
+    //     );
+    // } else {
+    //     copy.tags = projectTags;
+    //     api.updateProject(props, id, copy, next);
+    // }
 };

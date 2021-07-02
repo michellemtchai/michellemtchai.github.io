@@ -1,49 +1,49 @@
-export const baseUrl =
-	process.env.REACT_APP_ENV == 'development'
-		? `http://localhost:${process.env.REACT_APP_PORT}`
-		: '';
-
-export const fetchConfig = (
-	props,
-	setStateFn,
-	{
-		method = 'GET',
-		params = {},
-		formatData = (data) => data,
-		next = null,
-	} = {}
-) => {
-	return {
-		setState: setStateFn,
-		setError: (error) => props.setError(error, true),
-		fetching: props.startFetching,
-		formatData: formatData,
-		method: method,
-		params: params,
-		next: next ? next : (err) => {},
-	};
-};
-
 export const fetchAPIData = (
 	props,
 	url,
-	setStateFn,
-	{ method, params, formatData, next } = {}
+	{ method, params, setState, setError, formatData, next } = {}
 ) => {
 	fetchData(
 		baseUrl + url,
-		fetchConfig(props, setStateFn, {
+		fetchConfig(props, {
 			method: method,
 			params: params,
+			setState: setState,
+			setError: setError,
 			formatData: formatData,
 			next: next,
 		})
 	);
 };
 
+const baseUrl =
+	process.env.NODE_ENV === 'development'
+		? `http://localhost:${process.env.REACT_APP_PORT}`
+		: process.env.REACT_APP_DATA_LOCATION;
+
+const fetchConfig = (
+	props,
+	{
+		method = 'GET',
+		params = {},
+		setState = setState,
+		setError,
+		formatData = (data) => data,
+		next = null,
+	} = {}
+) => {
+	return {
+		setState: setState,
+		setError: setError || props.setError,
+		formatData: formatData,
+		method: method,
+		params: params,
+		next: next ? next : (data) => {},
+	};
+};
+
 export const fetchData = (url, config) => {
 	url = setUpURL(url, config);
-	config.fetching();
 	let error = false;
 	fetch(url, fetchInterface(config))
 		.then((res) => {
@@ -60,8 +60,8 @@ export const fetchData = (url, config) => {
 			if (!error) {
 				data = config.formatData(data);
 				twoStep(
+					(resolve) => config.setState(data, resolve),
 					() => config.next(data),
-					() => config.setState(data),
 					config.setError
 				);
 			} else {
@@ -76,8 +76,7 @@ export const fetchData = (url, config) => {
 const twoStep = (action1, action2, setError) => {
 	new Promise((resolve, reject) => {
 		try {
-			action1();
-			resolve(null);
+			action1(resolve);
 		} catch (e) {
 			reject(e);
 		}
@@ -122,14 +121,4 @@ export const paramsToQueryString = (params) => {
 				)}`
 		)
 		.join('&');
-};
-
-const oneSecond = 1000;
-const oneMinute = 60 * oneSecond;
-const oneHour = 60 * oneMinute;
-const oneDay = 24 * oneHour;
-
-export const timeDiffMinutes = (date) => {
-	let diffMs = new Date() - date;
-	return Math.round(((diffMs % oneDay) % oneHour) / oneMinute);
 };

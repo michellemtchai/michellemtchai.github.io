@@ -1,5 +1,4 @@
 import React from 'react';
-import { api } from '../config/api';
 import { goToPage } from '../shared/router';
 import Image from '../components/image/Image';
 import ProjectInfo from '../components/project/info/ProjectInfo';

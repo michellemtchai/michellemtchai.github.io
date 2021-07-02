@@ -6,7 +6,6 @@ module.exports = (app) => {
         TagsController,
         CategoriesController,
         TechnologiesController,
-        DataController,
     } = app.shared.controllers;
 
     /**
@@ -14,7 +13,7 @@ module.exports = (app) => {
      * You can start defining your routes below.
      *
      */
-    app.router.get('/', ApplicationController.index);
+    app.router.get('/home', ApplicationController.index);
 
     app.router.get('/projects', ProjectsController.index);
     app.router.get('/projects/:id', ProjectsController.show);
@@ -24,7 +23,7 @@ module.exports = (app) => {
     );
     app.router.get('/categories', CategoriesController.index);
 
-    if (process.env.APP_ENV === 'development') {
+    if (process.env.DATA_BACKEND_ENV === 'development') {
         app.router.post('/projects', ProjectsController.create);
         app.router.put(
             '/projects/:id',

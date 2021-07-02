@@ -1,5 +1,4 @@
 import React from 'react';
-import { api } from '../config/api';
 import { technologySchema } from '../config/forms';
 import Creator from '../components/Creator';
 
@@ -11,7 +10,7 @@ class TechnologyCreator extends React.Component {
                 type="Technology"
                 schema={technologySchema}
                 page="/technologies"
-                create={api.createTechnology}
+                create={() => {}}
             />
         );
     }

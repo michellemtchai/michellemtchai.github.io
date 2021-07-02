@@ -1,5 +1,4 @@
 import React from 'react';
-import { api } from '../config/api';
 import { categorySchema } from '../config/forms';
 import Creator from '../components/Creator';
 

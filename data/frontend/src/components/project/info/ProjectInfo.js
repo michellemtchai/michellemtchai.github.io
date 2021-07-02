@@ -1,6 +1,5 @@
 import './index.css';
 import React from 'react';
-import { api } from '../../../config/api';
 import { editItem, deleteItem } from '../../../shared/pages';
 import Image from '../../image/Image';
 import TabLink from '../tablink/TabLink';
