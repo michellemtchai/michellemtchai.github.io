@@ -12,6 +12,9 @@ services:
             NODE_ENV: ${NODE_ENV}
             APP_PORT: ${APP_PORT}
             APP_HOST: ${APP_HOST}
+            INTERNAL_STATUS_PORT: ${INTERNAL_STATUS_PORT}
+            CHOKIDAR_USEPOLLING: ${CHOKIDAR_USEPOLLING}
+            GATSBY_GRAPHQL_IDE: ${GATSBY_GRAPHQL_IDE}
             APP_TITLE: ${APP_TITLE}
             APP_DESC: ${APP_DESC}
             CONTENTFUL_SPACE_ID: ${CONTENTFUL_SPACE_ID}
@@ -21,3 +24,4 @@ services:
             CONTENTFUL_PREVIEW_ACCESS_TOKEN: ${CONTENTFUL_PREVIEW_ACCESS_TOKEN}
         ports:
             - ${APP_PORT}:${APP_PORT}
+            - ${INTERNAL_STATUS_PORT}:${INTERNAL_STATUS_PORT}
