@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="430px" height="314px" viewBox="0 0 430 314" enable-background="new 0 0 430 314" xml:space="preserve">
+	<polygon fill-rule="evenodd" fill="#ffffff" points="   190.981,83.802 175.419,111.036 175.419,120.762 253.246,120.762 222.105,94.501 214.325,107.146  "/>
+	<polygon fill-rule="evenodd" fill="#ffffff" points="156.912,55.596 156.912,138.464 273.644,138.464 273.644,55.596   156.912,55.596 168.097,66.295 262.336,66.295 262.336,127.571 168.097,127.571 168.097,66.295  "/>
+	<path fill-rule="evenodd" clip-rule="evenodd" fill="#ffffff" d="M232.819,81.857c0-4.296,3.471-7.781,7.782-7.781c4.297,0,7.781,3.485,7.781,7.781c0,4.296-3.484,7.782-7.781,7.782C236.29,89.639,232.819,86.153,232.819,81.857z"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" fill="#ffffff" d="M157.912,55.596c-1.264,9.451-0.195,20.393-0.195,29.973c0,17.556,0.017,35.128,0.405,52.684c0.827-0.811,10.846-10.52,10.91-10.731c1.022-2.788-2.107-51.857-0.421-61.227h95.335c-1.137,4.684-0.066,52.992,0,61.275c-31.514-0.097-63.384-1.07-94.849,0.098c-0.34,0.113-10.277,9.888-11.185,10.795l116.732-0.194c0,0,0.323-82.998,0-82.674C274.319,55.92,158.398,55.596,157.912,55.596z"/>
+	<g>
+		<text transform="matrix(1 0 0 1 131.6328 194.2695)" fill="#ffffff" font-family="'Arial'" font-size="42">No image</text>
+	</g>
+	<g>
+		<text transform="matrix(1.05 0 0 1 133.6328 242.2695)" fill="#ffffff" font-family="'Arial'" font-size="42">available</text>
+	</g>
+</svg>
