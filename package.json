@@ -6,8 +6,8 @@
   "scripts": {
     "start": "./run.sh",
     "build": "gatsby build",
-    "develop": "gatsby develop -p \"$APP_PORT\" -o",
-    "serve": "gatsby serve -p \"$APP_PORT\" -o",
+    "develop": "gatsby develop -p \"$APP_PORT\"",
+    "serve": "gatsby serve -p \"$APP_PORT\"",
     "clean": "gatsby clean"
   },
   "dependencies": {
