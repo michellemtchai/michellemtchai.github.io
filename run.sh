@@ -1,3 +1,3 @@
 #!/bin/sh
-yarn --no-bin-links install
-yarn develop
+npm --no-bin-links install
+npm run develop
