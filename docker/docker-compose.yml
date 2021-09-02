@@ -11,6 +11,7 @@ services:
         environment:
             NODE_ENV: ${NODE_ENV}
             APP_PORT: ${APP_PORT}
+            APP_HOST: ${APP_HOST}
             APP_TITLE: ${APP_TITLE}
             APP_DESC: ${APP_DESC}
             CONTENTFUL_SPACE_ID: ${CONTENTFUL_SPACE_ID}
