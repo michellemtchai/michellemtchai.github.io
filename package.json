@@ -1,0 +1,29 @@
+{
+  "name": "portfolio",
+  "private": true,
+  "version": "0.1.0",
+  "license": "MIT",
+  "dependencies": {
+    "gatsby": "^3.12.1",
+    "gatsby-plugin-gatsby-cloud": "^2.11.0",
+    "gatsby-plugin-image": "^1.12.0",
+    "gatsby-plugin-manifest": "^3.12.0",
+    "gatsby-plugin-offline": "^4.12.0",
+    "gatsby-plugin-react-helmet": "^4.12.0",
+    "gatsby-plugin-sharp": "^3.12.0",
+    "gatsby-source-filesystem": "^3.12.0",
+    "gatsby-transformer-sharp": "^3.12.0",
+    "prop-types": "^15.7.2",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-helmet": "^6.1.0",
+    "sharp": "^0.29.0"
+  },
+  "scripts": {
+    "start": "./run.sh",
+    "build": "gatsby build",
+    "develop": "gatsby develop -p \"$APP_PORT\" -o",
+    "serve": "gatsby serve -p \"$APP_PORT\" -o",
+    "clean": "gatsby clean"
+  }
+}
