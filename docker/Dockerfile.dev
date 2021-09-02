@@ -1,5 +1,5 @@
 FROM node:14-alpine
 
-RUN npm install -g gatsby-cli git
+RUN yarn global add gatsby-cli git
 
 WORKDIR /app
