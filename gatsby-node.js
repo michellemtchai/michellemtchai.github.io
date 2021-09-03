@@ -83,21 +83,4 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
             });
         }
     );
-    // import remark from 'remark';
-    // import remarkHtml from 'remark-html';
-    // createResolvers({
-    //     ContentfulProject: {
-    //         description: {
-    //             description: {
-    //                 type: 'String',
-    //                 resolve(source, args, context, info) {
-    //                     const file = remark()
-    //                         .use(remarkHtml)
-    //                         .processSync(source.body);
-    //                     return String(file);
-    //                 },
-    //             },
-    //         },
-    //     },
-    // });
 };
