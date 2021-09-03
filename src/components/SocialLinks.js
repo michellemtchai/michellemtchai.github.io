@@ -1,4 +1,5 @@
 import React from 'react';
+import ExternalLink from './ExternalLink';
 import { useStaticQuery, graphql } from 'gatsby';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -21,14 +22,9 @@ const SocialLinks = () => {
             {allContentfulSocialLink &&
                 allContentfulSocialLink.nodes.map((node) => (
                     <li>
-                        <a
-                            href={node.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            title={node.name}
-                        >
+                        <ExternalLink to={node.url} title={node.name}>
                             <FontAwesomeIcon icon={node.icon.split(/\s+/)} />
-                        </a>
+                        </ExternalLink>
                     </li>
                 ))}
         </ul>

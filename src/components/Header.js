@@ -1,6 +1,6 @@
 import React from 'react';
 import SocialLinks from './SocialLinks';
-import { useStaticQuery, graphql } from 'gatsby';
+import { Link, useStaticQuery, graphql } from 'gatsby';
 
 const Header = () => {
     const { site } = useStaticQuery(
@@ -18,7 +18,9 @@ const Header = () => {
     const { title } = site.siteMetadata;
     return (
         <header>
-            <h1>{title}</h1>
+            <h1>
+                <Link to="/">{title}</Link>
+            </h1>
             <section>
                 <span>Find Me</span>
                 <SocialLinks />

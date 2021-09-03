@@ -1,18 +1,19 @@
 const Project = require.resolve('./src/templates/Project.js');
 const Category = require.resolve('./src/templates/Category.js');
+const Redirect = require.resolve('./src/templates/Redirect.js');
 
 const pageSetup = (results, errAction, successAction) => {
     if (results.errors) {
-        errAction(results);
+        errAction(results.errors);
     } else {
-        successAction(results);
+        successAction(results.data);
     }
 };
 
-const contentfulErrorMessage = (resporter, type) => (results) =>
+const contentfulErrorMessage = (reporter, type) => (errors) =>
     reporter.panicOnBuild(
         `There was an error loading your Contentful ${type}.`,
-        results.errors
+        errors
     );
 
 const PROJECT_QUERY = `
@@ -40,12 +41,12 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     const { createPage, createRedirect } = actions;
 
     pageSetup(
-        graphql(PROJECT_QUERY),
-        contentfulErrorMessage(resporter, 'projects'),
-        ({ data }) => {
-            const projects = data.allContentfulProject.nodes;
+        await graphql(PROJECT_QUERY),
+        contentfulErrorMessage(reporter, 'projects'),
+        ({ allContentfulProject }) => {
+            const projects = allContentfulProject.nodes;
             projects.forEach((project) => {
-                const url = `/projects/${project.slug}/`;
+                const url = `/projects/${project.slug}`;
                 createPage({
                     path: url,
                     component: Project,
@@ -53,22 +54,26 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
                         slug: project.slug,
                     },
                 });
-                createRedirect({
-                    fromPath: url,
-                    toPath: `/projects/${project.altSlug}`,
-                    isPermanent: true,
-                });
+                if (project.altSlug) {
+                    createPage({
+                        path: `/projects/${project.altSlug}`,
+                        component: Redirect,
+                        context: {
+                            url: url,
+                        },
+                    });
+                }
             });
         }
     );
 
     pageSetup(
-        graphql(CATEGORY_QUERY),
-        contentfulErrorMessage(resporter, 'categories'),
-        ({ data }) => {
-            const categories = data.allContentfulProject.nodes;
-            categories.forEach((project) => {
-                const url = `/categorys/${category.slug}/`;
+        await graphql(CATEGORY_QUERY),
+        contentfulErrorMessage(reporter, 'categories'),
+        ({ allContentfulCategory }) => {
+            const categories = allContentfulCategory.nodes;
+            categories.forEach((category) => {
+                const url = `/categories/${category.slug}/`;
                 createPage({
                     path: url,
                     component: Category,

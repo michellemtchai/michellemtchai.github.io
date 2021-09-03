@@ -1,5 +1,8 @@
 FROM node:14-alpine
 
+RUN apk add vips-dev fftw-dev build-base python3 --update --no-cache \
+    --repository https://alpine.global.ssl.fastly.net/alpine/edge/testing/ \
+    --repository https://alpine.global.ssl.fastly.net/alpine/edge/main
 RUN yarn global add gatsby-cli
 
 WORKDIR /app
