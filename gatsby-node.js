@@ -38,7 +38,7 @@ const CATEGORY_QUERY = `
 `;
 
 exports.createPages = async ({ graphql, actions, reporter }) => {
-    const { createPage, createRedirect } = actions;
+    const { createPage, createResolvers } = actions;
 
     pageSetup(
         await graphql(PROJECT_QUERY),
@@ -73,9 +73,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         ({ allContentfulCategory }) => {
             const categories = allContentfulCategory.nodes;
             categories.forEach((category) => {
-                const url = `/categories/${category.slug}/`;
                 createPage({
-                    path: url,
+                    path: `/${category.slug}`,
                     component: Category,
                     context: {
                         slug: category.slug,
@@ -84,4 +83,21 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
             });
         }
     );
+    // import remark from 'remark';
+    // import remarkHtml from 'remark-html';
+    // createResolvers({
+    //     ContentfulProject: {
+    //         description: {
+    //             description: {
+    //                 type: 'String',
+    //                 resolve(source, args, context, info) {
+    //                     const file = remark()
+    //                         .use(remarkHtml)
+    //                         .processSync(source.body);
+    //                     return String(file);
+    //                 },
+    //             },
+    //         },
+    //     },
+    // });
 };
