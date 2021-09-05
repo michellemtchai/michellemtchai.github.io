@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 const Modal = ({ show, updateShow, children }) => {
     const [showModal, setShowModal] = useState(show);
-    const closeModal = () => {
+    const closeModal = (event) => {
+        event.preventDefault();
         setShowModal(false);
         updateShow(false);
     };
@@ -12,12 +13,11 @@ const Modal = ({ show, updateShow, children }) => {
     return (
         showModal && (
             <div>
-                <div
+                <button
                     className="overlay"
-                    role="button"
-                    tabIndex={0}
                     onClick={closeModal}
-                />
+                    href="#"
+                ></button>
                 <div className="modal-content">{children}</div>
             </div>
         )

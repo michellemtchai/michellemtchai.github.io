@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 
 const Tabs = ({ list }) => {
     const [selectedTab, setSelectedTab] = useState(list[0]);
-    const changeTab = (tab) => {
+    const changeTab = (tab) => (event) => {
+        event.preventDefault();
         setSelectedTab(tab);
     };
     return (
@@ -11,18 +12,18 @@ const Tabs = ({ list }) => {
                 {list.map((tab, i) => (
                     <li
                         key={`tab-${i}`}
-                        onClick={() => changeTab(tab)}
-                        role="button"
                         tabIndex={i}
                         className={
                             selectedTab.name === tab.name ? 'selected' : ''
                         }
                     >
-                        {tab.name}
+                        <a onClick={changeTab(tab)} href={`#${tab.link}`}>
+                            {tab.name}
+                        </a>
                     </li>
                 ))}
             </ul>
-            <selectedTab.content />
+            <selectedTab.content id={selectedTab.link} />
         </section>
     );
 };

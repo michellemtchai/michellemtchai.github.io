@@ -18,7 +18,9 @@ export const query = graphql`
                 gatsbyImageData(width: 320)
             }
             description {
-                description
+                childMarkdownRemark {
+                    html
+                }
             }
             technologies {
                 contentful_id
@@ -45,9 +47,12 @@ const Project = ({ data }) => {
                 list={[
                     {
                         name: 'Description',
+                        link: 'description',
                         content: () => (
                             <MarkdownContent
-                                content={project.description.description}
+                                content={
+                                    project.description.childMarkdownRemark.html
+                                }
                             />
                         ),
                     },
@@ -55,6 +60,7 @@ const Project = ({ data }) => {
                         name: `Gallery (${
                             project.gallery ? project.gallery.length : 0
                         })`,
+                        link: 'gallery',
                         content: () => <Gallery list={project.gallery} />,
                     },
                 ]}

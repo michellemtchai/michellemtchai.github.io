@@ -1,6 +1,5 @@
 const Project = require.resolve('./src/templates/Project.js');
 const Category = require.resolve('./src/templates/Category.js');
-const Redirect = require.resolve('./src/templates/Redirect.js');
 
 const pageSetup = (results, errAction, successAction) => {
     if (results.errors) {
@@ -38,7 +37,7 @@ const CATEGORY_QUERY = `
 `;
 
 exports.createPages = async ({ graphql, actions, reporter }) => {
-    const { createPage, createResolvers } = actions;
+    const { createPage, createRedirect } = actions;
 
     pageSetup(
         await graphql(PROJECT_QUERY),
@@ -55,12 +54,11 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
                     },
                 });
                 if (project.altSlug) {
-                    createPage({
-                        path: `/projects/${project.altSlug}`,
-                        component: Redirect,
-                        context: {
-                            url: url,
-                        },
+                    createRedirect({
+                        fromPath: `/projects/${project.altSlug}`,
+                        isPermanent: true,
+                        redirectInBrowser: true,
+                        toPath: url,
                     });
                 }
             });

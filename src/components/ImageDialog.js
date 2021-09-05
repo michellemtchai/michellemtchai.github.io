@@ -23,7 +23,7 @@ const ImageDialog = ({ list, selected, updateSelected }) => {
             >
                 &lt;
             </Button>
-            <figure>
+            <figure id={`image-${selectedIndex}`}>
                 <Image src={image} alt={image.description} />
                 <figcaption>{image.description}</figcaption>
             </figure>

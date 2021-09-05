@@ -8,7 +8,8 @@ const Gallery = ({ list }) => {
         show: false,
         selected: 0,
     });
-    const openModal = (index) => {
+    const openModal = (index) => (event) => {
+        event.preventDefault();
         setState({
             show: true,
             selected: index,
@@ -29,17 +30,26 @@ const Gallery = ({ list }) => {
                     updateSelected={updateStateAttribute('selected')}
                 />
             </Modal>
-            <ul>
-                {list.map((image, index) => (
-                    <li
-                        key={image.contentful_id}
-                        onClick={() => openModal(index)}
-                        role="button"
-                    >
-                        <Image src={image} alt={`Gallery Image ${index}`} />
-                    </li>
-                ))}
-            </ul>
+
+            {list ? (
+                <ul>
+                    {list.map((image, index) => (
+                        <li key={image.contentful_id}>
+                            <a
+                                onClick={openModal(index)}
+                                href={`#image-${index}`}
+                            >
+                                <Image
+                                    src={image}
+                                    alt={`Gallery Image ${index}`}
+                                />
+                            </a>
+                        </li>
+                    ))}
+                </ul>
+            ) : (
+                <p>No photos in gallery</p>
+            )}
         </div>
     );
 };
