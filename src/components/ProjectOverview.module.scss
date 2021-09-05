@@ -1,5 +1,6 @@
+@import '../styles/colors';
 .overview {
-	border: 3px solid #ccc;
+	border: 3px solid $border-color;
 	border-radius: 10px;
 	display: flex;
 	.previewImage {

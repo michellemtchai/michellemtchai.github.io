@@ -3,19 +3,19 @@
 .link {
 	color: $external-link-color;
 	font-size: 16px;
-	svg {
+	.externalIcon {
 		color: #999;
 		margin-left: 5px;
 	}
 	&:hover {
 		color: $hover-external-link-color;
-		svg {
+		.externalIcon {
 			color: $hover-text-color;
 		}
 	}
 	&:active {
 		color: $active-external-link-color;
-		svg {
+		.externalIcon {
 			color: $active-text-color;
 		}
 	}

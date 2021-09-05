@@ -16,7 +16,10 @@ const ExternalLink = ({ to, title, children, showExternalIcon = false }) => {
 		>
 			{children}
 			{showExternalIcon && (
-				<FontAwesomeIcon icon={['fas', 'external-link-alt']} />
+				<FontAwesomeIcon
+					className={styles.externalIcon}
+					icon={['fas', 'external-link-alt']}
+				/>
 			)}
 		</a>
 	);
