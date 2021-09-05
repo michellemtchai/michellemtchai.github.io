@@ -1,0 +1,22 @@
+@import '../styles/dimensions';
+@import '../styles/colors';
+@import '../styles/mixins';
+.header {
+	display: flex;
+	border-bottom: 1px solid $border-color;
+	line-height: $header-height;
+	h1 {
+		flex-grow: 1;
+		margin: 0 0 0 10px;
+	}
+	section {
+		display: flex;
+		font-size: 22px;
+		margin-right: 10px;
+		span {
+			margin-right: 5px;
+			font-weight: bold;
+		}
+	}
+	@include standard-links;
+}

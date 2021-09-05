@@ -1,0 +1,13 @@
+@import './colors';
+@mixin standard-links {
+	a {
+		text-decoration: none;
+		color: $text-color;
+		&:hover {
+			color: $hover-text-color;
+		}
+		&:active {
+			color: $active-text-color;
+		}
+	}
+}

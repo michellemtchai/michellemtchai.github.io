@@ -1,0 +1,10 @@
+@import '../styles/mixins';
+.link {
+	@include standard-links;
+	a {
+		font-size: 20px;
+		svg {
+			width: 35px !important;
+		}
+	}
+}

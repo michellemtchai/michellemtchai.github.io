@@ -1,6 +1,7 @@
 import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import NavBarItem from './NavBarItem';
+import * as styles from './NavBar.module.scss';
 
 const NavBar = () => {
     const { allContentfulCategory } = useStaticQuery(
@@ -20,7 +21,7 @@ const NavBar = () => {
         `
     );
     return (
-        <nav>
+        <nav className={styles.navbar}>
             <ul>
                 <NavBarItem to="/" name="Home" icon={['fas', 'home']} />
                 {allContentfulCategory &&

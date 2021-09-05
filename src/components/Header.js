@@ -1,6 +1,7 @@
 import React from 'react';
 import SocialLinks from './SocialLinks';
 import { Link, useStaticQuery, graphql } from 'gatsby';
+import * as styles from './Header.module.scss';
 
 const Header = () => {
     const { site } = useStaticQuery(
@@ -17,7 +18,7 @@ const Header = () => {
 
     const { title } = site.siteMetadata;
     return (
-        <header>
+        <header className={styles.header}>
             <h1>
                 <Link to="/">{title}</Link>
             </h1>
