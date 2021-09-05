@@ -3,14 +3,16 @@ import ExternalLink from './ExternalLink';
 import Image from './Image';
 import ProjectOverviewItem from './ProjectOverviewItem';
 import Technologies from './Technologies';
+import * as styles from './ProjectOverview.module.scss';
 
 const ProjectOverview = (project) => {
     return (
-        <section>
+        <section className={styles.overview}>
             <Image
                 src={project.previewImage}
                 alt={project.name}
                 userPlaceHolder={true}
+                className={styles.previewImage}
             />
             <ul>
                 <li>
