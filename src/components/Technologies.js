@@ -14,7 +14,10 @@ const Technologies = ({ list }) => {
                             {tech.name}
                         </ExternalLink>
                     ) : (
-                        tech.name
+                        <span>
+                            <Image src={tech.icon} alt={tech.name} />{' '}
+                            {tech.name}
+                        </span>
                     )}
                 </li>
             ))}
