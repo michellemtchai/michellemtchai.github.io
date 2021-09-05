@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import * as styles from './Tabs.module.scss';
 
 const Tabs = ({ list }) => {
     const [selectedTab, setSelectedTab] = useState(list[0]);
@@ -7,14 +8,14 @@ const Tabs = ({ list }) => {
         setSelectedTab(tab);
     };
     return (
-        <section>
-            <ul>
+        <section className={styles.tabs}>
+            <ul className={styles.tab}>
                 {list.map((tab, i) => (
                     <li
                         key={`tab-${i}`}
                         tabIndex={i}
                         className={
-                            selectedTab.name === tab.name ? 'selected' : ''
+                            selectedTab.name === tab.name ? styles.selected : ''
                         }
                     >
                         <a onClick={changeTab(tab)} href={`#${tab.link}`}>

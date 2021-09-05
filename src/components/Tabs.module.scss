@@ -1,0 +1,26 @@
+@import '../styles/mixins';
+.tabs {
+	margin-top: 20px;
+	.tab {
+		border-bottom: 1px solid $border-color;
+		li {
+			display: inline-block;
+			margin-bottom: -2px;
+			@include standard-links;
+			a {
+				padding: 10px;
+				border: 1px solid $border-color;
+				line-height: 40px;
+				background: #eee;
+				border-top-left-radius: 5px;
+				border-top-right-radius: 5px;
+			}
+		}
+		.selected {
+			a {
+				font-weight: bold;
+				background: #fff;
+			}
+		}
+	}
+}
