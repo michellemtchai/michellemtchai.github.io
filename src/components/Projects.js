@@ -10,13 +10,12 @@ const Projects = ({ list }) => {
             {list.map((project) => (
                 <section key={project.contentful_id}>
                     <Link to={`/projects/${project.slug}`} alt={project.name}>
-                        <figure className={styles.previewImage}>
-                            <Image
-                                src={project.previewImage}
-                                alt={project.name}
-                                userPlaceHolder={true}
-                            />
-                        </figure>
+                        <Image
+                            className={styles.previewImage}
+                            src={project.previewImage}
+                            alt={project.name}
+                            userPlaceHolder={true}
+                        />
                         <ul>
                             <li>
                                 <h3>{project.name}</h3>
