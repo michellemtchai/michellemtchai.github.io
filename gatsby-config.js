@@ -8,8 +8,6 @@ module.exports = {
         'gatsby-plugin-fontawesome-css',
         'gatsby-plugin-react-helmet',
         'gatsby-plugin-image',
-        'gatsby-plugin-sharp',
-        // 'gatsby-source-filesystem',
         {
             resolve: 'gatsby-source-contentful',
             options: {

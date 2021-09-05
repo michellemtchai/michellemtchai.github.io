@@ -13,11 +13,9 @@ const Modal = ({ show, updateShow, children }) => {
     return (
         showModal && (
             <div>
-                <button
-                    className="overlay"
-                    onClick={closeModal}
-                    href="#"
-                ></button>
+                <button className="overlay" onClick={closeModal} href="#">
+                    {' '}
+                </button>
                 <div className="modal-content">{children}</div>
             </div>
         )
