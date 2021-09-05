@@ -8,12 +8,16 @@
 }
 .node {
 	li {
-		display: inline;
+		display: inline-block;
 		font-weight: bold;
 		font-size: 16px;
+		img {
+			padding: 8px 0;
+		}
 		a {
 			@include tag-border;
 			text-decoration: none;
+			line-height: 35px;
 			&:hover {
 				background: #f7f7f7;
 			}
@@ -25,6 +29,7 @@
 		}
 		span {
 			@include tag-border;
+			line-height: 35px;
 		}
 	}
 }

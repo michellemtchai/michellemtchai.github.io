@@ -1,0 +1,39 @@
+@import '../styles/colors';
+.projects {
+	section {
+		a {
+			text-decoration: none;
+			border-bottom: 1px solid #ccc;
+			display: flex;
+			.previewImage {
+				width: 320px;
+				margin: 10px;
+				border: 1px solid #000;
+				img {
+					width: 100%;
+					display: block;
+				}
+			}
+			ul {
+				flex-grow: 1;
+				list-style: none;
+				color: $text-color;
+				li {
+					h3 {
+						font-size: 24px;
+						margin: 10px;
+					}
+					p {
+						font-size: 16px;
+						margin: 10px 10px 20px 10px;
+					}
+				}
+			}
+		}
+		&:last-child {
+			a {
+				border: none;
+			}
+		}
+	}
+}
