@@ -1,0 +1,24 @@
+@import '../styles/colors';
+.node {
+	li {
+		display: inline;
+		font-weight: bold;
+		font-size: 16px;
+		a {
+			text-decoration: none;
+			color: $text-color;
+			border: 3px solid #ccc;
+			border-radius: 5px;
+			padding: 5px 10px 5px 5px;
+			margin: 0 5px;
+			&:hover {
+				background: #f7f7f7;
+			}
+			&:active {
+				background: #999;
+				color: #fff;
+				border-color: #666;
+			}
+		}
+	}
+}
