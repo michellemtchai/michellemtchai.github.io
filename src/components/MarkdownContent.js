@@ -4,6 +4,7 @@ import Image from './Image';
 import { rehype } from 'rehype';
 import rehypeSanitize, { defaultSchema } from 'rehype-sanitize';
 import rehypeReact from 'rehype-react';
+import * as styles from './MarkdownContent.module.scss';
 
 const MarkdownContent = ({ content }) => {
     const RemappedExternalLink = (props) => (
@@ -20,7 +21,7 @@ const MarkdownContent = ({ content }) => {
             },
         })
         .processSync(content);
-    return processed.result;
+    return <div className={styles.markdown}>{processed.result}</div>;
 };
 
 export default MarkdownContent;
