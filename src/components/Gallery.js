@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Image from './Image';
 import Modal from './Modal';
 import ImageDialog from './ImageDialog';
+import * as styles from './Gallery.module.scss';
 
 const Gallery = ({ list }) => {
     const [state, setState] = useState({
@@ -22,17 +23,9 @@ const Gallery = ({ list }) => {
         });
     };
     return (
-        <div>
-            <Modal show={state.show} updateShow={updateStateAttribute('show')}>
-                <ImageDialog
-                    list={list}
-                    selected={state.selected}
-                    updateSelected={updateStateAttribute('selected')}
-                />
-            </Modal>
-
+        <div className={styles.gallery}>
             {list ? (
-                <ul>
+                <ul className={styles.list}>
                     {list.map((image, index) => (
                         <li key={image.contentful_id}>
                             <a
@@ -48,8 +41,15 @@ const Gallery = ({ list }) => {
                     ))}
                 </ul>
             ) : (
-                <p>No photos in gallery</p>
+                <p className={styles.noPhoto}>No photos in gallery</p>
             )}
+            <Modal show={state.show} updateShow={updateStateAttribute('show')}>
+                <ImageDialog
+                    list={list}
+                    selected={state.selected}
+                    updateSelected={updateStateAttribute('selected')}
+                />
+            </Modal>
         </div>
     );
 };

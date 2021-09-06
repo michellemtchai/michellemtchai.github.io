@@ -1,0 +1,25 @@
+.gallery {
+	.noPhoto {
+		text-align: center;
+		margin: 40px 0;
+		font-size: 20px;
+		font-weight: bold;
+	}
+	.list {
+		li {
+			display: inline-block;
+			width: calc(calc(100% - 10px) / 5);
+			border: 1px solid #000;
+			margin: 1px;
+			background: #000;
+			a {
+				&:hover {
+					opacity: 0.8;
+				}
+				&:active {
+					opacity: 0.6;
+				}
+			}
+		}
+	}
+}

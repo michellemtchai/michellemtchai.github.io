@@ -9,7 +9,7 @@ const ImageDialog = ({ list, selected, updateSelected }) => {
     }, [selected]);
     const changeImage = (increment) => {
         const index = selectedIndex + increment;
-        if (index >= 0 && index < list.length - 1) {
+        if (index >= 0 && index < list.length) {
             setSelectedIndex(index);
             updateSelected(index);
         }
