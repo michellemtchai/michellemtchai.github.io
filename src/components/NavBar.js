@@ -3,7 +3,7 @@ import { useStaticQuery, graphql } from 'gatsby';
 import NavBarItem from './NavBarItem';
 import * as styles from './NavBar.module.scss';
 
-const NavBar = () => {
+const NavBar = ({ selected }) => {
     const { allContentfulCategory } = useStaticQuery(
         graphql`
             query {
@@ -23,10 +23,16 @@ const NavBar = () => {
     return (
         <nav className={styles.navbar}>
             <ul>
-                <NavBarItem to="/" name="Home" icon={['fas', 'home']} />
+                <NavBarItem
+                    selected={!selected}
+                    to="/"
+                    name="Home"
+                    icon={['fas', 'home']}
+                />
                 {allContentfulCategory &&
                     allContentfulCategory.nodes.map((category) => (
                         <NavBarItem
+                            selected={selected === category.slug}
                             key={category.contentful_id}
                             to={`/${category.slug}`}
                             name={category.name}

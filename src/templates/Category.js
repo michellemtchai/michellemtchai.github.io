@@ -27,10 +27,14 @@ export const query = graphql`
         }
     }
 `;
-const Category = ({ data }) => {
+const Category = ({ data, pageContext }) => {
     const category = data.contentfulCategory;
     return (
-        <Layout title={category.name} description={category.summary}>
+        <Layout
+            title={category.name}
+            description={category.summary}
+            category={pageContext.slug}
+        >
             <h2>{category.name}</h2>
             <Projects list={category.projects} />
         </Layout>

@@ -6,11 +6,12 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 import * as styles from './NavBarItem.module.scss';
 library.add(fas);
 
-const NavBarItem = ({ icon, to, name }) => {
+const NavBarItem = ({ icon, to, name, selected }) => {
 	return (
 		<li className={styles.link}>
-			<Link to={to}>
-				<FontAwesomeIcon icon={icon} /> {name}
+			<Link to={to} className={selected ? styles.selected : ''}>
+				<FontAwesomeIcon icon={icon} />
+				{name}
 			</Link>
 		</li>
 	);

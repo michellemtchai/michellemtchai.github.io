@@ -9,7 +9,7 @@ const Image = ({ src, alt, className, userPlaceHolder = false }) => {
                 className={className}
                 image={getImage(src)}
                 alt={alt}
-                imgStyle={{ objectFit: 'cover' }}
+                imgStyle={{ objectFit: 'none', objectPosition: '50% 50%' }}
             />
         );
     } else {

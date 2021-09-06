@@ -7,11 +7,13 @@
 		width: 320px;
 		border: 2px solid #000;
 		margin: 10px;
+		background: #ccc;
 	}
 	ul {
 		flex-grow: 1;
 		& > li {
 			margin: 10px 0;
+			list-style: none;
 		}
 	}
 }

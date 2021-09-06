@@ -15,12 +15,25 @@ const contentfulErrorMessage = (reporter, type) => (errors) =>
         errors
     );
 
+const categorySlug = (categories) => {
+    for (let i = 0; i < categories.length; i++) {
+        const slug = categories[i].slug;
+        if (slug !== 'featured') {
+            return slug;
+        }
+    }
+    return null;
+};
+
 const PROJECT_QUERY = `
     query {
         allContentfulProject {
             nodes {
                 slug
                 altSlug
+                category{
+                    slug
+                }
             }
         }
     }
@@ -51,6 +64,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
                     component: Project,
                     context: {
                         slug: project.slug,
+                        category: categorySlug(project.category),
                     },
                 });
                 if (project.altSlug) {

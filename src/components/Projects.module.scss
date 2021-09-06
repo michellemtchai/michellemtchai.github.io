@@ -19,6 +19,7 @@
 				flex-grow: 1;
 				list-style: none;
 				color: $text-color;
+				width: calc(100% - 320px);
 				li {
 					margin: 10px;
 					h3 {

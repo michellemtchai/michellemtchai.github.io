@@ -38,10 +38,14 @@ export const query = graphql`
         }
     }
 `;
-const Project = ({ data }) => {
+const Project = ({ data, pageContext }) => {
     const project = data.contentfulProject;
     return (
-        <Layout title={project.name} description={project.summary}>
+        <Layout
+            title={project.name}
+            description={project.summary}
+            category={pageContext.category}
+        >
             <ProjectOverview {...project} />
             <Tabs
                 list={[
