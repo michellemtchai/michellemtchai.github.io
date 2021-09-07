@@ -13,6 +13,7 @@ export const query = graphql`
                 slug
                 name
                 summary
+                demoUrl
                 previewImage {
                     gatsbyImageData(width: 320)
                 }

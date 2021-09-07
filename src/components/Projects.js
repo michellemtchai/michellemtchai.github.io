@@ -2,6 +2,7 @@ import React from 'react';
 import Image from './Image';
 import Technologies from './Technologies';
 import { Link } from 'gatsby';
+import PreviewImage from './PreviewImage';
 import * as styles from './Projects.module.scss';
 
 const Projects = ({ list }) => {
@@ -10,11 +11,11 @@ const Projects = ({ list }) => {
             {list.map((project) => (
                 <section key={project.contentful_id}>
                     <Link to={`/projects/${project.slug}`} alt={project.name}>
-                        <Image
+                        <PreviewImage
                             className={styles.previewImage}
                             src={project.previewImage}
                             alt={project.name}
-                            userPlaceHolder={true}
+                            demo={project.demoUrl}
                         />
                         <ul>
                             <li>
