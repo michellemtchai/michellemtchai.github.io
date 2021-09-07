@@ -1,0 +1,18 @@
+@import '../styles/mixins';
+.preview {
+	margin: 0 5px;
+	li {
+		display: inline-block;
+		width: calc(100% / 4);
+		vertical-align: top;
+		@include standard-links;
+		a {
+			margin: 0 5px;
+			display: block;
+			.previewImage {
+				width: 100%;
+				min-height: 140px;
+			}
+		}
+	}
+}
