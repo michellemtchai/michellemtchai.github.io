@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useKeyPress } from '../hooks/keys';
 import Image from './Image';
 import Button from './Button';
+import * as styles from './ImageDialog.module.scss';
 
 const ImageDialog = ({ list, selected, updateSelected }) => {
     const [selectedIndex, setSelectedIndex] = useState(selected);
@@ -19,7 +20,7 @@ const ImageDialog = ({ list, selected, updateSelected }) => {
     };
     let image = list[selectedIndex];
     return (
-        <dialog open>
+        <dialog open className={styles.dialog}>
             <Button
                 onClick={() => changeImage(-1)}
                 disabled={selectedIndex - 1 < 0}

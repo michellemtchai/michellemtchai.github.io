@@ -1,0 +1,27 @@
+.dialog {
+	margin: 0 auto;
+	height: 100vh;
+	max-width: 1400px;
+	width: 80%;
+	display: flex;
+	border: none;
+	figure {
+		flex-grow: 1;
+		margin: 0 auto;
+		display: flex;
+		flex-direction: column;
+		img {
+			text-align: center;
+		}
+		caption {
+			padding: 10px;
+			display: block;
+			border-top: 1px solid #000;
+		}
+	}
+	button {
+		font-weight: bold;
+		font-size: 30px;
+		padding: 0 20px;
+	}
+}
