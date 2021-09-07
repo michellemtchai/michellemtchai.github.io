@@ -6,7 +6,7 @@ import * as styles from './Gallery.module.scss';
 
 const Gallery = ({ list }) => {
     const [state, setState] = useState({
-        show: true,
+        show: false,
         selected: 0,
     });
     const openModal = (index) => (event) => {
