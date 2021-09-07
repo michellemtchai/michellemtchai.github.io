@@ -6,7 +6,7 @@ import * as styles from './Gallery.module.scss';
 
 const Gallery = ({ list }) => {
     const [state, setState] = useState({
-        show: false,
+        show: true,
         selected: 0,
     });
     const openModal = (index) => (event) => {
@@ -24,6 +24,13 @@ const Gallery = ({ list }) => {
     };
     return (
         <div className={styles.gallery}>
+            <Modal show={state.show} updateShow={updateStateAttribute('show')}>
+                <ImageDialog
+                    list={list}
+                    selected={state.selected}
+                    updateSelected={updateStateAttribute('selected')}
+                />
+            </Modal>
             {list ? (
                 <ul className={styles.list}>
                     {list.map((image, index) => (
@@ -43,13 +50,6 @@ const Gallery = ({ list }) => {
             ) : (
                 <p className={styles.noPhoto}>No photos in gallery</p>
             )}
-            <Modal show={state.show} updateShow={updateStateAttribute('show')}>
-                <ImageDialog
-                    list={list}
-                    selected={state.selected}
-                    updateSelected={updateStateAttribute('selected')}
-                />
-            </Modal>
         </div>
     );
 };

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import * as styles from './Modal.module.scss';
 
 const Modal = ({ show, updateShow, children }) => {
     const [showModal, setShowModal] = useState(show);
@@ -12,11 +13,15 @@ const Modal = ({ show, updateShow, children }) => {
     }, [show]);
     return (
         showModal && (
-            <div>
-                <button className="overlay" onClick={closeModal} href="#">
+            <div className={styles.modal}>
+                <button
+                    className={styles.overlay}
+                    onClick={closeModal}
+                    href="#"
+                >
                     {' '}
                 </button>
-                <div className="modal-content">{children}</div>
+                <div className={styles.modalContent}>{children}</div>
             </div>
         )
     );
