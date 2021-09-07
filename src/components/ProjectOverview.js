@@ -1,9 +1,9 @@
 import React from 'react';
 import ExternalLink from './ExternalLink';
-import Image from './Image';
 import ProjectOverviewItem from './ProjectOverviewItem';
 import Technologies from './Technologies';
 import PreviewImage from './PreviewImage';
+import DemoLink from './DemoLink';
 import * as styles from './ProjectOverview.module.scss';
 
 const ProjectOverview = (project) => {
@@ -31,17 +31,7 @@ const ProjectOverview = (project) => {
                         {project.sourceUrl}
                     </ExternalLink>
                 </ProjectOverviewItem>
-                {project.demoUrl && (
-                    <ProjectOverviewItem title="Demo URL">
-                        <ExternalLink
-                            to={project.demoUrl}
-                            title="Demo URL"
-                            showExternalIcon={true}
-                        >
-                            {project.demoUrl}
-                        </ExternalLink>
-                    </ProjectOverviewItem>
-                )}
+                <DemoLink demoUrl={project.demoUrl} sleep={project.sleepMode} />
                 <ProjectOverviewItem title="Stacks">
                     <Technologies list={project.technologies} />
                 </ProjectOverviewItem>

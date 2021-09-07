@@ -1,5 +1,4 @@
 import React from 'react';
-import PreviewImage from '../components/PreviewImage';
 import ProjectsPreview from '../components/ProjectsPreview';
 import { Link } from 'gatsby';
 import * as styles from './CategoryPreview.module.scss';
