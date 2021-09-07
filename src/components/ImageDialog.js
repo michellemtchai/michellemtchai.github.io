@@ -5,15 +5,8 @@ import Button from './Button';
 
 const ImageDialog = ({ list, selected, updateSelected }) => {
     const [selectedIndex, setSelectedIndex] = useState(selected);
-    const pressLeftArrow = useKeyPress('ArrowLeft');
-    const pressRightArrow = useKeyPress('ArrowRight');
-    useEffect(() => {
-        if (pressLeftArrow) {
-            changeImage(-1);
-        } else if (pressRightArrow) {
-            changeImage(1);
-        }
-    }, [pressLeftArrow, pressRightArrow]);
+    useKeyPress('ArrowLeft', () => changeImage(-1));
+    useKeyPress('ArrowRight', () => changeImage(1));
     useEffect(() => {
         setSelectedIndex(selected);
     }, [selected]);

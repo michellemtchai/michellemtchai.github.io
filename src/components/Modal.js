@@ -4,19 +4,14 @@ import * as styles from './Modal.module.scss';
 
 const Modal = ({ show, updateShow, children }) => {
     const [showModal, setShowModal] = useState(show);
-    const pressEsc = useKeyPress('Escape');
     const closeModal = () => {
         setShowModal(false);
         updateShow(false);
     };
+    useKeyPress('Escape', closeModal);
     useEffect(() => {
         setShowModal(show);
     }, [show]);
-    useEffect(() => {
-        if (pressEsc) {
-            closeModal();
-        }
-    }, [pressEsc]);
     return (
         showModal && (
             <div className={styles.modal}>
