@@ -14,7 +14,9 @@ const Layout = ({ children, title, description, category }) => {
 			<div className={styles.nonHeader}>
 				<NavBar selected={category} />
 				<main>
-					<article>{children}</article>
+					<div className={styles.pageBody}>
+						<article>{children}</article>
+					</div>
 					<Footer />
 				</main>
 			</div>
