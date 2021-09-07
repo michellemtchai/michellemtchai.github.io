@@ -15,13 +15,21 @@ export const query = graphql`
                 summary
                 demoUrl
                 previewImage {
-                    gatsbyImageData(width: 320)
+                    gatsbyImageData(
+                        width: 320
+                        placeholder: BLURRED
+                        formats: [AUTO, WEBP]
+                    )
                 }
                 technologies {
                     contentful_id
                     name
                     icon {
-                        gatsbyImageData(width: 20)
+                        gatsbyImageData(
+                            width: 20
+                            placeholder: BLURRED
+                            formats: [AUTO, WEBP]
+                        )
                     }
                 }
             }

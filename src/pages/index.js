@@ -16,7 +16,11 @@ export const query = graphql`
 					name
 					demoUrl
 					previewImage {
-						gatsbyImageData(width: 450)
+						gatsbyImageData(
+							width: 450
+							placeholder: BLURRED
+							formats: [AUTO, WEBP]
+						)
 					}
 				}
 			}

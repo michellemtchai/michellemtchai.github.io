@@ -15,7 +15,11 @@ export const query = graphql`
             sourceUrl
             demoUrl
             previewImage {
-                gatsbyImageData(width: 320)
+                gatsbyImageData(
+                    width: 320
+                    placeholder: BLURRED
+                    formats: [AUTO, WEBP]
+                )
             }
             description {
                 childMarkdownRemark {
@@ -27,7 +31,11 @@ export const query = graphql`
                 name
                 url
                 icon {
-                    gatsbyImageData(width: 20)
+                    gatsbyImageData(
+                        width: 20
+                        placeholder: BLURRED
+                        formats: [AUTO, WEBP]
+                    )
                 }
             }
             gallery {
