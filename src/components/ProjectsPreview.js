@@ -10,7 +10,7 @@ const ProjectsPreview = ({ list }) => {
 			{projects &&
 				projects.map((project) => (
 					<li>
-						<Link to={`/${project.slug}`}>
+						<Link to={`/projects/${project.slug}`}>
 							<PreviewImage
 								className={styles.previewImage}
 								src={project.previewImage}

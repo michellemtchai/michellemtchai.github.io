@@ -1,0 +1,23 @@
+@import '../styles/mixins';
+.preview {
+	margin: 30px 5px;
+	h2 {
+		@include standard-links;
+		line-height: 30px;
+		display: flex;
+		border-bottom: 3px solid #000;
+		margin-bottom: 10px;
+		.title {
+			flex-grow: 1;
+		}
+		small {
+			a {
+				vertical-align: bottom;
+				&:hover,
+				&:active {
+					text-decoration: underline;
+				}
+			}
+		}
+	}
+}
