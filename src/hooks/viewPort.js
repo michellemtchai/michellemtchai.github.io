@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 export const useViewPort = (action) => {
-    const [windowSize, setWindowSize] = useState({
+    const [viewPortSize, setViewPortSize] = useState({
         width: undefined,
         height: undefined,
     });
@@ -14,7 +14,7 @@ export const useViewPort = (action) => {
             document.documentElement.clientHeight || 0,
             window.innerHeight || 0
         );
-        setWindowSize({
+        setViewPortSize({
             width: vw,
             height: vh,
         });
@@ -25,6 +25,6 @@ export const useViewPort = (action) => {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
     useEffect(() => {
-        action(windowSize);
-    }, [windowSize]);
+        action(viewPortSize);
+    }, [viewPortSize]);
 };
