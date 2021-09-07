@@ -1,16 +1,18 @@
 @import '../styles/mixins';
+@import '../styles/colors';
 .preview {
 	margin: 30px 5px;
 	h2 {
 		@include standard-links;
-		line-height: 30px;
 		display: flex;
-		border-bottom: 3px solid #000;
-		margin-bottom: 10px;
+		border-bottom: 3px solid $border-color;
+		margin: 0 5px 10px 5px;
 		.title {
 			flex-grow: 1;
 		}
 		small {
+			margin-top: 10px;
+			font-size: 16px;
 			a {
 				vertical-align: bottom;
 				&:hover,
