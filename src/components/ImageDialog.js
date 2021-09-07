@@ -1,9 +1,19 @@
 import React, { useState, useEffect } from 'react';
+import { useKeyPress } from '../hooks/keys';
 import Image from './Image';
 import Button from './Button';
 
 const ImageDialog = ({ list, selected, updateSelected }) => {
     const [selectedIndex, setSelectedIndex] = useState(selected);
+    const pressLeftArrow = useKeyPress('ArrowLeft');
+    const pressRightArrow = useKeyPress('ArrowRight');
+    useEffect(() => {
+        if (pressLeftArrow) {
+            changeImage(-1);
+        } else if (pressRightArrow) {
+            changeImage(1);
+        }
+    }, [pressLeftArrow, pressRightArrow]);
     useEffect(() => {
         setSelectedIndex(selected);
     }, [selected]);
