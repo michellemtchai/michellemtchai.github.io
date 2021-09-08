@@ -4,7 +4,9 @@ import noImage from '../images/no-image.svg';
 
 const Image = ({ src, alt, className, userPlaceHolder = false }) => {
     if (src) {
-        return (
+        return typeof src === 'string' ? (
+            <img className={className} src={src} alt={alt} />
+        ) : (
             <GatsbyImage
                 className={className}
                 image={getImage(src)}

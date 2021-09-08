@@ -1,3 +1,4 @@
+@import '../styles/mixins';
 .dialog {
 	width: 480px;
 	margin: 0 auto;
@@ -16,5 +17,13 @@
 		font-size: 20px;
 		padding: 5px 10px;
 		margin-top: 10px;
+		border-radius: 5px;
+	}
+	.proceedButton {
+		@include standard-button;
+		float: right;
+	}
+	.goBackButton {
+		@include plain-button;
 	}
 }

@@ -17,3 +17,45 @@
 	-ms-transform: translateY(-50%);
 	transform: translateY(-50%);
 }
+@mixin standard-button {
+	cursor: pointer;
+	color: #fff;
+	background: #337ab7;
+	border: 1px solid #2e6da4;
+	font-weight: bold;
+	&:hover {
+		background: #286090;
+	}
+	&:active {
+		background: #204d74;
+	}
+	&[disabled] {
+		cursor: not-allowed;
+		background: #7aa9d0;
+		&:hover,
+		&:active {
+			background: #7aa9d0;
+		}
+	}
+}
+@mixin plain-button {
+	cursor: pointer;
+	color: #000;
+	background: #fbfbfb;
+	border: 1px solid #aaa;
+	&:hover {
+		background: #e6e6e6;
+	}
+	&:active {
+		background: #d4d4d4;
+	}
+	&[disabled] {
+		cursor: not-allowed;
+		background: #fff;
+		color: #7a7a7a;
+		&:hover,
+		&:active {
+			background: #fff;
+		}
+	}
+}

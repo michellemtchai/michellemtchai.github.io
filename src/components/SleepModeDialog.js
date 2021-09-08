@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Button from './Button';
+import Image from './Image';
 import sleepMode from '../images/sleep.svg';
 import * as styles from './SleepModeDialog.module.scss';
 
@@ -14,10 +15,20 @@ const openInNewTab = (url) => {
 const SleepModeDialog = ({ link, update }) => {
     return (
         <dialog open className={styles.dialog}>
-            <img src={sleepMode} title="Sleep Mode" />
+            <Image src={sleepMode} alt="Sleep Mode" />
             <p>{sleepModeMessage}</p>
-            <button onClick={() => update(false)}>Go Back</button>
-            <button onClick={() => openInNewTab(link)}>Proceed</button>
+            <Button
+                className={styles.goBackButton}
+                onClick={() => update(false)}
+            >
+                Go Back
+            </Button>
+            <Button
+                className={styles.proceedButton}
+                onClick={() => openInNewTab(link)}
+            >
+                Proceed
+            </Button>
         </dialog>
     );
 };

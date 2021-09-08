@@ -1,3 +1,4 @@
+@import '../styles/mixins';
 .dialog {
 	margin: 0 auto;
 	max-width: 1200px;
@@ -19,6 +20,7 @@
 		}
 	}
 	button {
+		@include standard-button;
 		font-weight: bold;
 		font-size: 30px;
 		padding: 0 20px;
