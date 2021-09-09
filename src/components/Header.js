@@ -1,9 +1,14 @@
 import React from 'react';
 import SocialLinks from './SocialLinks';
+import Button from './Button';
 import { Link, useStaticQuery, graphql } from 'gatsby';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
 import * as styles from './Header.module.scss';
+library.add(fas);
 
-const Header = () => {
+const Header = ({ navBarState, updateNavBar }) => {
     const { site } = useStaticQuery(
         graphql`
             query {
@@ -20,6 +25,9 @@ const Header = () => {
     return (
         <header className={styles.header}>
             <h1>
+                <Button className={styles.navButton} onClick={updateNavBar}>
+                    <FontAwesomeIcon icon={['fas', 'bars']} />
+                </Button>
                 <Link to="/">{title}</Link>
             </h1>
             <section>

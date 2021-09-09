@@ -8,10 +8,26 @@
 	h1 {
 		flex-grow: 1;
 		margin: 0 0 0 10px;
+		font-size: 24px;
+		.navButton {
+			margin-right: 10px;
+			cursor: pointer;
+			background: none;
+			border: none;
+			color: $text-color;
+			font-size: 24px;
+
+			&:hover svg {
+				color: $hover-text-color;
+			}
+			&:active svg {
+				color: $active-text-color;
+			}
+		}
 	}
 	section {
 		display: flex;
-		font-size: 22px;
+		font-size: 20px;
 		margin-right: 10px;
 		span {
 			margin-right: 5px;

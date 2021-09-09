@@ -24,7 +24,7 @@ $button-dimension: 50px;
 		}
 	}
 }
-button {
+@mixin image-dialog-buttons {
 	@include vertical-center;
 	@include standard-button;
 	height: $button-dimension;
@@ -34,8 +34,10 @@ button {
 	text-align: center;
 }
 .leftButton {
+	@include image-dialog-buttons;
 	left: 0;
 }
 .rightButton {
+	@include image-dialog-buttons;
 	right: 0;
 }
