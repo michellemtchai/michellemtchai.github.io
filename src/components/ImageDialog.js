@@ -20,24 +20,28 @@ const ImageDialog = ({ list, selected, updateSelected }) => {
     };
     let image = list[selectedIndex];
     return (
-        <dialog open className={styles.dialog}>
+        <>
             <Button
+                className={styles.leftButton}
                 onClick={() => changeImage(-1)}
                 disabled={selectedIndex - 1 < 0}
             >
                 &lt;
             </Button>
-            <figure id={`image-${selectedIndex}`}>
-                <Image src={image} alt={image.description} />
-                <figcaption>{image.description}</figcaption>
-            </figure>
+            <dialog open className={styles.dialog}>
+                <figure id={`image-${selectedIndex}`}>
+                    <Image src={image} alt={image.description} />
+                    <figcaption>{image.description}</figcaption>
+                </figure>
+            </dialog>
             <Button
+                className={styles.rightButton}
                 onClick={() => changeImage(1)}
                 disabled={selectedIndex + 1 > list.length - 1}
             >
                 &gt;
             </Button>
-        </dialog>
+        </>
     );
 };
 

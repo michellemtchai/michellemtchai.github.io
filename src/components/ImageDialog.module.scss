@@ -1,4 +1,5 @@
 @import '../styles/mixins';
+$button-dimension: 50px;
 .dialog {
 	margin: 0 auto;
 	max-width: 1200px;
@@ -10,19 +11,31 @@
 		margin: 0 auto;
 		display: flex;
 		flex-direction: column;
+		z-index: 1;
 		img {
 			text-align: center;
 		}
-		caption {
+		figcaption {
 			padding: 10px;
 			display: block;
 			border-top: 1px solid #000;
+			max-height: 100px;
+			overflow-y: auto;
 		}
 	}
-	button {
-		@include standard-button;
-		font-weight: bold;
-		font-size: 30px;
-		padding: 0 20px;
-	}
+}
+button {
+	@include vertical-center;
+	@include standard-button;
+	height: $button-dimension;
+	line-height: $button-dimension;
+	font-size: 30px;
+	width: $button-dimension;
+	text-align: center;
+}
+.leftButton {
+	left: 0;
+}
+.rightButton {
+	right: 0;
 }
