@@ -7,16 +7,16 @@
 	line-height: $header-height;
 	h1 {
 		flex-grow: 1;
-		margin: 0 0 0 10px;
-		font-size: 24px;
+		margin: 0 0 0 20px;
+		font-size: 30px;
 		.navButton {
-			margin-right: 10px;
+			line-height: $header-height;
+			margin-right: 20px;
 			cursor: pointer;
 			background: none;
 			border: none;
 			color: $text-color;
-			font-size: 24px;
-
+			font-size: 28px;
 			&:hover svg {
 				color: $hover-text-color;
 			}

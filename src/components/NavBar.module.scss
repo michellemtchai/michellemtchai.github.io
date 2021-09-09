@@ -10,7 +10,7 @@
 }
 .minimized {
 	li {
-		width: 60px;
+		width: 50px;
 		margin: 15px 5px;
 		a {
 			svg {
@@ -20,6 +20,7 @@
 				margin-bottom: 5px;
 			}
 			font-size: 10px;
+			word-wrap: break-word;
 			text-align: center;
 			display: block;
 			width: 100%;
