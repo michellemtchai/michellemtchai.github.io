@@ -8,3 +8,21 @@
 		margin: 5px 25px 10px 10px;
 	}
 }
+.minimized {
+	li {
+		width: 60px;
+		margin: 15px 5px;
+		a {
+			svg {
+				display: block;
+				font-size: 28px;
+				width: 100% !important;
+				margin-bottom: 5px;
+			}
+			font-size: 10px;
+			text-align: center;
+			display: block;
+			width: 100%;
+		}
+	}
+}

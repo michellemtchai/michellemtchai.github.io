@@ -3,7 +3,7 @@ import { useStaticQuery, graphql } from 'gatsby';
 import NavBarItem from './NavBarItem';
 import * as styles from './NavBar.module.scss';
 
-const NavBar = ({ selected }) => {
+const NavBar = ({ selected, minimized }) => {
     const { allContentfulCategory } = useStaticQuery(
         graphql`
             query {
@@ -20,8 +20,11 @@ const NavBar = ({ selected }) => {
             }
         `
     );
+    const navState = minimized
+        ? `${styles.navbar} ${styles.minimized}`
+        : styles.navbar;
     return (
-        <nav className={styles.navbar}>
+        <nav className={navState}>
             <ul>
                 <NavBarItem
                     selected={!selected}

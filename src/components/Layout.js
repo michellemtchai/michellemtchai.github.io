@@ -7,13 +7,13 @@ import '../styles/index.scss';
 import * as styles from './Layout.module.scss';
 
 const Layout = ({ children, title, description, category }) => {
-	const [navBarState, updateNavBar] = useState('');
+	const [minimized, updateMinimized] = useState(false);
 	return (
 		<div className={styles.layout}>
 			<Seo pageTitle={title} pageDescription={description} lang="en" />
-			<Header navBarState={navBarState} updateNavBar={updateNavBar} />
+			<Header minimized={minimized} updateMinimized={updateMinimized} />
 			<div className={styles.nonHeader}>
-				<NavBar selected={category} />
+				<NavBar selected={category} minimized={minimized} />
 				<main>
 					<div className={styles.pageBody}>
 						<article>{children}</article>

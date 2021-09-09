@@ -8,7 +8,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 import * as styles from './Header.module.scss';
 library.add(fas);
 
-const Header = ({ navBarState, updateNavBar }) => {
+const Header = ({ minimized, updateMinimized }) => {
     const { site } = useStaticQuery(
         graphql`
             query {
@@ -20,12 +20,14 @@ const Header = ({ navBarState, updateNavBar }) => {
             }
         `
     );
-
+    const updateNavState = () => {
+        updateMinimized(!minimized);
+    };
     const { title } = site.siteMetadata;
     return (
         <header className={styles.header}>
             <h1>
-                <Button className={styles.navButton} onClick={updateNavBar}>
+                <Button className={styles.navButton} onClick={updateNavState}>
                     <FontAwesomeIcon icon={['fas', 'bars']} />
                 </Button>
                 <Link to="/">{title}</Link>
