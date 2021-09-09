@@ -1,8 +1,10 @@
 @import '../styles/mixins';
+@import '../styles/colors';
 .link {
 	@include standard-links;
 	a {
 		font-size: 18px;
+		color: #444;
 		svg {
 			width: 35px !important;
 			font-size: 28px;
@@ -11,5 +13,6 @@
 	.selected {
 		text-decoration: underline;
 		font-weight: bold;
+		color: $text-color;
 	}
 }
