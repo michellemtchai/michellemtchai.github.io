@@ -22,7 +22,7 @@ const NavBar = ({ selected, minimized }) => {
     );
     const navState = minimized
         ? `${styles.navbar} ${styles.minimized}`
-        : styles.navbar;
+        : `${styles.navbar} ${styles.expanded}`;
     return (
         <nav className={navState}>
             <ul>
