@@ -28,3 +28,24 @@
 		}
 	}
 }
+@media only screen and (max-width: 800px) {
+	.layout {
+		.nonHeader > main > .pageBody > article {
+			width: 95%;
+		}
+	}
+}
+@media only screen and (max-width: 1200px) {
+	.layout {
+		.nonHeader > main > .pageBody > article {
+			width: 90%;
+		}
+	}
+}
+@media only screen and (max-width: 1500px) {
+	.layout {
+		.nonHeader > main > .pageBody > article {
+			width: 85%;
+		}
+	}
+}
