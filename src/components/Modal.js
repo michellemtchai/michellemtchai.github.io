@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useKeyPress } from '../hooks/keys';
 import * as styles from './Modal.module.scss';
 
-const Modal = ({ show, updateShow, children }) => {
+const Modal = ({ show, updateShow, children, className }) => {
     const [showModal, setShowModal] = useState(show);
     const closeModal = () => {
         setShowModal(false);
@@ -12,9 +12,10 @@ const Modal = ({ show, updateShow, children }) => {
     useEffect(() => {
         setShowModal(show);
     }, [show]);
+    const styling = className ? `${styles.modal} ${className}` : styles.modal;
     return (
         showModal && (
-            <div className={styles.modal}>
+            <div className={styling}>
                 <button className={styles.overlay} onClick={closeModal}>
                     {' '}
                 </button>

@@ -27,6 +27,15 @@
 				line-height: $footer-height;
 			}
 		}
+		.navModal {
+			nav {
+				position: fixed;
+				top: calc(-50vh + 50px);
+				display: block;
+				background: #fff;
+				height: calc(100vh - 50px);
+			}
+		}
 	}
 }
 @media only screen and (max-width: 800px) {
