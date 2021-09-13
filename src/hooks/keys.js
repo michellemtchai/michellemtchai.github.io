@@ -28,5 +28,5 @@ export const useKeyPress = (targetKey, action = noAction) => {
         if (keyPressed) {
             action();
         }
-    }, [keyPressed, action]);
+    }, [keyPressed]);
 };
