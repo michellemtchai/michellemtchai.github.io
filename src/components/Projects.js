@@ -1,5 +1,4 @@
 import React from 'react';
-import Image from './Image';
 import Technologies from './Technologies';
 import { Link } from 'gatsby';
 import PreviewImage from './PreviewImage';

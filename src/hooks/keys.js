@@ -23,10 +23,10 @@ export const useKeyPress = (targetKey, action = noAction) => {
             window.removeEventListener('keydown', downHandler);
             window.removeEventListener('keyup', upHandler);
         };
-    }, []);
+    });
     useEffect(() => {
         if (keyPressed) {
             action();
         }
-    }, [keyPressed]);
+    }, [keyPressed, action]);
 };
