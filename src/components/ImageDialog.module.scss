@@ -13,8 +13,13 @@ $button-dimension: 50px;
 		flex-direction: column;
 		z-index: 1;
 		max-height: 100vh;
-		img {
-			text-align: center;
+		.imgButton {
+			background: none;
+			border: none;
+			cursor: pointer;
+			img {
+				text-align: center;
+			}
 		}
 		figcaption {
 			padding: 10px;

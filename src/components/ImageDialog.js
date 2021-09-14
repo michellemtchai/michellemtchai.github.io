@@ -18,6 +18,13 @@ const ImageDialog = ({ list, selected, updateSelected }) => {
             updateSelected(index);
         }
     };
+    const clickImage = () => {
+        if (selected + 1 < list.length) {
+            changeImage(1);
+        } else {
+            changeImage(-list.length + 1);
+        }
+    };
     let image = list[selectedIndex];
     return (
         <>
@@ -30,7 +37,9 @@ const ImageDialog = ({ list, selected, updateSelected }) => {
             </Button>
             <dialog open className={styles.dialog}>
                 <figure id={`image-${selectedIndex}`}>
-                    <Image src={image} alt={image.description} />
+                    <button className={styles.imgButton} onClick={clickImage}>
+                        <Image src={image} alt={image.description} />
+                    </button>
                     <figcaption>{image.description}</figcaption>
                 </figure>
             </dialog>
