@@ -22,6 +22,10 @@ const Layout = ({ children, title, description, category }) => {
 						show={minimized}
 						updateShow={updateMinimized}
 					>
+						<Header
+							minimized={minimized}
+							updateMinimized={updateMinimized}
+						/>
 						<NavBar selected={category} minimized={false} />
 					</Modal>
 				)}

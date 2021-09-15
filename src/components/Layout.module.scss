@@ -28,9 +28,15 @@
 			}
 		}
 		.navModal {
+			header {
+				position: fixed;
+				top: -50vh;
+				background: #fff;
+				width: 100%;
+			}
 			nav {
 				position: fixed;
-				top: calc(-50vh + 50px);
+				top: calc(-50vh + 53px);
 				display: block;
 				background: #fff;
 				height: calc(100vh - 50px);
