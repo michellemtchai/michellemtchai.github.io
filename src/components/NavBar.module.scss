@@ -1,5 +1,15 @@
 @import '../styles/colors';
-@mixin minimized-nav {
+.navbar {
+	padding: 0;
+	border-right: 1px solid #ddd;
+	height: 100%;
+	li {
+		width: 250px;
+		list-style: none;
+		margin: 15px 5px;
+	}
+}
+.minimized {
 	li {
 		width: 70px;
 		a {
@@ -19,19 +29,6 @@
 		}
 	}
 }
-.navbar {
-	padding: 0;
-	border-right: 1px solid #ddd;
-	height: 100%;
-	li {
-		width: 250px;
-		list-style: none;
-		margin: 15px 5px;
-	}
-}
-.minimized {
-	@include minimized-nav;
-}
 .expanded li a {
 	color: $text-color;
 	svg {
@@ -41,10 +38,5 @@
 @media only screen and (max-width: 800px) {
 	.navbar {
 		display: none;
-	}
-}
-@media only screen and (max-width: 1200px) {
-	.navbar {
-		@include minimized-nav;
 	}
 }
