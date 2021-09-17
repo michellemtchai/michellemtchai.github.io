@@ -1,12 +1,14 @@
-# README
+# [michellemtchai.github.io](https://michellemtchai.github.io)
 
-This is a Gatsby Project for my portfolio.
+> ### Main repository for Michelle Chai's personal website
 
-## Setup
+## Requirement
 
-You will need `Docker` to run this app
+You will need `Docker` to run this project.
 
-## Development
+## Running the App
+
+### Development
 
 First, you need to setup the environmental variables by running the following command:
 
@@ -19,3 +21,7 @@ Then, you can run `docker-compose up` to boot up the project. You can access the
 ```
 http://localhost:3000
 ```
+
+### Deploying
+
+TODO
