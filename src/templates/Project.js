@@ -1,5 +1,6 @@
 import React from 'react';
 import Layout from '../components/Layout';
+import SearchBar from '../components/SearchBar';
 import ProjectOverview from '../components/ProjectOverview';
 import Tabs from '../components/Tabs';
 import MarkdownContent from '../components/MarkdownContent';
@@ -54,6 +55,7 @@ const Project = ({ data, pageContext }) => {
             description={project.summary}
             category={pageContext.category}
         >
+            <SearchBar />
             <ProjectOverview {...project} />
             <Tabs
                 list={[

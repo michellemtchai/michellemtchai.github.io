@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Layout from '../components/Layout';
 import CategoryPreview from '../components/CategoryPreview';
 import SearchBar from '../components/SearchBar';
@@ -29,10 +29,9 @@ export const query = graphql`
 	}
 `;
 const Home = ({ data }) => {
-	const [searchTerm, updateSearchTerm] = useState('');
 	return (
 		<Layout>
-			<SearchBar value={searchTerm} update={updateSearchTerm} />
+			<SearchBar />
 			{data &&
 				data.allContentfulCategory.nodes.map((category) => (
 					<CategoryPreview

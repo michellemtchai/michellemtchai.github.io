@@ -1,19 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import * as styles from './SearchBar.module.scss';
 library.add(fas);
 
-const SearchBar = ({ value, update, search }) => {
-	const [input, updateInput] = useState(value);
-	useEffect(() => {
-		updateInput(value);
-	}, [value]);
+const SearchBar = ({ range = 'all' }) => {
+	const [input, updateInput] = useState('');
 	const updateSearchTerm = (event) => {
-		const term = event.target.value;
-		updateInput(term);
-		update(term);
+		updateInput(event.target.value);
+	};
+	const search = () => {
+		console.log('range', range, 'term', input);
 	};
 	return (
 		<fieldset className={styles.searchbar}>
@@ -21,6 +19,7 @@ const SearchBar = ({ value, update, search }) => {
 				type="text"
 				placeholder="Search..."
 				onChange={updateSearchTerm}
+				value={input}
 			/>
 			<button onClick={search}>
 				<FontAwesomeIcon icon={['fas', 'search']} />

@@ -1,5 +1,6 @@
 import React from 'react';
 import Layout from '../components/Layout';
+import SearchBar from '../components/SearchBar';
 import Projects from '../components/Projects';
 import { graphql } from 'gatsby';
 
@@ -44,6 +45,7 @@ const Category = ({ data, pageContext }) => {
             description={category.summary}
             category={pageContext.slug}
         >
+            <SearchBar range={category.slug} />
             <h2>{category.name}</h2>
             <Projects list={category.projects} />
         </Layout>
