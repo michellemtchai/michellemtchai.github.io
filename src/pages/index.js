@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Layout from '../components/Layout';
 import CategoryPreview from '../components/CategoryPreview';
+import SearchBar from '../components/SearchBar';
 import { graphql } from 'gatsby';
 
 export const query = graphql`
@@ -28,8 +29,10 @@ export const query = graphql`
 	}
 `;
 const Home = ({ data }) => {
+	const [searchTerm, updateSearchTerm] = useState('');
 	return (
 		<Layout>
+			<SearchBar value={searchTerm} update={updateSearchTerm} />
 			{data &&
 				data.allContentfulCategory.nodes.map((category) => (
 					<CategoryPreview

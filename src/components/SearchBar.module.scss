@@ -1,0 +1,21 @@
+@import '../styles/colors';
+.searchbar {
+	border: 3px solid $border-color;
+	border-radius: 5px;
+	display: flex;
+	input {
+		flex-grow: 1;
+		border: none;
+		outline: none;
+		background: none;
+		line-height: 25px;
+	}
+	button {
+		border: none;
+		background: none;
+		cursor: pointer;
+		color: $text-color;
+		padding: 0 5px;
+		line-height: 25px;
+	}
+}
