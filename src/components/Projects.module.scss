@@ -1,9 +1,10 @@
 @import '../styles/colors';
 .projects {
+	margin: 0 10px;
 	section {
 		a {
 			text-decoration: none;
-			border-bottom: 1px solid #ccc;
+			border-bottom: 1px solid $border-color;
 			display: flex;
 			.previewImage {
 				width: 320px;
@@ -26,9 +27,9 @@
 				}
 			}
 		}
-		&:last-child {
+		&:first-child {
 			a {
-				border: none;
+				border-top: 1px solid $border-color;
 			}
 		}
 		&:hover {
