@@ -19,7 +19,7 @@ const SearchBar = ({ value, update, search }) => {
 		<fieldset className={styles.searchbar}>
 			<input
 				type="text"
-				placholder="Search..."
+				placeholder="Search..."
 				onChange={updateSearchTerm}
 			/>
 			<button onClick={search}>
