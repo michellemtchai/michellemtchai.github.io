@@ -7,18 +7,24 @@ library.add(fas);
 
 const SearchBar = ({ range = 'all' }) => {
 	const [input, updateInput] = useState('');
+	const [focus, updateFocus] = useState(false);
 	const updateSearchTerm = (event) => {
 		updateInput(event.target.value);
 	};
 	const search = () => {
 		console.log('range', range, 'term', input);
 	};
+	const styling = focus
+		? `${styles.searchbar} ${styles.focus}`
+		: styles.searchbar;
 	return (
-		<fieldset className={styles.searchbar}>
+		<fieldset className={styling}>
 			<input
 				type="text"
 				placeholder="Search..."
 				onChange={updateSearchTerm}
+				onFocus={() => updateFocus(true)}
+				onBlur={() => updateFocus(false)}
 				value={input}
 			/>
 			<button onClick={search}>
