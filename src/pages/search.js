@@ -22,12 +22,12 @@ export const query = graphql`
 		}
 	}
 `;
-const Search = (props) => {
-	console.log(props);
+const Search = ({ params, data }) => {
 	return (
 		<Layout>
 			<SearchBar />
 			<h1>Search Page</h1>
+			<p>query: {params['*']}</p>
 		</Layout>
 	);
 };

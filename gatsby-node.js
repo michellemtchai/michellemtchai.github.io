@@ -48,6 +48,13 @@ const CATEGORY_QUERY = `
         }
     }
 `;
+exports.onCreatePage = async ({ page, actions }) => {
+    const { createPage } = actions;
+    if (page.path.match(/^\/search/)) {
+        page.matchPath = '/search/*';
+        createPage(page);
+    }
+};
 
 exports.createPages = async ({ graphql, actions, reporter }) => {
     const { createPage, createRedirect } = actions;
