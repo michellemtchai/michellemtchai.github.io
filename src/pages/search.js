@@ -6,50 +6,47 @@ import { graphql } from 'gatsby';
 
 export const query = graphql`
 	query {
-		allContentfulProject {
+		allContentfulCategory {
 			nodes {
-				contentful_id
 				slug
-				name
-				demoUrl
-				previewImage {
-					gatsbyImageData(
-						width: 450
-						placeholder: BLURRED
-						formats: [AUTO, WEBP]
-					)
-				}
 			}
 		}
 	}
 `;
 const Search = ({ params, data }) => {
-	const pageParams = params['*'];
-	if (pageParams) {
-		const result = pageParams.match(/^page\/(\d+)$/);
-		if (result && result.length === 2) {
-			const page = result[1];
+	const categories = data.allContentfulCategory.nodes.map((i) => i.slug);
+	categories.push('all');
+	const validCategory = categories.includes(params.category);
+	if (validCategory) {
+		const pageParams = params['*'];
+		if (pageParams) {
+			const result = pageParams.match(/^page\/(\d+)$/);
+			if (result && result.length === 2) {
+				const page = result[1];
+				return (
+					<Layout>
+						<SearchBar />
+						<h1>Search Page</h1>
+						<p>category: {params.category}</p>
+						<p>query: {params.query}</p>
+						<p>page: {page}</p>
+					</Layout>
+				);
+			} else {
+				return <NotFound />;
+			}
+		} else {
 			return (
 				<Layout>
 					<SearchBar />
 					<h1>Search Page</h1>
 					<p>category: {params.category}</p>
 					<p>query: {params.query}</p>
-					<p>page: {page}</p>
 				</Layout>
 			);
-		} else {
-			return <NotFound />;
 		}
 	} else {
-		return (
-			<Layout>
-				<SearchBar />
-				<h1>Search Page</h1>
-				<p>category: {params.category}</p>
-				<p>query: {params.query}</p>
-			</Layout>
-		);
+		return <NotFound />;
 	}
 };
 
