@@ -45,7 +45,7 @@ const Category = ({ data, pageContext }) => {
             description={category.summary}
             category={pageContext.slug}
         >
-            <SearchBar range={category.slug} />
+            <SearchBar range={pageContext.slug} />
             <h2>{category.name}</h2>
             <Projects list={category.projects} />
         </Layout>

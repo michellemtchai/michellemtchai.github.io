@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useKeyPress } from '../hooks/keys';
+import { navigate } from 'gatsby';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import * as styles from './SearchBar.module.scss';
@@ -13,7 +14,9 @@ const SearchBar = ({ range = 'all' }) => {
 		updateInput(event.target.value);
 	};
 	const search = () => {
-		console.log('range', range, 'term', input);
+		if (input !== '') {
+			navigate(`/search/${range}/${input}`);
+		}
 	};
 	useKeyPress('Enter', search);
 	const styling = focus
@@ -23,7 +26,7 @@ const SearchBar = ({ range = 'all' }) => {
 		<fieldset className={styling}>
 			<input
 				type="text"
-				placeholder="Search..."
+				placeholder={`Search in ${range}...`}
 				onChange={updateSearchTerm}
 				onFocus={() => updateFocus(true)}
 				onBlur={() => updateFocus(false)}

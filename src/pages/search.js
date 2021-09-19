@@ -23,7 +23,7 @@ const Search = ({ params, data }) => {
 				const page = result[1];
 				return (
 					<Layout>
-						<SearchBar />
+						<SearchBar range={params.category} />
 						<h1>Search Page</h1>
 						<p>category: {params.category}</p>
 						<p>query: {params.query}</p>
@@ -36,7 +36,7 @@ const Search = ({ params, data }) => {
 		} else {
 			return (
 				<Layout>
-					<SearchBar />
+					<SearchBar range={params.category} />
 					<h1>Search Page</h1>
 					<p>category: {params.category}</p>
 					<p>query: {params.query}</p>
