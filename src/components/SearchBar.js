@@ -14,8 +14,11 @@ const SearchBar = ({ range = 'all' }) => {
 		updateInput(event.target.value);
 	};
 	const search = () => {
-		if (input !== '') {
-			navigate(`/search/${range}/${input}`);
+		const query = input.trim();
+		if (query !== '') {
+			navigate(`/search/${range}/${query}`);
+		} else {
+			updateInput(query);
 		}
 	};
 	useKeyPress('Enter', search);
