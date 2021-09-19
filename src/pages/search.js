@@ -15,9 +15,7 @@ export const query = graphql`
 `;
 const Search = ({ params, data }) => {
 	const categories = data.allContentfulCategory.nodes.map((i) => i.slug);
-	categories.push('all');
-	const validCategory = categories.includes(params.category);
-	if (validCategory) {
+	if (['all', ...categories].includes(params.category)) {
 		const pageParams = params['*'];
 		if (pageParams) {
 			const result = pageParams.match(/^page\/(\d+)$/);
