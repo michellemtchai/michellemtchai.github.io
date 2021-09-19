@@ -48,10 +48,10 @@ const CATEGORY_QUERY = `
         }
     }
 `;
-exports.onCreatePage = async ({ page, actions }) => {
+exports.onCreatePage = async ({ graphql, page, actions }) => {
     const { createPage } = actions;
     if (page.path.match(/^\/search/)) {
-        page.matchPath = '/search/*';
+        page.matchPath = '/search/:query';
         createPage(page);
     }
 };

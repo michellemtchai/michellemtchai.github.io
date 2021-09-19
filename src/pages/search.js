@@ -27,7 +27,7 @@ const Search = ({ params, data }) => {
 		<Layout>
 			<SearchBar />
 			<h1>Search Page</h1>
-			<p>query: {params['*']}</p>
+			<p>query: {params.query}</p>
 		</Layout>
 	);
 };
