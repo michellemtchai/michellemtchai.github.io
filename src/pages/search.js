@@ -15,6 +15,7 @@ export const query = graphql`
 `;
 const Search = ({ params, data }) => {
 	const categories = data.allContentfulCategory.nodes.map((i) => i.slug);
+	const query = decodeURI(params.query);
 	if (['all', ...categories].includes(params.category)) {
 		const pageParams = params['*'];
 		if (pageParams) {
@@ -26,7 +27,7 @@ const Search = ({ params, data }) => {
 						<SearchBar range={params.category} />
 						<h1>Search Page</h1>
 						<p>category: {params.category}</p>
-						<p>query: {params.query}</p>
+						<p>query: {query}</p>
 						<p>page: {page}</p>
 					</Layout>
 				);
@@ -39,7 +40,7 @@ const Search = ({ params, data }) => {
 					<SearchBar range={params.category} />
 					<h1>Search Page</h1>
 					<p>category: {params.category}</p>
-					<p>query: {params.query}</p>
+					<p>query: {query}</p>
 				</Layout>
 			);
 		}

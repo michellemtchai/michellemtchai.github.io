@@ -16,7 +16,7 @@ const SearchBar = ({ range = 'all' }) => {
 	const search = () => {
 		const query = input.trim();
 		if (query !== '') {
-			navigate(`/search/${range}/${query}`);
+			navigate(`/search/${range}/${encodeURI(query)}`);
 		} else {
 			updateInput(query);
 		}
