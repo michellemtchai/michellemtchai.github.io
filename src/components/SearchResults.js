@@ -58,7 +58,7 @@ const SearchResults = ({ category, query, page }) => {
 			<p>category: {category}</p>
 			<p>query: {query}</p>
 			<p>page: {page}</p>
-			{allContentfulProject && <Projects list={filteredProjects()} />}
+			<Projects list={filteredProjects()} />
 		</Layout>
 	);
 };
