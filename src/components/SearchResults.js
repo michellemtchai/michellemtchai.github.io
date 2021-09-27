@@ -70,14 +70,15 @@ const SearchResults = ({ category, query, page }) => {
 		}
 		return false;
 	};
+	const results = filteredProjects();
 	return (
 		<Layout>
 			<SearchBar range={category} />
 			<h1>Search Page</h1>
-			<p>category: {category}</p>
-			<p>query: {query}</p>
-			<p>page: {page}</p>
-			<Projects list={filteredProjects()} />
+			<p>
+				{results.length} Items for "{query}"
+			</p>
+			<Projects list={results} />
 		</Layout>
 	);
 };
