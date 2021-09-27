@@ -42,14 +42,33 @@ const SearchResults = ({ category, query, page }) => {
 		`
 	);
 	const filteredProjects = () => {
+		const projects = allContentfulProject.nodes;
 		if (category === 'all') {
-			return allContentfulProject.nodes;
+			return projects.filter((project) => includesQueryTerm(project));
 		} else {
 			return allContentfulProject.nodes.filter((project) => {
 				const categories = project.category.map((i) => i.slug);
-				return categories.includes(category);
+				return (
+					categories.includes(category) && includesQueryTerm(project)
+				);
 			});
 		}
+	};
+	const includesQueryTerm = (project) => {
+		const terms = query.split(/\s+/g);
+		const regex = new RegExp(`(${terms.join('|')})`, 'gi');
+		const nameMatch = project.name.match(regex);
+		const summaryMatch = project.summary.match(regex);
+		const techMatch = listIncludesQueryTerm(project.technologies, regex);
+		return nameMatch || summaryMatch || techMatch;
+	};
+	const listIncludesQueryTerm = (list, regex) => {
+		for (let i = 0; i < list.length; i++) {
+			if (list[i].name.match(regex)) {
+				return true;
+			}
+		}
+		return false;
 	};
 	return (
 		<Layout>
