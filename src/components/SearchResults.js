@@ -1,6 +1,7 @@
 import React from 'react';
 import Layout from './Layout';
 import SearchBar from './SearchBar';
+import Pagination from './Pagination';
 import Projects from './Projects';
 import NotFound from '../pages/404';
 import { useStaticQuery, graphql } from 'gatsby';
@@ -85,7 +86,17 @@ const SearchResults = ({ category, query, page }) => {
 			<p>
 				{items.length} of {results.length} Items for "{query}"
 			</p>
+			<Pagination
+				page={page}
+				totalPages={availablePages}
+				baseUrl={`/search/${category}/${query}`}
+			/>
 			<Projects list={items} />
+			<Pagination
+				page={page}
+				totalPages={availablePages}
+				baseUrl={`/search/${category}/${query}`}
+			/>
 		</Layout>
 	) : (
 		<NotFound />
