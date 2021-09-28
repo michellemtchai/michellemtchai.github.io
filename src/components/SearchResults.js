@@ -74,17 +74,19 @@ const SearchResults = ({ category, query, page }) => {
 	};
 	const results = filteredProjects();
 	const availablePages = Math.ceil(results.length / ITEMS_PER_PAGE);
-	const currPageItems = () =>
-		results.slice((page - 1) * ITEMS_PER_PAGE, ITEMS_PER_PAGE);
-	console.log('currPageItems', currPageItems(), page);
+	const currPageItems = () => {
+		const startIndex = (page - 1) * ITEMS_PER_PAGE;
+		return results.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+	};
+	const items = currPageItems();
 	return page > 0 && page <= availablePages ? (
 		<Layout>
 			<SearchBar range={category} />
 			<h1>Search Page {page}</h1>
 			<p>
-				{results.length} Items for "{query}"
+				{items.length} of {results.length} Items for "{query}"
 			</p>
-			<Projects list={currPageItems()} />
+			<Projects list={items} />
 		</Layout>
 	) : (
 		<NotFound />
