@@ -80,9 +80,8 @@ const SearchResults = ({ category, query, page }) => {
 	};
 	const items = currPageItems();
 	return page > 0 && page <= availablePages ? (
-		<Layout>
+		<Layout title={`Search for "${query}" - Page ${page}`}>
 			<SearchBar range={category} />
-			<h1>Search Page {page}</h1>
 			<p>
 				{items.length} of {results.length} Items for "{query}"
 			</p>
