@@ -20,7 +20,7 @@ const Search = ({ params, data }) => {
 		if (pageParams) {
 			const result = pageParams.match(/^page\/(\d+)$/);
 			if (result && result.length === 2) {
-				const page = result[1];
+				const page = parseInt(result[1]);
 				return (
 					<SearchResults
 						category={params.category}

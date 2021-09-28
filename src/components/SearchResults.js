@@ -2,7 +2,9 @@ import React from 'react';
 import Layout from './Layout';
 import SearchBar from './SearchBar';
 import Projects from './Projects';
+import NotFound from '../pages/404';
 import { useStaticQuery, graphql } from 'gatsby';
+const ITEMS_PER_PAGE = 10;
 
 const SearchResults = ({ category, query, page }) => {
 	const { allContentfulProject } = useStaticQuery(
@@ -71,15 +73,21 @@ const SearchResults = ({ category, query, page }) => {
 		return false;
 	};
 	const results = filteredProjects();
-	return (
+	const availablePages = Math.ceil(results.length / ITEMS_PER_PAGE);
+	const currPageItems = () =>
+		results.slice((page - 1) * ITEMS_PER_PAGE, ITEMS_PER_PAGE);
+	console.log('currPageItems', currPageItems(), page);
+	return page > 0 && page <= availablePages ? (
 		<Layout>
 			<SearchBar range={category} />
-			<h1>Search Page</h1>
+			<h1>Search Page {page}</h1>
 			<p>
 				{results.length} Items for "{query}"
 			</p>
-			<Projects list={results} />
+			<Projects list={currPageItems()} />
 		</Layout>
+	) : (
+		<NotFound />
 	);
 };
 
