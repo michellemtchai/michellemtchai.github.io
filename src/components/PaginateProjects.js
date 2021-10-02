@@ -16,7 +16,8 @@ const PaginateProjects = ({
 	description,
 	category,
 }) => {
-	const availablePages = Math.ceil(results.length / ITEMS_PER_PAGE);
+	let availablePages = Math.ceil(results.length / ITEMS_PER_PAGE);
+	availablePages = availablePages === 0 ? 1 : availablePages;
 	const currPageItems = () => {
 		const startIndex = (page - 1) * ITEMS_PER_PAGE;
 		return results.slice(startIndex, startIndex + ITEMS_PER_PAGE);
