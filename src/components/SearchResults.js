@@ -1,11 +1,6 @@
 import React from 'react';
-import Layout from './Layout';
-import SearchBar from './SearchBar';
-import Pagination from './Pagination';
-import Projects from './Projects';
-import NotFound from '../pages/404';
+import PaginateProjects from './PaginateProjects';
 import { useStaticQuery, graphql } from 'gatsby';
-import { ITEMS_PER_PAGE } from '../constants';
 
 const SearchResults = ({ category, query, page }) => {
 	const { allContentfulProject } = useStaticQuery(
@@ -73,32 +68,16 @@ const SearchResults = ({ category, query, page }) => {
 		}
 		return false;
 	};
-	const results = filteredProjects();
-	const availablePages = Math.ceil(results.length / ITEMS_PER_PAGE);
-	const currPageItems = () => {
-		const startIndex = (page - 1) * ITEMS_PER_PAGE;
-		return results.slice(startIndex, startIndex + ITEMS_PER_PAGE);
-	};
-	const items = currPageItems();
-	const Paginate = () => (
-		<Pagination
-			page={page}
-			totalPages={availablePages}
+	return (
+		<PaginateProjects
+			results={filteredProjects()}
 			baseUrl={`/search/${category}/${query}`}
+			query={query}
+			page={page}
+			title={`Search for "${query}" - Page ${page}`}
+			description={`Page ${page} of search for term "${query}" in "${category}".`}
+			category={category === 'all' ? '' : category}
 		/>
-	);
-	return page > 0 && page <= availablePages ? (
-		<Layout title={`Search for "${query}" - Page ${page}`}>
-			<SearchBar range={category} />
-			<p>
-				{items.length} of {results.length} Items for "{query}"
-			</p>
-			<Paginate />
-			<Projects list={items} />
-			<Paginate />
-		</Layout>
-	) : (
-		<NotFound />
 	);
 };
 
