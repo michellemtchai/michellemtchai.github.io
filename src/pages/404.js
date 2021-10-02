@@ -5,7 +5,7 @@ import NotFoundMessage from '../components/NotFoundMessage';
 
 const NotFound = ({ data }) => {
 	return (
-		<Layout>
+		<Layout title="Page Not Found" description="There's no such page.">
 			<SearchBar />
 			<NotFoundMessage />
 		</Layout>
