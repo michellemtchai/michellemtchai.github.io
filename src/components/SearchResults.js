@@ -5,7 +5,7 @@ import Pagination from './Pagination';
 import Projects from './Projects';
 import NotFound from '../pages/404';
 import { useStaticQuery, graphql } from 'gatsby';
-const ITEMS_PER_PAGE = 10;
+import { ITEMS_PER_PAGE } from '../constants';
 
 const SearchResults = ({ category, query, page }) => {
 	const { allContentfulProject } = useStaticQuery(
@@ -80,23 +80,22 @@ const SearchResults = ({ category, query, page }) => {
 		return results.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 	};
 	const items = currPageItems();
+	const Paginate = () => (
+		<Pagination
+			page={page}
+			totalPages={availablePages}
+			baseUrl={`/search/${category}/${query}`}
+		/>
+	);
 	return page > 0 && page <= availablePages ? (
 		<Layout title={`Search for "${query}" - Page ${page}`}>
 			<SearchBar range={category} />
 			<p>
 				{items.length} of {results.length} Items for "{query}"
 			</p>
-			<Pagination
-				page={page}
-				totalPages={availablePages}
-				baseUrl={`/search/${category}/${query}`}
-			/>
+			<Paginate />
 			<Projects list={items} />
-			<Pagination
-				page={page}
-				totalPages={availablePages}
-				baseUrl={`/search/${category}/${query}`}
-			/>
+			<Paginate />
 		</Layout>
 	) : (
 		<NotFound />

@@ -98,6 +98,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
                     context: {
                         slug: category.slug,
                     },
+                    matchPath: `/${category.slug}/*`,
                 });
             });
         }

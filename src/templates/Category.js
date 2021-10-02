@@ -1,7 +1,7 @@
 import React from 'react';
-import Layout from '../components/Layout';
-import SearchBar from '../components/SearchBar';
-import Projects from '../components/Projects';
+import Results from '../components/Results';
+import CategoryResults from '../components/CategoryResults';
+import NotFound from '../pages/404';
 import { graphql } from 'gatsby';
 
 export const query = graphql`
@@ -37,18 +37,21 @@ export const query = graphql`
         }
     }
 `;
-const Category = ({ data, pageContext }) => {
+const Category = (props) => {
+    const { data, pageContext } = props;
+    const pageParams = props['*'];
     const category = data.contentfulCategory;
     return (
-        <Layout
-            title={category.name}
-            description={category.summary}
-            category={pageContext.slug}
-        >
-            <SearchBar range={pageContext.slug} />
-            <h2>{category.name}</h2>
-            <Projects list={category.projects} />
-        </Layout>
+        <Results
+            params={pageParams}
+            Component={({ page }) => (
+                <CategoryResults
+                    category={category}
+                    slug={pageContext.slug}
+                    page={page}
+                />
+            )}
+        />
     );
 };
 

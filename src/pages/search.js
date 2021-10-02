@@ -1,4 +1,5 @@
 import React from 'react';
+import Results from '../components/Results';
 import SearchResults from '../components/SearchResults';
 import NotFound from './404';
 import { graphql } from 'gatsby';
@@ -17,29 +18,18 @@ const Search = ({ params, data }) => {
 	const query = decodeURI(params.query);
 	if (['all', ...categories].includes(params.category)) {
 		const pageParams = params['*'];
-		if (pageParams) {
-			const result = pageParams.match(/^page\/(\d+)$/);
-			if (result && result.length === 2) {
-				const page = parseInt(result[1]);
-				return (
+		return (
+			<Results
+				params={pageParams}
+				Component={({ page }) => (
 					<SearchResults
 						category={params.category}
 						query={query}
 						page={page}
 					/>
-				);
-			} else {
-				return <NotFound />;
-			}
-		} else {
-			return (
-				<SearchResults
-					category={params.category}
-					query={query}
-					page={1}
-				/>
-			);
-		}
+				)}
+			/>
+		);
 	} else {
 		return <NotFound />;
 	}
