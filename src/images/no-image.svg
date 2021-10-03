@@ -6,12 +6,12 @@
   	<polygon id="svg_2" points="230.91200256347656,55.59600067138672 230.91200256347656,138.46400451660156 347.6440124511719,138.46400451660156 347.6440124511719,55.59600067138672 230.91200256347656,55.59600067138672 242.0970001220703,66.29499816894531 336.33599853515625,66.29499816894531 336.33599853515625,127.57099914550781 242.0970001220703,127.57099914550781 242.0970001220703,66.29499816894531 " fill="#ffffff" fill-rule="evenodd"/>
   	<path id="svg_3" d="m306.819,81.857c0,-4.296 3.471,-7.781 7.782,-7.781c4.297,0 7.781,3.485 7.781,7.781c0,4.296 -3.484,7.782 -7.781,7.782c-4.311,0 -7.782,-3.486 -7.782,-7.782z" fill="#ffffff" clip-rule="evenodd" fill-rule="evenodd"/>
   	<g id="svg_5">
-   		<text x="2" y="0" id="svg_6" font-size="42" font-family="'Arial'" fill="#ffffff" transform="matrix(1, 0, 0, 1, 201.633, 194.27)">
+   		<text x="2" y="0" id="svg_6" font-size="42" font-family="'Arial'" fill="#ffffff" transform="matrix(1, 0, 0, 1, 111.633, 194.27)">
    			No image
    		</text>
   	</g>
   	<g id="svg_7">
-   		<text x="1.90476" y="0" id="svg_8" font-size="42" font-family="'Arial'" fill="#ffffff" transform="matrix(1.05, 0, 0, 1, 203.633, 242.27)">
+   		<text x="1.90476" y="0" id="svg_8" font-size="42" font-family="'Arial'" fill="#ffffff" transform="matrix(1.05, 0, 0, 1, 113.633, 242.27)">
    			available
    		</text>
   	</g>
