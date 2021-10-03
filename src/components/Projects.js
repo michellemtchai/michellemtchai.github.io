@@ -35,7 +35,7 @@ const Projects = ({ list }) => {
                     </section>
                 ))
             ) : (
-                <p>No projects found.</p>
+                <p className={styles.noProject}>No projects found.</p>
             )}
         </div>
     );
