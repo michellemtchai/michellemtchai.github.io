@@ -74,6 +74,7 @@ const SearchResults = ({ category, query, page }) => {
 			baseUrl={`/search/${category}/${query}`}
 			query={query}
 			page={page}
+			heading="Search"
 			title={`Search for "${query}" - Page ${page}`}
 			description={`Page ${page} of search for term "${query}" in "${category}".`}
 			category={category === 'all' ? '' : category}

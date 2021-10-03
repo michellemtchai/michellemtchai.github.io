@@ -1,0 +1,34 @@
+@import '../styles/mixins';
+$border-radius: 5px;
+$border-style: 1px solid #fff;
+@mixin shared-styles {
+	display: inline-block;
+	padding: 0 10px;
+	font-size: 16px;
+	line-height: 30px;
+	height: 30px;
+	vertical-align: top;
+	font-weight: bold;
+}
+.pagination {
+	button {
+		@include standard-button;
+		@include shared-styles;
+		font-size: 16px;
+	}
+	.left {
+		border-top-left-radius: $border-radius;
+		border-bottom-left-radius: $border-radius;
+	}
+	.right {
+		border-top-right-radius: $border-radius;
+		border-bottom-right-radius: $border-radius;
+	}
+	p {
+		@include shared-styles;
+		color: #fff;
+		background: #337ab7;
+		border-left: $border-style;
+		border-right: $border-style;
+	}
+}

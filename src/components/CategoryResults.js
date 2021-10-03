@@ -12,6 +12,7 @@ const CategoryResults = ({ category, slug, page }) => {
 			results={filteredProjects()}
 			baseUrl={`/${slug}`}
 			page={page}
+			heading={category.name}
 			title={`${category.name} - Page ${page}`}
 			description={category.summary}
 			category={slug}
