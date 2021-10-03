@@ -41,7 +41,7 @@ const PaginateProjects = ({
 			<section className={styles.topInfo}>
 				<p className={styles.summary}>
 					{availablePages > 1 && `${items.length} of `}
-					{results.length} Projects
+					{results.length} Project{items.length > 1 && 's'}
 					{query && ` for "${query}"`}
 				</p>
 				<Paginate />
