@@ -40,7 +40,7 @@ const PaginateProjects = ({
 			<SearchBar range={category} />
 			<p>
 				{availablePages > 1 && `${items.length} of `}
-				{results.length} Items
+				{results.length} Projects
 				{query && ` for "${query}"`}
 			</p>
 			<Paginate />

@@ -7,29 +7,36 @@ import * as styles from './Projects.module.scss';
 const Projects = ({ list }) => {
     return (
         <div className={styles.projects}>
-            {list.map((project) => (
-                <section key={project.contentful_id}>
-                    <Link to={`/projects/${project.slug}`} alt={project.name}>
-                        <PreviewImage
-                            className={styles.previewImage}
-                            src={project.previewImage}
+            {list.length > 0 ? (
+                list.map((project) => (
+                    <section key={project.contentful_id}>
+                        <Link
+                            to={`/projects/${project.slug}`}
                             alt={project.name}
-                            demo={project.demoUrl}
-                        />
-                        <ul>
-                            <li>
-                                <h3>{project.name}</h3>
-                            </li>
-                            <li>
-                                <p>{project.summary}</p>
-                            </li>
-                            <li>
-                                <Technologies list={project.technologies} />
-                            </li>
-                        </ul>
-                    </Link>
-                </section>
-            ))}
+                        >
+                            <PreviewImage
+                                className={styles.previewImage}
+                                src={project.previewImage}
+                                alt={project.name}
+                                demo={project.demoUrl}
+                            />
+                            <ul>
+                                <li>
+                                    <h3>{project.name}</h3>
+                                </li>
+                                <li>
+                                    <p>{project.summary}</p>
+                                </li>
+                                <li>
+                                    <Technologies list={project.technologies} />
+                                </li>
+                            </ul>
+                        </Link>
+                    </section>
+                ))
+            ) : (
+                <p>No projects found.</p>
+            )}
         </div>
     );
 };
