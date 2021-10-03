@@ -25,7 +25,7 @@ const PaginateProjects = ({
 		return results.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 	};
 	const items = currPageItems();
-	const Paginate = (className = null) =>
+	const Paginate = ({ className }) =>
 		availablePages > 1 && (
 			<Pagination
 				page={page}
