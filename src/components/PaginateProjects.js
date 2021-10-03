@@ -36,7 +36,7 @@ const PaginateProjects = ({
 		);
 	return page > 0 && page <= availablePages ? (
 		<Layout title={title} description={description} category={category}>
-			<SearchBar range={category} />
+			<SearchBar range={category === '' ? 'all' : category} />
 			<h2 className={styles.heading}>{heading}</h2>
 			<section className={styles.topInfo}>
 				<p className={styles.summary}>
