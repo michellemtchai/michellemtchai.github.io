@@ -7,9 +7,10 @@ import * as styles from './SleepModeDialog.module.scss';
 const sleepModeMessage =
     'This project will need time to wake up from sleep mode. Are you sure you want to proceed?';
 
-const openInNewTab = (url) => {
+const openInNewTab = (url, update) => {
     const newWindow = window.open(url, '_blank', 'noopener,noreferrer');
     if (newWindow) newWindow.opener = null;
+    update(false);
 };
 
 const SleepModeDialog = ({ link, update }) => {
@@ -25,7 +26,7 @@ const SleepModeDialog = ({ link, update }) => {
             </Button>
             <Button
                 className={styles.proceedButton}
-                onClick={() => openInNewTab(link)}
+                onClick={() => openInNewTab(link, update)}
             >
                 Proceed
             </Button>
