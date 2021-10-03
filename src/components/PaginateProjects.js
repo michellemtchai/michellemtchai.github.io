@@ -25,12 +25,13 @@ const PaginateProjects = ({
 		return results.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 	};
 	const items = currPageItems();
-	const Paginate = () =>
+	const Paginate = (className = null) =>
 		availablePages > 1 && (
 			<Pagination
 				page={page}
 				totalPages={availablePages}
 				baseUrl={baseUrl}
+				className={className}
 			/>
 		);
 	return page > 0 && page <= availablePages ? (
@@ -46,7 +47,7 @@ const PaginateProjects = ({
 				<Paginate />
 			</section>
 			<Projects list={items} />
-			<Paginate />
+			<Paginate className={styles.bottomPagination} />
 		</Layout>
 	) : (
 		<NotFound />

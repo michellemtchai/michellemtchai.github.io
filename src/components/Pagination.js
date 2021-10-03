@@ -2,15 +2,18 @@ import React from 'react';
 import { navigate } from 'gatsby';
 import * as styles from './Pagination.module.scss';
 
-const Pagination = ({ page, totalPages, baseUrl }) => {
+const Pagination = ({ page, totalPages, baseUrl, className }) => {
 	const goToPage = (increment) => () => {
 		const newPage = page + increment;
 		if (newPage > 0 && newPage <= totalPages) {
 			navigate(`${baseUrl}/page/${newPage}`);
 		}
 	};
+	const styling = className
+		? `${className} ${styles.pagination}`
+		: styles.pagination;
 	return (
-		<div className={styles.pagination}>
+		<div className={styling}>
 			<button
 				className={styles.left}
 				disabled={page - 1 <= 0}
