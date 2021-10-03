@@ -23,9 +23,14 @@ const PaginateProjects = ({
 		return results.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 	};
 	const items = currPageItems();
-	const Paginate = () => (
-		<Pagination page={page} totalPages={availablePages} baseUrl={baseUrl} />
-	);
+	const Paginate = () =>
+		availablePages > 1 && (
+			<Pagination
+				page={page}
+				totalPages={availablePages}
+				baseUrl={baseUrl}
+			/>
+		);
 	return page > 0 && page <= availablePages ? (
 		<Layout
 			title={category.name}
