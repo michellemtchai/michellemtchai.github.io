@@ -1,0 +1,21 @@
+@import '../styles/colors';
+.filterButton {
+    background: none;
+    border: none;
+    border-right: 2px solid $border-color;
+    vertical-align: top;
+    margin-top: 15px;
+    padding-right: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    color: $text-color;
+    &:hover {
+        color: $hover-text-color;
+    }
+    &:active {
+        color: $active-text-color;
+    }
+    svg {
+        margin-right: 5px;
+    }
+}
