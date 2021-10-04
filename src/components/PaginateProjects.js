@@ -3,6 +3,7 @@ import Layout from './Layout';
 import SearchBar from './SearchBar';
 import Pagination from './Pagination';
 import Projects from './Projects';
+import FilterButton from './FilterButton';
 import NotFound from '../pages/404';
 import * as styles from './PaginateProjects.module.scss';
 
@@ -39,6 +40,7 @@ const PaginateProjects = ({
 			<SearchBar range={category === '' ? 'all' : category} />
 			<h2 className={styles.heading}>{heading}</h2>
 			<section className={styles.topInfo}>
+				<FilterButton />
 				<p className={styles.summary}>
 					{availablePages > 1 && `${items.length} of `}
 					{results.length} Project{items.length > 1 && 's'}
