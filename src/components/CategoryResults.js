@@ -1,5 +1,6 @@
 import React from 'react';
 import PaginateProjects from './PaginateProjects';
+import { getStacks } from '../shared/filter';
 
 const CategoryResults = ({ category, slug, page }) => {
 	const filteredProjects = () => {
@@ -7,26 +8,6 @@ const CategoryResults = ({ category, slug, page }) => {
 		return category.projects;
 	};
 	const projects = filteredProjects();
-	const getStacks = () => {
-		let stackList = {};
-		let stacks = [];
-		projects.forEach((project) => {
-			project.technologies.forEach((tech) => {
-				if (!stackList[tech.name]) {
-					stackList[tech.name] = tech.contentful_id;
-				}
-			});
-		});
-		Object.keys(stackList)
-			.sort()
-			.forEach((key) => {
-				stacks.push({
-					label: key,
-					value: stackList[key],
-				});
-			});
-		return stacks;
-	};
 	const filters = {
 		sortBy: {
 			value: 'name',
@@ -39,7 +20,7 @@ const CategoryResults = ({ category, slug, page }) => {
 		},
 		stacks: {
 			value: 'all',
-			options: getStacks(),
+			options: getStacks(projects),
 		},
 	};
 	return (

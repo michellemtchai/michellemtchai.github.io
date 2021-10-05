@@ -1,6 +1,7 @@
 import React from 'react';
 import PaginateProjects from './PaginateProjects';
 import { useStaticQuery, graphql } from 'gatsby';
+import { getStacks } from '../shared/filter';
 
 const SearchResults = ({ category, query, page }) => {
 	const { allContentfulProject } = useStaticQuery(
@@ -68,6 +69,26 @@ const SearchResults = ({ category, query, page }) => {
 		}
 		return false;
 	};
+	const projects = filteredProjects();
+	const filters = {
+		sortBy: {
+			value: 'relevance',
+			options: [
+				{
+					label: 'Relevance',
+					value: 'relevance',
+				},
+				{
+					label: 'Project Name',
+					value: 'name',
+				},
+			],
+		},
+		stacks: {
+			value: 'all',
+			options: getStacks(projects),
+		},
+	};
 	return (
 		<PaginateProjects
 			results={filteredProjects()}
@@ -78,6 +99,7 @@ const SearchResults = ({ category, query, page }) => {
 			title={`Search for "${query}" - Page ${page}`}
 			description={`Page ${page} of search for term "${query}" in "${category}".`}
 			category={category === 'all' ? '' : category}
+			filters={filters}
 		/>
 	);
 };
