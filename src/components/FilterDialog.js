@@ -1,5 +1,8 @@
 import React from 'react';
+import FilterSelect from './FilterSelect';
+import FilterCheckList from './FilterCheckList';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { sortDir } from '../shared/filter';
 import * as styles from './FilterDialog.module.scss';
 
 const FilterDialog = ({ closeModal, filters }) => {
@@ -7,7 +10,6 @@ const FilterDialog = ({ closeModal, filters }) => {
         //TODO
         closeModal();
     };
-    console.log('filters', filters);
     return (
         <dialog open className={styles.dialog}>
             <section className={styles.header}>
@@ -18,7 +20,9 @@ const FilterDialog = ({ closeModal, filters }) => {
                 <button onClick={closeModal}>&times;</button>
             </section>
             <section className={styles.body}>
-                <p>hello world</p>
+                <FilterSelect label="Sort By" {...filters.sortBy} />
+                <FilterSelect label="Sort Direction" {...sortDir} />
+                <FilterCheckList label="Stacks" {...filters.stacks} />
             </section>
             <section className={styles.footer}>
                 <button className={styles.cancel} onClick={closeModal}>
