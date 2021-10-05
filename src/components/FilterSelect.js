@@ -9,7 +9,7 @@ const FilterSelect = ({ label, value, options }) => {
     return (
         <fieldset>
             <label>{label}:</label>
-            <select onChange={onChange}>
+            <select value={selected} onChange={onChange}>
                 {options.map((option) => (
                     <option key={option.value} value={option.value}>
                         {option.label}

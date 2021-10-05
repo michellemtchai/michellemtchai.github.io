@@ -41,7 +41,7 @@ const PaginateProjects = ({
 			<SearchBar range={category === '' ? 'all' : category} />
 			<h2 className={styles.heading}>{heading}</h2>
 			<section className={styles.topInfo}>
-				<FilterButton filters={filters} />
+				<FilterButton filters={filters} search={heading === 'Search'} />
 				<p className={styles.summary}>
 					{availablePages > 1 && `${items.length} of `}
 					{results.length} Project{items.length > 1 && 's'}

@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { sortDir } from '../shared/filter';
 import * as styles from './FilterDialog.module.scss';
 
-const FilterDialog = ({ closeModal, filters }) => {
+const FilterDialog = ({ closeModal, filters, search }) => {
     const onSubmit = () => {
         //TODO
         closeModal();
@@ -21,7 +21,7 @@ const FilterDialog = ({ closeModal, filters }) => {
             </section>
             <section className={styles.body}>
                 <FilterSelect label="Sort By" {...filters.sortBy} />
-                <FilterSelect label="Sort Direction" {...sortDir} />
+                <FilterSelect label="Sort Direction" {...sortDir(search)} />
                 <FilterCheckList label="Stacks" {...filters.stacks} />
             </section>
             <section className={styles.footer}>
