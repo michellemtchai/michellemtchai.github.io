@@ -11,6 +11,7 @@ const ITEMS_PER_PAGE = 10;
 
 const PaginateProjects = ({
 	results,
+	filters,
 	baseUrl,
 	query,
 	page,
@@ -40,7 +41,7 @@ const PaginateProjects = ({
 			<SearchBar range={category === '' ? 'all' : category} />
 			<h2 className={styles.heading}>{heading}</h2>
 			<section className={styles.topInfo}>
-				<FilterButton />
+				<FilterButton filters={filters} />
 				<p className={styles.summary}>
 					{availablePages > 1 && `${items.length} of `}
 					{results.length} Project{items.length > 1 && 's'}

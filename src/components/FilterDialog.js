@@ -2,11 +2,12 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as styles from './FilterDialog.module.scss';
 
-const FilterDialog = ({ closeModal }) => {
+const FilterDialog = ({ closeModal, filters }) => {
     const onSubmit = () => {
         //TODO
         closeModal();
     };
+    console.log('filters', filters);
     return (
         <dialog open className={styles.dialog}>
             <section className={styles.header}>
