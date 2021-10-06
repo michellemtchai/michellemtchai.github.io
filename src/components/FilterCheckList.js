@@ -2,30 +2,32 @@ import React, { useState, useEffect } from 'react';
 
 const FilterCheckList = ({ label, value, options }) => {
     const [selectAll, updateSelectAll] = useState(value === 'all');
-    const selectValues = () => {
-        return selectAll ? options.map((i) => i.value) : [];
+    const selectValues = (selectAll) => {
+        let mapping = {};
+        options.forEach((option) => {
+            mapping[option.value] = selectAll;
+        });
+        return mapping;
     };
-    const [selected, updateSelected] = useState(selectValues());
+    const [selected, updateSelected] = useState(selectValues(value === 'all'));
     const onSelectAll = () => {
-        updateSelectAll(!selectAll);
-        updateSelected(selectValues());
+        const newValue = !selectAll;
+        updateSelectAll(newValue);
+        const selectedStacks = selectValues(newValue);
+        updateSelected(selectedStacks);
     };
     const onChange = (event) => {
-        const newSelected = event.target.value;
-        const selectedCopy = [...selected];
-        if (selected.includes(newSelected)) {
-            const index = selectedCopy.indexOf(newSelected);
-            if (index !== -1) {
-                selectedCopy.splice(index, 1);
+        const target = event.target.value;
+        const newSelected = { ...selected, [target]: !selected[target] };
+        updateSelected(newSelected);
+        let count = 0;
+        Object.keys(newSelected).forEach((key) => {
+            if (newSelected[key]) {
+                count++;
             }
-        } else {
-            selectedCopy.push(newSelected);
-        }
-        updateSelected(selectedCopy);
+        });
+        updateSelectAll(count === options.length);
     };
-    useEffect(() => {
-        updateSelectAll(selected.length === options.length);
-    }, [selected]);
     return (
         <fieldset>
             <section>
@@ -36,7 +38,7 @@ const FilterCheckList = ({ label, value, options }) => {
                         id="check-all"
                         name="check-all"
                         value="all"
-                        defaultChecked={selectAll}
+                        checked={selectAll}
                         onChange={onSelectAll}
                     />
                     All
@@ -50,7 +52,7 @@ const FilterCheckList = ({ label, value, options }) => {
                             id={option.value}
                             name={option.value}
                             value={option.value}
-                            defaultChecked={selected.includes(option.value)}
+                            checked={selected[option.value]}
                             onChange={onChange}
                         />
                         {option.label}
