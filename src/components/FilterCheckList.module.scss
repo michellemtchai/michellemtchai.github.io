@@ -1,0 +1,22 @@
+.fieldset {
+    border: none;
+    .heading {
+        width: 100%;
+        display: flex;
+        label:first-child {
+            flex-grow: 1;
+        }
+    }
+    .body {
+        columns: 4;
+        input {
+            margin-right: 5px;
+        }
+        label {
+            width: 100%;
+            display: inline-block;
+            text-align: left;
+            line-height: 25px;
+        }
+    }
+}

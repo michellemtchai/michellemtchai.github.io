@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import * as styles from './FilterCheckList.module.scss';
 
 const FilterCheckList = ({ label, value, options }) => {
     const [selectAll, updateSelectAll] = useState(value === 'all');
@@ -29,8 +30,8 @@ const FilterCheckList = ({ label, value, options }) => {
         updateSelectAll(count === options.length);
     };
     return (
-        <fieldset>
-            <section>
+        <fieldset className={styles.fieldset}>
+            <section className={styles.heading}>
                 <label>{label}:</label>
                 <label htmlFor="check-all">
                     <input
@@ -44,7 +45,7 @@ const FilterCheckList = ({ label, value, options }) => {
                     All
                 </label>
             </section>
-            <section>
+            <section className={styles.body}>
                 {options.map((option) => (
                     <label key={option.value} htmlFor={option.value}>
                         <input
