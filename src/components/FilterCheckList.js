@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { far } from '@fortawesome/free-regular-svg-icons';
 import * as styles from './FilterCheckList.module.scss';
+library.add(fas, far);
 
 const FilterCheckList = ({ label, value, options }) => {
     const [selectAll, updateSelectAll] = useState(value === 'all');
@@ -29,6 +34,10 @@ const FilterCheckList = ({ label, value, options }) => {
         });
         updateSelectAll(count === options.length);
     };
+    const CheckBox = ({ checked }) => {
+        const icon = checked ? ['fas', 'check-square'] : ['far', 'square'];
+        return <FontAwesomeIcon icon={icon} />;
+    };
     return (
         <fieldset className={styles.fieldset}>
             <section className={styles.heading}>
@@ -45,6 +54,7 @@ const FilterCheckList = ({ label, value, options }) => {
                         checked={selectAll}
                         onChange={onSelectAll}
                     />
+                    <CheckBox checked={selectAll} />
                     All
                 </label>
             </section>
@@ -63,6 +73,7 @@ const FilterCheckList = ({ label, value, options }) => {
                             checked={selected[option.value]}
                             onChange={onChange}
                         />
+                        <CheckBox checked={selected[option.value]} />
                         {option.label}
                     </label>
                 ))}

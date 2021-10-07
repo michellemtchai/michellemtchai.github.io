@@ -2,12 +2,23 @@
     border: none;
     label {
         cursor: pointer;
+        font-size: 16px;
+        line-height: 16px;
+        vertical-align: top;
+        margin: 5px 0;
         input {
-            margin: 5px;
+            display: none;
+        }
+        svg {
+            margin: 0 5px;
+            vertical-align: top;
         }
     }
     .checked {
         font-weight: bold;
+        svg {
+            color: #1c7ed6;
+        }
     }
     .heading {
         width: 100%;
@@ -31,7 +42,6 @@
             width: $column-width;
             display: inline-block;
             text-align: left;
-            line-height: 25px;
         }
     }
 }
