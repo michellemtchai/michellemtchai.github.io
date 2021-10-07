@@ -20,9 +20,15 @@
         }
     }
     .body {
-        columns: 4;
+        $column-width: 25%;
+        display: flex;
+        flex-flow: row wrap;
+        align-items: stretch;
+        -webkit-column-width: $column-width;
+        -moz-column-width: $column-width;
+        column-width: $column-width;
         label {
-            width: 100%;
+            width: $column-width;
             display: inline-block;
             text-align: left;
             line-height: 25px;
