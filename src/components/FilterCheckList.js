@@ -33,7 +33,10 @@ const FilterCheckList = ({ label, value, options }) => {
         <fieldset className={styles.fieldset}>
             <section className={styles.heading}>
                 <label>{label}:</label>
-                <label htmlFor="check-all">
+                <label
+                    htmlFor="check-all"
+                    className={selectAll && styles.checked}
+                >
                     <input
                         type="checkbox"
                         id="check-all"
@@ -47,7 +50,11 @@ const FilterCheckList = ({ label, value, options }) => {
             </section>
             <section className={styles.body}>
                 {options.map((option) => (
-                    <label key={option.value} htmlFor={option.value}>
+                    <label
+                        key={option.value}
+                        htmlFor={option.value}
+                        className={selected[option.value] && styles.checked}
+                    >
                         <input
                             type="checkbox"
                             id={option.value}
