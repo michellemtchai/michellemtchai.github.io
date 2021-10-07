@@ -1,7 +1,10 @@
 .fieldset {
     border: none;
-    input {
-        margin-right: 5px;
+    label {
+        cursor: pointer;
+        input {
+            margin-right: 5px;
+        }
     }
     .checked {
         font-weight: bold;
@@ -9,8 +12,11 @@
     .heading {
         width: 100%;
         display: flex;
+        margin-top: 10px;
+        margin-bottom: 5px;
         label:first-child {
             flex-grow: 1;
+            font-weight: bold;
         }
     }
     .body {
