@@ -6,6 +6,9 @@
         label:first-child {
             flex-grow: 1;
         }
+        input {
+            margin-right: 5px;
+        }
     }
     .body {
         columns: 4;
