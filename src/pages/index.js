@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
 import CategoryPreview from '../components/CategoryPreview';
 import SearchBar from '../components/SearchBar';
 import { graphql } from 'gatsby';
+import { GlobalContext } from '../../GlobalContext.js';
 
 export const query = graphql`
 	query {
@@ -28,6 +29,12 @@ export const query = graphql`
 	}
 `;
 const Home = ({ data }) => {
+	const { setTitle, setDescription, setSelected } = useContext(GlobalContext);
+	useEffect(() => {
+		setTitle();
+		setDescription();
+		setSelected();
+	}, []);
 	return (
 		<>
 			<SearchBar />

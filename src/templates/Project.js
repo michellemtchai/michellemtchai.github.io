@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
 import SearchBar from '../components/SearchBar';
 import ProjectOverview from '../components/ProjectOverview';
 import Tabs from '../components/Tabs';
 import MarkdownContent from '../components/MarkdownContent';
 import Gallery from '../components/Gallery';
 import { graphql } from 'gatsby';
+import { GlobalContext } from '../../GlobalContext.js';
 
 export const query = graphql`
     query ($slug: String!) {
@@ -48,9 +49,12 @@ export const query = graphql`
 `;
 const Project = ({ data, pageContext }) => {
     const project = data.contentfulProject;
-    // title={project.name}
-    // description={project.summary}
-    // category={pageContext.category}
+    const { setTitle, setDescription, setSelected } = useContext(GlobalContext);
+    useEffect(() => {
+        setTitle(project.name);
+        setDescription(project.summary);
+        setSelected(pageContext.category);
+    }, []);
     return (
         <>
             <SearchBar />

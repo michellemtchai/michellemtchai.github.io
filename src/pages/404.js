@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
 import SearchBar from '../components/SearchBar';
 import NotFoundMessage from '../components/NotFoundMessage';
+import { GlobalContext } from '../../GlobalContext.js';
 
 const NotFound = ({ data }) => {
-    // title="Page Not Found" description="There's no such page."
+    const { setTitle, setDescription } = useContext(GlobalContext);
+    useEffect(() => {
+        setTitle('Page Not Found');
+        setDescription("There's no such page.");
+    }, []);
     return (
         <>
             <SearchBar />

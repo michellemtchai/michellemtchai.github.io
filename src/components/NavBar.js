@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import NavBarItem from './NavBarItem';
+import { GlobalContext } from '../../GlobalContext.js';
 import * as styles from './NavBar.module.scss';
 
-const NavBar = ({ selected, minimized, update }) => {
+const NavBar = ({ minimized }) => {
+    const { selected, setSelected } = useContext(GlobalContext);
+
     const [selectedNavItem, updateSelectedNavItem] = useState(selected);
     const handleClick = (slug, category) => () => {
         updateSelectedNavItem(slug);
-        update(slug);
+        setSelected(slug);
     };
     useEffect(() => {
         updateSelectedNavItem(selected);

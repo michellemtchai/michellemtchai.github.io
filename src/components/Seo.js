@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Helmet } from 'react-helmet';
 import { useStaticQuery, graphql } from 'gatsby';
+import { GlobalContext } from '../../GlobalContext.js';
 
-const Seo = ({ lang, pageTitle, pageDescription }) => {
+const Seo = ({ lang }) => {
+    const { pageTitle, pageDescription } = useContext(GlobalContext);
     const { site } = useStaticQuery(
         graphql`
             query {

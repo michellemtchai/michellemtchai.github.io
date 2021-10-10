@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
 import SearchBar from './SearchBar';
 import Pagination from './Pagination';
 import Projects from './Projects';
 import FilterButton from './FilterButton';
 import NotFound from '../pages/404';
+import { GlobalContext } from '../../GlobalContext.js';
 import * as styles from './PaginateProjects.module.scss';
 
 const ITEMS_PER_PAGE = 10;
@@ -35,7 +36,12 @@ const PaginateProjects = ({
 				className={className}
 			/>
 		);
-	// title={title} description={description} category={category}
+	const { setTitle, setDescription, setSelected } = useContext(GlobalContext);
+	useEffect(() => {
+		setTitle(title);
+		setDescription(description);
+		setSelected(category);
+	}, []);
 	return page > 0 && page <= availablePages ? (
 		<>
 			<SearchBar range={category === '' ? 'all' : category} />
