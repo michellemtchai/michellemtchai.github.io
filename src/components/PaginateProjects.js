@@ -1,5 +1,4 @@
 import React from 'react';
-import Layout from './Layout';
 import SearchBar from './SearchBar';
 import Pagination from './Pagination';
 import Projects from './Projects';
@@ -36,8 +35,9 @@ const PaginateProjects = ({
 				className={className}
 			/>
 		);
+	// title={title} description={description} category={category}
 	return page > 0 && page <= availablePages ? (
-		<Layout title={title} description={description} category={category}>
+		<>
 			<SearchBar range={category === '' ? 'all' : category} />
 			<h2 className={styles.heading}>{heading}</h2>
 			<section className={styles.topInfo}>
@@ -51,7 +51,7 @@ const PaginateProjects = ({
 			</section>
 			<Projects list={items} />
 			<Paginate className={styles.bottomPagination} />
-		</Layout>
+		</>
 	) : (
 		<NotFound />
 	);

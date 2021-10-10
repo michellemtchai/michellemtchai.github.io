@@ -1,5 +1,4 @@
 import React from 'react';
-import Layout from '../components/Layout';
 import CategoryPreview from '../components/CategoryPreview';
 import SearchBar from '../components/SearchBar';
 import { graphql } from 'gatsby';
@@ -30,7 +29,7 @@ export const query = graphql`
 `;
 const Home = ({ data }) => {
 	return (
-		<Layout>
+		<>
 			<SearchBar />
 			{data &&
 				data.allContentfulCategory.nodes.map((category) => (
@@ -41,7 +40,7 @@ const Home = ({ data }) => {
 						projects={category.projects}
 					/>
 				))}
-		</Layout>
+		</>
 	);
 };
 

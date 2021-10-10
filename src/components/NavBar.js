@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import NavBarItem from './NavBarItem';
 import * as styles from './NavBar.module.scss';
 
-const NavBar = ({ selected, minimized }) => {
+const NavBar = ({ selected, minimized, update }) => {
+    const [selectedNavItem, updateSelectedNavItem] = useState(selected);
+    const handleClick = (slug, category) => () => {
+        updateSelectedNavItem(slug);
+        update(slug);
+    };
+    useEffect(() => {
+        updateSelectedNavItem(selected);
+    }, [selected]);
     const { allContentfulCategory } = useStaticQuery(
         graphql`
             query {
@@ -27,7 +35,8 @@ const NavBar = ({ selected, minimized }) => {
         <nav className={navState}>
             <ul>
                 <NavBarItem
-                    selected={!selected}
+                    selected={!selectedNavItem}
+                    update={handleClick()}
                     to="/"
                     name="Home"
                     icon={['fas', 'home']}
@@ -35,7 +44,8 @@ const NavBar = ({ selected, minimized }) => {
                 {allContentfulCategory &&
                     allContentfulCategory.nodes.map((category) => (
                         <NavBarItem
-                            selected={selected === category.slug}
+                            selected={selectedNavItem === category.slug}
+                            update={handleClick(category.slug, category)}
                             key={category.contentful_id}
                             to={`/${category.slug}`}
                             name={category.name}

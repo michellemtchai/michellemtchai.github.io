@@ -1,5 +1,4 @@
 import React from 'react';
-import Layout from '../components/Layout';
 import SearchBar from '../components/SearchBar';
 import ProjectOverview from '../components/ProjectOverview';
 import Tabs from '../components/Tabs';
@@ -49,12 +48,11 @@ export const query = graphql`
 `;
 const Project = ({ data, pageContext }) => {
     const project = data.contentfulProject;
+    // title={project.name}
+    // description={project.summary}
+    // category={pageContext.category}
     return (
-        <Layout
-            title={project.name}
-            description={project.summary}
-            category={pageContext.category}
-        >
+        <>
             <SearchBar />
             <ProjectOverview {...project} />
             <Tabs
@@ -79,7 +77,7 @@ const Project = ({ data, pageContext }) => {
                     },
                 ]}
             />
-        </Layout>
+        </>
     );
 };
 

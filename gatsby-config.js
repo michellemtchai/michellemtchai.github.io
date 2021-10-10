@@ -22,5 +22,11 @@ module.exports = {
                 gfm: true,
             },
         },
+        {
+            resolve: `gatsby-plugin-layout`,
+            options: {
+                component: require.resolve(`./src/components/Layout`),
+            },
+        },
     ],
 };

@@ -1,7 +1,6 @@
 import React from 'react';
 import Results from '../components/Results';
 import CategoryResults from '../components/CategoryResults';
-import NotFound from '../pages/404';
 import { graphql } from 'gatsby';
 
 export const query = graphql`
