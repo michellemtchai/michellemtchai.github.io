@@ -4,12 +4,16 @@ const initialState = {
   title: null,
   description: null,
   category: null,
+  searchTerm: null,
+  searchResults: [],
 };
 
 const actions = {
   SET_TITLE: 'SET_TITLE',
   SET_DESCRIPTION: 'SET_DESCRIPTION',
   SET_CATEGORY: 'SET_CATEGORY',
+  SET_SEARCH_TERM: 'SET_SEARCH_TERM',
+  SET_SEARCH_RESULTS: 'SET_SEARCH_RESULTS',
 };
 
 const reducer = (state, action) => {
@@ -21,6 +25,10 @@ const reducer = (state, action) => {
       return updateState('description');
     case actions.SET_CATEGORY:
       return updateState('category');
+    case actions.SET_SEARCH_TERM:
+      return updateState('searchTerm');
+    case actions.SET_SEARCH_RESULTS:
+      return updateState('searchResults');
     default:
       return state;
   }
@@ -46,6 +54,14 @@ const GlobalContextProvider = ({ children }) => {
     selectedCategory: state.category,
     setSelectedCategory: (value) => {
       dispatchFn(actions.SET_CATEGORY, value);
+    },
+    searchTerm: state.searchTerm,
+    setSearchTerm: (value) => {
+      dispatchFn(actions.SET_SEARCH_TERM, value);
+    },
+    searchResults: state.searchResults,
+    setSearchResults: (value) => {
+      dispatchFn(actions.SET_SEARCH_RESULTS, value);
     },
   };
 
