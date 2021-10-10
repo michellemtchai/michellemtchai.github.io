@@ -49,11 +49,12 @@ export const query = graphql`
 `;
 const Project = ({ data, pageContext }) => {
     const project = data.contentfulProject;
-    const { setTitle, setDescription, setSelected } = useContext(GlobalContext);
+    const { setTitle, setDescription, setSelectedCategory } =
+        useContext(GlobalContext);
     useEffect(() => {
         setTitle(project.name);
         setDescription(project.summary);
-        setSelected(pageContext.category);
+        setSelectedCategory(pageContext.category);
     }, []);
     return (
         <>

@@ -5,16 +5,16 @@ import { GlobalContext } from '../../GlobalContext.js';
 import * as styles from './NavBar.module.scss';
 
 const NavBar = ({ minimized }) => {
-    const { selected, setSelected } = useContext(GlobalContext);
+    const { selectedCategory, setSelectedCategory } = useContext(GlobalContext);
 
-    const [selectedNavItem, updateSelectedNavItem] = useState(selected);
+    const [selectedNavItem, updateSelectedNavItem] = useState(selectedCategory);
     const handleClick = (slug, category) => () => {
         updateSelectedNavItem(slug);
-        setSelected(slug);
+        setSelectedCategory(slug);
     };
     useEffect(() => {
-        updateSelectedNavItem(selected);
-    }, [selected]);
+        updateSelectedNavItem(selectedCategory);
+    }, [selectedCategory]);
     const { allContentfulCategory } = useStaticQuery(
         graphql`
             query {

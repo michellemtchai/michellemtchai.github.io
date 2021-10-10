@@ -3,13 +3,13 @@ import React, { createContext } from 'react';
 const initialState = {
   title: null,
   description: null,
-  selected: null,
+  category: null,
 };
 
 const actions = {
   SET_TITLE: 'SET_TITLE',
   SET_DESCRIPTION: 'SET_DESCRIPTION',
-  SET_SELECTED: 'SET_SELECTED',
+  SET_CATEGORY: 'SET_CATEGORY',
 };
 
 const reducer = (state, action) => {
@@ -19,8 +19,8 @@ const reducer = (state, action) => {
       return updateState('title');
     case actions.SET_DESCRIPTION:
       return updateState('description');
-    case actions.SET_SELECTED:
-      return updateState('selected');
+    case actions.SET_CATEGORY:
+      return updateState('category');
     default:
       return state;
   }
@@ -43,9 +43,9 @@ const GlobalContextProvider = ({ children }) => {
     setDescription: (value) => {
       dispatchFn(actions.SET_DESCRIPTION, value);
     },
-    selected: state.selected,
-    setSelected: (value) => {
-      dispatchFn(actions.SET_SELECTED, value);
+    selectedCategory: state.category,
+    setSelectedCategory: (value) => {
+      dispatchFn(actions.SET_CATEGORY, value);
     },
   };
 

@@ -29,11 +29,12 @@ export const query = graphql`
 	}
 `;
 const Home = ({ data }) => {
-	const { setTitle, setDescription, setSelected } = useContext(GlobalContext);
+	const { setTitle, setDescription, setSelectedCategory } =
+		useContext(GlobalContext);
 	useEffect(() => {
 		setTitle();
 		setDescription();
-		setSelected();
+		setSelectedCategory();
 	}, []);
 	return (
 		<>

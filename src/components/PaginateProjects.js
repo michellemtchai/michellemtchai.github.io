@@ -36,11 +36,12 @@ const PaginateProjects = ({
 				className={className}
 			/>
 		);
-	const { setTitle, setDescription, setSelected } = useContext(GlobalContext);
+	const { setTitle, setDescription, setSelectedCategory } =
+		useContext(GlobalContext);
 	useEffect(() => {
 		setTitle(title);
 		setDescription(description);
-		setSelected(category);
+		setSelectedCategory(category);
 	}, []);
 	return page > 0 && page <= availablePages ? (
 		<>
