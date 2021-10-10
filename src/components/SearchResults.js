@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PaginateProjects from './PaginateProjects';
 import { useStaticQuery, graphql } from 'gatsby';
-import { getStacks } from '../shared/filter';
+import { getStacks, sortDirOptions } from '../shared/filter';
 
 const SearchResults = ({ category, query, page }) => {
+	const [sortBy, updateSortBy] = useState('relevance');
+	const [sortDir, updateSortDir] = useState('DESC');
+	const [stacks, updateStacks] = useState({});
+	const [initialized, updateInitialized] = useState(false);
+
 	const { allContentfulProject } = useStaticQuery(
 		graphql`
 			query {
@@ -72,7 +77,8 @@ const SearchResults = ({ category, query, page }) => {
 	const projects = filteredProjects();
 	const filters = {
 		sortBy: {
-			value: 'relevance',
+			value: sortBy,
+			update: updateSortBy,
 			options: [
 				{
 					label: 'Relevance',
@@ -84,8 +90,16 @@ const SearchResults = ({ category, query, page }) => {
 				},
 			],
 		},
+		sortDir: {
+			value: sortDir,
+			update: updateSortDir,
+			options: sortDirOptions,
+		},
 		stacks: {
-			value: 'all',
+			initialized: initialized,
+			updateInitialized: updateInitialized,
+			value: stacks,
+			update: updateStacks,
 			options: getStacks(projects),
 		},
 	};

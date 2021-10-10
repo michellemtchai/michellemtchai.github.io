@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PaginateProjects from './PaginateProjects';
-import { getStacks } from '../shared/filter';
+import { getStacks, sortDirOptions } from '../shared/filter';
 
 const CategoryResults = ({ category, slug, page }) => {
+	const [sortBy, updateSortBy] = useState('name');
+	const [sortDir, updateSortDir] = useState('ASC');
+	const [stacks, updateStacks] = useState({});
+	const [initialized, updateInitialized] = useState(false);
 	const filteredProjects = () => {
 		//TODO
 		return category.projects;
@@ -10,7 +14,8 @@ const CategoryResults = ({ category, slug, page }) => {
 	const projects = filteredProjects();
 	const filters = {
 		sortBy: {
-			value: 'name',
+			value: sortBy,
+			update: updateSortBy,
 			options: [
 				{
 					label: 'Project Name',
@@ -18,8 +23,16 @@ const CategoryResults = ({ category, slug, page }) => {
 				},
 			],
 		},
+		sortDir: {
+			value: sortDir,
+			update: updateSortDir,
+			options: sortDirOptions,
+		},
 		stacks: {
-			value: 'all',
+			initialized: initialized,
+			updateInitialized: updateInitialized,
+			value: stacks,
+			update: updateStacks,
 			options: getStacks(projects),
 		},
 	};

@@ -6,8 +6,26 @@ import { far } from '@fortawesome/free-regular-svg-icons';
 import * as styles from './FilterCheckList.module.scss';
 library.add(fas, far);
 
-const FilterCheckList = ({ label, value, options }) => {
-    const [selectAll, updateSelectAll] = useState(value === 'all');
+const FilterCheckList = ({
+    label,
+    value,
+    options,
+    update,
+    initialized,
+    updateInitialized,
+}) => {
+    const hasSelectedAll = (selected) => {
+        let count = 0;
+        Object.keys(selected).forEach((key) => {
+            if (selected[key]) {
+                count++;
+            }
+        });
+        return count === options.length;
+    };
+    const [selectAll, updateSelectAll] = useState(
+        initialized ? hasSelectedAll(value) : true
+    );
     const selectValues = (selectAll) => {
         let mapping = {};
         options.forEach((option) => {
@@ -15,24 +33,26 @@ const FilterCheckList = ({ label, value, options }) => {
         });
         return mapping;
     };
-    const [selected, updateSelected] = useState(selectValues(value === 'all'));
+    const [selected, updateSelected] = useState(
+        initialized ? value : selectValues(true)
+    );
+    if (!initialized) {
+        updateInitialized(true);
+        update(selectValues(true));
+    }
     const onSelectAll = () => {
         const newValue = !selectAll;
         updateSelectAll(newValue);
         const selectedStacks = selectValues(newValue);
         updateSelected(selectedStacks);
+        update(selectedStacks);
     };
     const onChange = (event) => {
         const target = event.target.value;
         const newSelected = { ...selected, [target]: !selected[target] };
         updateSelected(newSelected);
-        let count = 0;
-        Object.keys(newSelected).forEach((key) => {
-            if (newSelected[key]) {
-                count++;
-            }
-        });
-        updateSelectAll(count === options.length);
+        update(newSelected);
+        updateSelectAll(hasSelectedAll(newSelected));
     };
     const CheckBox = ({ checked }) => {
         const icon = checked ? ['fas', 'check-square'] : ['far', 'square'];
@@ -44,7 +64,7 @@ const FilterCheckList = ({ label, value, options }) => {
                 <label>{label}:</label>
                 <label
                     htmlFor="check-all"
-                    className={selectAll && styles.checked}
+                    className={selectAll ? styles.checked : undefined}
                 >
                     <input
                         type="checkbox"
@@ -63,7 +83,9 @@ const FilterCheckList = ({ label, value, options }) => {
                     <label
                         key={option.value}
                         htmlFor={option.value}
-                        className={selected[option.value] && styles.checked}
+                        className={
+                            selected[option.value] ? styles.checked : undefined
+                        }
                     >
                         <input
                             type="checkbox"

@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import * as styles from './FilterSelect.module.scss';
 
-const FilterSelect = ({ label, value, options }) => {
+const FilterSelect = ({ label, value, options, update }) => {
     const [selected, updateSelected] = useState(value);
     const onChange = (event) => {
         const newSelected = event.target.value;
         updateSelected(newSelected);
+        update(newSelected);
     };
     return (
         <fieldset className={styles.fieldset}>

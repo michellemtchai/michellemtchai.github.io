@@ -18,16 +18,13 @@ export const getStacks = (projects) => {
         });
     return stacks;
 };
-export const sortDir = (search = false) => ({
-    value: search ? 'DESC' : 'ASC',
-    options: [
-        {
-            label: 'Ascending',
-            value: 'ASC',
-        },
-        {
-            label: 'Descending',
-            value: 'DESC',
-        },
-    ],
-});
+export const sortDirOptions = [
+    {
+        label: 'Ascending',
+        value: 'ASC',
+    },
+    {
+        label: 'Descending',
+        value: 'DESC',
+    },
+];
