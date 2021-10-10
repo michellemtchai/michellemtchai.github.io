@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { sortDir } from '../shared/filter';
 import * as styles from './FilterDialog.module.scss';
 
-const FilterDialog = ({ closeModal, filters, search }) => {
+const FilterDialog = ({ closeModal, filters, update, search }) => {
     const onSubmit = () => {
         //TODO
         closeModal();
