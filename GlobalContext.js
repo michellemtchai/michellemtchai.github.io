@@ -7,13 +7,11 @@ const initialState = {
   searchTerm: null,
   searchResults: [],
   categoryFilters: {
-    category: null,
+    range: null,
     sortBy: 'name',
     sortDir: 'DESC',
-    stacks: {
-      value: [],
-      options: [],
-    },
+    stacks: {},
+    stackOptions: [],
   },
 };
 
@@ -23,10 +21,22 @@ const actions = {
   SET_CATEGORY: 'SET_CATEGORY',
   SET_SEARCH_TERM: 'SET_SEARCH_TERM',
   SET_SEARCH_RESULTS: 'SET_SEARCH_RESULTS',
+  SET_CATEGORY_FILTERS_RANGE: 'SET_CATEGORY_FILTERS_RANGE',
+  SET_CATEGORY_FILTERS_SORT_BY: 'SET_CATEGORY_FILTERS_SORT_BY',
+  SET_CATEGORY_FILTERS_SORT_DIR: 'SET_CATEGORY_FILTERS_SORT_DIR',
+  SET_CATEGORY_FILTERS_STACKS: 'SET_CATEGORY_FILTERS_STACKS',
+  SET_CATEGORY_FILTERS_STACK_OPTIONS: 'SET_CATEGORY_FILTERS_STACK_OPTIONS',
 };
 
 const reducer = (state, action) => {
   const updateState = (key) => ({ ...state, [key]: action.value });
+  const updateFilterState = (filter, key) => ({
+    ...state,
+    [filter]: {
+      ...state[filter],
+      [key]: actions.value,
+    },
+  });
   switch (action.type) {
     case actions.SET_TITLE:
       return updateState('title');
@@ -38,6 +48,16 @@ const reducer = (state, action) => {
       return updateState('searchTerm');
     case actions.SET_SEARCH_RESULTS:
       return updateState('searchResults');
+    case actions.SET_CATEGORY_FILTERS_RANGE:
+      return updateFilterState('categoryFilters', 'range');
+    case actions.SET_CATEGORY_FILTERS_SORT_BY:
+      return updateFilterState('categoryFilters', 'sortBy');
+    case actions.SET_CATEGORY_FILTERS_SORT_Dir:
+      return updateFilterState('categoryFilters', 'sortDir');
+    case actions.SET_CATEGORY_FILTERS_STACKS:
+      return updateFilterState('categoryFilters', 'stacks');
+    case actions.SET_CATEGORY_FILTERS_STACK_OPTIONS:
+      return updateFilterState('categoryFilters', 'stackOptions');
     default:
       return state;
   }
@@ -71,6 +91,26 @@ const GlobalContextProvider = ({ children }) => {
     searchResults: state.searchResults,
     setSearchResults: (value) => {
       dispatchFn(actions.SET_SEARCH_RESULTS, value);
+    },
+    categoryFiltersInitialized: state.category === state.categoryFilters.range,
+    setCategoryFiltersRange: (value) => {
+      dispatchFn(actions.SET_CATEGORY_FILTERS_RANGE, value);
+    },
+    categoryFiltersSortBy: state.categoryFilters.sortBy,
+    setCategoryFiltersSortBy: (value) => {
+      dispatchFn(actions.SET_CATEGORY_FILTERS_SORT_BY, value);
+    },
+    categoryFiltersSortDir: state.categoryFilters.sortDir,
+    setCategoryFiltersSortDir: (value) => {
+      dispatchFn(actions.SET_CATEGORY_FILTERS_SORT_DIR, value);
+    },
+    categoryFiltersStacks: state.categoryFilters.stacks,
+    setCategoryFiltersStacks: (value) => {
+      dispatchFn(actions.SET_CATEGORY_FILTERS_STACKS, value);
+    },
+    categoryFiltersStackOptions: state.categoryFilters.stackOptions,
+    setCategoryFiltersStackOptions: (value) => {
+      dispatchFn(actions.SET_CATEGORY_FILTERS_STACK_OPTIONS, value);
     },
   };
 

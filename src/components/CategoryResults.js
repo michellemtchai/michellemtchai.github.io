@@ -1,12 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useContext } from 'react';
 import PaginateProjects from './PaginateProjects';
 import { getStacks, sortDirOptions } from '../shared/filter';
+import { GlobalContext } from '../../GlobalContext.js';
 
 const CategoryResults = ({ category, slug, page }) => {
-	const [sortBy, updateSortBy] = useState('name');
-	const [sortDir, updateSortDir] = useState('ASC');
-	const [stacks, updateStacks] = useState({});
-	const [initialized, updateInitialized] = useState(false);
+	const {
+		categoryFiltersInitialized,
+		setCategoryFiltersRange,
+		categoryFiltersSortBy,
+		setCategoryFiltersSortBy,
+		categoryFiltersSortDir,
+		setCategoryFiltersSortDir,
+		categoryFiltersStacks,
+		setCategoryFiltersStacks,
+		categoryFiltersStackOptions,
+		setCategoryFiltersStackOptions,
+	} = useContext(GlobalContext);
 	const filteredProjects = () => {
 		//TODO
 		return category.projects;
@@ -14,8 +23,8 @@ const CategoryResults = ({ category, slug, page }) => {
 	const projects = filteredProjects();
 	const filters = {
 		sortBy: {
-			value: sortBy,
-			update: updateSortBy,
+			value: categoryFiltersSortBy,
+			update: setCategoryFiltersSortBy,
 			options: [
 				{
 					label: 'Project Name',
@@ -24,18 +33,23 @@ const CategoryResults = ({ category, slug, page }) => {
 			],
 		},
 		sortDir: {
-			value: sortDir,
-			update: updateSortDir,
+			value: categoryFiltersSortDir,
+			update: setCategoryFiltersSortDir,
 			options: sortDirOptions,
 		},
 		stacks: {
-			initialized: initialized,
-			updateInitialized: updateInitialized,
-			value: stacks,
-			update: updateStacks,
-			options: getStacks(projects),
+			initialized: categoryFiltersInitialized,
+			updateInitialized: () => setCategoryFiltersRange(slug),
+			value: categoryFiltersStacks,
+			update: setCategoryFiltersStacks,
+			options: categoryFiltersInitialized
+				? categoryFiltersStackOptions
+				: getStacks(projects),
 		},
 	};
+	useEffect(() => {
+		setCategoryFiltersStackOptions(filters.stacks.options);
+	}, []);
 	return (
 		<PaginateProjects
 			results={projects}

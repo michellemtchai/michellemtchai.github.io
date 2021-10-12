@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
@@ -36,10 +36,12 @@ const FilterCheckList = ({
     const [selected, updateSelected] = useState(
         initialized ? value : selectValues(true)
     );
-    if (!initialized) {
-        updateInitialized(true);
-        update(selectValues(true));
-    }
+    useEffect(() => {
+        if (!initialized) {
+            updateInitialized(true);
+            update(selectValues(true));
+        }
+    }, []);
     const onSelectAll = () => {
         const newValue = !selectAll;
         updateSelectAll(newValue);
