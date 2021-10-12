@@ -6,6 +6,15 @@ const initialState = {
   category: null,
   searchTerm: null,
   searchResults: [],
+  categoryFilters: {
+    category: null,
+    sortBy: 'name',
+    sortDir: 'DESC',
+    stacks: {
+      value: [],
+      options: [],
+    },
+  },
 };
 
 const actions = {
