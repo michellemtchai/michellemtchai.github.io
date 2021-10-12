@@ -4,8 +4,13 @@ const initialState = {
   title: null,
   description: null,
   category: null,
-  searchTerm: null,
-  searchResults: [],
+  searchFilters: {
+    term: null,
+    sortBy: 'relevance',
+    sortDir: 'ASC',
+    stacks: {},
+    stackOptions: [],
+  },
   categoryFilters: {
     range: null,
     sortBy: 'name',
@@ -19,13 +24,16 @@ const actions = {
   SET_TITLE: 'SET_TITLE',
   SET_DESCRIPTION: 'SET_DESCRIPTION',
   SET_CATEGORY: 'SET_CATEGORY',
-  SET_SEARCH_TERM: 'SET_SEARCH_TERM',
-  SET_SEARCH_RESULTS: 'SET_SEARCH_RESULTS',
   SET_CATEGORY_FILTERS_RANGE: 'SET_CATEGORY_FILTERS_RANGE',
   SET_CATEGORY_FILTERS_SORT_BY: 'SET_CATEGORY_FILTERS_SORT_BY',
   SET_CATEGORY_FILTERS_SORT_DIR: 'SET_CATEGORY_FILTERS_SORT_DIR',
   SET_CATEGORY_FILTERS_STACKS: 'SET_CATEGORY_FILTERS_STACKS',
   SET_CATEGORY_FILTERS_STACK_OPTIONS: 'SET_CATEGORY_FILTERS_STACK_OPTIONS',
+  SET_SEARCH_FILTERS_TERM: 'SET_SEARCH_FILTERS_TERM',
+  SET_SEARCH_FILTERS_SORT_BY: 'SET_SEARCH_FILTERS_SORT_BY',
+  SET_SEARCH_FILTERS_SORT_DIR: 'SET_SEARCH_FILTERS_SORT_DIR',
+  SET_SEARCH_FILTERS_STACKS: 'SET_SEARCH_FILTERS_STACKS',
+  SET_SEARCH_FILTERS_STACK_OPTIONS: 'SET_SEARCH_FILTERS_STACK_OPTIONS',
 };
 
 const reducer = (state, action) => {
@@ -44,10 +52,6 @@ const reducer = (state, action) => {
       return updateState('description');
     case actions.SET_CATEGORY:
       return updateState('category');
-    case actions.SET_SEARCH_TERM:
-      return updateState('searchTerm');
-    case actions.SET_SEARCH_RESULTS:
-      return updateState('searchResults');
     case actions.SET_CATEGORY_FILTERS_RANGE:
       return updateFilterState('categoryFilters', 'range');
     case actions.SET_CATEGORY_FILTERS_SORT_BY:
@@ -58,6 +62,16 @@ const reducer = (state, action) => {
       return updateFilterState('categoryFilters', 'stacks');
     case actions.SET_CATEGORY_FILTERS_STACK_OPTIONS:
       return updateFilterState('categoryFilters', 'stackOptions');
+    case actions.SET_SEARCH_FILTERS_TERM:
+      return updateFilterState('searchFilters', 'term');
+    case actions.SET_SEARCH_FILTERS_SORT_BY:
+      return updateFilterState('searchFilters', 'sortBy');
+    case actions.SET_SEARCH_FILTERS_SORT_Dir:
+      return updateFilterState('searchFilters', 'sortDir');
+    case actions.SET_SEARCH_FILTERS_STACKS:
+      return updateFilterState('searchFilters', 'stacks');
+    case actions.SET_SEARCH_FILTERS_STACK_OPTIONS:
+      return updateFilterState('searchFilters', 'stackOptions');
     default:
       return state;
   }
@@ -84,14 +98,6 @@ const GlobalContextProvider = ({ children }) => {
     setSelectedCategory: (value) => {
       dispatchFn(actions.SET_CATEGORY, value);
     },
-    searchTerm: state.searchTerm,
-    setSearchTerm: (value) => {
-      dispatchFn(actions.SET_SEARCH_TERM, value);
-    },
-    searchResults: state.searchResults,
-    setSearchResults: (value) => {
-      dispatchFn(actions.SET_SEARCH_RESULTS, value);
-    },
     categoryFiltersInitialized: state.category === state.categoryFilters.range,
     setCategoryFiltersRange: (value) => {
       dispatchFn(actions.SET_CATEGORY_FILTERS_RANGE, value);
@@ -111,6 +117,26 @@ const GlobalContextProvider = ({ children }) => {
     categoryFiltersStackOptions: state.categoryFilters.stackOptions,
     setCategoryFiltersStackOptions: (value) => {
       dispatchFn(actions.SET_CATEGORY_FILTERS_STACK_OPTIONS, value);
+    },
+    searchFiltersTerm: state.searchFilters.term,
+    setSearchFiltersTerm: (value) => {
+      dispatchFn(actions.SET_SEARCH_FILTERS_TERM, value);
+    },
+    searchFiltersSortBy: state.searchFilters.sortBy,
+    setSearchFiltersSortBy: (value) => {
+      dispatchFn(actions.SET_SEARCH_FILTERS_SORT_BY, value);
+    },
+    searchFiltersSortDir: state.searchFilters.sortDir,
+    setSearchFiltersSortDir: (value) => {
+      dispatchFn(actions.SET_SEARCH_FILTERS_SORT_DIR, value);
+    },
+    searchFiltersStacks: state.searchFilters.stacks,
+    setSearchFiltersStacks: (value) => {
+      dispatchFn(actions.SET_SEARCH_FILTERS_STACKS, value);
+    },
+    searchFiltersStackOptions: state.searchFilters.stackOptions,
+    setSearchFiltersStackOptions: (value) => {
+      dispatchFn(actions.SET_SEARCH_FILTERS_STACK_OPTIONS, value);
     },
   };
 

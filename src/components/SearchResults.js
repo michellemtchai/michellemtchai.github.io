@@ -1,14 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect, useContext } from 'react';
 import PaginateProjects from './PaginateProjects';
 import { useStaticQuery, graphql } from 'gatsby';
 import { getStacks, sortDirOptions } from '../shared/filter';
+import { GlobalContext } from '../../GlobalContext.js';
 
 const SearchResults = ({ category, query, page }) => {
-	const [sortBy, updateSortBy] = useState('relevance');
-	const [sortDir, updateSortDir] = useState('DESC');
-	const [stacks, updateStacks] = useState({});
-	const [initialized, updateInitialized] = useState(false);
-
+	const {
+		searchFiltersTerm,
+		setSearchFiltersTerm,
+		searchFiltersSortBy,
+		setSearchFiltersSortBy,
+		searchFiltersSortDir,
+		setSearchFiltersSortDir,
+		searchFiltersStacks,
+		setSearchFiltersStacks,
+		searchFiltersStackOptions,
+		setSearchFiltersStackOptions,
+	} = useContext(GlobalContext);
 	const { allContentfulProject } = useStaticQuery(
 		graphql`
 			query {
@@ -77,8 +85,8 @@ const SearchResults = ({ category, query, page }) => {
 	const projects = filteredProjects();
 	const filters = {
 		sortBy: {
-			value: sortBy,
-			update: updateSortBy,
+			value: searchFiltersSortBy,
+			update: setSearchFiltersSortBy,
 			options: [
 				{
 					label: 'Relevance',
@@ -91,18 +99,24 @@ const SearchResults = ({ category, query, page }) => {
 			],
 		},
 		sortDir: {
-			value: sortDir,
-			update: updateSortDir,
+			value: searchFiltersSortDir,
+			update: setSearchFiltersSortDir,
 			options: sortDirOptions,
 		},
 		stacks: {
-			initialized: initialized,
-			updateInitialized: updateInitialized,
-			value: stacks,
-			update: updateStacks,
-			options: getStacks(projects),
+			initialized: searchFiltersTerm === query,
+			updateInitialized: () => setSearchFiltersTerm(query),
+			value: searchFiltersStacks,
+			update: setSearchFiltersStacks,
+			options:
+				searchFiltersTerm === query
+					? searchFiltersStackOptions
+					: getStacks(projects),
 		},
 	};
+	useEffect(() => {
+		setSearchFiltersStackOptions(filters.stacks.options);
+	}, []);
 	return (
 		<PaginateProjects
 			results={filteredProjects()}
