@@ -64,43 +64,51 @@ const FilterCheckList = ({
         <fieldset className={styles.fieldset}>
             <section className={styles.heading}>
                 <label>{label}:</label>
-                <label
-                    htmlFor="check-all"
-                    className={selectAll ? styles.checked : undefined}
-                >
-                    <input
-                        type="checkbox"
-                        id="check-all"
-                        name="check-all"
-                        value="all"
-                        checked={selectAll}
-                        onChange={onSelectAll}
-                    />
-                    <CheckBox checked={selectAll} />
-                    All
-                </label>
-            </section>
-            <section className={styles.body}>
-                {options.map((option) => (
+                {options.length > 0 && (
                     <label
-                        key={option.value}
-                        htmlFor={option.value}
-                        className={
-                            selected[option.value] ? styles.checked : undefined
-                        }
+                        htmlFor="check-all"
+                        className={selectAll ? styles.checked : undefined}
                     >
                         <input
                             type="checkbox"
-                            id={option.value}
-                            name={option.value}
-                            value={option.value}
-                            checked={selected[option.value]}
-                            onChange={onChange}
+                            id="check-all"
+                            name="check-all"
+                            value="all"
+                            checked={selectAll}
+                            onChange={onSelectAll}
                         />
-                        <CheckBox checked={selected[option.value]} />
-                        {option.label}
+                        <CheckBox checked={selectAll} />
+                        All
                     </label>
-                ))}
+                )}
+            </section>
+            <section className={styles.body}>
+                {options.length > 0 ? (
+                    options.map((option) => (
+                        <label
+                            key={option.value}
+                            htmlFor={option.value}
+                            className={
+                                selected[option.value]
+                                    ? styles.checked
+                                    : undefined
+                            }
+                        >
+                            <input
+                                type="checkbox"
+                                id={option.value}
+                                name={option.value}
+                                value={option.value}
+                                checked={selected[option.value]}
+                                onChange={onChange}
+                            />
+                            <CheckBox checked={selected[option.value]} />
+                            {option.label}
+                        </label>
+                    ))
+                ) : (
+                    <p>There are no options.</p>
+                )}
             </section>
         </fieldset>
     );
