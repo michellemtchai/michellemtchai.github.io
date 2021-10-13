@@ -42,7 +42,7 @@ const reducer = (state, action) => {
     ...state,
     [filter]: {
       ...state[filter],
-      [key]: actions.value,
+      [key]: action.value,
     },
   });
   switch (action.type) {
@@ -56,7 +56,7 @@ const reducer = (state, action) => {
       return updateFilterState('categoryFilters', 'range');
     case actions.SET_CATEGORY_FILTERS_SORT_BY:
       return updateFilterState('categoryFilters', 'sortBy');
-    case actions.SET_CATEGORY_FILTERS_SORT_Dir:
+    case actions.SET_CATEGORY_FILTERS_SORT_DIR:
       return updateFilterState('categoryFilters', 'sortDir');
     case actions.SET_CATEGORY_FILTERS_STACKS:
       return updateFilterState('categoryFilters', 'stacks');
@@ -66,7 +66,7 @@ const reducer = (state, action) => {
       return updateFilterState('searchFilters', 'term');
     case actions.SET_SEARCH_FILTERS_SORT_BY:
       return updateFilterState('searchFilters', 'sortBy');
-    case actions.SET_SEARCH_FILTERS_SORT_Dir:
+    case actions.SET_SEARCH_FILTERS_SORT_DIR:
       return updateFilterState('searchFilters', 'sortDir');
     case actions.SET_SEARCH_FILTERS_STACKS:
       return updateFilterState('searchFilters', 'stacks');
