@@ -16,7 +16,7 @@ First, you need to setup the environmental variables by running the following co
 cp ./docker/dev.env .env
 ```
 
-Then, you can run `docker-compose up` to boot up the project. You can access the app via the following url in your browser:
+Then, you can run `docker-compose up` to boot up the project. This will take a while because it involves installing the npm packages. You can access the app via the following url in your browser:
 
 ```
 http://localhost:3000
