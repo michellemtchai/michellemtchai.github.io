@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import PaginateProjects from './PaginateProjects';
 import { useStaticQuery, graphql } from 'gatsby';
-import { getStacks, sortDirOptions } from '../shared/filter';
+import { getStacks, sortDirOptions, sortProjects } from '../shared/filter';
 import { GlobalContext } from '../../GlobalContext.js';
 
 const SearchResults = ({ category, query, page }) => {
@@ -55,32 +55,57 @@ const SearchResults = ({ category, query, page }) => {
 	);
 	const filteredProjects = () => {
 		const projects = allContentfulProject.nodes;
+		let filtered = [];
 		if (category === 'all') {
-			return projects.filter((project) => includesQueryTerm(project));
+			projects.forEach((project) => {
+				const relevance = getRelevance(project);
+				if (relevance > 0) {
+					filtered.push({
+						...project,
+						relevance: relevance,
+					});
+				}
+			});
 		} else {
-			return allContentfulProject.nodes.filter((project) => {
+			allContentfulProject.nodes.forEach((project) => {
 				const categories = project.category.map((i) => i.slug);
-				return (
-					categories.includes(category) && includesQueryTerm(project)
-				);
+				const relevance = getRelevance(project);
+				if (categories.includes(category) && relevance > 0) {
+					filtered.push({
+						...project,
+						relevance: relevance,
+					});
+				}
 			});
 		}
+		return sortProjects(
+			filtered,
+			searchFiltersSortDir,
+			searchFiltersSortBy
+		);
 	};
-	const includesQueryTerm = (project) => {
+	const getRelevance = (project) => {
 		const terms = query.split(/\s+/g);
 		const regex = new RegExp(`(${terms.join('|')})`, 'gi');
-		const nameMatch = project.name.match(regex);
-		const summaryMatch = project.summary.match(regex);
-		const techMatch = listIncludesQueryTerm(project.technologies, regex);
-		return nameMatch || summaryMatch || techMatch;
+		const getMatch = (term) => {
+			const match = term.match(regex);
+			return match ? match.length : 0;
+		};
+		let relevance = 0;
+		relevance += getMatch(project.name);
+		relevance += getMatch(project.summary);
+		relevance += listIncludesQueryTerm(project.technologies, regex);
+		return relevance;
 	};
 	const listIncludesQueryTerm = (list, regex) => {
+		let count = 0;
 		for (let i = 0; i < list.length; i++) {
-			if (list[i].name.match(regex)) {
-				return true;
+			const match = list[i].name.match(regex);
+			if (match) {
+				count += match.length;
 			}
 		}
-		return false;
+		return count;
 	};
 	const projects = filteredProjects();
 	const filters = {

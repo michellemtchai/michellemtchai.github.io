@@ -28,3 +28,14 @@ export const sortDirOptions = [
         value: 'DESC',
     },
 ];
+export const sortProjects = (projects, sortDir, sortBy) => {
+    return projects.sort((a, b) => {
+        switch (sortDir) {
+            case 'ASC':
+                return b[sortBy] - a[sortBy];
+            case 'DESC':
+            default:
+                return a[sortBy] - b[sortBy];
+        }
+    });
+};
