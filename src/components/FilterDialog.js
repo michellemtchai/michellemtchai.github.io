@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import FilterSelect from './FilterSelect';
 import FilterCheckList from './FilterCheckList';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as styles from './FilterDialog.module.scss';
 
 const FilterDialog = ({ closeModal, filters, search }) => {
+    const [sortBy, updateSortBy] = useState(filters.sortBy.value);
+    const [sortDir, updateSortDir] = useState(filters.sortDir.value);
+    const [stacks, updateStacks] = useState(filters.stacks.value);
     const onSubmit = () => {
         //TODO
         closeModal();
