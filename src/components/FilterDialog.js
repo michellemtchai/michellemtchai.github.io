@@ -8,8 +8,25 @@ const FilterDialog = ({ closeModal, filters, search }) => {
     const [sortBy, updateSortBy] = useState(filters.sortBy.value);
     const [sortDir, updateSortDir] = useState(filters.sortDir.value);
     const [stacks, updateStacks] = useState(filters.stacks.value);
+    const sortByFilter = {
+        ...filters.sortBy,
+        value: sortBy,
+        update: updateSortBy,
+    };
+    const sortDirFilter = {
+        ...filters.sortDir,
+        value: sortDir,
+        update: updateSortDir,
+    };
+    const stackFilter = {
+        ...filters.stacks,
+        value: stacks,
+        update: updateStacks,
+    };
     const onSubmit = () => {
-        //TODO
+        filters.sortBy.update(sortBy);
+        filters.sortDir.update(sortDir);
+        filters.stacks.update(stacks);
         closeModal();
     };
     return (
@@ -22,9 +39,9 @@ const FilterDialog = ({ closeModal, filters, search }) => {
                 <button onClick={closeModal}>&times;</button>
             </section>
             <section className={styles.body}>
-                <FilterSelect label="Sort By" {...filters.sortBy} />
-                <FilterSelect label="Sort Direction" {...filters.sortDir} />
-                <FilterCheckList label="Stacks" {...filters.stacks} />
+                <FilterSelect label="Sort By" {...sortByFilter} />
+                <FilterSelect label="Sort Direction" {...sortDirFilter} />
+                <FilterCheckList label="Stacks" {...stackFilter} />
             </section>
             <section className={styles.footer}>
                 <button className={styles.cancel} onClick={closeModal}>
