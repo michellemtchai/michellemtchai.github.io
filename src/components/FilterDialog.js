@@ -8,6 +8,12 @@ const FilterDialog = ({ closeModal, filters, search }) => {
     const [sortBy, updateSortBy] = useState(filters.sortBy.value);
     const [sortDir, updateSortDir] = useState(filters.sortDir.value);
     const [stacks, updateStacks] = useState(filters.stacks.value);
+    const updateStacksGlobal = (stacks, updateGlobal = false) => {
+        updateStacks(stacks);
+        if (updateGlobal) {
+            filters.stacks.update(stacks);
+        }
+    };
     const sortByFilter = {
         ...filters.sortBy,
         value: sortBy,
@@ -21,7 +27,7 @@ const FilterDialog = ({ closeModal, filters, search }) => {
     const stackFilter = {
         ...filters.stacks,
         value: stacks,
-        update: updateStacks,
+        update: updateStacksGlobal,
     };
     const onSubmit = () => {
         filters.sortBy.update(sortBy);

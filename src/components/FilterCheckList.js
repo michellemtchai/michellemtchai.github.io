@@ -22,9 +22,11 @@ const FilterCheckList = ({
     );
     const selectValues = (selectAll) => {
         let selected = [];
-        options.forEach((option) => {
-            selected.push(option.value);
-        });
+        if (selectAll) {
+            options.forEach((option) => {
+                selected.push(option.value);
+            });
+        }
         return selected;
     };
     const [selected, updateSelected] = useState(
@@ -33,7 +35,7 @@ const FilterCheckList = ({
     useEffect(() => {
         if (!initialized) {
             updateInitialized(true);
-            update(selectValues(true));
+            update(selectValues(true), true);
         }
     }, []);
     const onSelectAll = () => {
