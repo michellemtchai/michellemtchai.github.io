@@ -32,10 +32,14 @@ export const sortProjects = (projects, sortDir, sortBy) => {
     return projects.sort((a, b) => {
         switch (sortDir) {
             case 'ASC':
-                return b[sortBy] - a[sortBy];
+                return typeof a[sortBy] === 'string'
+                    ? b[sortBy].localeCompare(a[sortBy])
+                    : b[sortBy] - a[sortBy];
             case 'DESC':
             default:
-                return a[sortBy] - b[sortBy];
+                return typeof a[sortBy] === 'string'
+                    ? a[sortBy].localeCompare(b[sortBy])
+                    : a[sortBy] - b[sortBy];
         }
     });
 };
