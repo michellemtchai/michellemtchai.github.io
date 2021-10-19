@@ -39,3 +39,24 @@ export const sortProjects = (projects, sortDir, sortBy) => {
         }
     });
 };
+
+export const filterByStacks = (projects, stacks, initialized) => {
+    if (initialized) {
+        return projects.filter((project) => {
+            const projectStacks = project.technologies.map(
+                (i) => i.contentful_id
+            );
+            return containStack(projectStacks, stacks);
+        });
+    } else {
+        return projects;
+    }
+};
+const containStack = (projectStacks, stacks) => {
+    for (let i = 0; i < stacks.length; i++) {
+        if (projectStacks.includes(stacks[i])) {
+            return true;
+        }
+    }
+    return false;
+};

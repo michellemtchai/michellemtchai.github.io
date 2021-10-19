@@ -15,23 +15,17 @@ const FilterCheckList = ({
     updateInitialized,
 }) => {
     const hasSelectedAll = (selected) => {
-        let count = 0;
-        Object.keys(selected).forEach((key) => {
-            if (selected[key]) {
-                count++;
-            }
-        });
-        return count === options.length;
+        return selected.length === options.length;
     };
     const [selectAll, updateSelectAll] = useState(
         initialized ? hasSelectedAll(value) : true
     );
     const selectValues = (selectAll) => {
-        let mapping = {};
+        let selected = [];
         options.forEach((option) => {
-            mapping[option.value] = selectAll;
+            selected.push(option.value);
         });
-        return mapping;
+        return selected;
     };
     const [selected, updateSelected] = useState(
         initialized ? value : selectValues(true)
@@ -51,7 +45,13 @@ const FilterCheckList = ({
     };
     const onChange = (event) => {
         const target = event.target.value;
-        const newSelected = { ...selected, [target]: !selected[target] };
+        let newSelected = [...selected];
+        if (newSelected.includes(target)) {
+            const index = newSelected.indexOf(target);
+            newSelected.splice(index, 1);
+        } else {
+            newSelected.push(target);
+        }
         updateSelected(newSelected);
         update(newSelected);
         updateSelectAll(hasSelectedAll(newSelected));
@@ -89,7 +89,7 @@ const FilterCheckList = ({
                             key={option.value}
                             htmlFor={option.value}
                             className={
-                                selected[option.value]
+                                selected.includes(option.value)
                                     ? styles.checked
                                     : undefined
                             }
@@ -99,10 +99,12 @@ const FilterCheckList = ({
                                 id={option.value}
                                 name={option.value}
                                 value={option.value}
-                                checked={selected[option.value]}
+                                checked={selected.includes(option.value)}
                                 onChange={onChange}
                             />
-                            <CheckBox checked={selected[option.value]} />
+                            <CheckBox
+                                checked={selected.includes(option.value)}
+                            />
                             {option.label}
                         </label>
                     ))

@@ -8,14 +8,14 @@ const initialState = {
     term: null,
     sortBy: 'relevance',
     sortDir: 'ASC',
-    stacks: {},
+    stacks: [],
     stackOptions: [],
   },
   categoryFilters: {
     range: null,
     sortBy: 'name',
     sortDir: 'DESC',
-    stacks: {},
+    stacks: [],
     stackOptions: [],
   },
 };

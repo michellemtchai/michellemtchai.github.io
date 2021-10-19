@@ -1,6 +1,11 @@
 import React, { useEffect, useContext } from 'react';
 import PaginateProjects from './PaginateProjects';
-import { getStacks, sortDirOptions, sortProjects } from '../shared/filter';
+import {
+	filterByStacks,
+	getStacks,
+	sortDirOptions,
+	sortProjects,
+} from '../shared/filter';
 import { GlobalContext } from '../../GlobalContext.js';
 
 const CategoryResults = ({ category, slug, page }) => {
@@ -17,9 +22,13 @@ const CategoryResults = ({ category, slug, page }) => {
 		setCategoryFiltersStackOptions,
 	} = useContext(GlobalContext);
 	const filteredProjects = () => {
-		//TODO
-		return sortProjects(
+		const filtered = filterByStacks(
 			category.projects,
+			categoryFiltersStacks,
+			categoryFiltersInitialized
+		);
+		return sortProjects(
+			filtered,
 			categoryFiltersSortDir,
 			categoryFiltersSortBy
 		);

@@ -1,7 +1,12 @@
 import React, { useEffect, useContext } from 'react';
 import PaginateProjects from './PaginateProjects';
 import { useStaticQuery, graphql } from 'gatsby';
-import { getStacks, sortDirOptions, sortProjects } from '../shared/filter';
+import {
+	filterByStacks,
+	getStacks,
+	sortDirOptions,
+	sortProjects,
+} from '../shared/filter';
 import { GlobalContext } from '../../GlobalContext.js';
 
 const SearchResults = ({ category, query, page }) => {
@@ -78,6 +83,11 @@ const SearchResults = ({ category, query, page }) => {
 				}
 			});
 		}
+		filtered = filterByStacks(
+			filtered,
+			searchFiltersStacks,
+			searchFiltersTerm === query
+		);
 		return sortProjects(
 			filtered,
 			searchFiltersSortDir,
