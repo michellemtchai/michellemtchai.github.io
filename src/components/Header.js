@@ -6,6 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import * as styles from './Header.module.scss';
+import Image from './Image';
+import favicon from '../images/favicon.png';
 library.add(fas);
 
 const Header = ({ minimized, updateMinimized }) => {
@@ -30,7 +32,14 @@ const Header = ({ minimized, updateMinimized }) => {
                 <Button className={styles.navButton} onClick={updateNavState}>
                     <FontAwesomeIcon icon={['fas', 'bars']} />
                 </Button>
-                <Link to="/">{title}</Link>
+                <Link to="/">
+                    {title}
+                    <Image
+                        src={favicon}
+                        alt={title}
+                        className={styles.favicon}
+                    />
+                </Link>
             </h1>
             <section>
                 <span>Find Me</span>

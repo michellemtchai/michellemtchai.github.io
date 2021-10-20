@@ -9,6 +9,11 @@
 		flex-grow: 1;
 		margin: 0 0 0 25px;
 		font-size: 30px;
+		.favicon {
+			width: 25px;
+			height: 25px;
+			margin-left: 10px;
+		}
 		.navButton {
 			line-height: $header-height;
 			margin-right: 25px;
