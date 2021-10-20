@@ -94,25 +94,25 @@ const SearchResults = ({ category, query, page }) => {
 			searchFiltersSortBy
 		);
 	};
+	const getMatch = (term, regex) => {
+		const match = term.match(regex);
+		return match ? match.length : 0;
+	};
 	const getRelevance = (project) => {
 		const terms = query.split(/\s+/g);
 		const regex = new RegExp(`(${terms.join('|')})`, 'gi');
-		const getMatch = (term) => {
-			const match = term.match(regex);
-			return match ? match.length : 0;
-		};
 		let relevance = 0;
-		relevance += getMatch(project.name);
-		relevance += getMatch(project.summary);
+		relevance += getMatch(project.name, regex);
+		relevance += getMatch(project.summary, regex);
 		relevance += listIncludesQueryTerm(project.technologies, regex);
 		return relevance;
 	};
 	const listIncludesQueryTerm = (list, regex) => {
 		let count = 0;
 		for (let i = 0; i < list.length; i++) {
-			const match = list[i].name.match(regex);
-			if (match) {
-				count += match.length;
+			const match = getMatch(list[i].name, regex);
+			if (match > 0) {
+				count += match;
 			}
 		}
 		return count;
