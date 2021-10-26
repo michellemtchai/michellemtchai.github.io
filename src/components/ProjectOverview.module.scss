@@ -6,6 +6,9 @@
 	margin: 0 10px;
 	.previewImage {
 		width: 320px;
+		picture {
+			width: 320px;
+		}
 		margin: 10px;
 		align-self: flex-start;
 	}
