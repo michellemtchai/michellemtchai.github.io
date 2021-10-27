@@ -63,12 +63,14 @@
 
 @mixin set-preview-image-width($width) {
 	.previewImage {
-		width: $width !important;
+		max-width: $width;
+		min-width: $width;
+		width: $width;
 		img {
-			width: $width !important;
+			width: $width;
 		}
 		picture {
-			width: $width !important;
+			width: $width;
 		}
 	}
 }
