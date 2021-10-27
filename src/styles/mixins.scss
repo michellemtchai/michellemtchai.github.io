@@ -60,3 +60,15 @@
 		}
 	}
 }
+
+@mixin set-preview-image-width($width) {
+	.previewImage {
+		width: $width !important;
+		img {
+			width: $width !important;
+		}
+		picture {
+			width: $width !important;
+		}
+	}
+}

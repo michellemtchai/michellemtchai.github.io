@@ -1,22 +1,40 @@
 @import '../styles/colors';
+@import '../styles/mixins';
 .overview {
 	border: 3px solid $border-color;
 	border-radius: 10px;
 	display: flex;
 	margin: 0 10px;
 	.previewImage {
-		width: 320px;
-		picture {
-			width: 320px;
-		}
+		@include set-preview-image-width(320px);
 		margin: 10px;
 		align-self: flex-start;
 	}
 	ul {
 		flex-grow: 1;
 		& > li {
-			margin: 10px 0;
+			margin: 10px 10px 10px 0;
 			list-style: none;
+		}
+	}
+}
+@media only screen and (max-width: 800px) {
+	.overview {
+		@include set-preview-image-width(280px);
+	}
+}
+@media only screen and (max-width: 750px) {
+	.overview {
+		@include set-preview-image-width(230px);
+	}
+}
+@media only screen and (max-width: 650px) {
+	.overview {
+		@include set-preview-image-width(calc(100% - 20px));
+		flex-direction: column;
+		ul {
+			width: calc(100% - 20px);
+			margin: 10px;
 		}
 	}
 }

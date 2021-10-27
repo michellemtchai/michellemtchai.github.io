@@ -1,13 +1,5 @@
 @import '../styles/colors';
-
-@mixin set-preview-image-width($width) {
-	.previewImage {
-		width: $width;
-		picture {
-			width: $width;
-		}
-	}
-}
+@import '../styles/mixins';
 .projects {
 	margin: 0 10px;
 	section {
