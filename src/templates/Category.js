@@ -16,7 +16,7 @@ export const query = graphql`
                 demoUrl
                 previewImage {
                     gatsbyImageData(
-                        width: 320
+                        width: 600
                         placeholder: BLURRED
                         formats: [AUTO, WEBP]
                     )

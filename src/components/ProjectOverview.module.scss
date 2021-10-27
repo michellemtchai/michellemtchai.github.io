@@ -30,11 +30,14 @@
 }
 @media only screen and (max-width: 650px) {
 	.overview {
-		@include set-preview-image-width(calc(100% - 20px));
 		flex-direction: column;
+		padding: 15px;
+		@include set-preview-image-width(100%);
+		.previewImage {
+			margin: 0 auto;
+		}
 		ul {
-			width: calc(100% - 20px);
-			margin: 10px;
+			width: 100%;
 		}
 	}
 }

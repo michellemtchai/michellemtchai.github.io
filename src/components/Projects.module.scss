@@ -68,12 +68,16 @@
 		section {
 			a {
 				flex-direction: column;
-				@include set-preview-image-width(calc(100% - 20px));
+				padding: 10px;
+				@include set-preview-image-width(100%);
 				.previewImage {
-					margin: 10px auto;
+					margin: 0px auto;
 				}
 				ul {
 					width: 100%;
+					li {
+						margin: 10px 0;
+					}
 				}
 			}
 		}
