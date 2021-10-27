@@ -1,4 +1,13 @@
 @import '../styles/colors';
+
+@mixin set-preview-image-width($width) {
+	.previewImage {
+		width: $width;
+		picture {
+			width: $width;
+		}
+	}
+}
 .projects {
 	margin: 0 10px;
 	section {
@@ -6,8 +15,8 @@
 			text-decoration: none;
 			border-bottom: 1px solid $border-color;
 			display: flex;
+			@include set-preview-image-width(320px);
 			.previewImage {
-				width: 320px;
 				margin: 10px;
 				align-self: flex-start;
 			}
@@ -43,4 +52,38 @@
 	font-weight: bold;
 	border-top: 1px solid $border-color;
 	padding-top: 20px;
+}
+@media only screen and (max-width: 850px) {
+	.projects {
+		section {
+			a {
+				@include set-preview-image-width(250px);
+			}
+		}
+	}
+}
+@media only screen and (max-width: 700px) {
+	.projects {
+		section {
+			a {
+				@include set-preview-image-width(200px);
+			}
+		}
+	}
+}
+@media only screen and (max-width: 600px) {
+	.projects {
+		section {
+			a {
+				flex-direction: column;
+				@include set-preview-image-width(calc(100% - 20px));
+				.previewImage {
+					margin: 10px auto;
+				}
+				ul {
+					width: 100%;
+				}
+			}
+		}
+	}
 }
