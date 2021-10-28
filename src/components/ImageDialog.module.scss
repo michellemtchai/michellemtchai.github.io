@@ -38,9 +38,6 @@ $button-dimension: 50px;
 	font-size: 30px;
 	width: $button-dimension;
 	text-align: center;
-	&[disabled] {
-		display: none;
-	}
 }
 .leftButton {
 	@include image-dialog-buttons;
