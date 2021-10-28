@@ -30,16 +30,31 @@
 		.navModal {
 			header {
 				position: fixed;
-				top: -50vh;
+				top: calc(-50vh - 1px);
 				background: #fff;
 				width: 100%;
 			}
 			nav {
 				position: fixed;
-				top: calc(-50vh + 53px);
+				top: calc(-50vh + calc(#{$header-height} + 1px));
 				display: block;
 				background: #fff;
-				height: calc(100vh - 50px);
+				height: calc(100vh - #{$header-height});
+			}
+		}
+	}
+}
+@media only screen and (max-width: 550px) {
+	.layout {
+		.nonHeader {
+			height: calc(100vh - calc(#{$small-screen-header-height} + 3px));
+			.navModal {
+				nav {
+					top: calc(
+						-50vh + calc(#{$small-screen-header-height} + 2px)
+					);
+					height: calc(100vh - #{$small-screen-header-height});
+				}
 			}
 		}
 	}

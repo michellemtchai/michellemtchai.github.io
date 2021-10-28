@@ -41,3 +41,23 @@
 	}
 	@include standard-links;
 }
+@media only screen and (max-width: 550px) {
+	.header {
+		flex-direction: column;
+		h1 {
+			display: block;
+		}
+		section {
+			display: block;
+			margin-left: 75px;
+			line-height: 25px;
+			padding-bottom: 10px;
+			span {
+				display: inline-block;
+			}
+			ul {
+				display: inline-block;
+			}
+		}
+	}
+}
