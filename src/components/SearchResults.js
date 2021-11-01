@@ -98,8 +98,16 @@ const SearchResults = ({ category, query, page }) => {
 		const match = term.match(regex);
 		return match ? match.length : 0;
 	};
+	const termsMap = (terms) => {
+		let mapping = {};
+		terms.forEach((term) => {
+			mapping[term.toLowerCase()] = 0;
+		});
+		return mapping;
+	};
 	const getRelevance = (project) => {
 		const terms = query.split(/\s+/g);
+		const termsMapping = termsMap(terms);
 		const regex = new RegExp(`(${terms.join('|')})`, 'gi');
 		let relevance = 0;
 		relevance += getMatch(project.name, regex);
