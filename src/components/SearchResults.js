@@ -13,6 +13,8 @@ const SearchResults = ({ category, query, page }) => {
 	const {
 		searchFiltersTerm,
 		setSearchFiltersTerm,
+		searchFiltersRange,
+		setSearchFiltersRange,
 		searchFiltersSortBy,
 		setSearchFiltersSortBy,
 		searchFiltersSortDir,
@@ -147,8 +149,12 @@ const SearchResults = ({ category, query, page }) => {
 			options: sortDirOptions,
 		},
 		stacks: {
-			initialized: searchFiltersTerm === query,
-			updateInitialized: () => setSearchFiltersTerm(query),
+			initialized:
+				searchFiltersTerm === query && searchFiltersRange === category,
+			updateInitialized: () => {
+				setSearchFiltersRange(category);
+				setSearchFiltersTerm(query);
+			},
 			value: searchFiltersStacks,
 			update: setSearchFiltersStacks,
 			options:

@@ -6,6 +6,7 @@ const initialState = {
   category: null,
   searchFilters: {
     term: null,
+    range: null,
     sortBy: 'relevance',
     sortDir: 'ASC',
     stacks: [],
@@ -30,6 +31,7 @@ const actions = {
   SET_CATEGORY_FILTERS_STACKS: 'SET_CATEGORY_FILTERS_STACKS',
   SET_CATEGORY_FILTERS_STACK_OPTIONS: 'SET_CATEGORY_FILTERS_STACK_OPTIONS',
   SET_SEARCH_FILTERS_TERM: 'SET_SEARCH_FILTERS_TERM',
+  SET_SEARCH_FILTERS_RANGE: 'SET_SEARCH_FILTERS_RANGE',
   SET_SEARCH_FILTERS_SORT_BY: 'SET_SEARCH_FILTERS_SORT_BY',
   SET_SEARCH_FILTERS_SORT_DIR: 'SET_SEARCH_FILTERS_SORT_DIR',
   SET_SEARCH_FILTERS_STACKS: 'SET_SEARCH_FILTERS_STACKS',
@@ -64,6 +66,8 @@ const reducer = (state, action) => {
       return updateFilterState('categoryFilters', 'stackOptions');
     case actions.SET_SEARCH_FILTERS_TERM:
       return updateFilterState('searchFilters', 'term');
+    case actions.SET_SEARCH_FILTERS_RANGE:
+      return updateFilterState('searchFilters', 'range');
     case actions.SET_SEARCH_FILTERS_SORT_BY:
       return updateFilterState('searchFilters', 'sortBy');
     case actions.SET_SEARCH_FILTERS_SORT_DIR:
@@ -121,6 +125,10 @@ const GlobalContextProvider = ({ children }) => {
     searchFiltersTerm: state.searchFilters.term,
     setSearchFiltersTerm: (value) => {
       dispatchFn(actions.SET_SEARCH_FILTERS_TERM, value);
+    },
+    searchFiltersRange: state.searchFilters.range,
+    setSearchFiltersRange: (value) => {
+      dispatchFn(actions.SET_SEARCH_FILTERS_RANGE, value);
     },
     searchFiltersSortBy: state.searchFilters.sortBy,
     setSearchFiltersSortBy: (value) => {
