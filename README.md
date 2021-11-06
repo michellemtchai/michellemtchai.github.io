@@ -24,4 +24,4 @@ http://localhost:3000
 
 ### Deploying
 
-TODO
+Plan: GitHub pages, Contentful
