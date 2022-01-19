@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import * as styles from './Header.module.scss';
-import Image from './Image';
 library.add(fas);
 
 const Header = ({ minimized, updateMinimized }) => {
