@@ -8,20 +8,19 @@
 	h1 {
 		flex-grow: 1;
 		margin: 0 0 0 25px;
-		font-size: 30px;
+		font-size: 22px;
 		.favicon {
 			width: 25px;
 			height: 25px;
-			margin-left: 10px;
 		}
 		.navButton {
 			line-height: $header-height;
-			margin-right: 25px;
+			margin-right: 15px;
 			cursor: pointer;
 			background: none;
 			border: none;
 			color: $text-color;
-			font-size: 28px;
+			font-size: 22px;
 			&:hover svg {
 				color: $hover-text-color;
 			}
@@ -32,7 +31,7 @@
 	}
 	section {
 		display: flex;
-		font-size: 20px;
+		font-size: 16px;
 		margin-right: 10px;
 		span {
 			margin-right: 5px;

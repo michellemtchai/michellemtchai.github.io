@@ -6,7 +6,7 @@
 	display: flex;
 	margin: 0 10px;
 	.previewImage {
-		@include set-preview-image-width(320px);
+		@include set-preview-image-width(270px);
 		margin: 10px;
 		align-self: flex-start;
 	}
@@ -20,12 +20,12 @@
 }
 @media only screen and (max-width: 800px) {
 	.overview {
-		@include set-preview-image-width(280px);
+		@include set-preview-image-width(250px);
 	}
 }
 @media only screen and (max-width: 750px) {
 	.overview {
-		@include set-preview-image-width(230px);
+		@include set-preview-image-width(200px);
 	}
 }
 @media only screen and (max-width: 650px) {

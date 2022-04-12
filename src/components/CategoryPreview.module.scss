@@ -7,12 +7,13 @@
 		display: flex;
 		border-bottom: 3px solid $border-color;
 		margin: 0 5px 10px 5px;
+		font-size: 20px;
 		.title {
 			flex-grow: 1;
 		}
 		small {
 			margin-top: 10px;
-			font-size: 16px;
+			font-size: 14px;
 			a {
 				vertical-align: bottom;
 				&:hover,
