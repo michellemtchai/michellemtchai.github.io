@@ -1,4 +1,5 @@
 #! /bin/sh
+temp=$(git remote get-url origin)
 docker-compose build app
 docker-compose run app sh -c '''
     git remote set-url origin $GITHUB_REPO
@@ -9,4 +10,5 @@ docker-compose run app sh -c '''
     yarn deploy
     exit
 '''
+git remote set-url origin $temp
 echo 'Changes deployed!'
