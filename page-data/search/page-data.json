@@ -1,6 +1,6 @@
 {
     "componentChunkName": "component---src-pages-search-js",
     "path": "/search/",
-    "result": {"data":{"allContentfulCategory":{"nodes":[{"slug":"data-visualization"},{"slug":"miscellaneous"},{"slug":"full-stack"},{"slug":"backend"},{"slug":"frontend"},{"slug":"featured"}]}},"pageContext":{"matchPath":"/search/:category/:query/*"}},
+    "result": {"data":{"allContentfulCategory":{"nodes":[{"slug":"full-stack"},{"slug":"frontend"},{"slug":"data-visualization"},{"slug":"miscellaneous"},{"slug":"backend"},{"slug":"featured"}]}},"pageContext":{"matchPath":"/search/:category/:query/*"}},
     "staticQueryHashes": ["1179417732","3000541721","3159585216","4118338519","591347743"],
     "matchPath": "/search/:category/:query/*"}
