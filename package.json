@@ -5,7 +5,8 @@
     "license": "MIT",
     "scripts": {
         "start": "./run.sh",
-        "build": "gatsby build",
+        "predeploy": "NODE_OPTIONS=\"--max-old-space-size=4096\" gatsby build",
+        "deploy": "gh-pages -d ./public",
         "develop": "gatsby develop -H \"$APP_HOST\" -p \"$APP_PORT\"",
         "serve": "gatsby serve -H \"$APP_HOST\" -p \"$APP_PORT\"",
         "clean": "gatsby clean"

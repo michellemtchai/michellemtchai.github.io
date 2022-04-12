@@ -4,7 +4,7 @@ RUN apk add vips-dev fftw-dev build-base python3 --update --no-cache \
     --repository https://alpine.global.ssl.fastly.net/alpine/edge/testing/ \
     --repository https://alpine.global.ssl.fastly.net/alpine/edge/main
 
-RUN yarn global add gatsby-cli 
+RUN yarn global add gatsby-cli gh-pages
 RUN echo fs.inotify.max_user_watches=524288 | tee -a /etc/sysctl.conf
 
 WORKDIR /app
