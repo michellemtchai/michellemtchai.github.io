@@ -7,7 +7,7 @@
 			text-decoration: none;
 			border-bottom: 1px solid $border-color;
 			display: flex;
-			@include set-preview-image-width(320px);
+			@include set-preview-image-width(270px);
 			.previewImage {
 				margin: 10px;
 				align-self: flex-start;
@@ -16,14 +16,14 @@
 				flex-grow: 1;
 				list-style: none;
 				color: $text-color;
-				width: calc(100% - 320px);
+				width: calc(100% - 270px);
 				li {
 					margin: 10px;
 					h3 {
-						font-size: 24px;
+						font-size: 20px;
 					}
 					p {
-						font-size: 16px;
+						font-size: 14px;
 					}
 				}
 			}

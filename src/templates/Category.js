@@ -26,7 +26,7 @@ export const query = graphql`
                     name
                     icon {
                         gatsbyImageData(
-                            width: 20
+                            width: 12
                             placeholder: BLURRED
                             formats: [AUTO, WEBP]
                         )

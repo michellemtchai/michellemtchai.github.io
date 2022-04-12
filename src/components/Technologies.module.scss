@@ -11,15 +11,15 @@
 	li {
 		display: inline-block;
 		font-weight: bold;
-		font-size: 16px;
+		font-size: 12px;
 		margin: 0 !important;
 		img {
-			padding: 8px 0;
+			padding: 5px 0;
 		}
 		a {
 			@include tag-border;
 			text-decoration: none;
-			line-height: 35px;
+			line-height: 25px;
 			&:hover {
 				background: #f7f7f7;
 			}
@@ -31,7 +31,7 @@
 		}
 		span {
 			@include tag-border;
-			line-height: 35px;
+			line-height: 25px;
 			background: #fff;
 		}
 	}
