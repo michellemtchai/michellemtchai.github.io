@@ -16,13 +16,12 @@ jobs:
     steps:
       - name: Check out code into the directory
         uses: actions/checkout@v3.0.0
+        with:
+          token: ${{ secrets.ACTIONS_DEPLOY_KEY }}
       - name: GitHub Action for Yarn
         uses: Borales/actions-yarn@v2.3.0
 
       - run: yarn predeploy
-      - run: git config --global url."https://${{ secrets.USERNAME }}:${{ secrets.ACTIONS_DEPLOY_KEY }}@github.com/".insteadOf "https://github.com/"
-      - run: git config --local user.email ${{ secrets.EMAIL }}
-      - run: git config --local user.name ${{ secrets.USERNAME }}
 
       - name: GitHub Pages action
         uses: peaceiris/actions-gh-pages@v3.7.3
