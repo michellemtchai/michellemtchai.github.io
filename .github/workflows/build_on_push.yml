@@ -17,12 +17,20 @@ jobs:
         with:
           node-version: '14.x'
 
-      - name: Publish Gatsby Site
-        uses: xmflsct/action-publish-gatsby@v1.0.0
+      - name: GitHub Action for Yarn
+        uses: Borales/actions-yarn@v2.3.0
+
+      - name: Cache
+        uses: actions/cache@v3.0.2
         with:
-          publishBranch: 'gh-pages'
-          token: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          name: ${{ secrets.USERNAME }}
-          email: ${{ secrets.EMAIL }}
-          contentfulSpace: ${{ secrets.CONTENTFUL_SPACE_ID }}
-          contentfulToken: ${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - run: yarn deploy
+
+      - name: GitHub Pages action
+        uses: peaceiris/actions-gh-pages@v3.7.3
+        with:
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          publish_dir: public
+          cname: app.contentful.com
