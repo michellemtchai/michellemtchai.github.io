@@ -3,8 +3,16 @@ import ExternalLink from './ExternalLink';
 import ProjectOverviewItem from './ProjectOverviewItem';
 import Technologies from './Technologies';
 import PreviewImage from './PreviewImage';
-import DemoLink from './DemoLink';
+import DialogLink from './DialogLink';
 import * as styles from './ProjectOverview.module.scss';
+import sleepMode from '../images/sleep.svg';
+import archivedCode from '../images/archived.svg';
+
+const sleepModeMessage =
+    'This project will need time to wake up from sleep mode. Are you sure you want to proceed?';
+
+const archivedMessage =
+    'This project has been archived. Are you sure you want to proceed?';
 
 const ProjectOverview = (project) => {
     return (
@@ -22,16 +30,22 @@ const ProjectOverview = (project) => {
                 <ProjectOverviewItem title="Summary">
                     {project.summary}
                 </ProjectOverviewItem>
-                <ProjectOverviewItem title="Source URL">
-                    <ExternalLink
-                        to={project.sourceUrl}
-                        title="Source URL"
-                        showExternalIcon={true}
-                    >
-                        {project.sourceUrl}
-                    </ExternalLink>
-                </ProjectOverviewItem>
-                <DemoLink demoUrl={project.demoUrl} sleep={project.sleepMode} />
+                <DialogLink
+                    title="Source URL"
+                    url={project.sourceUrl}
+                    useDialog={project.archivedCode}
+                    message={archivedMessage}
+                    image={archivedCode}
+                    dialogTitle="Archived Code"
+                />
+                <DialogLink
+                    title="Demo URL"
+                    url={project.demoUrl}
+                    useDialog={project.sleepMode}
+                    message={sleepModeMessage}
+                    image={sleepMode}
+                    dialogTitle="Sleep Mode"
+                />
                 <ProjectOverviewItem title="Stacks">
                     <Technologies list={project.technologies} />
                 </ProjectOverviewItem>

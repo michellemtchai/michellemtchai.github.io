@@ -1,11 +1,7 @@
 import React from 'react';
 import Button from './Button';
 import Image from './Image';
-import sleepMode from '../images/sleep.svg';
-import * as styles from './SleepModeDialog.module.scss';
-
-const sleepModeMessage =
-    'This project will need time to wake up from sleep mode. Are you sure you want to proceed?';
+import * as styles from './MessageDialog.module.scss';
 
 const openInNewTab = (url, update) => {
     const newWindow = window.open(url, '_blank', 'noopener,noreferrer');
@@ -13,11 +9,11 @@ const openInNewTab = (url, update) => {
     update(false);
 };
 
-const SleepModeDialog = ({ link, update }) => {
+const MessageDialog = ({ link, update, title, image, message }) => {
     return (
         <dialog open className={styles.dialog}>
-            <Image src={sleepMode} alt="Sleep Mode" />
-            <p>{sleepModeMessage}</p>
+            <Image src={image} alt={title} />
+            <p>{message}</p>
             <Button
                 className={styles.goBackButton}
                 onClick={() => update(false)}
@@ -34,4 +30,4 @@ const SleepModeDialog = ({ link, update }) => {
     );
 };
 
-export default SleepModeDialog;
+export default MessageDialog;

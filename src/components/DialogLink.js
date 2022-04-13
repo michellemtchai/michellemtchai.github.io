@@ -2,37 +2,40 @@ import React, { useState } from 'react';
 import ExternalLink from './ExternalLink';
 import ProjectOverviewItem from './ProjectOverviewItem';
 import Modal from './Modal';
-import SleepModeDialog from './SleepModeDialog';
+import MessageDialog from './MessageDialog';
 
-const DemoLink = ({ demoUrl, sleep }) => {
+const DialogLink = ({ title, url, useDialog, message, image, dialogTitle }) => {
     const [showDialog, setShowDialog] = useState(false);
     const linkAction = () => {
-        if (sleep) {
+        if (useDialog) {
             return () => setShowDialog(true);
         }
     };
     return (
-        demoUrl && (
-            <ProjectOverviewItem title="Demo URL">
-                {sleep && (
+        url && (
+            <ProjectOverviewItem title={title}>
+                {useDialog && (
                     <Modal show={showDialog} updateShow={setShowDialog}>
-                        <SleepModeDialog
-                            link={demoUrl}
+                        <MessageDialog
+                            link={url}
                             update={setShowDialog}
+                            message={message}
+                            image={image}
+                            title={dialogTitle}
                         />
                     </Modal>
                 )}
                 <ExternalLink
-                    to={demoUrl}
-                    title="Demo URL"
+                    to={url}
+                    title={title}
                     showExternalIcon={true}
                     action={linkAction()}
                 >
-                    {demoUrl}
+                    {url}
                 </ExternalLink>
             </ProjectOverviewItem>
         )
     );
 };
 
-export default DemoLink;
+export default DialogLink;

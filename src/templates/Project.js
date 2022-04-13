@@ -11,6 +11,7 @@ export const query = graphql`
     query ($slug: String!) {
         contentfulProject(slug: { eq: $slug }) {
             name
+            archivedCode
             sleepMode
             summary
             sourceUrl
