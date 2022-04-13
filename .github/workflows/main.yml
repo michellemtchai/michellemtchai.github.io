@@ -12,12 +12,13 @@ on:
 
 jobs:
   build:
-    runs-on: node:14-alpine
+    runs-on: ubuntu-latest
     env:
       CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
       CONTENTFUL_ACCESS_TOKEN: ${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
-      APP_TITLE: ${{ secrets.APP_TITLE}}
-      APP_DESC: ${{ secrets.APP_DESC}}
+      APP_TITLE: ${{ secrets.APP_TITLE }}
+      APP_DESC: ${{ secrets.APP_DESC }}
+      GATSBY_WEBPACK_PUBLICPATH: ${{ secrets.GATSBY_WEBPACK_PUBLICPATH }}
     steps:
       - name: Check out code into the directory
         uses: actions/checkout@v3.0.0
