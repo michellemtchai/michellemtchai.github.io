@@ -1,14 +1,14 @@
 name: Build Pages
 
 on:
+  repository_dispatch:
+    types: [publish-event]
   push:
     branches:
       - main
   pull_request:
     branches:
       - main
-  repository_dispatch:
-    types: [publish-event]
 
 jobs:
   build:
