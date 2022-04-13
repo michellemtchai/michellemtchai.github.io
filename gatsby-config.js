@@ -8,15 +8,6 @@ module.exports = {
         'gatsby-plugin-fontawesome-css',
         'gatsby-plugin-react-helmet',
         'gatsby-plugin-image',
-        // 'gatsby-plugin-react-svg',
-        // {
-        //     resolve: 'gatsby-plugin-react-svg',
-        //     options: {
-        //         rule: {
-        //             include: `/app/src/images`,
-        //         },
-        //     },
-        // },
         {
             resolve: 'gatsby-source-contentful',
             options: {
