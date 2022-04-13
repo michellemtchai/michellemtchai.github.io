@@ -1,12 +1,8 @@
-name: Build Pages
+name: Update Contentful
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+  repository_dispatch:
+    types: [publish-event]
 
 jobs:
   build:
