@@ -1,9 +1,11 @@
-name: Build Page on Push
+name: Build Pages
 
 on:
   push:
     branches:
       - main
+  repository_dispatch:
+    types: [publish-event]
 
 jobs:
   build:
@@ -14,15 +16,8 @@ jobs:
     steps:
       - name: Check out code into the directory
         uses: actions/checkout@v3.0.0
-
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v3.1.1
-        with:
-          node-version: '14.x'
-
       - name: GitHub Action for Yarn
         uses: Borales/actions-yarn@v2.3.0
-
       - name: Cache
         uses: actions/cache@v3.0.2
         with:
@@ -37,3 +32,4 @@ jobs:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           publish_dir: public
           cname: app.contentful.com
+          enable_jekyll: true
