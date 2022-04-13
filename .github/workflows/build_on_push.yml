@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v3.0.0
 
       - name: Publish Gatsby Site
-        uses: xmflsct/action-publish-gatsby@v1.0.0steps
+        uses: xmflsct/action-publish-gatsby@v1.0.0
         with:
           publishBranch: 'gh-pages'
           token: ${{ secrets.ACTIONS_DEPLOY_KEY }}
