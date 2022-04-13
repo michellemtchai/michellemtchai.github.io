@@ -46,7 +46,7 @@ const SearchResults = ({ category, query, page }) => {
 							name
 							icon {
 								gatsbyImageData(
-									width: 10
+									width: 12
 									placeholder: BLURRED
 									formats: [AUTO, WEBP]
 								)
