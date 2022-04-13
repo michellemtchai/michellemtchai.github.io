@@ -16,7 +16,6 @@
         "url": "git+https://github.com/michellemtchai/michellemtchai.github.io.git"
     },
     "dependencies": {
-        "contentful": "^9.1.22",
         "@babel/core": "^7.15.4",
         "@fortawesome/fontawesome-svg-core": "^1.2.36",
         "@fortawesome/free-brands-svg-icons": "^5.15.4",
