@@ -24,4 +24,14 @@ http://localhost:3000
 
 ### Deploying
 
-It's handled by GitHub Actions.
+It's handled by GitHub Actions. To set this up, the following secrets need to be added to the repo.
+
+```
+APP_TITLE # header title
+APP_DESC # page description
+ACTIONS_DEPLOY_KEY # github token
+CONTENTFUL_ACCESS_TOKEN
+CONTENTFUL_SPACE_ID
+GATSBY_WEBPACK_PUBLICPATH # usually "/"
+SITE_DOMAIN # domain of site (i.e. michellemtchai.github.io)
+```
