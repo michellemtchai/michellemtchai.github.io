@@ -1,5 +1,6 @@
 @import '../styles/mixins';
 .dialog {
+	max-width: 95vw;
 	width: 480px;
 	margin: 0 auto;
 	border: none;
