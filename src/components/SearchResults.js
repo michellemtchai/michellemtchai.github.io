@@ -8,6 +8,9 @@ import {
 	sortProjects,
 } from '../shared/filter';
 import { GlobalContext } from '../../GlobalContext.js';
+import { rehype } from 'rehype';
+import rehypeSanitize, { defaultSchema } from 'rehype-sanitize';
+import rehypeReact from 'rehype-react';
 
 const SearchResults = ({ category, query, page }) => {
 	const {
@@ -60,6 +63,32 @@ const SearchResults = ({ category, query, page }) => {
 			}
 		`
 	);
+	const boldQuery = (str) => {
+		const terms = query.split(/\s+/g);
+		const regex = new RegExp(`(${terms.join('|')})`, 'gi');
+		const replacer = (x) => `<b>${x}</b>`;
+		const replaced = str.replace(regex, replacer);
+		const processed = rehype()
+			.data('settings', { fragment: true })
+
+			.use(rehypeReact, {
+				createElement: React.createElement,
+			})
+			.processSync(`<i>${replaced}<i>`);
+		return <>{processed.result.props.children}</>;
+	};
+	const formatProject = (project) => {
+		const result = { ...project };
+		result.name = boldQuery(result.name);
+		result.summary = boldQuery(result.summary);
+		result.technologies = result.technologies.map((tech) => {
+			return {
+				...tech,
+				label: boldQuery(tech.name),
+			};
+		});
+		return result;
+	};
 	const filteredProjects = () => {
 		const projects = allContentfulProject.nodes;
 		let filtered = [];
@@ -68,7 +97,7 @@ const SearchResults = ({ category, query, page }) => {
 				const relevance = getRelevance(project);
 				if (relevance > 0) {
 					filtered.push({
-						...project,
+						...formatProject(project),
 						relevance: relevance,
 					});
 				}
@@ -79,7 +108,7 @@ const SearchResults = ({ category, query, page }) => {
 				const relevance = getRelevance(project);
 				if (categories.includes(category) && relevance > 0) {
 					filtered.push({
-						...project,
+						...formatProject(project),
 						relevance: relevance,
 					});
 				}

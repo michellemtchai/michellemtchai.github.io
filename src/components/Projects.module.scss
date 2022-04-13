@@ -21,9 +21,11 @@
 					margin: 10px;
 					h3 {
 						font-size: 20px;
+						@include set-search-text(600);
 					}
 					p {
 						font-size: 14px;
+						@include set-search-text(regular);
 					}
 				}
 			}

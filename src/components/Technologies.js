@@ -6,21 +6,22 @@ import * as styles from './Technologies.module.scss';
 const Technologies = ({ list }) => {
     return (
         <ul className={styles.node}>
-            {list.map((tech) => (
-                <li key={tech.contentful_id}>
-                    {tech.url ? (
-                        <ExternalLink to={tech.url}>
-                            <Image src={tech.icon} alt={tech.name} />{' '}
-                            {tech.name}
-                        </ExternalLink>
-                    ) : (
-                        <span>
-                            <Image src={tech.icon} alt={tech.name} />{' '}
-                            {tech.name}
-                        </span>
-                    )}
-                </li>
-            ))}
+            {list.map((tech) => {
+                const name = tech.label || tech.name;
+                return (
+                    <li key={tech.contentful_id}>
+                        {tech.url ? (
+                            <ExternalLink to={tech.url}>
+                                <Image src={tech.icon} alt={name} /> {name}
+                            </ExternalLink>
+                        ) : (
+                            <span>
+                                <Image src={tech.icon} alt={name} /> {name}
+                            </span>
+                        )}
+                    </li>
+                );
+            })}
         </ul>
     );
 };

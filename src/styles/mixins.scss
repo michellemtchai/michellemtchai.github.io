@@ -74,3 +74,14 @@
 		}
 	}
 }
+
+@mixin set-search-text($weight) {
+	i {
+		font-style: normal;
+		font-weight: $weight;
+		b {
+			color: #0034ff;
+			font-weight: 900;
+		}
+	}
+}

@@ -1,4 +1,5 @@
 @import '../styles/colors';
+@import '../styles/mixins';
 @mixin tag-border {
 	color: $text-color;
 	border: 3px solid #ccc;
@@ -14,6 +15,7 @@
 		font-size: 12px;
 		margin: 0 !important;
 		line-height: 30px;
+		@include set-search-text(600);
 		img {
 			padding: 9px 0;
 		}
