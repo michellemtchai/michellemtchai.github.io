@@ -11,6 +11,10 @@
         "serve": "gatsby serve -H \"$APP_HOST\" -p \"$APP_PORT\"",
         "clean": "gatsby clean"
     },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/michellemtchai/michellemtchai.github.io.git"
+    },
     "dependencies": {
         "contentful": "^9.1.22",
         "@babel/core": "^7.15.4",
