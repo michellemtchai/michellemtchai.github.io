@@ -26,7 +26,7 @@ jobs:
       - name: GitHub Pages action
         uses: peaceiris/actions-gh-pages@v3.7.3
         with:
-          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          github_token: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           publish_dir: public
           cname: app.contentful.com
           enable_jekyll: true
