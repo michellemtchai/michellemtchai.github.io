@@ -5,7 +5,11 @@
 	border-radius: 10px;
 	display: flex;
 	margin: 0 10px;
+	h2 {
+		font-size: 18px;
+	}
 	.previewImage {
+		max-width: 270px;
 		@include set-preview-image-width(270px);
 		margin: 10px;
 		align-self: flex-start;
@@ -13,6 +17,7 @@
 	ul {
 		flex-grow: 1;
 		& > li {
+			font-size: 14px;
 			margin: 10px 10px 10px 0;
 			list-style: none;
 		}
