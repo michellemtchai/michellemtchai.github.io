@@ -1,11 +1,5 @@
 .markdown {
 	font-size: 16px;
-	word-wrap: break-word;
-	white-space: pre-wrap; /* Since CSS 2.1 */
-	white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
-	white-space: -pre-wrap; /* Opera 4-6 */
-	white-space: -o-pre-wrap; /* Opera 7 */
-	word-wrap: break-word; /* Internet Explorer 5.5+ */
 	h1,
 	h2,
 	h3,
@@ -54,7 +48,12 @@
 		width: 100%;
 		display: block;
 		word-break: break-all;
-
+		word-wrap: break-word;
+		white-space: pre-wrap; /* Since CSS 2.1 */
+		white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+		white-space: -pre-wrap; /* Opera 4-6 */
+		white-space: -o-pre-wrap; /* Opera 7 */
+		word-wrap: break-word; /* Internet Explorer 5.5+ */
 		border: 1px solid #ccc;
 		border-radius: 4px;
 		padding: 0;
@@ -106,9 +105,11 @@
 	table {
 		border-collapse: collapse;
 		width: 100%;
-		display: block;
-		max-width: 90vw;
-		overflow-x: auto;
+		@media only screen and (max-width: 600px) {
+			display: block;
+			max-width: 90vw;
+			overflow-x: auto;
+		}
 		th {
 			font-weight: bold;
 			text-align: center;
