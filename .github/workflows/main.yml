@@ -16,6 +16,8 @@ jobs:
     env:
       CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
       CONTENTFUL_ACCESS_TOKEN: ${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
+      APP_TITLE: ${{ secrets.APP_TITLE}}
+      APP_DESC: ${{ secrets.APP_DESC}}
     steps:
       - name: Check out code into the directory
         uses: actions/checkout@v3.0.0
