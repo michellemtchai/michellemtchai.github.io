@@ -24,4 +24,4 @@ http://localhost:3000
 
 ### Deploying
 
-Plan: GitHub pages, Contentful
+It's handled by GitHub Actions.
