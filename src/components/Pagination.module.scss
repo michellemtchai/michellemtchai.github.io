@@ -4,7 +4,7 @@ $border-style: 1px solid #fff;
 @mixin shared-styles {
 	display: inline-block;
 	padding: 0 10px;
-	font-size: 16px;
+	font-size: 14px;
 	line-height: 30px;
 	height: 30px;
 	vertical-align: top;
@@ -14,7 +14,7 @@ $border-style: 1px solid #fff;
 	button {
 		@include standard-button;
 		@include shared-styles;
-		font-size: 16px;
+		font-size: 14px;
 	}
 	.left {
 		border-top-left-radius: $border-radius;

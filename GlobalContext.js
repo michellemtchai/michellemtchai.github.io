@@ -53,25 +53,27 @@ const reducer = (state, action) => {
     case actions.SET_DESCRIPTION:
       return updateState('description');
     case actions.SET_CATEGORY:
-      return {
-        ...state,
-        category: action.value,
-        searchFilters: {
-          term: null,
-          range: null,
-          sortBy: 'relevance',
-          sortDir: 'ASC',
-          stacks: [],
-          stackOptions: [],
-        },
-        categoryFilters: {
-          range: null,
-          sortBy: 'name',
-          sortDir: 'DESC',
-          stacks: [],
-          stackOptions: [],
-        },
-      };
+      return state.category === action.value
+        ? updateState('category')
+        : {
+            ...state,
+            category: action.value,
+            searchFilters: {
+              term: null,
+              range: null,
+              sortBy: 'relevance',
+              sortDir: 'ASC',
+              stacks: [],
+              stackOptions: [],
+            },
+            categoryFilters: {
+              range: null,
+              sortBy: 'name',
+              sortDir: 'DESC',
+              stacks: [],
+              stackOptions: [],
+            },
+          };
     case actions.SET_CATEGORY_FILTERS_RANGE:
       return updateFilterState('categoryFilters', 'range');
     case actions.SET_CATEGORY_FILTERS_SORT_BY:
