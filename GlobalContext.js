@@ -57,22 +57,9 @@ const reducer = (state, action) => {
         ? updateState('category')
         : {
             ...state,
+            ...initialState.searchFilters,
+            ...initialState.categoryFilters,
             category: action.value,
-            searchFilters: {
-              term: null,
-              range: null,
-              sortBy: 'relevance',
-              sortDir: 'ASC',
-              stacks: [],
-              stackOptions: [],
-            },
-            categoryFilters: {
-              range: null,
-              sortBy: 'name',
-              sortDir: 'DESC',
-              stacks: [],
-              stackOptions: [],
-            },
           };
     case actions.SET_CATEGORY_FILTERS_RANGE:
       return updateFilterState('categoryFilters', 'range');

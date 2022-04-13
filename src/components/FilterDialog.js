@@ -3,8 +3,9 @@ import FilterSelect from './FilterSelect';
 import FilterCheckList from './FilterCheckList';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as styles from './FilterDialog.module.scss';
+import { navigate } from 'gatsby';
 
-const FilterDialog = ({ closeModal, filters, search }) => {
+const FilterDialog = ({ query, category, closeModal, filters, search }) => {
     const [sortBy, updateSortBy] = useState(filters.sortBy.value);
     const [sortDir, updateSortDir] = useState(filters.sortDir.value);
     const [stacks, updateStacks] = useState(filters.stacks.value);
@@ -34,6 +35,7 @@ const FilterDialog = ({ closeModal, filters, search }) => {
         filters.sortDir.update(sortDir);
         filters.stacks.update(stacks);
         closeModal();
+        navigate(search ? `/search/${category}/${query}` : `/${category}`);
     };
     return (
         <dialog open className={styles.dialog}>

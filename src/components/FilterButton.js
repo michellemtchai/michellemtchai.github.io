@@ -4,7 +4,7 @@ import FilterDialog from './FilterDialog';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as styles from './FilterButton.module.scss';
 
-const FilterButton = ({ filters, search }) => {
+const FilterButton = ({ category, query, filters, search }) => {
     const [show, updateShow] = useState(false);
     const openDialog = () => {
         updateShow(true);
@@ -17,6 +17,8 @@ const FilterButton = ({ filters, search }) => {
             </button>
             <Modal show={show} updateShow={updateShow}>
                 <FilterDialog
+                    query={query}
+                    category={category}
                     closeModal={() => updateShow(false)}
                     filters={filters}
                     search={search}
