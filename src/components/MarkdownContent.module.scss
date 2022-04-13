@@ -74,12 +74,13 @@
 	}
 	p {
 		margin: 20px 0 5px 0;
-		line-height: 20px;
+		line-height: 25px;
 	}
 	ol {
 		padding-left: 25px;
 		& > li {
 			padding: 5px;
+			line-height: 25px;
 		}
 	}
 	ul {
@@ -87,7 +88,7 @@
 		& > li {
 			padding: 5px;
 			list-style: initial;
-			line-height: 20px;
+			line-height: 25px;
 			li {
 				list-style: circle;
 				li {
