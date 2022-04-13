@@ -1,0 +1,23 @@
+name: Build Page on Push
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code into the directory
+        uses: actions/checkout@v3.0.0
+
+      - name: Publish Gatsby Site
+        uses: xmflsct/action-publish-gatsby@v1.0.0steps
+        with:
+          publishBranch: 'gh-pages'
+          token: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          name: ${{ secrets.USERNAME }}
+          email: ${{ secrets.EMAIL }}
+          contentfulSpace: ${{ secrets.CONTENTFUL_SPACE_ID }}
+          contentfulToken: ${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
