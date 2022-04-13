@@ -70,7 +70,7 @@ const SearchResults = ({ category, query, page }) => {
 		const replaced = str.replace(regex, replacer);
 		const processed = rehype()
 			.data('settings', { fragment: true })
-
+			.use(rehypeSanitize, defaultSchema)
 			.use(rehypeReact, {
 				createElement: React.createElement,
 			})
