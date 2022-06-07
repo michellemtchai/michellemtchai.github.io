@@ -4,7 +4,12 @@ export const getStacks = (projects) => {
     projects.forEach((project) => {
         project.technologies.forEach((tech) => {
             if (!stackList[tech.name]) {
-                stackList[tech.name] = tech.contentful_id;
+                stackList[tech.name] = {
+                    id: tech.contentful_id,
+                    count: 1,
+                };
+            } else {
+                stackList[tech.name].count++;
             }
         });
     });
@@ -12,8 +17,8 @@ export const getStacks = (projects) => {
         .sort()
         .forEach((key) => {
             stacks.push({
-                label: key,
-                value: stackList[key],
+                label: `${key} (${stackList[key].count})`,
+                value: stackList[key].id,
             });
         });
     return stacks;
