@@ -66,11 +66,13 @@
 		max-width: $width;
 		min-width: $width;
 		width: $width;
-		img {
-			width: $width;
-		}
-		picture {
-			width: $width;
+		& > div {
+			width: 100%;
+			img,
+			picture {
+				width: 100%;
+				object-fit: fill !important;
+			}
 		}
 	}
 }
