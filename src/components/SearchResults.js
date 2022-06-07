@@ -81,6 +81,7 @@ const SearchResults = ({ category, query, page }) => {
 		const result = { ...project };
 		result.name = boldQuery(result.name);
 		result.summary = boldQuery(result.summary);
+		result.technologies.sort((a, b) => a.name.localeCompare(b.name));
 		result.technologies = result.technologies.map((tech) => {
 			return {
 				...tech,

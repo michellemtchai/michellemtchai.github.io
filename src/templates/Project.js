@@ -50,6 +50,7 @@ export const query = graphql`
 `;
 const Project = ({ data, pageContext }) => {
     const project = data.contentfulProject;
+    project.technologies.sort((a, b) => a.name.localeCompare(b.name));
     const { setTitle, setDescription, setSelectedCategory } =
         useContext(GlobalContext);
     useEffect(() => {

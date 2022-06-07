@@ -40,6 +40,9 @@ const Category = (props) => {
     const { data, pageContext } = props;
     const pageParams = props['*'];
     const category = data.contentfulCategory;
+    category.projects.forEach((project, i) => {
+        project.technologies.sort((a, b) => a.name.localeCompare(b.name));
+    });
     return (
         <Results
             params={pageParams}
