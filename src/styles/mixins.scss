@@ -87,3 +87,14 @@
 		}
 	}
 }
+
+@mixin column-width($width) {
+	-webkit-column-width: $width;
+	-moz-column-width: $width;
+	column-width: $width;
+	label {
+		width: $width;
+		display: inline-block;
+		text-align: left;
+	}
+}

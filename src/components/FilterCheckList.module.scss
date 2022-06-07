@@ -1,3 +1,5 @@
+@import '../styles/mixins';
+
 .fieldset {
     border: none;
     label {
@@ -31,15 +33,11 @@
         }
     }
     .body {
-        $column-width: 25%;
         display: flex;
         flex-flow: row wrap;
         align-items: stretch;
-        -webkit-column-width: $column-width;
-        -moz-column-width: $column-width;
-        column-width: $column-width;
+        @include column-width(25%);
         label {
-            width: $column-width;
             display: inline-block;
             text-align: left;
         }
@@ -47,6 +45,15 @@
             text-align: center;
             width: 100%;
             margin-bottom: 10px;
+        }
+        @media only screen and (max-width: 700px) {
+            @include column-width(33%);
+        }
+        @media only screen and (max-width: 580px) {
+            @include column-width(50%);
+        }
+        @media only screen and (max-width: 430px) {
+            @include column-width(100%);
         }
     }
 }
