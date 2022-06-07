@@ -59,7 +59,7 @@ const PaginateProjects = ({
 					{results.length} Project{items.length > 1 && 's'}
 					{query && ` for "${query}"`}
 				</p>
-				<Paginate />
+				<Paginate className={styles.paginate} />
 			</section>
 			<Projects list={items} />
 			<Paginate className={styles.bottomPagination} />

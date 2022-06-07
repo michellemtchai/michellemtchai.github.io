@@ -17,3 +17,16 @@
 	margin: 10px auto;
 	width: 200px;
 }
+@media only screen and (max-width: 600px) {
+	.topInfo {
+		display: block;
+		width: 100%;
+		.summary {
+			display: inline-block;
+		}
+		.paginate {
+			display: table;
+			margin: 10px auto;
+		}
+	}
+}
