@@ -1,5 +1,7 @@
 @import '../styles/dimensions';
 .layout {
+	height: 100vh;
+	overflow-y: hidden;
 	.nonHeader {
 		display: flex;
 		height: calc(100vh - calc(#{$header-height} + 3px));
