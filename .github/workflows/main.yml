@@ -22,11 +22,14 @@ jobs:
     steps:
       - name: Check out code into the directory
         uses: actions/checkout@v4
-      - name: GitHub Action for Yarn
+      - name: install yarn packages
         uses: Borales/actions-yarn@v4
         with: 
-          cmd: predeploy
-
+          cmd: install
+      - name: run deploy
+        uses: Borales/actions-yarn@v4
+        with: 
+          cmd: deploy   
       - name: GitHub Pages action
         uses: peaceiris/actions-gh-pages@v3.7.3
         with:
