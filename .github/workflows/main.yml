@@ -21,9 +21,7 @@ jobs:
       GATSBY_WEBPACK_PUBLICPATH: ${{ secrets.GATSBY_WEBPACK_PUBLICPATH }}
     steps:
       - name: Check out code into the directory
-        uses: actions/checkout@v3.0.0
-        with:
-          token: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+        uses: actions/checkout@v4
       - name: GitHub Action for Yarn
         uses: Borales/actions-yarn@v4
 
