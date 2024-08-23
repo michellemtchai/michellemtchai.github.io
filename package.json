@@ -5,7 +5,7 @@
     "license": "MIT",
     "scripts": {
         "start": "./run.sh",
-        "predeploy": "NODE_OPTIONS=\"--max-old-space-size=4096\" npx gatsby build",
+        "predeploy": "NODE_OPTIONS=\"--max-old-space-size=4096 --openssl-legacy-provider\" npx gatsby build",
         "deploy": "gh-pages -d public",
         "develop": "gatsby develop -H \"$APP_HOST\" -p \"$APP_PORT\"",
         "serve": "gatsby serve -H \"$APP_HOST\" -p \"$APP_PORT\"",
