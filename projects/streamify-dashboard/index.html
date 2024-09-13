@@ -486,18 +486,17 @@
 </ul>
 </li>
 <li>Implement sorting and filtering functionalities for the data table, allowing users to sort by date or stream count, and filter by artist or song name.</li>
-<li>Allow users to interact with the charts. For example, users</li>
+<li>Allow users to interact with the charts. For example, users should be able to hover over points on the line chart to see exact numbers or click on a segment of the pie chart to filter the data table by that revenue source.</li>
+<li>The dashboard should be responsive and visually appealing, adapting to various screen sizes.</li>
+<li>Follow a modern design language with a focus on usability and clarity.</li>
+<li>Use a CSS framework like Tailwind, Bootstrap, or a custom solution that you prefer.</li>
+<li>Use <strong>React</strong> to build the application</li>
+<li>Handle state management using React&#x27;s Context API, Redux, or any other state management solution you&#x27;re comfortable with.</li>
+<li><strong>Data can be hardcoded or mocked using a tool like JSON Server, MirageJS, or similar.</strong> You do not need to connect to a real backend or database; feel free to generate realistic mock data to populate the dashboard.</li>
+<li>Optimize the application for fast loading times and minimal re-renders.</li>
+<li>Consider using techniques like lazy loading, code splitting, and memoization where appropriate.</li>
+<li>Write unit tests for at least one component using a testing library like Jest or React Testing Library. Include any additional tests you think are important.</li>
 </ol>
-<p>should be able to hover over points on the line chart to see exact numbers or click on a segment of the pie chart to filter the data table by that revenue source.
-7. The dashboard should be responsive and visually appealing, adapting to various screen sizes.
-8. Follow a modern design language with a focus on usability and clarity.
-9. Use a CSS framework like Tailwind, Bootstrap, or a custom solution that you prefer.
-10. Use <strong>React</strong> to build the application
-11. Handle state management using React&#x27;s Context API, Redux, or any other state management solution you&#x27;re comfortable with.
-12. <strong>Data can be hardcoded or mocked using a tool like JSON Server, MirageJS, or similar.</strong> You do not need to connect to a real backend or database; feel free to generate realistic mock data to populate the dashboard.
-13. Optimize the application for fast loading times and minimal re-renders.
-14. Consider using techniques like lazy loading, code splitting, and memoization where appropriate.
-15. Write unit tests for at least one component using a testing library like Jest or React Testing Library. Include any additional tests you think are important.</p>
 <h2>Design Choices</h2>
 <p>I chose to build this project with the suggested stacks of <strong>React</strong>, <strong>Tailwind CSS</strong> and <strong>Mirage JS</strong>. I dockerized this app for ease of spinning up a reproducible development environment.</p>
 <p>For additional features, I chose to build a multi-field filtering system. I made it so that the filtering for each column is dependent on the type of data present in the table. There are three types of filtering:</p>
