@@ -1,5 +1,4 @@
 import React from 'react';
-import ExternalLink from './ExternalLink';
 import ProjectOverviewItem from './ProjectOverviewItem';
 import Technologies from './Technologies';
 import PreviewImage from './PreviewImage';
