@@ -4,10 +4,11 @@ services:
     app:
         build:
             context: ../
-            dockerfile: ./docker/Dockerfile.dev
-        command: yarn start
+            dockerfile: ./docker/dev.dockerfile
+        command: yarn develop
         volumes:
             - ..:/app
+            - node_modules:/app/node_modules
         environment:
             DOCKER_BUILDKIT: ${DOCKER_BUILDKIT}
             NODE_ENV: ${NODE_ENV}
@@ -26,6 +27,12 @@ services:
             GITHUB_EMAIL: ${GITHUB_EMAIL}
             GITHUB_USERNAME: ${GITHUB_USERNAME}
             GITHUB_TOKEN: ${GITHUB_TOKEN}
+            SHARP_IGNORE_GLOBAL_LIBVIPS: 1
+            npm_config_arch: x64
+            npm_config_platform: linux
+
         ports:
             - ${APP_PORT}:${APP_PORT}
             - ${INTERNAL_STATUS_PORT}:${INTERNAL_STATUS_PORT}
+volumes:
+    node_modules:
