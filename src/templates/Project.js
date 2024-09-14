@@ -48,7 +48,7 @@ export const query = graphql`
         }
     }
 `;
-const Project = ({ data, pageContext }) => {
+const Project = ({ scrollToTop, data, pageContext }) => {
     const project = data.contentfulProject;
     project.technologies.sort((a, b) => a.name.localeCompare(b.name));
     const { setTitle, setDescription, setSelectedCategory } =
@@ -57,6 +57,7 @@ const Project = ({ data, pageContext }) => {
         setTitle(project.name);
         setDescription(project.summary);
         setSelectedCategory(pageContext.category);
+        scrollToTop();
     }, []);
     return (
         <>

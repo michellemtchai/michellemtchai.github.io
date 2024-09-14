@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
 import NotFound from '../pages/404';
 
 const Results = ({ params, Component }) => {

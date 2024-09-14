@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Results from '../components/Results';
 import CategoryResults from '../components/CategoryResults';
 import { graphql } from 'gatsby';
@@ -43,6 +43,10 @@ const Category = (props) => {
     category.projects.forEach((project, i) => {
         project.technologies.sort((a, b) => a.name.localeCompare(b.name));
     });
+    useEffect(() => {
+        props.scrollToTop();
+    }, []);
+
     return (
         <Results
             params={pageParams}

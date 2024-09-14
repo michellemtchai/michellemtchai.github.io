@@ -28,13 +28,14 @@ export const query = graphql`
 		}
 	}
 `;
-const Home = ({ data }) => {
+const Home = ({ scrollToTop, data }) => {
 	const { setTitle, setDescription, setSelectedCategory } =
 		useContext(GlobalContext);
 	useEffect(() => {
 		setTitle();
 		setDescription();
 		setSelectedCategory();
+		scrollToTop();
 	}, []);
 	return (
 		<>

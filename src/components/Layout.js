@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Seo from './Seo';
 import Header from './Header';
 import NavBar from './NavBar';
@@ -12,6 +12,12 @@ import * as styles from './Layout.module.scss';
 const Layout = ({ children }) => {
 	const [minimized, updateMinimized] = useState(false);
 	const { width } = useViewPort();
+	const mainRef = useRef(null);
+	const scrollToTop = () => {
+		mainRef.current.scroll({
+			top: 0,
+		});
+	};
 
 	return (
 		<GlobalContextProvider>
@@ -38,9 +44,19 @@ const Layout = ({ children }) => {
 					{width > 800 && (
 						<NavBar minimized={width > 1200 ? minimized : true} />
 					)}
-					<main>
+					<main ref={mainRef}>
 						<div className={styles.pageBody}>
-							<article>{children}</article>
+							<article>
+								{React.Children.map(
+									children,
+									(Child, index) => (
+										<Child.type
+											{...Child.props}
+											scrollToTop={scrollToTop}
+										/>
+									),
+								)}
+							</article>
 						</div>
 						<Footer />
 					</main>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Results from '../components/Results';
 import SearchResults from '../components/SearchResults';
 import NotFound from './404';
@@ -13,9 +13,12 @@ export const query = graphql`
 		}
 	}
 `;
-const Search = ({ params, data }) => {
+const Search = ({ scrollToTop, params, data }) => {
 	const categories = data.allContentfulCategory.nodes.map((i) => i.slug);
 	const query = decodeURI(params.query);
+	useEffect(() => {
+		scrollToTop();
+	}, []);
 	if (['all', ...categories].includes(params.category)) {
 		const pageParams = params['*'];
 		return (
