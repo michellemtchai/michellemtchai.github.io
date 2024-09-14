@@ -4,10 +4,13 @@ module.exports = {
         description: process.env.APP_DESC,
     },
     plugins: [
-        'gatsby-plugin-sass',
         'gatsby-plugin-fontawesome-css',
         'gatsby-plugin-react-helmet',
         'gatsby-plugin-image',
+        {
+            resolve: 'gatsby-plugin-sass',
+            implementation: require('sass'),
+        },
         {
             resolve: 'gatsby-source-contentful',
             options: {
