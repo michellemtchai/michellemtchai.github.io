@@ -27,9 +27,11 @@ services:
             GITHUB_EMAIL: ${GITHUB_EMAIL}
             GITHUB_USERNAME: ${GITHUB_USERNAME}
             GITHUB_TOKEN: ${GITHUB_TOKEN}
-            SHARP_IGNORE_GLOBAL_LIBVIPS: 1
-            npm_config_arch: x64
-            npm_config_platform: linux
+            SHARP_IGNORE_GLOBAL_LIBVIPS: ${SHARP_IGNORE_GLOBAL_LIBVIPS}
+            CHOKIDAR_USEPOLLING: ${CHOKIDAR_USEPOLLING}
+            FAST_REFRESH: ${FAST_REFRESH}
+            npm_config_arch: ${npm_config_arch}
+            npm_config_platform: ${npm_config_platform}
 
         ports:
             - ${APP_PORT}:${APP_PORT}
