@@ -12,7 +12,7 @@ const pageSetup = (results, errAction, successAction) => {
 const contentfulErrorMessage = (reporter, type) => (errors) =>
     reporter.panicOnBuild(
         `There was an error loading your Contentful ${type}.`,
-        errors
+        errors,
     );
 
 const categorySlug = (categories) => {
@@ -83,7 +83,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
                     });
                 }
             });
-        }
+        },
     );
 
     pageSetup(
@@ -101,6 +101,17 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
                     matchPath: `/${category.slug}/*`,
                 });
             });
-        }
+        },
     );
+};
+
+exports.onCreateWebpackConfig = ({ stage, getConfig, actions }) => {
+    const config = getConfig();
+    const miniCssExtractPlugin = config.plugins.find(
+        (plugin) => plugin.constructor.name === 'MiniCssExtractPlugin',
+    );
+    if (miniCssExtractPlugin) {
+        miniCssExtractPlugin.options.ignoreOrder = true;
+    }
+    actions.replaceWebpackConfig(config);
 };
