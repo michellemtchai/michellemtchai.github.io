@@ -8,7 +8,7 @@ on:
     branches:
       - main
   repository_dispatch:
-    types: [publish-event]
+    types: [contentful.deploy]
 
 jobs:
   build:
@@ -22,15 +22,18 @@ jobs:
     steps:
       - name: Check out code into the directory
         uses: actions/checkout@v4
-      - name: GitHub Action for Yarn
+      - name: install yarn packages
         uses: Borales/actions-yarn@v4
         with: 
-          cmd: predeploy
-
+          cmd: install
+      - name: run predeploy
+        uses: Borales/actions-yarn@v4
+        with: 
+          cmd: predeploy   
       - name: GitHub Pages action
-        uses: peaceiris/actions-gh-pages@v3.7.3
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          publish_dir: public
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
           cname: ${{ secrets.SITE_DOMAIN }}
           enable_jekyll: true
